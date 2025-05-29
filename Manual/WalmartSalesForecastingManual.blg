@@ -1,9 +1,0 @@
-[0] Config.pm:307> INFO - This is Biber 2.19
-[0] Config.pm:310> INFO - Logfile is 'WalmartSalesForecastingManual.blg'
-[32] biber-darwin:340> INFO - === Mon May  5, 2025, 09:14:22
-[39] Biber.pm:419> INFO - Reading 'WalmartSalesForecastingManual.bcf'
-[72] Biber.pm:979> INFO - Found 0 citekeys in bib section 0
-[78] bbl.pm:660> INFO - Writing 'WalmartSalesForecastingManual.bbl' with encoding 'UTF-8'
-[78] bbl.pm:763> INFO - Output to WalmartSalesForecastingManual.bbl
-[78] Biber.pm:131> WARN - The file 'WalmartSalesForecastingManual.bcf' does not contain any citations!
-[79] Biber.pm:133> INFO - WARNINGS: 1

@@ -1,6 +1,0 @@
-\babel@toc {german}{}\relax 
-\babel@toc {german}{}\relax 
-\beamer@sectionintoc {1}{Trajectory Planning}{3}{0}{1}
-\beamer@sectionintoc {2}{Notation}{7}{0}{2}
-\beamer@sectionintoc {3}{Bang-Bang-Control}{8}{0}{3}
-\beamer@sectionintoc {4}{Quellen}{15}{0}{4}

@@ -1,3 +1,0 @@
-\frametitle{Code}
-
-  \lstinputlisting[language=Python, firstnumber=1]{Code/PDFExtractTable/PDFExtractTable.py}
