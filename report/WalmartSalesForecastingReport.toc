@@ -1,0 +1,55 @@
+\acswitchoff 
+\babel@toc {english}{}\relax 
+\contentsline {chapter}{Contents}{i}{chapter*.1}%
+\contentsline {chapter}{List of Figures}{iii}{chapter*.2}%
+\contentsline {chapter}{List of Tables}{v}{chapter*.3}%
+\contentsline {chapter}{ List of Listings}{vii}{chapter*.4}%
+\contentsline {chapter}{Acronyms}{ix}{chapter*.4}%
+\contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Introduction to the Project}{2}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Challenges}{3}{section.1.2}%
+\contentsline {section}{\numberline {1.3}Applications}{4}{section.1.3}%
+\contentsline {section}{\numberline {1.4}Limitations}{5}{section.1.4}%
+\contentsline {section}{\numberline {1.5}Allgemeine mathematische Beschreibung Bézier-Kurve}{7}{section.1.5}%
+\contentsline {chapter}{\numberline {2}Verrundung mit einem Kreisbogen}{11}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Gleichungen}{11}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Bewertung}{14}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Examples}{16}{section.2.3}%
+\contentsline {chapter}{\numberline {3}Maple files}{19}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Geometries with Maple}{19}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Geometry elements used}{19}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Building the data structure}{20}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Structure of a module}{21}{section.3.4}%
+\contentsline {subsection}{\numberline {3.4.1}General structure of a module}{23}{subsection.3.4.1}%
+\contentsline {subsection}{\numberline {3.4.2}Saving a module}{25}{subsection.3.4.2}%
+\contentsline {subsection}{\numberline {3.4.3}Verwendung eines Moduls}{25}{subsection.3.4.3}%
+\contentsline {subsection}{\numberline {3.4.4}Creating a Maple module}{26}{subsection.3.4.4}%
+\contentsline {section}{\numberline {3.5}Functions of the modules}{26}{section.3.5}%
+\contentsline {subsection}{\numberline {3.5.1}Module \textcolor {MapleColor}{\texttt {MPoint}}}{26}{subsection.3.5.1}%
+\contentsline {subsection}{\numberline {3.5.2}Module \textcolor {MapleColor}{\texttt {MLine}}}{27}{subsection.3.5.2}%
+\contentsline {subsection}{\numberline {3.5.3}Module \textcolor {MapleColor}{\texttt {MArc}}}{28}{subsection.3.5.3}%
+\contentsline {subsection}{\numberline {3.5.4}module \textcolor {MapleColor}{\texttt {MBezier}}}{28}{subsection.3.5.4}%
+\contentsline {subsection}{\numberline {3.5.5}Module \textcolor {MapleColor}{\texttt {MPolygon}}}{29}{subsection.3.5.5}%
+\contentsline {subsection}{\numberline {3.5.6}module \textcolor {MapleColor}{\texttt {MGeoList}}}{30}{subsection.3.5.6}%
+\contentsline {subsection}{\numberline {3.5.7}Module \textcolor {MapleColor}{\texttt {MHermiteProblem}}}{30}{subsection.3.5.7}%
+\contentsline {subsection}{\numberline {3.5.8}Module \textcolor {MapleColor}{\texttt {MHermiteProblemSym}}}{31}{subsection.3.5.8}%
+\contentsline {subsection}{\numberline {3.5.9}Module \textcolor {MapleColor}{\texttt {MConstant}}}{32}{subsection.3.5.9}%
+\contentsline {subsection}{\numberline {3.5.10}Module \textcolor {MapleColor}{\texttt {MGeneralMath}}}{32}{subsection.3.5.10}%
+\contentsline {subsection}{\numberline {3.5.11}Module \textcolor {MapleColor}{\texttt {Biarc}}}{33}{subsection.3.5.11}%
+\contentsline {subsubsection}{\nonumberline Data Structure}{33}{subsubsection*.14}%
+\contentsline {subsection}{\numberline {3.5.12}Module \textcolor {MapleColor}{\texttt {MBiarc}}}{33}{subsection.3.5.12}%
+\contentsline {section}{\numberline {3.6}Programme Flowchart}{34}{section.3.6}%
+\contentsline {subsection}{\numberline {3.6.1}Overall Flow}{34}{subsection.3.6.1}%
+\contentsline {subsection}{\numberline {3.6.2}Verrundung der Kurve}{34}{subsection.3.6.2}%
+\contentsline {chapter}{\numberline {4}Representation of Python Programs}{37}{chapter.4}%
+\contentsline {chapter}{\numberline {5}First Chapter}{41}{chapter.5}%
+\contentsline {chapter}{\numberline {6}CAGD}{43}{chapter.6}%
+\contentsline {chapter}{\numberline {A}drawings with tikz}{45}{appendix.A}%
+\contentsline {chapter}{\numberline {B}Criteria for a good \LaTeX {} project}{51}{appendix.B}%
+\contentsline {chapter}{\numberline {C}Model Card}{53}{appendix.C}%
+\contentsline {chapter}{\numberline {D}List of Material}{55}{appendix.D}%
+\contentsline {chapter}{\numberline {E}SBOM}{57}{appendix.E}%
+\contentsline {chapter}{\numberline {F}Methodology}{59}{appendix.F}%
+\contentsline {chapter}{\numberline {G}doxygen - Example}{61}{appendix.G}%
+\contentsline {chapter}{ Bibliography}{63}{appendix.G}%
+\contentsline {chapter}{Index}{65}{chapter*.19}%

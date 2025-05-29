@@ -1,0 +1,172 @@
+\acswitchoff 
+\babel@toc {english}{}\relax 
+\contentsline {chapter}{ List of figures}{vii}{chapter*.1}%
+\contentsline {chapter}{ List of tables}{ix}{chapter*.2}%
+\contentsline {chapter}{ Acronyms}{xi}{chapter*.4}%
+\contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}%
+\contentsline {section}{\numberline {1.1}What is the Walmart Sales Forecasting System?}{1}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Understanding Sales Forecasts}{1}{section.1.2}%
+\contentsline {subsection}{\numberline {1.2.1}What the System Predicts}{1}{subsection.1.2.1}%
+\contentsline {subsection}{\numberline {1.2.2}Technical Note}{2}{subsection.1.2.2}%
+\contentsline {section}{\numberline {1.3}Purpose and Benefits}{2}{section.1.3}%
+\contentsline {section}{\numberline {1.4}Target Audience}{2}{section.1.4}%
+\contentsline {section}{\numberline {1.5}Quick Start Overview}{2}{section.1.5}%
+\contentsline {section}{\numberline {1.6}Manual Organization}{3}{section.1.6}%
+\contentsline {chapter}{\numberline {2}System Overview}{5}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Architecture Overview}{5}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Application Roles}{5}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}Training Application (Local)}{5}{subsection.2.2.1}%
+\contentsline {subsection}{\numberline {2.2.2}Prediction Application (Cloud)}{5}{subsection.2.2.2}%
+\contentsline {section}{\numberline {2.3}Key Features}{6}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}Model Training}{6}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.3.2}Prediction Generation}{6}{subsection.2.3.2}%
+\contentsline {section}{\numberline {2.4}System Requirements}{6}{section.2.4}%
+\contentsline {subsection}{\numberline {2.4.1}Training App}{6}{subsection.2.4.1}%
+\contentsline {subsection}{\numberline {2.4.2}Prediction App}{6}{subsection.2.4.2}%
+\contentsline {chapter}{\numberline {3}Local App Setup}{7}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Prerequisites}{7}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Installation Steps}{7}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}Step 1: Download the Application}{7}{subsection.3.2.1}%
+\contentsline {subsection}{\numberline {3.2.2}Step 2: Install Dependencies}{7}{subsection.3.2.2}%
+\contentsline {subsection}{\numberline {3.2.3}Step 3: Launch the Application}{7}{subsection.3.2.3}%
+\contentsline {section}{\numberline {3.3}Verification}{8}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Troubleshooting Installation}{8}{section.3.4}%
+\contentsline {subsection}{\numberline {3.4.1}Common Issues}{8}{subsection.3.4.1}%
+\contentsline {section}{\numberline {3.5}Optional: Test Data Generation}{8}{section.3.5}%
+\contentsline {section}{\numberline {3.6}Updating the Application}{8}{section.3.6}%
+\contentsline {chapter}{\numberline {4}Model Training}{9}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Data Upload}{9}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}Required Files}{9}{subsection.4.1.1}%
+\contentsline {subsection}{\numberline {4.1.2}File Upload Process}{9}{subsection.4.1.2}%
+\contentsline {section}{\numberline {4.2}Model Selection}{9}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Available Models}{9}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Choosing a Model}{10}{subsection.4.2.2}%
+\contentsline {section}{\numberline {4.3}Hyperparameter Configuration}{10}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}Auto ARIMA Parameters}{10}{subsection.4.3.1}%
+\contentsline {subsection}{\numberline {4.3.2}Exponential Smoothing Parameters}{10}{subsection.4.3.2}%
+\contentsline {section}{\numberline {4.4}Training Process}{10}{section.4.4}%
+\contentsline {subsection}{\numberline {4.4.1}Starting Training}{10}{subsection.4.4.1}%
+\contentsline {subsection}{\numberline {4.4.2}During Training}{10}{subsection.4.4.2}%
+\contentsline {section}{\numberline {4.5}Results and Evaluation}{11}{section.4.5}%
+\contentsline {subsection}{\numberline {4.5.1}Understanding Results}{11}{subsection.4.5.1}%
+\contentsline {subsection}{\numberline {4.5.2}Interpreting WMAE}{11}{subsection.4.5.2}%
+\contentsline {section}{\numberline {4.6}Saving Models}{11}{section.4.6}%
+\contentsline {subsection}{\numberline {4.6.1}Automatic Saving}{11}{subsection.4.6.1}%
+\contentsline {subsection}{\numberline {4.6.2}Downloading Models}{11}{subsection.4.6.2}%
+\contentsline {section}{\numberline {4.7}Best Practices}{12}{section.4.7}%
+\contentsline {chapter}{\numberline {5}Cloud App Usage}{13}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Accessing the Prediction App}{13}{section.5.1}%
+\contentsline {subsection}{\numberline {5.1.1}No Installation Required}{13}{subsection.5.1.1}%
+\contentsline {section}{\numberline {5.2}Loading Models}{13}{section.5.2}%
+\contentsline {subsection}{\numberline {5.2.1}Using Default Models}{13}{subsection.5.2.1}%
+\contentsline {subsection}{\numberline {5.2.2}Uploading Custom Models}{13}{subsection.5.2.2}%
+\contentsline {section}{\numberline {5.3}Generating Forecasts}{14}{section.5.3}%
+\contentsline {subsection}{\numberline {5.3.1}Creating Predictions}{14}{subsection.5.3.1}%
+\contentsline {subsection}{\numberline {5.3.2}Viewing Results}{14}{subsection.5.3.2}%
+\contentsline {section}{\numberline {5.4}Working with Results}{14}{section.5.4}%
+\contentsline {subsection}{\numberline {5.4.1}Interactive Visualization}{14}{subsection.5.4.1}%
+\contentsline {subsection}{\numberline {5.4.2}Summary Statistics}{14}{subsection.5.4.2}%
+\contentsline {section}{\numberline {5.5}Downloading Forecasts}{15}{section.5.5}%
+\contentsline {subsection}{\numberline {5.5.1}Available Formats}{15}{subsection.5.5.1}%
+\contentsline {subsection}{\numberline {5.5.2}Download Process}{15}{subsection.5.5.2}%
+\contentsline {section}{\numberline {5.6}Session Management}{15}{section.5.6}%
+\contentsline {subsection}{\numberline {5.6.1}Model Sessions}{15}{subsection.5.6.1}%
+\contentsline {subsection}{\numberline {5.6.2}Multiple Predictions}{15}{subsection.5.6.2}%
+\contentsline {section}{\numberline {5.7}Best Practices}{15}{section.5.7}%
+\contentsline {chapter}{\numberline {6}Data Requirements}{17}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Input Data Formats}{17}{section.6.1}%
+\contentsline {subsection}{\numberline {6.1.1}CSV File Requirements}{17}{subsection.6.1.1}%
+\contentsline {subsection}{\numberline {6.1.2}File Specifications}{17}{subsection.6.1.2}%
+\contentsline {section}{\numberline {6.2}Data Quality Requirements}{18}{section.6.2}%
+\contentsline {subsection}{\numberline {6.2.1}Valid Data}{18}{subsection.6.2.1}%
+\contentsline {subsection}{\numberline {6.2.2}Data Completeness}{18}{subsection.6.2.2}%
+\contentsline {section}{\numberline {6.3}Model File Formats}{18}{section.6.3}%
+\contentsline {subsection}{\numberline {6.3.1}Trained Model Files}{18}{subsection.6.3.1}%
+\contentsline {subsection}{\numberline {6.3.2}File Naming}{18}{subsection.6.3.2}%
+\contentsline {section}{\numberline {6.4}Output Formats}{19}{section.6.4}%
+\contentsline {subsection}{\numberline {6.4.1}Forecast CSV}{19}{subsection.6.4.1}%
+\contentsline {subsection}{\numberline {6.4.2}Forecast JSON}{19}{subsection.6.4.2}%
+\contentsline {section}{\numberline {6.5}Data Validation}{19}{section.6.5}%
+\contentsline {subsection}{\numberline {6.5.1}Automatic Checks}{19}{subsection.6.5.1}%
+\contentsline {subsection}{\numberline {6.5.2}Error Messages}{19}{subsection.6.5.2}%
+\contentsline {section}{\numberline {6.6}Data Preparation Tips}{20}{section.6.6}%
+\contentsline {chapter}{\numberline {7}Model Details}{21}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Model Types Overview}{21}{section.7.1}%
+\contentsline {subsection}{\numberline {7.1.1}Auto ARIMA}{21}{subsection.7.1.1}%
+\contentsline {subsection}{\numberline {7.1.2}Exponential Smoothing}{21}{subsection.7.1.2}%
+\contentsline {section}{\numberline {7.2}Model Selection Guidelines}{22}{section.7.2}%
+\contentsline {subsection}{\numberline {7.2.1}When to Use Auto ARIMA}{22}{subsection.7.2.1}%
+\contentsline {subsection}{\numberline {7.2.2}When to Use Exponential Smoothing}{22}{subsection.7.2.2}%
+\contentsline {section}{\numberline {7.3}Understanding Parameters}{22}{section.7.3}%
+\contentsline {subsection}{\numberline {7.3.1}Auto ARIMA Parameters}{22}{subsection.7.3.1}%
+\contentsline {subsection}{\numberline {7.3.2}Exponential Smoothing Parameters}{22}{subsection.7.3.2}%
+\contentsline {section}{\numberline {7.4}Performance Evaluation}{22}{section.7.4}%
+\contentsline {subsection}{\numberline {7.4.1}WMAE Metric}{22}{subsection.7.4.1}%
+\contentsline {subsection}{\numberline {7.4.2}Diagnostic Plots}{23}{subsection.7.4.2}%
+\contentsline {section}{\numberline {7.5}Model Limitations}{23}{section.7.5}%
+\contentsline {subsection}{\numberline {7.5.1}General Limitations}{23}{subsection.7.5.1}%
+\contentsline {subsection}{\numberline {7.5.2}Specific Constraints}{24}{subsection.7.5.2}%
+\contentsline {section}{\numberline {7.6}Model Versioning}{24}{section.7.6}%
+\contentsline {subsection}{\numberline {7.6.1}Version Tracking}{24}{subsection.7.6.1}%
+\contentsline {subsection}{\numberline {7.6.2}Model Updates}{24}{subsection.7.6.2}%
+\contentsline {chapter}{\numberline {8}Troubleshooting}{25}{chapter.8}%
+\contentsline {section}{\numberline {8.1}Common Issues and Solutions}{25}{section.8.1}%
+\contentsline {subsection}{\numberline {8.1.1}File Upload Problems}{25}{subsection.8.1.1}%
+\contentsline {subsection}{\numberline {8.1.2}Training Failures}{25}{subsection.8.1.2}%
+\contentsline {subsection}{\numberline {8.1.3}Model Loading Issues}{26}{subsection.8.1.3}%
+\contentsline {subsection}{\numberline {8.1.4}Prediction Generation Errors}{26}{subsection.8.1.4}%
+\contentsline {section}{\numberline {8.2}Error Message Guide}{27}{section.8.2}%
+\contentsline {subsection}{\numberline {8.2.1}Common Error Messages}{27}{subsection.8.2.1}%
+\contentsline {section}{\numberline {8.3}Performance Issues}{27}{section.8.3}%
+\contentsline {subsection}{\numberline {8.3.1}Slow Performance}{27}{subsection.8.3.1}%
+\contentsline {section}{\numberline {8.4}System Recovery}{27}{section.8.4}%
+\contentsline {subsection}{\numberline {8.4.1}Emergency Fixes}{27}{subsection.8.4.1}%
+\contentsline {section}{\numberline {8.5}Contacting Support}{28}{section.8.5}%
+\contentsline {subsection}{\numberline {8.5.1}Before Contacting Support}{28}{subsection.8.5.1}%
+\contentsline {subsection}{\numberline {8.5.2}Support Channels}{28}{subsection.8.5.2}%
+\contentsline {chapter}{\numberline {9}Frequently Asked Questions}{29}{chapter.9}%
+\contentsline {section}{\numberline {9.1}General Questions}{29}{section.9.1}%
+\contentsline {section}{\numberline {9.2}Technical Questions}{29}{section.9.2}%
+\contentsline {section}{\numberline {9.3}Usage Questions}{30}{section.9.3}%
+\contentsline {section}{\numberline {9.4}Model Questions}{30}{section.9.4}%
+\contentsline {section}{\numberline {9.5}Troubleshooting FAQs}{30}{section.9.5}%
+\contentsline {section}{\numberline {9.6}Advanced Usage}{31}{section.9.6}%
+\contentsline {section}{\numberline {9.7}Support Questions}{31}{section.9.7}%
+\contentsline {chapter}{\numberline {10}Glossary}{33}{chapter.10}%
+\contentsline {section}{\numberline {10.1}Technical Terms}{33}{section.10.1}%
+\contentsline {section}{\numberline {10.2}File Types}{33}{section.10.2}%
+\contentsline {section}{\numberline {10.3}Model Components}{33}{section.10.3}%
+\contentsline {section}{\numberline {10.4}Application Features}{34}{section.10.4}%
+\contentsline {section}{\numberline {10.5}Data Processing Terms}{34}{section.10.5}%
+\contentsline {section}{\numberline {10.6}Performance Metrics}{34}{section.10.6}%
+\contentsline {section}{\numberline {10.7}System Components}{34}{section.10.7}%
+\contentsline {section}{\numberline {10.8}Business Terms}{34}{section.10.8}%
+\contentsline {section}{\numberline {10.9}Software Terms}{34}{section.10.9}%
+\contentsline {chapter}{\numberline {11}References}{37}{chapter.11}%
+\contentsline {section}{\numberline {11.1}External Resources}{37}{section.11.1}%
+\contentsline {subsection}{\numberline {11.1.1}Documentation}{37}{subsection.11.1.1}%
+\contentsline {subsection}{\numberline {11.1.2}Theoretical Background}{37}{subsection.11.1.2}%
+\contentsline {section}{\numberline {11.2}System Resources}{37}{section.11.2}%
+\contentsline {subsection}{\numberline {11.2.1}GitHub Repository}{37}{subsection.11.2.1}%
+\contentsline {subsection}{\numberline {11.2.2}Application URLs}{37}{subsection.11.2.2}%
+\contentsline {section}{\numberline {11.3}Dataset Information}{37}{section.11.3}%
+\contentsline {subsection}{\numberline {11.3.1}Walmart Dataset}{37}{subsection.11.3.1}%
+\contentsline {subsection}{\numberline {11.3.2}Data Processing}{38}{subsection.11.3.2}%
+\contentsline {section}{\numberline {11.4}Software Dependencies}{38}{section.11.4}%
+\contentsline {subsection}{\numberline {11.4.1}Training App Dependencies}{38}{subsection.11.4.1}%
+\contentsline {subsection}{\numberline {11.4.2}Prediction App Dependencies}{38}{subsection.11.4.2}%
+\contentsline {section}{\numberline {11.5}Version History}{38}{section.11.5}%
+\contentsline {subsection}{\numberline {11.5.1}System Versions}{38}{subsection.11.5.1}%
+\contentsline {section}{\numberline {11.6}Contact Information}{39}{section.11.6}%
+\contentsline {subsection}{\numberline {11.6.1}Support Contacts}{39}{subsection.11.6.1}%
+\contentsline {subsection}{\numberline {11.6.2}Development Team}{39}{subsection.11.6.2}%
+\contentsline {section}{\numberline {11.7}License and Legal}{39}{section.11.7}%
+\contentsline {subsection}{\numberline {11.7.1}Software License}{39}{subsection.11.7.1}%
+\contentsline {subsection}{\numberline {11.7.2}Terms of Use}{39}{subsection.11.7.2}%
+\contentsline {section}{\numberline {11.8}Acknowledgments}{40}{section.11.8}%
+\contentsline {subsection}{\numberline {11.8.1}Open Source Software}{40}{subsection.11.8.1}%
+\contentsline {subsection}{\numberline {11.8.2}Beta Testers}{40}{subsection.11.8.2}%
+\contentsline {section}{\numberline {11.9}Future Roadmap}{40}{section.11.9}%
+\contentsline {subsection}{\numberline {11.9.1}Planned Features}{40}{subsection.11.9.1}%
+\contentsline {subsection}{\numberline {11.9.2}Research and Development}{40}{subsection.11.9.2}%
+\providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 

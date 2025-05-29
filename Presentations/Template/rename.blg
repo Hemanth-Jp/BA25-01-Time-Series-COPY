@@ -1,0 +1,74 @@
+This is BibTeX, Version 0.99d (TeX Live 2024)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: rename.aux
+The style file: biblatex.bst
+A level-1 auxiliary file: Slides/start.aux
+A level-1 auxiliary file: Slides/rename.aux
+A level-1 auxiliary file: Slides/end.aux
+A level-1 auxiliary file: Slides/quellen.aux
+Reallocated glb_str_ptr (elt_size=4) to 20 items from 10.
+Reallocated global_strs (elt_size=200001) to 20 items from 10.
+Reallocated glb_str_end (elt_size=4) to 20 items from 10.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Database file #1: rename-blx.bib
+Database file #2: Documents/MyLiterature.bib
+Warning--I'm ignoring Kara:2015's extra "keywords" field
+--line 177 of file Documents/MyLiterature.bib
+Warning--I'm ignoring Kara:2015's extra "keywords" field
+--line 179 of file Documents/MyLiterature.bib
+Biblatex version: 3.19
+Reallocated wiz_functions (elt_size=4) to 9000 items from 6000.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+You've used 29 entries,
+            6399 wiz_defined-function locations,
+            1428 strings with 17927 characters,
+and the built_in function-call counts, 221334 in all, are:
+= -- 16819
+> -- 4088
+< -- 1268
++ -- 6508
+- -- 1858
+* -- 15272
+:= -- 24334
+add.period$ -- 0
+call.type$ -- 29
+change.case$ -- 633
+chr.to.int$ -- 128
+cite$ -- 56
+duplicate$ -- 23575
+empty$ -- 19501
+format.name$ -- 2178
+if$ -- 44594
+int.to.chr$ -- 0
+int.to.str$ -- 95
+missing$ -- 0
+newline$ -- 1001
+num.names$ -- 1625
+pop$ -- 10379
+preamble$ -- 1
+purify$ -- 773
+quote$ -- 0
+skip$ -- 5832
+stack$ -- 0
+substring$ -- 29960
+swap$ -- 4808
+text.length$ -- 983
+text.prefix$ -- 64
+top$ -- 1
+type$ -- 969
+warning$ -- 0
+while$ -- 3029
+width$ -- 0
+write$ -- 973
+(There were 2 warnings)

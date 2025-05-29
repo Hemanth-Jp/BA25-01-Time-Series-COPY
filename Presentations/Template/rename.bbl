@@ -1,0 +1,1052 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.2 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated as
+% required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+\datalist[entry]{anyt/global//global/global}
+  \entry{Arens:2015}{book}{}
+    \name{author}{6}{}{%
+      {{hash=AT}{%
+         family={Arens},
+         familyi={A\bibinitperiod},
+         given={Tilo},
+         giveni={T\bibinitperiod},
+      }}%
+      {{hash=HF}{%
+         family={Hettlich},
+         familyi={H\bibinitperiod},
+         given={F.},
+         giveni={F\bibinitperiod},
+      }}%
+      {{hash=KC}{%
+         family={Karpfinger},
+         familyi={K\bibinitperiod},
+         given={C.},
+         giveni={C\bibinitperiod},
+      }}%
+      {{hash=KU}{%
+         family={Kockelkorn},
+         familyi={K\bibinitperiod},
+         given={U.},
+         giveni={U\bibinitperiod},
+      }}%
+      {{hash=LK}{%
+         family={Lichtenegger},
+         familyi={L\bibinitperiod},
+         given={K.},
+         giveni={K\bibinitperiod},
+      }}%
+      {{hash=SH}{%
+         family={Stachel},
+         familyi={S\bibinitperiod},
+         given={H.},
+         giveni={H\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {{Spektrum akademischer Verlag}}%
+    }
+    \keyw{Mathematik}
+    \strng{namehash}{AT+1}
+    \strng{fullhash}{ATHFKCKULKSH1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{Are+15}
+    \field{sortinit}{A}
+    \field{sortinithash}{A}
+    \field{edition}{3.}
+  \field{note}{\textcolor{blue}{\href{ExterneDokumente/book978-3-642-44919-2.pdf}{[pdf]}}
+  \textcolor{blue}{\url{http://www.gbv.de/dms/weimar/toc/551047283_toc.pdf}
+  [Link] }}
+    \field{title}{{Mathematik}}
+    \list{location}{1}{%
+      {Heidelberg}%
+    }
+    \field{year}{2015}
+  \endentry
+
+  \entry{Babovsky:2011}{report}{}
+    \name{author}{2}{}{%
+      {{hash=BH}{%
+         family={Babovsky},
+         familyi={B\bibinitperiod},
+         given={Hans},
+         giveni={H\bibinitperiod},
+      }}%
+      {{hash=NW}{%
+         family={Neundorf},
+         familyi={N\bibinitperiod},
+         given={Werner},
+         giveni={W\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{BHNW1}
+    \strng{fullhash}{BHNW1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{BN11}
+    \field{sortinit}{B}
+    \field{sortinithash}{B}
+    \field{title}{{N}umerische {A}pproximation von {F}unktionen}
+    \verb{url}
+    \verb https://www.tu-ilmenau.de/fileadmin/media/num/neundorf/Dokumente/Prep
+    \verb rints/NumApp1.pdf
+    \endverb
+    \list{institution}{1}{%
+      {TU Ilmenau}%
+    }
+    \field{type}{techreport}
+    \field{year}{2011}
+    \field{urlday}{13}
+    \field{urlmonth}{01}
+    \field{urlyear}{2017}
+  \endentry
+
+  \entry{Bonami:2014}{article}{}
+    \name{author}{3}{}{%
+      {{hash=BP}{%
+         family={Bonami},
+         familyi={B\bibinitperiod},
+         given={Pierre},
+         giveni={P\bibinitperiod},
+      }}%
+      {{hash=OA}{%
+         family={Olivares},
+         familyi={O\bibinitperiod},
+         given={Alberto},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=SE}{%
+         family={Staffetti},
+         familyi={S\bibinitperiod},
+         given={Ernesto},
+         giveni={E\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{BPOASE1}
+    \strng{fullhash}{BPOASE1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{BOS14}
+    \field{sortinit}{B}
+    \field{sortinithash}{B}
+    \field{abstract}{%
+    In this work, the energy-optimal motion planning problem for planar robot
+  manipulators with two revolute joints is studied, in which the end-effector
+  of the robot manipulator is constrained to pass through a set of waypoints,
+  whose sequence is not predefined. This multi-goal motion planning problem has
+  been solved as a mixed-integer optimal control problem in which, given the
+  dynamic model of the robot manipulator, the initial and final configurations
+  of the robot, and a set of waypoints inside the workspace of the manipulator,
+  one has to find the control inputs, the sequence of waypoints with the
+  corresponding passage times, and the resulting trajectory of the robot that
+  minimizes the energy consumption during the motion. The presence of the
+  waypoint constraints makes this optimal control problem particularly
+  difficult to solve. The mixed-integer optimal control problem has been
+  converted into a mixed-integer nonlinear programming problem first making the
+  unknown passage times through the waypoints part of the state, then
+  introducing binary variables to enforce the constraint of passing once
+  through each waypoint, and finally applying a fifth-degree Gauss--Lobatto
+  direct collocation method to tackle the dynamic constraints. High-degree
+  interpolation polynomials allow the number of variables of the problem to be
+  reduced for a given numerical precision. The resulting mixed-integer
+  nonlinear programming problem has been solved using a nonlinear
+  programming-based branch-and-bound algorithm specifically tailored to the
+  problem. The results of the numerical experiments have shown the
+  effectiveness of the approach.%
+    }
+    \verb{doi}
+    \verb 10.1007/s10957-013-0516-0
+    \endverb
+    \field{issn}{1573-2878}
+    \field{number}{1}
+    \field{pages}{80\bibrangedash 104}
+    \field{title}{Energy-Optimal Multi-Goal Motion Planning for Planar Robot
+  Manipulators}
+    \verb{url}
+    \verb http://dx.doi.org/10.1007/s10957-013-0516-0
+    \endverb
+    \field{volume}{163}
+    \field{journaltitle}{Journal of Optimization Theory and Applications}
+    \field{year}{2014}
+  \endentry
+
+  \entry{bmwi:2015}{misc}{}
+    \name{editor}{1}{}{%
+      {{hash=B}{%
+         family={{Bundesministerium für Wirtschaft und Energie (BMWi)}},
+         familyi={B\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{B1}
+    \strng{fullhash}{B1}
+    \field{labelnamesource}{editor}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{{Bun}15}
+    \field{sortinit}{B}
+    \field{sortinithash}{B}
+    \field{subtitle}{{Platforms|Additive
+  Manufacturing|Imaging|Communication|Engineering Ein Technologiewettbewerb des
+  Bundesministeriums für Wirtschaft und Energie}}
+    \field{title}{{Bekanntmachung Digitale Technologien für die Wirtschaft
+  (PAiCE)}}
+    \verb{url}
+    \verb http://bmwi.de/BMWi/Redaktion/PDF/Publikationen/paice-digitale-techno
+    \verb logien-fuer-die-wirtschaft-bekanntmachung,property=pdf,bereich=bmwi20
+    \verb 12,sprache=de,rwb=true.pdf
+    \endverb
+    \field{year}{2015}
+    \field{urlday}{20}
+    \field{urlmonth}{07}
+    \field{urlyear}{2016}
+  \endentry
+
+  \entry{DIN66025}{misc}{}
+    \name{author}{1}{}{%
+      {{hash=D}{%
+         family={{DIN Deutsches Institut f{\"u}r Normung e.V.}},
+         familyi={D\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Beuth Verlag}%
+    }
+    \strng{namehash}{D1}
+    \strng{fullhash}{D1}
+    \field{shorthand}{DIN66025-2}
+    \field{label}{DIN66025-2}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{DIN66025-2}
+    \field{sortinit}{D}
+    \field{sortinithash}{D}
+    \field{title}{DIN 66025-2:1988-09: Programmaufbau f{\"u}r numerisch
+  gesteuerte Arbeitsmaschinen: Wegbedingungen und Zusatzfunktionen}
+    \list{location}{1}{%
+      {Berlin}%
+    }
+    \field{type}{Norm}
+    \field{month}{09}
+    \field{year}{1988}
+  \endentry
+
+  \entry{Farin:2002}{book}{}
+    \name{author}{1}{}{%
+      {{hash=FG}{%
+         family={Farin},
+         familyi={F\bibinitperiod},
+         given={Gerald},
+         giveni={G\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Academic Press}%
+    }
+    \strng{namehash}{FG2}
+    \strng{fullhash}{FG2}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{Far02}
+    \field{sortinit}{F}
+    \field{sortinithash}{F}
+    \field{edition}{5.}
+    \field{note}{\textcolor{blue}{\href{ExterneDokumente/Farin G. Curves and
+  Surfaces for CAGD. A Practical Guide.pdf}{[pdf]}}}
+    \field{title}{{C}urves and {S}urfaces for {CAGD}}
+    \list{location}{1}{%
+      {San Diego, CA}%
+    }
+    \field{year}{2002}
+  \endentry
+
+  \entry{Farin:1994}{book}{}
+    \name{author}{1}{}{%
+      {{hash=FG}{%
+         family={Farin},
+         familyi={F\bibinitperiod},
+         given={G.},
+         giveni={G\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Vieweg}%
+    }
+    \strng{namehash}{FG1}
+    \strng{fullhash}{FG1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{Far94}
+    \field{sortinit}{F}
+    \field{sortinithash}{F}
+    \field{subtitle}{Eine praktische Einführung}
+    \field{title}{Kurven und Flächen im Computer Aided Geometric Design}
+    \field{year}{1994}
+  \endentry
+
+  \entry{Farin:2002b}{book}{}
+    \name{author}{2}{}{%
+      {{hash=FG}{%
+         family={Farin},
+         familyi={F\bibinitperiod},
+         given={G.},
+         giveni={G\bibinitperiod},
+      }}%
+      {{hash=HJ}{%
+         family={Hoschek},
+         familyi={H\bibinitperiod},
+         given={J.},
+         giveni={J\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Elsevier Science}%
+    }
+    \strng{namehash}{FGHJ1}
+    \strng{fullhash}{FGHJ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{FH02}
+    \field{sortinit}{F}
+    \field{sortinithash}{F}
+    \field{title}{Handbook of Computer Aided Geometric Design}
+    \field{year}{2002}
+  \endentry
+
+  \entry{Farouki:2017}{article}{}
+    \name{author}{2}{}{%
+      {{hash=FR}{%
+         family={Farouki},
+         familyi={F\bibinitperiod},
+         given={Rida},
+         giveni={R\bibinitperiod},
+      }}%
+      {{hash=SJ}{%
+         family={Srinathu},
+         familyi={S\bibinitperiod},
+         given={Jyothirmai},
+         giveni={J\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{FRSJ1}
+    \strng{fullhash}{FRSJ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{FS17}
+    \field{sortinit}{F}
+    \field{sortinithash}{F}
+    \verb{doi}
+    \verb 10.1016/j.cad.2017.01.001
+    \endverb
+    \field{title}{A real-time CNC interpolator algorithm for trimming and
+  filling planar offset curves}
+    \field{volume}{86}
+    \field{journaltitle}{Computer-Aided Design}
+    \field{month}{01}
+    \field{year}{2017}
+  \endentry
+
+  \entry{Hehenberger:2011}{book}{}
+    \name{author}{1}{}{%
+      {{hash=HP}{%
+         family={Hehenberger},
+         familyi={H\bibinitperiod},
+         given={Peter},
+         giveni={P\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Springer-Verlag}%
+    }
+    \keyw{Computer aided design;Engineering
+  design;Machinery;Engineering;Computer-aided design}
+    \strng{namehash}{HP1}
+    \strng{fullhash}{HP1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{Heh11}
+    \field{sortinit}{H}
+    \field{sortinithash}{H}
+    \field{isbn}{9783642134753}
+    \field{title}{Computerunterst{\"u}tzte Fertigung: Eine kompakte
+  Einf{\"u}hrung}
+    \list{location}{1}{%
+      {Berlin, Heidelberg}%
+    }
+    \field{year}{2011}
+  \endentry
+
+  \entry{Jaklic:2010}{article}{}
+    \name{author}{5}{}{%
+      {{hash=JG}{%
+         family={Jaklic},
+         familyi={J\bibinitperiod},
+         given={Gasper},
+         giveni={G\bibinitperiod},
+      }}%
+      {{hash=KJ}{%
+         family={Kozak},
+         familyi={K\bibinitperiod},
+         given={Jernej},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=KM}{%
+         family={Krajnc},
+         familyi={K\bibinitperiod},
+         given={Marjeta},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=VV}{%
+         family={Vitrih},
+         familyi={V\bibinitperiod},
+         given={Vito},
+         giveni={V\bibinitperiod},
+      }}%
+      {{hash=ZE}{%
+         family={Zagar},
+         familyi={Z\bibinitperiod},
+         given={Emil},
+         giveni={E\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{JG+1}
+    \strng{fullhash}{JGKJKMVVZE1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{Jak+10}
+    \field{sortinit}{J}
+    \field{sortinithash}{J}
+  \field{note}{\textcolor{blue}{\href{ExterneDokumente/PHKubisch/CubicPHG2Spline-rev.pdf}{[pdf]}}}
+    \field{title}{{O}n {I}nterpolation by {P}lanar {C}ubic {$G^2$}
+  {P}ythagorean-{H}odograph {S}pline {C}urves}
+    \field{journaltitle}{Mathematics of Computation}
+    \field{year}{2010}
+  \endentry
+
+  \entry{Kara:2015}{article}{}
+    \name{author}{7}{}{%
+      {{hash=KS}{%
+         family={Kara},
+         familyi={K\bibinitperiod},
+         given={Sami},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=PS}{%
+         family={Pellegrinelli},
+         familyi={P\bibinitperiod},
+         given={Stefania},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=BS}{%
+         family={Borgia},
+         familyi={B\bibinitperiod},
+         given={Stefano},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=PN}{%
+         family={Pedrocchi},
+         familyi={P\bibinitperiod},
+         given={Nicola},
+         giveni={N\bibinitperiod},
+      }}%
+      {{hash=VE}{%
+         family={Villagrossi},
+         familyi={V\bibinitperiod},
+         given={Enrico},
+         giveni={E\bibinitperiod},
+      }}%
+      {{hash=BG}{%
+         family={Bianchi},
+         familyi={B\bibinitperiod},
+         given={Giacomo},
+         giveni={G\bibinitperiod},
+      }}%
+      {{hash=TLM}{%
+         family={Tosatti},
+         familyi={T\bibinitperiod},
+         given={Lorenzo\bibnamedelima Molinari},
+         giveni={L\bibinitperiod\bibinitdelim M\bibinitperiod},
+      }}%
+    }
+    \keyw{Motion planning}
+    \strng{namehash}{KS+1}
+    \strng{fullhash}{KSPSBSPNVEBGTLM1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{Kar+15}
+    \field{sortinit}{K}
+    \field{sortinithash}{K}
+    \verb{doi}
+    \verb http://dx.doi.org/10.1016/j.procir.2015.02.174
+    \endverb
+    \field{issn}{2212-8271}
+    \field{pages}{354\bibrangedash 359}
+    \field{title}{The 22nd CIRP Conference on Life Cycle Engineering
+  Minimization of the Energy Consumption in Motion Planning for Single-robot
+  Tasks}
+    \verb{url}
+    \verb http://www.sciencedirect.com/science/article/pii/S2212827115004886
+    \endverb
+    \field{volume}{29}
+    \field{journaltitle}{Procedia CIRP}
+    \field{year}{2015}
+  \endentry
+
+  \entry{Marquardt:2016}{misc}{}
+    \name{author}{1}{}{%
+      {{hash=ME}{%
+         family={Marquardt},
+         familyi={M\bibinitperiod},
+         given={Erik},
+         giveni={E\bibinitperiod},
+      }}%
+    }
+    \name{editor}{1}{}{%
+      {{hash=V}{%
+         family={{VDI Verein Deutscher Ingenieure e.V. Fachbereich
+  Produktionstechnik und Fertigungsverfahren}},
+         familyi={V\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{ME1}
+    \strng{fullhash}{ME1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{Mar16}
+    \field{sortinit}{M}
+    \field{sortinithash}{M}
+    \field{subtitle}{{Additive Fertigungsverfahren}}
+    \field{title}{{Handlungsfelder}}
+    \verb{url}
+    \verb https://www.vdi.de/fileadmin/vdi_de/redakteur_dateien/gpl_dateien/624
+    \verb 2_PUB_GPL_Handlungsfelder_-_Additive_Fertigungsverfahren_Internet.pdf
+    \endverb
+    \field{year}{2016}
+    \field{urlday}{13}
+    \field{urlmonth}{08}
+    \field{urlyear}{2016}
+  \endentry
+
+  \entry{Piegl:1997}{book}{}
+    \name{author}{2}{}{%
+      {{hash=PL}{%
+         family={Piegl},
+         familyi={P\bibinitperiod},
+         given={Les},
+         giveni={L\bibinitperiod},
+      }}%
+      {{hash=TW}{%
+         family={Tiller},
+         familyi={T\bibinitperiod},
+         given={Wayne},
+         giveni={W\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Springer-Verlag New York, Inc.}%
+    }
+    \strng{namehash}{PLTW1}
+    \strng{fullhash}{PLTW1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{PT97}
+    \field{sortinit}{P}
+    \field{sortinithash}{P}
+    \field{edition}{2}
+    \field{isbn}{3-540-61545-8}
+    \field{title}{The NURBS Book}
+    \list{location}{1}{%
+      {New York, NY, USA}%
+    }
+    \field{year}{1997}
+  \endentry
+
+  \entry{Malaka:2009}{book}{}
+    \name{author}{1}{}{%
+      {{hash=RMHHAB}{%
+         family={R.\bibnamedelima Malaka},
+         familyi={R\bibinitperiod\bibinitdelim M\bibinitperiod},
+         suffix={A.\bibnamedelima Butz},
+         suffixi={A\bibinitperiod\bibinitdelim B\bibinitperiod},
+         given={H.\bibnamedelima Hussman},
+         giveni={H\bibinitperiod\bibinitdelim H\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Pearson Studium}%
+    }
+    \strng{namehash}{RMABHH1}
+    \strng{fullhash}{RMABHH1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{RM09}
+    \field{sortinit}{R}
+    \field{sortinithash}{R}
+    \field{title}{Medieninformatik}
+    \field{year}{2009}
+  \endentry
+
+  \entry{Patent3D}{misc}{}
+    \name{author}{4}{}{%
+      {{hash=RD}{%
+         family={Russell},
+         familyi={R\bibinitperiod},
+         given={David},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=HA}{%
+         family={Hernandez},
+         familyi={H\bibinitperiod},
+         given={Andres},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=KJ}{%
+         family={Kinsly},
+         familyi={K\bibinitperiod},
+         given={Joshua},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=BA}{%
+         family={Berlin},
+         familyi={B\bibinitperiod},
+         given={Andrew},
+         giveni={A\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{RD+1}
+    \strng{fullhash}{RDHAKJBA1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{Rus+07}
+    \field{sortinit}{R}
+    \field{sortinithash}{R}
+    \field{howpublished}{United States Patent, Patent N0.: US 7,291,002 B2}
+    \field{title}{Apparatus and Methods for 3D Printing}
+    \field{year}{2007}
+  \endentry
+
+  \entry{Sindermann:2014}{book}{}
+    \name{author}{1}{}{%
+      {{hash=SS}{%
+         family={Sindermann},
+         familyi={S\bibinitperiod},
+         given={Sebastian},
+         giveni={S\bibinitperiod},
+      }}%
+    }
+    \list{language}{1}{%
+      {German}%
+    }
+    \list{publisher}{1}{%
+      {Springer Berlin Heidelberg}%
+    }
+    \strng{namehash}{SS1}
+    \strng{fullhash}{SS1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{Sin14}
+    \field{sortinit}{S}
+    \field{sortinithash}{S}
+    \field{booktitle}{Modellbasierte virtuelle Produktentwicklung}
+    \verb{doi}
+    \verb 10.1007/978-3-662-43816-9_14
+    \endverb
+    \field{isbn}{978-3-662-43815-2}
+    \field{pages}{327\bibrangedash 347}
+    \field{title}{Schnittstellen und Datenaustauschformate}
+    \verb{url}
+    \verb http://dx.doi.org/10.1007/978-3-662-43816-9_14
+    \endverb
+    \field{year}{2014}
+  \endentry
+
+  \entry{Sencer:2014}{inproceedings}{}
+    \name{author}{2}{}{%
+      {{hash=SB}{%
+         family={Sencer},
+         familyi={S\bibinitperiod},
+         given={Burak},
+         giveni={B\bibinitperiod},
+      }}%
+      {{hash=SE}{%
+         family={Shamoto},
+         familyi={S\bibinitperiod},
+         given={Eiji},
+         giveni={E\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {IEEE}%
+    }
+    \strng{namehash}{SBSE1}
+    \strng{fullhash}{SBSE1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{SS14}
+    \field{sortinit}{S}
+    \field{sortinithash}{S}
+    \field{booktitle}{{2014 IEEE 13th International Workshop on Advanced Motion
+  Control (AMC)}}
+    \verb{doi}
+    \verb \url{10.1109/AMC.2014.6823311}
+    \endverb
+    \field{isbn}{978-1-4799-2323-6}
+  \field{note}{\textcolor{blue}{\href{ExterneDokumente/Bezier/Sencer2014.pdf}{[pdf]}}
+  und \textcolor{blue}{\href{ExterneDokumente/Bezier/Sencer2014V2.pdf}{[Version
+  2 - pdf]}}}
+    \field{pages}{374\bibrangedash 379}
+    \field{title}{{Curvature-continuous sharp corner smoothing scheme for
+  Cartesian motion systems}}
+    \list{location}{1}{%
+      {Piscataway, NJ}%
+    }
+    \field{year}{2014}
+  \endentry
+
+  \entry{Sencer:2016}{article}{}
+    \name{author}{2}{}{%
+      {{hash=TS}{%
+         family={Tajima},
+         familyi={T\bibinitperiod},
+         given={Shingo},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=SB}{%
+         family={Sencer},
+         familyi={S\bibinitperiod},
+         given={Burak},
+         giveni={B\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{TSSB1}
+    \strng{fullhash}{TSSB1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{TS16}
+    \field{sortinit}{T}
+    \field{sortinithash}{T}
+    \verb{doi}
+    \verb \url{10.1016/j.ijmachtools.2016.05.009}
+    \endverb
+    \field{issn}{08906955}
+  \field{note}{\textcolor{blue}{\href{ExterneDokumente/VelocityBlending/KinematicCornerSmoothing.pdf}{[pdf]}}}
+    \field{pages}{27\bibrangedash 43}
+    \field{title}{{Kinematic corner smoothing for high speed machine tools}}
+    \field{volume}{108}
+    \field{journaltitle}{{International Journal of Machine Tools and
+  Manufacture}}
+    \field{year}{2016}
+  \endentry
+
+  \entry{Sencer:2017}{article}{}
+    \name{author}{2}{}{%
+      {{hash=TS}{%
+         family={Tajima},
+         familyi={T\bibinitperiod},
+         given={Shingo},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=SB}{%
+         family={Sencer},
+         familyi={S\bibinitperiod},
+         given={Burak},
+         giveni={B\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{TSSB1}
+    \strng{fullhash}{TSSB1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{TS17}
+    \field{sortinit}{T}
+    \field{sortinithash}{T}
+    \verb{doi}
+    \verb \url{10.1016/j.ijmachtools.2017.03.002}
+    \endverb
+    \field{issn}{08906955}
+  \field{note}{\textcolor{blue}{\href{ExterneDokumente/Bezier/1-s2.0-S089069551630493X-main.pdf}{[pdf]}}}
+    \field{pages}{81\bibrangedash 95}
+    \field{title}{{Global tool-path smoothing for CNC machine tools with
+  uninterrupted acceleration}}
+    \field{volume}{121}
+    \field{journaltitle}{{International Journal of Machine Tools and
+  Manufacture}}
+    \field{year}{2017}
+  \endentry
+
+  \entry{Wat:2017e}{online}{}
+    \name{author}{1}{}{%
+      {{hash=W}{%
+         family={{Waterloo Maple Inc. 2017}},
+         familyi={W\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{W1}
+    \strng{fullhash}{W1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{{Wat}17}
+    \field{extraalpha}{1}
+    \field{sortinit}{W}
+    \field{sortinithash}{W}
+  \field{howpublished}{\textcolor{blue}{\href{https://de.maplesoft.com/support/help/Maple/view.aspx?path=module/description}{Link:
+  [www.maplesoft.com]}}}
+    \field{note}{\textcolor{blue}{letzter Zugriff 14.09.2017}}
+    \field{title}{Description}
+    \verb{url}
+    \verb https://de.maplesoft.com/support/help/Maple/view.aspx?path=module/des
+    \verb cription
+    \endverb
+    \field{year}{2017}
+  \endentry
+
+  \entry{Wat:2017c}{online}{}
+    \name{author}{1}{}{%
+      {{hash=W}{%
+         family={{Waterloo Maple Inc. 2017}},
+         familyi={W\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{W1}
+    \strng{fullhash}{W1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{{Wat}17}
+    \field{extraalpha}{2}
+    \field{sortinit}{W}
+    \field{sortinithash}{W}
+  \field{howpublished}{\textcolor{blue}{\href{https://de.maplesoft.com/support/help/Maple/view.aspx?path=module/export}{Link:
+  [www.maplesoft.com]}}}
+    \field{note}{\textcolor{blue}{letzter Zugriff 14.09.2017}}
+    \field{title}{Export}
+    \verb{url}
+    \verb https://de.maplesoft.com/support/help/Maple/view.aspx?path=module/exp
+    \verb ort
+    \endverb
+    \field{year}{2017}
+  \endentry
+
+  \entry{Wat:2017a}{online}{}
+    \name{author}{1}{}{%
+      {{hash=W}{%
+         family={{Waterloo Maple Inc. 2017}},
+         familyi={W\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{W1}
+    \strng{fullhash}{W1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{{Wat}17}
+    \field{extraalpha}{3}
+    \field{sortinit}{W}
+    \field{sortinithash}{W}
+  \field{howpublished}{\textcolor{blue}{\href{https://de.maplesoft.com/support/help/maple/view.aspx?path=module}{Link:
+  [www.maplesoft.com]}}}
+    \field{note}{\textcolor{blue}{letzter Zugriff 14.09.2017}}
+    \field{title}{Module}
+    \verb{url}
+    \verb https://de.maplesoft.com/support/help/maple/view.aspx?path=module
+    \endverb
+    \field{year}{2017}
+  \endentry
+
+  \entry{Wat:2017b}{online}{}
+    \name{author}{1}{}{%
+      {{hash=W}{%
+         family={{Waterloo Maple Inc. 2017}},
+         familyi={W\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{W1}
+    \strng{fullhash}{W1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{{Wat}17}
+    \field{extraalpha}{4}
+    \field{sortinit}{W}
+    \field{sortinithash}{W}
+  \field{howpublished}{\textcolor{blue}{\href{https://de.maplesoft.com/support/help/Maple/view.aspx?path=ModuleLoad}{Link:
+  [www.maplesoft.com]}}}
+    \field{note}{\textcolor{blue}{letzter Zugriff 14.09.2017}}
+    \field{title}{ModuleLoad}
+    \verb{url}
+    \verb https://de.maplesoft.com/support/help/Maple/view.aspx?path=ModuleLoad
+    \endverb
+    \field{year}{2017}
+  \endentry
+
+  \entry{Wat:2017d}{online}{}
+    \name{author}{1}{}{%
+      {{hash=W}{%
+         family={{Waterloo Maple Inc. 2017}},
+         familyi={W\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{W1}
+    \strng{fullhash}{W1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{{Wat}17}
+    \field{extraalpha}{5}
+    \field{sortinit}{W}
+    \field{sortinithash}{W}
+  \field{howpublished}{\textcolor{blue}{\href{https://de.maplesoft.com/support/help/Maple/view.aspx?path=module/option}{Link:
+  [www.maplesoft.com]}}}
+    \field{note}{\textcolor{blue}{letzter Zugriff 14.09.2017}}
+    \field{title}{Option}
+    \verb{url}
+    \verb https://de.maplesoft.com/support/help/Maple/view.aspx?path=module/opt
+    \verb ion
+    \endverb
+    \field{year}{2017}
+  \endentry
+
+  \entry{Wat:2017f}{online}{}
+    \name{author}{1}{}{%
+      {{hash=W}{%
+         family={{Waterloo Maple Inc. 2017}},
+         familyi={W\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{W1}
+    \strng{fullhash}{W1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{{Wat}17}
+    \field{extraalpha}{6}
+    \field{sortinit}{W}
+    \field{sortinithash}{W}
+  \field{howpublished}{\textcolor{blue}{\href{https://de.maplesoft.com/support/help/Maple/view.aspx?path=procedure}{Link:
+  [www.maplesoft.com]}}}
+    \field{note}{\textcolor{blue}{letzter Zugriff 14.09.2017}}
+    \field{title}{Procedures}
+    \verb{url}
+    \verb https://de.maplesoft.com/support/help/Maple/view.aspx?path=procedure
+    \endverb
+    \field{year}{2017}
+  \endentry
+
+  \entry{Zafeiropoulos:2020}{inproceedings}{}
+    \name{author}{11}{}{%
+      {{hash=ZA}{%
+         family={Zafeiropoulos},
+         familyi={Z\bibinitperiod},
+         given={Anastasios},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=FE}{%
+         family={Fotopoulou},
+         familyi={F\bibinitperiod},
+         given={Eleni},
+         giveni={E\bibinitperiod},
+      }}%
+      {{hash=PM}{%
+         family={Peuster},
+         familyi={P\bibinitperiod},
+         given={Manuel},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=SS}{%
+         family={Schneider},
+         familyi={S\bibinitperiod},
+         given={Stefan},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=GP}{%
+         family={Gouvas},
+         familyi={G\bibinitperiod},
+         given={Panagiotis},
+         giveni={P\bibinitperiod},
+      }}%
+      {{hash=BD}{%
+         family={Behnke},
+         familyi={B\bibinitperiod},
+         given={Daniel},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=MM}{%
+         family={Müller},
+         familyi={M\bibinitperiod},
+         given={Marcel},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=BPB}{%
+         family={Bök},
+         familyi={B\bibinitperiod},
+         given={Patrick-Benjamin},
+         giveni={P\bibinithyphendelim B\bibinitperiod},
+      }}%
+      {{hash=PT}{%
+         family={Panagiotis},
+         familyi={P\bibinitperiod},
+         given={Trakadas},
+         giveni={T\bibinitperiod},
+      }}%
+      {{hash=PK}{%
+         family={Panagiotis},
+         familyi={P\bibinitperiod},
+         given={Karkazis},
+         giveni={K\bibinitperiod},
+      }}%
+      {{hash=KH}{%
+         family={Karl},
+         familyi={K\bibinitperiod},
+         given={Holger},
+         giveni={H\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{ZA+1}
+    \strng{fullhash}{ZAFEPMSSGPBDMMBPBPTPKKH1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{Zaf+20}
+    \field{sortinit}{Z}
+    \field{sortinithash}{Z}
+    \field{booktitle}{IEEE Conference on Network Softwarization, NetSoft 2020}
+    \verb{doi}
+    \verb 10.1109/NetSoft48620.2020.9165393
+    \endverb
+    \field{title}{Benchmarking and Profiling 5G Verticals' Applications: An
+  Industrial IoT Use Case}
+    \field{year}{2020}
+  \endentry
+
+  \entry{Zeidler:2013}{book}{}
+    \name{editor}{1}{}{%
+      {{hash=ZE}{%
+         family={Zeidler},
+         familyi={Z\bibinitperiod},
+         given={E.},
+         giveni={E\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Springer Verlag}%
+    }
+    \strng{namehash}{ZE1}
+    \strng{fullhash}{ZE1}
+    \field{labelnamesource}{editor}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{Zei13}
+    \field{sortinit}{Z}
+    \field{sortinithash}{Z}
+    \field{edition}{{3., neu bearb eitete und erweiterte Auflage}}
+    \field{isbn}{978-3-8348-2359-5}
+    \field{title}{Springer-Taschenbuch der Mathematik}
+    \field{year}{2013}
+  \endentry
+\enddatalist
+\endinput

@@ -1,0 +1,150 @@
+% Data Requirements Chapter
+\chapter{Data Requirements}
+
+\section{Input Data Formats}
+
+\subsection{CSV File Requirements}
+All input files must be:
+\begin{itemize}
+	\item Comma-separated values (.csv)
+	\item UTF-8 encoded
+	\item Headers must match exactly as specified
+\end{itemize}
+
+\subsection{File Specifications}
+
+\textbf{train.csv}
+\begin{table}[h]
+	\centering
+	\begin{tabular}{|l|l|l|}
+		\hline
+		\textbf{Column} & \textbf{Type} & \textbf{Description} \\
+		\hline
+		Store & Integer & Store identifier \\
+		Date & String & Date (YYYY-MM-DD) \\
+		Weekly\_Sales & Float & Sales for the week \\
+		IsHoliday & Boolean & Holiday flag \\
+		\hline
+	\end{tabular}
+	\caption{train.csv Structure}
+\end{table}
+
+\textbf{features.csv}
+\begin{table}[h]
+	\centering
+	\begin{tabular}{|l|l|l|}
+		\hline
+		\textbf{Column} & \textbf{Type} & \textbf{Description} \\
+		\hline
+		Store & Integer & Store identifier \\
+		Date & String & Date (YYYY-MM-DD) \\
+		Temperature & Float & Temperature in Fahrenheit \\
+		Fuel\_Price & Float & Gas price \\
+		MarkDown1-5 & Float & Markdown amounts \\
+		CPI & Float & Consumer Price Index \\
+		Unemployment & Float & Unemployment rate \\
+		IsHoliday & Boolean & Holiday flag \\
+		\hline
+	\end{tabular}
+	\caption{features.csv Structure}
+\end{table}
+
+\textbf{stores.csv}
+\begin{table}[h]
+	\centering
+	\begin{tabular}{|l|l|l|}
+		\hline
+		\textbf{Column} & \textbf{Type} & \textbf{Description} \\
+		\hline
+		Store & Integer & Store identifier \\
+		Type & String & Store type (A, B, C) \\
+		Size & Integer & Store size in sq ft \\
+		\hline
+	\end{tabular}
+	\caption{stores.csv Structure}
+\end{table}
+
+\section{Data Quality Requirements}
+
+\subsection{Valid Data}
+\begin{itemize}
+	\item No negative sales values
+	\item Consistent date formats
+	\item Complete store identifiers
+	\item Proper number formats (no text in numeric fields)
+\end{itemize}
+
+\subsection{Data Completeness}
+\begin{itemize}
+	\item Minimum 2 years of historical data
+	\item Complete weekly coverage (no missing weeks)
+	\item All stores must be present in all files
+\end{itemize}
+
+\section{Model File Formats}
+
+\subsection{Trained Model Files}
+\begin{itemize}
+	\item File extension: .pkl
+	\item Saved using joblib serialization
+	\item Binary format, not human-readable
+\end{itemize}
+
+\subsection{File Naming}
+\begin{itemize}
+	\item Default: \verb|auto_arima.pkl| or \verb|exponential_smoothing.pkl|
+	\item Custom: Use descriptive names (e.g., \verb|store_1_arima_2024.pkl|)
+\end{itemize}
+
+\section{Output Formats}
+
+\subsection{Forecast CSV}
+\begin{verbatim}
+	Week,Date,Predicted_Sales
+	Week 1,2024-01-08,15234.67
+	Week 2,2024-01-15,16123.45
+	Week 3,2024-01-22,15987.23
+	Week 4,2024-01-29,16345.89
+\end{verbatim}
+
+\subsection{Forecast JSON}
+\begin{verbatim}
+	[
+	{
+		"Week": "Week 1",
+		"Date": "2024-01-08",
+		"Predicted_Sales": 15234.67
+	},
+	...
+	]
+\end{verbatim}
+
+\section{Data Validation}
+
+\subsection{Automatic Checks}
+The system automatically validates:
+\begin{itemize}
+	\item Column names and types
+	\item Date format consistency
+	\item Numeric value ranges
+	\item Required fields presence
+\end{itemize}
+
+\subsection{Error Messages}
+Common validation errors:
+\begin{itemize}
+	\item \verb|"Missing required column: X"|
+	\item \verb|"Invalid date format"|
+	\item \verb|"Negative sales values found"|
+	\item \verb|"Store ID mismatch between files"|
+\end{itemize}
+
+\section{Data Preparation Tips}
+
+\begin{itemize}
+	\item Verify all CSV files before upload
+	\item Use consistent date formats (YYYY-MM-DD)
+	\item Remove any special characters from numeric fields
+	\item Ensure all required columns are present
+	\item Check for duplicate entries
+\end{itemize}

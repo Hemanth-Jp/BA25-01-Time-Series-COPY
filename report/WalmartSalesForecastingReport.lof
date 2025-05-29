@@ -1,0 +1,24 @@
+\acswitchoff 
+\babel@toc {english}{}\relax 
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {1.1}{\ignorespaces Bernstein polynomial of degree $3$}}{8}{figure.caption.6}%
+\contentsline {figure}{\numberline {1.2}{\ignorespaces Bézier curve for example \ref {KPunkte4Beispiel} }}{9}{figure.caption.7}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Smoothing a corner with the help of an arc - triangle}}{11}{figure.caption.8}%
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Angular change with blending arc}}{14}{figure.caption.9}%
+\contentsline {figure}{\numberline {2.3}{\ignorespaces Curvature progression for a blending arc}}{14}{figure.caption.10}%
+\contentsline {figure}{\numberline {2.4}{\ignorespaces Maximum range for a blending arc of a circle - $L(\varepsilon =const, \alpha )$}}{14}{figure.caption.11}%
+\contentsline {figure}{\numberline {2.5}{\ignorespaces Deviation when specifying the distance $L$ when rounding with a circular arc}}{15}{figure.caption.12}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Programme flow chart \glqq Corner rounding\grqq }}{35}{figure.caption.15}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Programme flowchart \glqq Selection of the rounding strategies\grqq }}{36}{figure.caption.16}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }

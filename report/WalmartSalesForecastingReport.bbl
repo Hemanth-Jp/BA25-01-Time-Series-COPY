@@ -1,0 +1,593 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.2 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated as
+% required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+\datalist[entry]{anyt/global//global/global}
+  \entry{DIN66025}{misc}{}
+    \name{author}{1}{}{%
+      {{hash=D}{%
+         family={{DIN Deutsches Institut f{\"u}r Normung e.V.}},
+         familyi={D\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Beuth Verlag}%
+    }
+    \strng{namehash}{D1}
+    \strng{fullhash}{D1}
+    \field{shorthand}{DIN66025-2}
+    \field{label}{DIN66025-2}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{DIN66025-2}
+    \field{sortinit}{D}
+    \field{sortinithash}{D}
+    \field{title}{DIN 66025-2:1988-09: Programmaufbau f{\"u}r numerisch
+  gesteuerte Arbeitsmaschinen: Wegbedingungen und Zusatzfunktionen}
+    \list{location}{1}{%
+      {Berlin}%
+    }
+    \field{type}{Norm}
+    \field{month}{09}
+    \field{year}{1988}
+  \endentry
+
+  \entry{Fildes:2019}{article}{}
+    \name{author}{2}{}{%
+      {{hash=FR}{%
+         family={Fildes},
+         familyi={F\bibinitperiod},
+         given={Robert},
+         giveni={R\bibinitperiod},
+      }}%
+      {{hash=GP}{%
+         family={Goodwin},
+         familyi={G\bibinitperiod},
+         given={Paul},
+         giveni={P\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{FRGP1}
+    \strng{fullhash}{FRGP1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{FG19}
+    \field{sortinit}{F}
+    \field{sortinithash}{F}
+    \verb{doi}
+    \verb 10.1016/j.ijforecast.2018.09.008
+    \endverb
+    \field{number}{1}
+    \field{pages}{1\bibrangedash 9}
+    \field{title}{Retail forecasting: Research and practice}
+    \verb{url}
+    \verb https://www.sciencedirect.com/science/article/abs/pii/S01692070193019
+    \verb 2X
+    \endverb
+    \field{volume}{35}
+    \field{journaltitle}{International Journal of Forecasting}
+    \field{year}{2019}
+  \endentry
+
+  \entry{Farouki:2017}{article}{}
+    \name{author}{2}{}{%
+      {{hash=FR}{%
+         family={Farouki},
+         familyi={F\bibinitperiod},
+         given={Rida},
+         giveni={R\bibinitperiod},
+      }}%
+      {{hash=SJ}{%
+         family={Srinathu},
+         familyi={S\bibinitperiod},
+         given={Jyothirmai},
+         giveni={J\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{FRSJ1}
+    \strng{fullhash}{FRSJ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{FS17}
+    \field{sortinit}{F}
+    \field{sortinithash}{F}
+    \verb{doi}
+    \verb 10.1016/j.cad.2017.01.001
+    \endverb
+    \field{title}{A real-time CNC interpolator algorithm for trimming and
+  filling planar offset curves}
+    \field{volume}{86}
+    \field{journaltitle}{Computer-Aided Design}
+    \field{month}{01}
+    \field{year}{2017}
+  \endentry
+
+  \entry{Farin:2002}{book}{}
+    \name{author}{1}{}{%
+      {{hash=FG}{%
+         family={Farin},
+         familyi={F\bibinitperiod},
+         given={Gerald},
+         giveni={G\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Academic Press}%
+    }
+    \strng{namehash}{FG1}
+    \strng{fullhash}{FG1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{Far02}
+    \field{sortinit}{F}
+    \field{sortinithash}{F}
+    \field{edition}{5.}
+    \field{note}{\textcolor{blue}{\href{ExterneDokumente/Farin G. Curves and
+  Surfaces for CAGD. A Practical Guide.pdf}{[pdf]}}}
+    \field{title}{{C}urves and {S}urfaces for {CAGD}}
+    \list{location}{1}{%
+      {San Diego, CA}%
+    }
+    \field{year}{2002}
+  \endentry
+
+  \entry{Jaklic:2010}{article}{}
+    \name{author}{5}{}{%
+      {{hash=JG}{%
+         family={Jaklic},
+         familyi={J\bibinitperiod},
+         given={Gasper},
+         giveni={G\bibinitperiod},
+      }}%
+      {{hash=KJ}{%
+         family={Kozak},
+         familyi={K\bibinitperiod},
+         given={Jernej},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=KM}{%
+         family={Krajnc},
+         familyi={K\bibinitperiod},
+         given={Marjeta},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=VV}{%
+         family={Vitrih},
+         familyi={V\bibinitperiod},
+         given={Vito},
+         giveni={V\bibinitperiod},
+      }}%
+      {{hash=ZE}{%
+         family={Zagar},
+         familyi={Z\bibinitperiod},
+         given={Emil},
+         giveni={E\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{JG+1}
+    \strng{fullhash}{JGKJKMVVZE1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{Jak+10}
+    \field{sortinit}{J}
+    \field{sortinithash}{J}
+  \field{note}{\textcolor{blue}{\href{ExterneDokumente/PHKubisch/CubicPHG2Spline-rev.pdf}{[pdf]}}}
+    \field{title}{{O}n {I}nterpolation by {P}lanar {C}ubic {$G^2$}
+  {P}ythagorean-{H}odograph {S}pline {C}urves}
+    \field{journaltitle}{Mathematics of Computation}
+    \field{year}{2010}
+  \endentry
+
+  \entry{Loyal:2017}{article}{}
+    \name{author}{1}{}{%
+      {{hash=LJD}{%
+         family={Loyal},
+         familyi={L\bibinitperiod},
+         given={Joshua\bibnamedelima D.},
+         giveni={J\bibinitperiod\bibinitdelim D\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{LJD1}
+    \strng{fullhash}{LJD1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{Loy17}
+    \field{sortinit}{L}
+    \field{sortinithash}{L}
+    \field{title}{The Walmart Sales Project}
+    \verb{url}
+    \verb https://joshloyal.github.io/assets/pdf/forecasting_intro.pdf
+    \endverb
+    \field{journaltitle}{Unpublished Manuscript}
+    \field{year}{2017}
+  \endentry
+
+  \entry{McElroy:2018}{article}{}
+    \name{author}{3}{}{%
+      {{hash=MTS}{%
+         family={McElroy},
+         familyi={M\bibinitperiod},
+         given={Tucker\bibnamedelima S.},
+         giveni={T\bibinitperiod\bibinitdelim S\bibinitperiod},
+      }}%
+      {{hash=MBC}{%
+         family={Monsell},
+         familyi={M\bibinitperiod},
+         given={Brian\bibnamedelima C.},
+         giveni={B\bibinitperiod\bibinitdelim C\bibinitperiod},
+      }}%
+      {{hash=HRJ}{%
+         family={Hutchinson},
+         familyi={H\bibinitperiod},
+         given={Rebecca\bibnamedelima J.},
+         giveni={R\bibinitperiod\bibinitdelim J\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{MTSMBCHRJ1}
+    \strng{fullhash}{MTSMBCHRJ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{MMH18}
+    \field{sortinit}{M}
+    \field{sortinithash}{M}
+    \field{title}{Modeling of Holiday Effects and Seasonality in Daily Time
+  Series}
+    \verb{url}
+    \verb https://www.census.gov/content/dam/Census/library/working-papers/2018
+    \verb /adrm/rrs2018-01.pdf
+    \endverb
+    \field{journaltitle}{U.S. Census Bureau Working Papers}
+    \field{year}{2018}
+  \endentry
+
+  \entry{Pao:2017}{article}{}
+    \name{author}{2}{}{%
+      {{hash=PJJ}{%
+         family={Pao},
+         familyi={P\bibinitperiod},
+         given={James\bibnamedelima J.},
+         giveni={J\bibinitperiod\bibinitdelim J\bibinitperiod},
+      }}%
+      {{hash=SDS}{%
+         family={Sullivan},
+         familyi={S\bibinitperiod},
+         given={Danielle\bibnamedelima S.},
+         giveni={D\bibinitperiod\bibinitdelim S\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{PJJSDS1}
+    \strng{fullhash}{PJJSDS1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{PS17}
+    \field{sortinit}{P}
+    \field{sortinithash}{P}
+    \field{title}{Time Series Sales Forecasting}
+    \verb{url}
+    \verb https://cs229.stanford.edu/proj2017/final-reports/5244336.pdf
+    \endverb
+    \field{journaltitle}{CS229: Machine Learning Final Projects}
+    \field{year}{2017}
+  \endentry
+
+  \entry{Patent3D}{misc}{}
+    \name{author}{4}{}{%
+      {{hash=RD}{%
+         family={Russell},
+         familyi={R\bibinitperiod},
+         given={David},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=HA}{%
+         family={Hernandez},
+         familyi={H\bibinitperiod},
+         given={Andres},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=KJ}{%
+         family={Kinsly},
+         familyi={K\bibinitperiod},
+         given={Joshua},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=BA}{%
+         family={Berlin},
+         familyi={B\bibinitperiod},
+         given={Andrew},
+         giveni={A\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{RD+1}
+    \strng{fullhash}{RDHAKJBA1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{Rus+07}
+    \field{sortinit}{R}
+    \field{sortinithash}{R}
+    \field{howpublished}{United States Patent, Patent N0.: US 7,291,002 B2}
+    \field{title}{Apparatus and Methods for 3D Printing}
+    \field{year}{2007}
+  \endentry
+
+  \entry{Wat:2017e}{online}{}
+    \name{author}{1}{}{%
+      {{hash=W}{%
+         family={{Waterloo Maple Inc. 2017}},
+         familyi={W\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{W1}
+    \strng{fullhash}{W1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{{Wat}17}
+    \field{extraalpha}{1}
+    \field{sortinit}{W}
+    \field{sortinithash}{W}
+  \field{howpublished}{\textcolor{blue}{\href{https://de.maplesoft.com/support/help/Maple/view.aspx?path=module/description}{Link:
+  [www.maplesoft.com]}}}
+    \field{note}{\textcolor{blue}{letzter Zugriff 14.09.2017}}
+    \field{title}{Description}
+    \verb{url}
+    \verb https://de.maplesoft.com/support/help/Maple/view.aspx?path=module/des
+    \verb cription
+    \endverb
+    \field{year}{2017}
+  \endentry
+
+  \entry{Wat:2017c}{online}{}
+    \name{author}{1}{}{%
+      {{hash=W}{%
+         family={{Waterloo Maple Inc. 2017}},
+         familyi={W\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{W1}
+    \strng{fullhash}{W1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{{Wat}17}
+    \field{extraalpha}{2}
+    \field{sortinit}{W}
+    \field{sortinithash}{W}
+  \field{howpublished}{\textcolor{blue}{\href{https://de.maplesoft.com/support/help/Maple/view.aspx?path=module/export}{Link:
+  [www.maplesoft.com]}}}
+    \field{note}{\textcolor{blue}{letzter Zugriff 14.09.2017}}
+    \field{title}{Export}
+    \verb{url}
+    \verb https://de.maplesoft.com/support/help/Maple/view.aspx?path=module/exp
+    \verb ort
+    \endverb
+    \field{year}{2017}
+  \endentry
+
+  \entry{Wat:2017a}{online}{}
+    \name{author}{1}{}{%
+      {{hash=W}{%
+         family={{Waterloo Maple Inc. 2017}},
+         familyi={W\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{W1}
+    \strng{fullhash}{W1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{{Wat}17}
+    \field{extraalpha}{3}
+    \field{sortinit}{W}
+    \field{sortinithash}{W}
+  \field{howpublished}{\textcolor{blue}{\href{https://de.maplesoft.com/support/help/maple/view.aspx?path=module}{Link:
+  [www.maplesoft.com]}}}
+    \field{note}{\textcolor{blue}{letzter Zugriff 14.09.2017}}
+    \field{title}{Module}
+    \verb{url}
+    \verb https://de.maplesoft.com/support/help/maple/view.aspx?path=module
+    \endverb
+    \field{year}{2017}
+  \endentry
+
+  \entry{Wat:2017b}{online}{}
+    \name{author}{1}{}{%
+      {{hash=W}{%
+         family={{Waterloo Maple Inc. 2017}},
+         familyi={W\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{W1}
+    \strng{fullhash}{W1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{{Wat}17}
+    \field{extraalpha}{4}
+    \field{sortinit}{W}
+    \field{sortinithash}{W}
+  \field{howpublished}{\textcolor{blue}{\href{https://de.maplesoft.com/support/help/Maple/view.aspx?path=ModuleLoad}{Link:
+  [www.maplesoft.com]}}}
+    \field{note}{\textcolor{blue}{letzter Zugriff 14.09.2017}}
+    \field{title}{ModuleLoad}
+    \verb{url}
+    \verb https://de.maplesoft.com/support/help/Maple/view.aspx?path=ModuleLoad
+    \endverb
+    \field{year}{2017}
+  \endentry
+
+  \entry{Wat:2017d}{online}{}
+    \name{author}{1}{}{%
+      {{hash=W}{%
+         family={{Waterloo Maple Inc. 2017}},
+         familyi={W\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{W1}
+    \strng{fullhash}{W1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{{Wat}17}
+    \field{extraalpha}{5}
+    \field{sortinit}{W}
+    \field{sortinithash}{W}
+  \field{howpublished}{\textcolor{blue}{\href{https://de.maplesoft.com/support/help/Maple/view.aspx?path=module/option}{Link:
+  [www.maplesoft.com]}}}
+    \field{note}{\textcolor{blue}{letzter Zugriff 14.09.2017}}
+    \field{title}{Option}
+    \verb{url}
+    \verb https://de.maplesoft.com/support/help/Maple/view.aspx?path=module/opt
+    \verb ion
+    \endverb
+    \field{year}{2017}
+  \endentry
+
+  \entry{Wat:2017f}{online}{}
+    \name{author}{1}{}{%
+      {{hash=W}{%
+         family={{Waterloo Maple Inc. 2017}},
+         familyi={W\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{W1}
+    \strng{fullhash}{W1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{{Wat}17}
+    \field{extraalpha}{6}
+    \field{sortinit}{W}
+    \field{sortinithash}{W}
+  \field{howpublished}{\textcolor{blue}{\href{https://de.maplesoft.com/support/help/Maple/view.aspx?path=procedure}{Link:
+  [www.maplesoft.com]}}}
+    \field{note}{\textcolor{blue}{letzter Zugriff 14.09.2017}}
+    \field{title}{Procedures}
+    \verb{url}
+    \verb https://de.maplesoft.com/support/help/Maple/view.aspx?path=procedure
+    \endverb
+    \field{year}{2017}
+  \endentry
+
+  \entry{Zafeiropoulos:2020}{inproceedings}{}
+    \name{author}{11}{}{%
+      {{hash=ZA}{%
+         family={Zafeiropoulos},
+         familyi={Z\bibinitperiod},
+         given={Anastasios},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=FE}{%
+         family={Fotopoulou},
+         familyi={F\bibinitperiod},
+         given={Eleni},
+         giveni={E\bibinitperiod},
+      }}%
+      {{hash=PM}{%
+         family={Peuster},
+         familyi={P\bibinitperiod},
+         given={Manuel},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=SS}{%
+         family={Schneider},
+         familyi={S\bibinitperiod},
+         given={Stefan},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=GP}{%
+         family={Gouvas},
+         familyi={G\bibinitperiod},
+         given={Panagiotis},
+         giveni={P\bibinitperiod},
+      }}%
+      {{hash=BD}{%
+         family={Behnke},
+         familyi={B\bibinitperiod},
+         given={Daniel},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=MM}{%
+         family={Müller},
+         familyi={M\bibinitperiod},
+         given={Marcel},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=BPB}{%
+         family={Bök},
+         familyi={B\bibinitperiod},
+         given={Patrick-Benjamin},
+         giveni={P\bibinithyphendelim B\bibinitperiod},
+      }}%
+      {{hash=PT}{%
+         family={Panagiotis},
+         familyi={P\bibinitperiod},
+         given={Trakadas},
+         giveni={T\bibinitperiod},
+      }}%
+      {{hash=PK}{%
+         family={Panagiotis},
+         familyi={P\bibinitperiod},
+         given={Karkazis},
+         giveni={K\bibinitperiod},
+      }}%
+      {{hash=KH}{%
+         family={Karl},
+         familyi={K\bibinitperiod},
+         given={Holger},
+         giveni={H\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{ZA+1}
+    \strng{fullhash}{ZAFEPMSSGPBDMMBPBPTPKKH1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{Zaf+20}
+    \field{sortinit}{Z}
+    \field{sortinithash}{Z}
+    \field{booktitle}{IEEE Conference on Network Softwarization, NetSoft 2020}
+    \verb{doi}
+    \verb 10.1109/NetSoft48620.2020.9165393
+    \endverb
+    \field{title}{Benchmarking and Profiling 5G Verticals' Applications: An
+  Industrial IoT Use Case}
+    \field{year}{2020}
+  \endentry
+
+  \entry{Zhang:2021}{inproceedings}{}
+    \name{author}{1}{}{%
+      {{hash=ZJ}{%
+         family={Zhang},
+         familyi={Z\bibinitperiod},
+         given={Jiayuan},
+         giveni={J\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{ZJ1}
+    \strng{fullhash}{ZJ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{Zha21}
+    \field{sortinit}{Z}
+    \field{sortinithash}{Z}
+    \field{booktitle}{Proceedings of the 2021 International Conference on
+  Computers, Information Processing and Advanced Education}
+    \verb{doi}
+    \verb 10.1145/3456887.3459308
+    \endverb
+    \field{pages}{294\bibrangedash 298}
+    \field{title}{Sales Prediction of Walmart Based on Regression Models}
+    \verb{url}
+    \verb https://www.atlantis-press.com/article/125994715.pdf
+    \endverb
+    \field{year}{2021}
+  \endentry
+\enddatalist
+\endinput

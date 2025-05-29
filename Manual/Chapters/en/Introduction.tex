@@ -1,0 +1,86 @@
+% Introduction Chapter - Updated
+\chapter{Introduction}
+
+This manual guides you through using the Walmart Sales Forecasting System, a two-application solution for predicting weekly sales trends.
+
+\section{What is the Walmart Sales Forecasting System?}
+
+The system consists of two complementary applications:
+\begin{itemize}
+	\item \textbf{Training App}: Runs locally on your computer to train forecasting models
+	\item \textbf{Prediction App}: Accessible online to generate 4-week sales trend forecasts
+\end{itemize}
+
+\section{Understanding Sales Forecasts}
+
+\subsection{What the System Predicts}
+The system generates 4-week forecasts of \textbf{week-over-week sales changes}, not absolute sales values. This means:
+
+\begin{itemize}
+	\item Each prediction shows how much sales will change compared to the previous week
+	\item Positive values indicate sales increases
+	\item Negative values indicate sales decreases
+	\item Values are in dollar amounts (change from previous week)
+\end{itemize}
+
+\textbf{Example Interpretation:}
+\begin{itemize}
+	\item Week 1: +1,200 = Sales increased by \$1,200 from last week
+	\item Week 2: -500 = Sales decreased by \$500 from Week 1
+	\item Week 3: +300 = Sales increased by \$300 from Week 2
+	\item Week 4: +800 = Sales increased by \$800 from Week 3
+\end{itemize}
+
+\subsection{Technical Note}
+The system uses "differenced" data for model training and prediction:
+\begin{itemize}
+	\item Raw sales data is converted to week-to-week differences
+	\item This transformation improves forecast accuracy
+	\item Predictions represent these differences, not absolute sales values
+\end{itemize}
+
+\section{Purpose and Benefits}
+
+This system enables:
+\begin{itemize}
+	\item Understanding weekly sales trends and patterns
+	\item Identifying periods of sales growth or decline
+	\item Making informed inventory and staffing decisions
+	\item Comparing performance of different forecasting models
+\end{itemize}
+
+\section{Target Audience}
+
+This manual is designed for:
+\begin{itemize}
+	\item Business analysts tracking sales trends
+	\item Store managers planning inventory changes
+	\item Data analysts working with time series data
+	\item Anyone needing to understand sales change patterns
+\end{itemize}
+
+\section{Quick Start Overview}
+
+The typical workflow involves:
+\begin{enumerate}
+	\item Setting up the Training App on your local computer
+	\item Uploading historical sales data and training models
+	\item Saving trained models
+	\item Accessing the online Prediction App
+	\item Loading models to generate 4-week trend forecasts
+	\item Interpreting weekly sales changes from predictions
+\end{enumerate}
+
+\section{Manual Organization}
+
+This manual covers:
+\begin{itemize}
+	\item System overview and architecture
+	\item Local Training App setup and usage
+	\item Cloud-based Prediction App usage
+	\item Data requirements and formats
+	\item Model types and selection guidance
+	\item How to interpret forecast results
+	\item Common troubleshooting solutions
+	\item Frequently asked questions
+\end{itemize}
