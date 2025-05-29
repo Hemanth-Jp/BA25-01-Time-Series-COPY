@@ -49,15 +49,15 @@ def load_default_model(model_type):
     """Load default model from models/default/ directory with improved error handling"""
     # Map display names to file names
     model_file_map = {
-        "Auto ARIMA": "auto_arima",
-        "Exponential Smoothing (Holt-Winters)": "exponential_smoothing"
+        "Auto ARIMA": "AutoARIMA",
+        "Exponential Smoothing (Holt-Winters)": "ExponentialSmoothingHoltWinters"
     }
     
     file_name = model_file_map.get(model_type)
     if not file_name:
         return None, f"Invalid model type: {model_type}"
     
-    model_path = f"models/default/{file_name}.pkl"
+    model_path = f"Code/StreamlitWebApps/WalmartSalesPredictionApp/models/default/{file_name}.pkl"
     
     if not os.path.exists(model_path):
         return None, f"Default model not found at {model_path}"

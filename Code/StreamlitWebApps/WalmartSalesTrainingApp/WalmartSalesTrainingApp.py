@@ -246,10 +246,10 @@ def main():
                             # Train the selected model
                             if model_type == "Auto ARIMA":
                                 model = train_auto_arima(train_data_diff, hyperparams)
-                                model_filename = "auto_arima.pkl"
+                                model_filename = "AutoARIMA.pkl"
                             else:
                                 model = train_exponential_smoothing(train_data_diff, hyperparams)
-                                model_filename = "exponential_smoothing.pkl"
+                                model_filename = "ExponentialSmoothingHoltWinters.pkl"
                             
                             # Make predictions for evaluation
                             if model_type == "Auto ARIMA":
@@ -272,7 +272,7 @@ def main():
                             plt.close()
                             
                             # Save model to models/default/ directory
-                            default_dir = "models/default/"
+                            default_dir = "Code/StreamlitWebApps/WalmartSalesTrainingApp/models/default/"
                             os.makedirs(default_dir, exist_ok=True)
                             model_path = os.path.join(default_dir, model_filename)
                             
