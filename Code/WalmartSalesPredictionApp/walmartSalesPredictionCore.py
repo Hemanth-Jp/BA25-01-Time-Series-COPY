@@ -8,6 +8,43 @@ from datetime import datetime, timedelta
 from statsmodels.tsa.arima.model import ARIMA
 from statsmodels.tsa.holtwinters import ExponentialSmoothing
 
+def get_model_path():
+    """
+    Dynamically determine the correct model path based on the environment
+    
+    Returns:
+        str: The correct path to the models directory
+    """
+    # Get the directory where this script is located
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    
+    # Try different possible paths
+    possible_paths = [
+        # Local development path (relative to script location)
+        os.path.join(current_dir, "models", "default"),
+        # Streamlit Cloud path (absolute path style)
+        "Code/WalmartSalesPredictionApp/models/default",
+        # Alternative local path
+        "models/default",
+        # Another possible cloud path
+        os.path.join("Code", "WalmartSalesPredictionApp", "models", "default")
+    ]
+    
+    # Check which path exists and has model files
+    for path in possible_paths:
+        full_path = os.path.abspath(path)
+        if os.path.exists(full_path):
+            # Check if this directory contains any .pkl files
+            try:
+                files = os.listdir(full_path)
+                if any(f.endswith('.pkl') for f in files):
+                    return path + "/"
+            except (OSError, PermissionError):
+                continue
+    
+    # If no valid path found, return the default and let the error handling deal with it
+    return "models/default/"
+
 # Configuration dictionary with all hardcoded values
 CONFIG = {
     'PREDICTION_PERIODS': 4,
@@ -19,7 +56,7 @@ CONFIG = {
         "Auto ARIMA": "Auto ARIMA",
         "Exponential Smoothing (Holt-Winters)": "Exponential Smoothing (Holt-Winters)"
     },
-    'DEFAULT_MODEL_PATH': "Code/WalmartSalesPredictionApp/models/default/",
+    'DEFAULT_MODEL_PATH': get_model_path(),  # Now dynamically determined
     'SUPPORTED_EXTENSIONS': ["pkl"],
     'DEFAULT_ARIMA_ORDER': (1, 1, 1)
 }
@@ -67,8 +104,42 @@ def load_default_model(model_type):
     file_name = CONFIG['MODEL_FILE_MAP'][model_type]
     model_path = f"{CONFIG['DEFAULT_MODEL_PATH']}{file_name}.pkl"
     
+    # Debug information - you can remove this later
+    print(f"DEBUG: Looking for model at: {model_path}")
+    print(f"DEBUG: Model path exists: {os.path.exists(model_path)}")
+    print(f"DEBUG: Current working directory: {os.getcwd()}")
+    
     if not os.path.exists(model_path):
-        return None, f"Default model not found at {model_path}"
+        # Try to find the model file in common locations
+        alternative_paths = [
+            f"models/default/{file_name}.pkl",
+            f"Code/WalmartSalesPredictionApp/models/default/{file_name}.pkl",
+            f"./{file_name}.pkl",
+            f"./models/{file_name}.pkl"
+        ]
+        
+        found_path = None
+        for alt_path in alternative_paths:
+            if os.path.exists(alt_path):
+                found_path = alt_path
+                model_path = alt_path
+                break
+        
+        if not found_path:
+            # List available files for debugging
+            try:
+                current_files = os.listdir(os.getcwd())
+                print(f"DEBUG: Files in current directory: {current_files}")
+                if os.path.exists("models"):
+                    model_files = os.listdir("models")
+                    print(f"DEBUG: Files in models directory: {model_files}")
+                    if os.path.exists("models/default"):
+                        default_files = os.listdir("models/default")
+                        print(f"DEBUG: Files in models/default directory: {default_files}")
+            except:
+                pass
+            
+            return None, f"Default model not found. Searched paths: {model_path} and alternatives: {alternative_paths}"
     
     try:
         # First try joblib
