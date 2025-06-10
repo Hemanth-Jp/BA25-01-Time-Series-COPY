@@ -19,7 +19,7 @@ CONFIG = {
         "Auto ARIMA": "Auto ARIMA",
         "Exponential Smoothing (Holt-Winters)": "Exponential Smoothing (Holt-Winters)"
     },
-    'DEFAULT_MODEL_PATH': "models/default/",
+    'DEFAULT_MODEL_PATH': "Code/WalmartSalesPredictionApp/models/default/",
     'SUPPORTED_EXTENSIONS': ["pkl"],
     'DEFAULT_ARIMA_ORDER': (1, 1, 1)
 }
