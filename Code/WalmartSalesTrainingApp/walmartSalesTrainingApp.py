@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from datetime import datetime
 import joblib
-from walmartSalesCore import *
+from walmartSalesTrainingCore import *
 
 # Set page config
 st.set_page_config(
@@ -144,7 +144,7 @@ def main():
                             plt.close()
                             
                             # Save model to models/default/ directory
-                            default_dir = "Code/StreamlitWebApps/WalmartSalesTrainingApp/models/default/"
+                            default_dir = "models/default/"
                             os.makedirs(default_dir, exist_ok=True)
                             model_path = os.path.join(default_dir, model_filename)
                             
