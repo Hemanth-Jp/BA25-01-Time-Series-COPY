@@ -8,6 +8,8 @@ from datetime import datetime, timedelta
 import pandas as pd
 from pmdarima import auto_arima
 from statsmodels.tsa.holtwinters import ExponentialSmoothing
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 def get_model_path_simple():
     """Simple check for Streamlit Cloud vs local for Training App"""
@@ -29,12 +31,18 @@ def get_data_path_simple():
 CONFIG = {
     'TRAIN_TEST_SPLIT': 0.7,
     'DEFAULT_SEASONAL_PERIODS': 20,
-    'HOLIDAY_DATES': [
-        '2010-02-12', '2011-02-11', '2012-02-10', '2013-02-08',  # Super Bowl
-        '2010-09-10', '2011-09-09', '2012-09-07', '2013-09-06',  # Labor Day
-        '2010-11-26', '2011-11-25', '2012-11-23', '2013-11-29',  # Thanksgiving
-        '2010-12-31', '2011-12-30', '2012-12-28', '2013-12-27'   # Christmas
-    ],
+    'DEFAULT_MAX_P': 20,
+    'DEFAULT_MAX_Q': 20,
+    'DEFAULT_MAX_P_SEASONAL': 20,
+    'DEFAULT_MAX_Q_SEASONAL': 20,
+    'DEFAULT_MAX_ITER': 200,
+    'DEFAULT_MAX_D': 10,
+    'HOLIDAY_DATES': {
+        'SUPER_BOWL': ['2010-02-12', '2011-02-11', '2012-02-10'],
+        'LABOR_DAY': ['2010-09-10', '2011-09-09', '2012-09-07'],
+        'THANKSGIVING': ['2010-11-26', '2011-11-25'],
+        'CHRISTMAS': ['2010-12-31', '2011-12-30']
+    },
     'MODEL_FILE_MAP': {
         "Auto ARIMA": "AutoARIMA",
         "Exponential Smoothing (Holt-Winters)": "ExponentialSmoothingHoltWinters"
@@ -113,22 +121,22 @@ def clean_data(df):
         # Create holiday indicators based on dates
         df_clean['Date_str'] = df_clean['Date'].dt.strftime('%Y-%m-%d')
         
-        # Create specific holiday flags
-        df_clean['Super_Bowl'] = df_clean['Date_str'].isin([
-            '2010-02-12', '2011-02-11', '2012-02-10', '2013-02-08'
-        ]).astype(int)
+        # Create specific holiday flags using CONFIG
+        df_clean['Super_Bowl'] = df_clean['Date_str'].isin(
+            CONFIG['HOLIDAY_DATES']['SUPER_BOWL']
+        ).astype(int)
         
-        df_clean['Labor_Day'] = df_clean['Date_str'].isin([
-            '2010-09-10', '2011-09-09', '2012-09-07', '2013-09-06'
-        ]).astype(int)
+        df_clean['Labor_Day'] = df_clean['Date_str'].isin(
+            CONFIG['HOLIDAY_DATES']['LABOR_DAY']
+        ).astype(int)
         
-        df_clean['Thanksgiving'] = df_clean['Date_str'].isin([
-            '2010-11-26', '2011-11-25', '2012-11-23', '2013-11-29'
-        ]).astype(int)
+        df_clean['Thanksgiving'] = df_clean['Date_str'].isin(
+            CONFIG['HOLIDAY_DATES']['THANKSGIVING']
+        ).astype(int)
         
-        df_clean['Christmas'] = df_clean['Date_str'].isin([
-            '2010-12-31', '2011-12-30', '2012-12-28', '2013-12-27'
-        ]).astype(int)
+        df_clean['Christmas'] = df_clean['Date_str'].isin(
+            CONFIG['HOLIDAY_DATES']['CHRISTMAS']
+        ).astype(int)
         
         return df_clean
         
@@ -194,12 +202,13 @@ def wmae_ts(y_true, y_pred):
     except Exception as e:
         raise ValueError(f"Error calculating WMAE: {str(e)}")
 
-def train_auto_arima(train_data):
+def train_auto_arima(train_data, hyperparams=None):
     """
     Train Auto ARIMA model
     
     Args:
         train_data: Training time series data
+        hyperparams: Dictionary of hyperparameters
         
     Returns:
         Fitted ARIMA model
@@ -208,9 +217,21 @@ def train_auto_arima(train_data):
         raise ValueError("Training data cannot be None or empty")
     
     try:
-        # Fit Auto ARIMA
+        # Set default hyperparameters if not provided
+        if hyperparams is None:
+            hyperparams = {}
+        
+        # Fit Auto ARIMA with hyperparameters
         model = auto_arima(
             train_data,
+            start_p=hyperparams.get('start_p', 0),
+            start_q=hyperparams.get('start_q', 0),
+            max_p=hyperparams.get('max_p', CONFIG['DEFAULT_MAX_P']),
+            max_q=hyperparams.get('max_q', CONFIG['DEFAULT_MAX_Q']),
+            start_P=hyperparams.get('start_P', 0),
+            start_Q=hyperparams.get('start_Q', 0),
+            max_P=hyperparams.get('max_P', CONFIG['DEFAULT_MAX_P_SEASONAL']),
+            max_Q=hyperparams.get('max_Q', CONFIG['DEFAULT_MAX_Q_SEASONAL']),
             seasonal=True,
             m=CONFIG['DEFAULT_SEASONAL_PERIODS'],
             suppress_warnings=True,
@@ -224,12 +245,13 @@ def train_auto_arima(train_data):
     except Exception as e:
         raise ValueError(f"Error training Auto ARIMA: {str(e)}")
 
-def train_exponential_smoothing(train_data):
+def train_exponential_smoothing(train_data, hyperparams=None):
     """
     Train Exponential Smoothing (Holt-Winters) model
     
     Args:
         train_data: Training time series data
+        hyperparams: Dictionary of hyperparameters
         
     Returns:
         Fitted Exponential Smoothing model
@@ -238,12 +260,17 @@ def train_exponential_smoothing(train_data):
         raise ValueError("Training data cannot be None or empty")
     
     try:
-        # Fit Exponential Smoothing
+        # Set default hyperparameters if not provided
+        if hyperparams is None:
+            hyperparams = {}
+        
+        # Fit Exponential Smoothing with hyperparameters
         model = ExponentialSmoothing(
             train_data,
-            trend='add',
-            seasonal='add',
-            seasonal_periods=CONFIG['DEFAULT_SEASONAL_PERIODS']
+            trend=hyperparams.get('trend', 'add'),
+            seasonal=hyperparams.get('seasonal', 'add'),
+            seasonal_periods=hyperparams.get('seasonal_periods', CONFIG['DEFAULT_SEASONAL_PERIODS']),
+            damped_trend=hyperparams.get('damped', True)
         )
         
         fitted_model = model.fit()
@@ -251,6 +278,62 @@ def train_exponential_smoothing(train_data):
         
     except Exception as e:
         raise ValueError(f"Error training Exponential Smoothing: {str(e)}")
+
+def create_diagnostic_plots(train_data, test_data, predictions, model_type):
+    """
+    Create diagnostic plots for model evaluation
+    
+    Args:
+        train_data: Training time series data
+        test_data: Test time series data
+        predictions: Model predictions
+        model_type: Type of model used
+        
+    Returns:
+        matplotlib.figure.Figure: Figure with diagnostic plots
+    """
+    fig, axes = plt.subplots(2, 2, figsize=(15, 10))
+    fig.suptitle(f'{model_type} Model Diagnostics', fontsize=16, fontweight='bold')
+    
+    # Plot 1: Training vs Test Data
+    axes[0, 0].plot(range(len(train_data)), train_data, label='Training Data', color='blue')
+    test_range = range(len(train_data), len(train_data) + len(test_data))
+    axes[0, 0].plot(test_range, test_data, label='Test Data', color='green')
+    axes[0, 0].plot(test_range, predictions, label='Predictions', color='red', linestyle='--')
+    axes[0, 0].set_title('Time Series Forecast')
+    axes[0, 0].set_xlabel('Time')
+    axes[0, 0].set_ylabel('Sales Difference')
+    axes[0, 0].legend()
+    axes[0, 0].grid(True, alpha=0.3)
+    
+    # Plot 2: Residuals
+    residuals = np.array(test_data) - np.array(predictions)
+    axes[0, 1].plot(residuals, color='red')
+    axes[0, 1].axhline(y=0, color='black', linestyle='--', alpha=0.5)
+    axes[0, 1].set_title('Residuals')
+    axes[0, 1].set_xlabel('Time')
+    axes[0, 1].set_ylabel('Residual')
+    axes[0, 1].grid(True, alpha=0.3)
+    
+    # Plot 3: Residuals Distribution
+    axes[1, 0].hist(residuals, bins=20, alpha=0.7, color='skyblue', edgecolor='black')
+    axes[1, 0].set_title('Residuals Distribution')
+    axes[1, 0].set_xlabel('Residual Value')
+    axes[1, 0].set_ylabel('Frequency')
+    axes[1, 0].grid(True, alpha=0.3)
+    
+    # Plot 4: Actual vs Predicted
+    axes[1, 1].scatter(test_data, predictions, alpha=0.6, color='purple')
+    min_val = min(min(test_data), min(predictions))
+    max_val = max(max(test_data), max(predictions))
+    axes[1, 1].plot([min_val, max_val], [min_val, max_val], 'r--', alpha=0.8)
+    axes[1, 1].set_title('Actual vs Predicted')
+    axes[1, 1].set_xlabel('Actual Values')
+    axes[1, 1].set_ylabel('Predicted Values')
+    axes[1, 1].grid(True, alpha=0.3)
+    
+    plt.tight_layout()
+    return fig
 
 def save_model(model, model_type):
     """
