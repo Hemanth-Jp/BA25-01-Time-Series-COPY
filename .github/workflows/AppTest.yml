@@ -1,0 +1,43 @@
+name: Run All Tests
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.12'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pytest
+        pip install -r Code/WalmartSalesPredictionApp/requirements.txt
+        pip install -r Code/WalmartSalesTrainingApp/requirements.txt
+    
+    - name: Create directory structure
+      run: |
+        mkdir -p Code/WalmartSalesPredictionApp/models/default
+        mkdir -p Code/WalmartSalesTrainingApp/models/default
+        mkdir -p models/default
+    
+    - name: Run Prediction App Tests
+      run: |
+        cd Code/WalmartSalesPredictionApp
+        pytest testWalmartSalesPrediction.py -v
+    
+    - name: Run Training App Tests
+      run: |
+        cd Code/WalmartSalesTrainingApp
+        pytest testWalmartSalesTraining.py -v

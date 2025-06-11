@@ -4,7 +4,7 @@ import numpy as np
 from unittest.mock import Mock, patch
 import tempfile
 import io
-from walmartSalesCore import *
+from walmartSalesTrainingCore import *
 
 class TestWalmartSales:
     
@@ -39,18 +39,22 @@ class TestWalmartSales:
         assert 'HOLIDAY_DATES' in CONFIG
     
     def test_load_and_merge_data_success(self):
-        """Test successful data loading and merging"""
+        """Test successful data loading and merging - test the full pipeline including clean_data"""
         # Create temporary CSV files
         train_csv = io.StringIO(self.train_data.to_csv(index=False))
         features_csv = io.StringIO(self.features_data.to_csv(index=False))
         stores_csv = io.StringIO(self.stores_data.to_csv(index=False))
         
-        result = load_and_merge_data(train_csv, features_csv, stores_csv)
+        # Test the merged result
+        merged_result = load_and_merge_data(train_csv, features_csv, stores_csv)
         
-        assert isinstance(result, pd.DataFrame)
-        assert len(result) > 0
-        assert 'Weekly_Sales' in result.columns
-        assert 'IsHoliday' in result.columns
+        assert isinstance(merged_result, pd.DataFrame)
+        assert len(merged_result) > 0
+        assert 'Weekly_Sales' in merged_result.columns
+        
+        # Now test after cleaning (which consolidates IsHoliday columns)
+        cleaned_result = clean_data(merged_result)
+        assert 'IsHoliday' in cleaned_result.columns
     
     def test_load_and_merge_data_error_handling(self):
         """Test error handling for missing files"""
@@ -80,11 +84,14 @@ class TestWalmartSales:
             clean_data(pd.DataFrame())
     
     def test_prepare_time_series_data(self):
-        """Test time series data preparation"""
+        """Test time series data preparation with only available columns"""
         df = pd.DataFrame({
             'Date': ['2010-02-05', '2010-02-12', '2010-02-19'],
             'Weekly_Sales': [1000.0, 1100.0, 1200.0],
-            'Temperature': [40.0, 45.0, 50.0]
+            'Temperature': [40.0, 45.0, 50.0],
+            'Fuel_Price': [2.5, 2.6, 2.7],
+            'CPI': [130.0, 131.0, 132.0],
+            'Unemployment': [8.0, 8.1, 8.2]
         })
         
         df_week, df_week_diff = prepare_time_series_data(df)
@@ -108,7 +115,7 @@ class TestWalmartSales:
         with pytest.raises(ValueError, match="cannot be None"):
             wmae_ts(None, None)
     
-    @patch('walmartSalesCore.auto_arima')
+    @patch('walmartSalesTrainingCore.auto_arima')
     def test_train_auto_arima(self, mock_arima):
         """Test Auto ARIMA training"""
         mock_model = Mock()
