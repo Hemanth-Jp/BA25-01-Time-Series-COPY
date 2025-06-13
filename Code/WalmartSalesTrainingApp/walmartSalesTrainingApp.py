@@ -207,6 +207,14 @@ def main():
         # Display instruction message when files are missing
         st.info("👆 Please upload all three CSV files to continue")
 
+    # Footer section
+    st.markdown("---")
+    st.markdown("""
+    <div style='text-align: center'>
+        <p>Walmart Sales Forecasting System © 2025</p>
+    </div>
+    """, unsafe_allow_html=True)
+
 if __name__ == "__main__":
     """
     @brief Entry point for running the training application
