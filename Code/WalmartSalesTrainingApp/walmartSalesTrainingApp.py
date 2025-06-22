@@ -85,7 +85,7 @@ def main():
                 st.write(f"- Testing samples: {len(test_data_diff)}")
                 
                 # Model selection section
-                st.header(" 🤖 Model Selection")
+                st.header(" 🧮 Model Selection")
                 model_type = st.selectbox(
                     "Choose a model to train:",
                     ["Auto ARIMA", "Exponential Smoothing (Holt-Winters)"]
