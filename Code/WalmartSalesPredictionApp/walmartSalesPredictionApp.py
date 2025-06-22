@@ -66,7 +66,7 @@ def main():
     """)
     
     # Model selection section
-    st.header("🤖 Model Selection")
+    st.header("🧮 Model Selection")
     
     # Tabs for default vs uploaded models
     tab1, tab2 = st.tabs(["Default Models", "Upload Model"])
