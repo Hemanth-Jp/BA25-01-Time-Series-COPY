@@ -181,15 +181,14 @@ def main():
                                 st.error(f"📊 **Model Performance:** {interpretation}")
                             
                             # Add WMAE interpretation guide
-                            st.info("""
-                            **WMAE Performance Guide:**
-                            
-                            | WMAE Range | Interpretation |
-                            |------------|----------------|
-                            | < 5% | Excellent (less than 5% error) |
-                            | 5% – 15% | Acceptable (5–15% error) |
-                            | > 15% | Poor, needs optimization |
-                            """)
+                            st.info(
+                            "**🔍 WMAE Performance Guide**\n\n"
+                            "| **Normalized WMAE (%)** | **Interpretation**                  |\n"
+                            "|-------------------------|--------------------------------------|\n"
+                            "| < 5%                    | ✅ Excellent (low error)             |\n"
+                            "| 5% – 15%                | 🟡 Acceptable (moderate error)       |\n"
+                            "| > 15%                   | 🔴 Poor (needs optimization)         |"
+                            )   
                             
                             # Show diagnostic plot for visual model assessment
                             st.pyplot(fig)

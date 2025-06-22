@@ -333,11 +333,11 @@ def get_wmae_interpretation(normalized_wmae):
     @note Helps stakeholders understand model quality without technical knowledge
     """
     if normalized_wmae < 5.0:
-        return "Excellent (less than 5% error)", "success"
+        return "✅ Excellent (less than 5% error)", "success"
     elif normalized_wmae <= 15.0:
-        return "Acceptable (5–15% error)", "warning"
+        return "🟡 Acceptable (5–15% error)", "warning"
     else:
-        return "Poor, needs optimization (>15% error)", "error"
+        return "🔴 Poor, needs optimization (>15% error)", "error"
 
 def create_diagnostic_plots(train_data, test_data, predictions, model_type):
     """
