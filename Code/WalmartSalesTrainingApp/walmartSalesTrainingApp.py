@@ -85,14 +85,14 @@ def main():
                 st.write(f"- Testing samples: {len(test_data_diff)}")
                 
                 # Model selection section
-                st.header("🤖 Model Selection")
+                st.header(" 🤖 Model Selection")
                 model_type = st.selectbox(
                     "Choose a model to train:",
                     ["Auto ARIMA", "Exponential Smoothing (Holt-Winters)"]
                 )
                 
                 # Hyperparameter customization section with model-specific parameters
-                st.header("⚙️ Hyperparameter Settings")
+                st.header(" ⚙️ Hyperparameter Settings")
                 col_left, col_right = st.columns(2)
                 
                 hyperparams = {}
@@ -129,7 +129,7 @@ def main():
                         hyperparams['damped'] = st.checkbox("Damped trend", value=True)
                 
                 # Training section with comprehensive workflow
-                st.header("🚀 Train Model")
+                st.header(" 🚀 Train Model")
                 if st.button("Start Training", type="primary"):
                     with st.spinner(f"Training {model_type} model..."):
                         try:
