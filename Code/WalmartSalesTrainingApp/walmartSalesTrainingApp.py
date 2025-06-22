@@ -243,9 +243,4 @@ def main():
     """, unsafe_allow_html=True)
 
 if __name__ == "__main__":
-    """
-    @brief Entry point for running the training application
-    @details Executes the main function when script is run directly
-    @note Ensures proper application initialization and execution
-    """
     main()
