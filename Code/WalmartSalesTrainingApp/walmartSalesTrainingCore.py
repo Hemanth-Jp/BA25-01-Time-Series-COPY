@@ -266,35 +266,78 @@ def train_exponential_smoothing(train_data_diff, hyperparams=None):
     except Exception as e:
         raise ValueError(f"Error training Exponential Smoothing model: {str(e)}")
 
-def wmae_ts(y_true, y_pred):
+def wmae_ts_detailed(y_true, y_pred):
     """
-    @brief Calculate weighted mean absolute error for time series evaluation
-    @details Computes WMAE metric which is commonly used for sales forecasting
-             evaluation, providing equal weighting to all observations
-    @param y_true True/actual values from test dataset
-    @param y_pred Predicted values from trained model
-    @return WMAE score (lower is better)
-    @raises ValueError If inputs are None or calculation fails
-    @note WMAE is preferred over RMSE for sales data due to robustness to outliers
+    @brief Calculate detailed WMAE with both absolute and normalized values
+    @details Computes both the raw (absolute) and normalized WMAE to provide
+             interpretable model performance for sales or time series data.
+             Normalized WMAE is defined as the absolute WMAE divided by the
+             total sum of actual values, expressed as a percentage.
+
+    @param y_true True/actual values from the test dataset (array-like or pandas)
+    @param y_pred Predicted values from the model (array-like or pandas)
+
+    @return Dictionary containing:
+            - 'absolute': Absolute WMAE value
+            - 'normalized': Normalized WMAE as percentage
+            - 'formatted': Formatted string for display
+
+    @raises ValueError If inputs are None, shapes are mismatched,
+                       or normalization is not possible (e.g., zero sum)
+
+    @note WMAE is preferred over RMSE in business forecasting applications
+          due to its linear sensitivity to errors and robustness against outliers.
     """
-    # Validate input parameters
     if y_true is None or y_pred is None:
         raise ValueError("True and predicted values cannot be None")
-    
+
     try:
-        # Convert pandas objects to numpy arrays for calculation
+        # Convert pandas Series/DataFrames to NumPy arrays
         if isinstance(y_true, (pd.Series, pd.DataFrame)):
             y_true = y_true.values
         if isinstance(y_pred, (pd.Series, pd.DataFrame)):
             y_pred = y_pred.values
-        
-        # Create uniform weights (can be modified for time-weighted evaluation)
-        weights = np.ones_like(y_true)
-        
-        # Calculate weighted mean absolute error
-        return np.sum(weights * np.abs(y_true - y_pred)) / np.sum(weights)
+
+        # Ensure input shapes match
+        y_true = np.ravel(y_true)
+        y_pred = np.ravel(y_pred)
+        if y_true.shape != y_pred.shape:
+            raise ValueError("Shapes of y_true and y_pred must match")
+
+        # Calculate absolute WMAE (uniform weights)
+        absolute_error = np.abs(y_true - y_pred)
+        wmae_abs = np.mean(absolute_error)
+
+        # Calculate normalized WMAE (relative error in %)
+        sum_actuals = np.sum(np.abs(y_true))
+        if sum_actuals == 0:
+            raise ValueError("Cannot normalize: sum of actual values is zero")
+        wmae_norm = (wmae_abs / sum_actuals) * 100
+
+        # Return dictionary with all values
+        return {
+            'absolute': wmae_abs,
+            'normalized': wmae_norm,
+            'formatted': f"Absolute WMAE: {wmae_abs:.4f} | Normalized WMAE: {wmae_norm:.2f}%"
+        }
+
     except Exception as e:
         raise ValueError(f"Error calculating WMAE: {str(e)}")
+
+def get_wmae_interpretation(normalized_wmae):
+    """
+    @brief Get interpretation of normalized WMAE score
+    @details Provides business-friendly interpretation of model performance
+    @param normalized_wmae Normalized WMAE percentage value
+    @return Tuple of (interpretation_text, color_for_display)
+    @note Helps stakeholders understand model quality without technical knowledge
+    """
+    if normalized_wmae < 5.0:
+        return "Excellent (less than 5% error)", "success"
+    elif normalized_wmae <= 15.0:
+        return "Acceptable (5–15% error)", "warning"
+    else:
+        return "Poor, needs optimization (>15% error)", "error"
 
 def create_diagnostic_plots(train_data, test_data, predictions, model_type):
     """

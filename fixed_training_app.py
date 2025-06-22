@@ -249,3 +249,4 @@ if __name__ == "__main__":
     @note Ensures proper application initialization and execution
     """
     main()
+                            
