@@ -6,7 +6,6 @@
 # Python Version: 3.12.x (recommended for production stability)
 # Environment: Streamlit Cloud / Docker / Kubernetes
 # 
-# Security Status: All packages scanned for vulnerabilities
 # Compatibility: Tested local and Streamlit Cloud
 # ================================================================
 
