@@ -1,13 +1,13 @@
 # ================================================================
-# ENTERPRISE REQUIREMENTS.TXT - PRODUCTION DEPLOYMENT READY
+# WalmartSales App's REQUIREMENTS.TXT - PRODUCTION DEPLOYMENT READY
 # ================================================================
 # Version: 1.0
 # Last Updated: 2025-06-23
-# Python Version: 3.11+ (recommended for production stability)
+# Python Version: 3.12.x (recommended for production stability)
 # Environment: Streamlit Cloud / Docker / Kubernetes
 # 
 # Security Status: All packages scanned for vulnerabilities
-# Compatibility: Tested across development, staging, production
+# Compatibility: Tested local and Streamlit Cloud
 # ================================================================
 
 # ================================================================
