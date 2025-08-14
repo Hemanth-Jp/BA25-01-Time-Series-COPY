@@ -1,0 +1,700 @@
+\chapter{Application Deployment and Testing}
+
+\section{Application Deployment}
+
+\subsection{Application Description}
+
+The Walmart Sales Forecasting System is a comprehensive web-based machine learning application designed to predict retail sales using advanced time series analysis. The system implements a dual-application architecture built with Streamlit, consisting of two interconnected yet functionally distinct components:
+
+\textbf{Training Application}: A comprehensive interface for model development and validation that enables users to upload datasets (train.csv, features.csv, stores.csv), select between ARIMA and Exponential Smoothing models, customize hyperparameters, and evaluate model performance through interactive diagnostic visualizations. The application provides real-time feedback during training processes and exports trained models for use in production forecasting.
+
+\textbf{Prediction Application}: A production-ready forecasting interface that loads pre-trained models to generate 4-week sales forecasts with interactive visualizations. The application features real-time model evaluation, forecast visualization through Plotly-based charts with color-coded indicators for growth and decline patterns, and comprehensive export capabilities supporting multiple formats (CSV, JSON).
+
+The system addresses real-world retail forecasting challenges by providing accessible machine learning tools for both technical and non-technical users, eliminating the need for extensive programming knowledge while maintaining sophisticated analytical capabilities.
+
+\subsection{Structure}
+
+The application follows a modular, production-ready architecture designed for scalability and maintainability:
+
+\subsubsection{Core Architecture Components}
+
+\textbf{Frontend Layer}: 
+\begin{itemize}
+	\item \texttt{walmartSalesTrainingApp.py} - Training interface with comprehensive data upload, model configuration, and evaluation capabilities
+	\item \texttt{walmartSalesPredictionApp.py} - Prediction interface optimized for production forecasting workflows
+\end{itemize}
+
+\textbf{Business Logic Layer}:
+\begin{itemize}
+	\item \texttt{walmartSalesTrainingCore.py} - Core training functionality including data preprocessing, model training, and evaluation metrics
+	\item \texttt{walmartSalesPredictionCore.py} - Production forecasting engine with model loading and prediction generation
+\end{itemize}
+
+\textbf{Data Layer}:
+\begin{itemize}
+	\item CSV processing for train.csv, features.csv, and stores.csv
+	\item Model persistence through joblib and pickle serialization
+	\item Cross-platform path management for local and cloud deployment
+\end{itemize}
+
+\textbf{Configuration Management}:
+\begin{itemize}
+	\item Centralized CONFIG dictionaries for training and prediction parameters
+	\item Environment-aware path resolution for cross-platform compatibility
+	\item Fallback mechanisms for model serialization methods
+\end{itemize}
+
+\subsection{Idea}
+
+The core innovation lies in bridging the gap between sophisticated time series forecasting and practical business application through an intuitive web interface. The dual-application approach separates model development concerns from production forecasting, enabling data scientists to iterate on model development while business users generate forecasts independently. This separation of concerns ensures system stability in production while maintaining flexibility for model improvements.
+
+\subsection{Flow Chart of Deployment Steps}
+
+\subsubsection{Training Application Deployment Flow}
+
+\begin{figure}[H]
+	\centering
+	\input{tikz/deployment/trainingDeploymentFlow.tikz}
+	\caption{Training Application Deployment Workflow}
+	\label{fig:training_deployment_flow}
+\end{figure}
+
+\subsubsection{Prediction Application Deployment Flow}
+
+\begin{figure}[H]
+	\centering
+	\input{tikz/deployment/predictionDeploymentFlow.tikz}
+	\caption{Prediction Application Deployment Workflow}
+	\label{fig:prediction_deployment_flow}
+\end{figure}
+
+\section{ML Pipeline}
+
+\subsection{Data Pipeline Architecture}
+
+The machine learning pipeline implements a comprehensive end-to-end workflow for time series forecasting:
+
+\subsubsection{Data Ingestion and Preprocessing}
+
+\textbf{Multi-source Data Integration}: The pipeline processes three distinct CSV files through the \texttt{load\_and\_merge\_data()} function, handling complex merge operations that resolve column conflicts (particularly IsHoliday columns that create IsHoliday\_x and IsHoliday\_y during merge operations).
+
+\textbf{Data Quality Assurance}: The \texttt{clean\_data()} function implements robust data cleaning procedures including:
+\begin{itemize}
+	\item Removal of negative sales records (invalid business data)
+	\item Missing value imputation for MarkDown columns using zero-fill strategy
+	\item Holiday feature engineering creating binary indicators for major holidays (Super Bowl, Labor Day, Thanksgiving, Christmas)
+	\item Date validation and conversion to appropriate datetime formats
+\end{itemize}
+
+\subsubsection{Feature Engineering Pipeline}
+
+\textbf{Time Series Preparation}: The \texttt{prepare\_time\_series\_data()} function transforms raw sales data into model-ready time series format through:
+\begin{itemize}
+	\item Date-based aggregation to weekly intervals
+	\item First-order differencing to achieve stationarity (critical for ARIMA modeling)
+	\item Seasonal pattern preservation for Holt-Winters modeling
+\end{itemize}
+
+\textbf{Holiday Feature Creation}: Advanced calendar-based feature engineering identifies and creates binary indicators for holidays that significantly impact retail sales, accounting for both fixed-date holidays and lunar calendar events like Easter.
+
+\subsubsection{Model Training Pipeline}
+
+\textbf{Dual Algorithm Implementation}: The pipeline supports two complementary time series approaches:
+
+\textbf{1. Auto ARIMA Pipeline} (\texttt{train\_auto\_arima()}):
+\begin{itemize}
+	\item Automated parameter selection through grid search across parameter space
+	\item Seasonal pattern detection and incorporation
+	\item AIC-based optimization for model selection
+	\item Support for custom hyperparameter overrides
+\end{itemize}
+
+\begin{lstlisting}[language=MyPython, caption={Auto ARIMA Training Implementation}]
+	def train_auto_arima(train_data_diff, hyperparams=None):
+	# Set default parameters for Auto ARIMA
+	default_params = {
+		'max_p': CONFIG['DEFAULT_MAX_P'],
+		'max_q': CONFIG['DEFAULT_MAX_Q'],
+		'max_P': CONFIG['DEFAULT_MAX_P_SEASONAL'],
+		'max_Q': CONFIG['DEFAULT_MAX_Q_SEASONAL'],
+		'seasonal': True,
+		'information_criterion': 'aic',
+		'stepwise': False,
+		'suppress_warnings': True
+	}
+	
+	# Update parameters with user-provided hyperparameters
+	if hyperparams:
+	default_params.update(hyperparams)
+	
+	# Create and fit Auto ARIMA model
+	model_auto_arima = auto_arima(train_data_diff, **default_params)
+	model_auto_arima.fit(train_data_diff)
+	
+	return model_auto_arima
+\end{lstlisting}
+
+\textbf{2. Exponential Smoothing Pipeline} (\texttt{train\_exponential\_smoothing()}):
+\begin{itemize}
+	\item Triple smoothing implementation handling level, trend, and seasonal components
+	\item Flexible seasonality options (additive/multiplicative)
+	\item Damped trend to prevent over-extrapolation
+	\item Fast computation suitable for real-time applications
+\end{itemize}
+
+\begin{lstlisting}[language=MyPython, caption={Exponential Smoothing Training Implementation}]
+	def train_exponential_smoothing(train_data_diff, hyperparams=None):
+	# Set default parameters for Exponential Smoothing
+	default_params = {
+		'seasonal_periods': CONFIG['DEFAULT_SEASONAL_PERIODS'],
+		'seasonal': 'additive',
+		'trend': 'additive',
+		'damped': True
+	}
+	
+	# Update parameters with user-provided hyperparameters
+	if hyperparams:
+	default_params.update(hyperparams)
+	
+	# Create and fit Exponential Smoothing model
+	model_holt_winters = ExponentialSmoothing(
+	train_data_diff,
+	**default_params
+	).fit()
+	
+	return model_holt_winters
+\end{lstlisting}
+
+\subsubsection{Model Evaluation and Validation}
+
+\textbf{Performance Metrics}: Implementation of Weighted Mean Absolute Error (WMAE) through \texttt{wmae\_ts\_detailed()} providing both absolute and normalized performance measures, preferred over RMSE for business forecasting due to linear sensitivity to errors and robustness against outliers.
+
+\begin{lstlisting}[language=MyPython, caption={WMAE Evaluation Metric Implementation}]
+	def wmae_ts_detailed(y_true, y_pred):
+	# Convert to numpy arrays to avoid pandas alignment issues
+	if isinstance(y_true, (pd.Series, pd.DataFrame)):
+	y_true = y_true.values
+	if isinstance(y_pred, (pd.Series, pd.DataFrame)):
+	y_pred = y_pred.values
+	
+	# Calculate absolute WMAE
+	weights = np.ones_like(y_true)
+	absolute_wmae = np.sum(weights * np.abs(y_true - y_pred)) / np.sum(weights)
+	
+	# Calculate normalized WMAE as percentage
+	normalized_wmae = (absolute_wmae / np.sum(np.abs(y_true))) * 100
+	
+	return {
+		'absolute': absolute_wmae,
+		'normalized': normalized_wmae,
+		'formatted': f"WMAE: {absolute_wmae:.2f} ({normalized_wmae:.2f}%)"
+	}
+\end{lstlisting}
+
+\textbf{Diagnostic Visualization}: The \texttt{create\_diagnostic\_plots()} function generates comprehensive model assessment visualizations comparing training data, test data, and predictions to enable visual validation of model performance.
+
+\subsubsection{Production Deployment Pipeline}
+
+\textbf{Model Serialization}: Robust model persistence using both joblib and pickle methods with fallback mechanisms ensuring compatibility across different Python environments and deployment scenarios.
+
+\begin{lstlisting}[language=MyPython, caption={Model Serialization with Fallback}]
+	def save_model_with_fallback(model, filepath):
+	try:
+	# Primary serialization method
+	joblib.dump(model, filepath)
+	return True, "Model saved successfully with joblib"
+	except Exception as e:
+	try:
+	# Fallback serialization method
+	with open(filepath, 'wb') as f:
+	pickle.dump(model, f)
+	return True, "Model saved successfully with pickle"
+	except Exception as e2:
+	return False, f"Failed to save model: {str(e2)}"
+\end{lstlisting}
+
+\textbf{Cross-Platform Compatibility}: Intelligent path management through \texttt{get\_model\_path\_simple()} and \texttt{get\_data\_path\_simple()} functions enabling seamless deployment across local development and cloud environments.
+
+\section{Program}
+
+\subsection{Readable}
+
+The codebase exemplifies production-quality software engineering practices with emphasis on readability and maintainability:
+
+\textbf{Comprehensive Documentation}: All functions include detailed docstrings following Doxygen-style formatting with @brief, @details, @param, @return, @raises, and @note annotations. This documentation standard ensures clear understanding of function purposes, parameters, return values, and potential exceptions.
+
+\textbf{Descriptive Naming Conventions}: Variable and function names clearly convey purpose and functionality:
+\begin{itemize}
+	\item \texttt{train\_auto\_arima()} vs \texttt{train\_exponential\_smoothing()} - clearly differentiated training functions
+	\item \texttt{wmae\_ts\_detailed()} - indicates specific evaluation metric with enhanced output
+	\item \texttt{predict\_next\_4\_weeks()} - explicitly states prediction horizon
+	\item \texttt{recreate\_arima\_model()} - clearly indicates model reconstruction purpose
+\end{itemize}
+
+\textbf{Code Organization}: Logical grouping of related functionality with clear separation between configuration, core algorithms, utility functions, and error handling routines.
+
+\subsection{Structure/Modules}
+
+The application demonstrates sophisticated modular architecture designed for scalability and maintainability:
+
+\subsubsection{Core Module Architecture}
+
+\textbf{Training Core Module} (\texttt{walmartSalesTrainingCore.py}):
+\begin{itemize}
+	\item Data processing functions: \texttt{load\_and\_merge\_data()}, \texttt{clean\_data()}, \texttt{prepare\_time\_series\_data()}
+	\item Model training functions: \texttt{train\_auto\_arima()}, \texttt{train\_exponential\_smoothing()}
+	\item Evaluation functions: \texttt{wmae\_ts\_detailed()}, \texttt{create\_diagnostic\_plots()}
+	\item Configuration management through centralized CONFIG dictionary
+\end{itemize}
+
+\textbf{Prediction Core Module} (\texttt{walmartSalesPredictionCore.py}):
+\begin{itemize}
+	\item Model loading functions: \texttt{load\_default\_model()}, \texttt{load\_uploaded\_model()}
+	\item Model recreation: \texttt{recreate\_arima\_model()} for stateful ARIMA models
+	\item Prediction generation: \texttt{predict\_next\_4\_weeks()}
+	\item Cross-platform path management utilities
+\end{itemize}
+
+\textbf{Application Layer Modules}:
+\begin{itemize}
+	\item \texttt{walmartSalesTrainingApp.py} - Streamlit interface for model development
+	\item \texttt{walmartSalesPredictionApp.py} - Streamlit interface for production forecasting
+\end{itemize}
+
+\subsubsection{Dependency Management}
+
+\textbf{Requirements Management}: Production-ready \texttt{requirements.txt} with:
+\begin{itemize}
+	\item Version pinning for reproducibility and security
+	\item Compatibility matrix documentation
+	\item Security vulnerability scanning recommendations
+	\item Performance optimization notes (scipy 1.13.1 for pmdarima compatibility)
+\end{itemize}
+
+\begin{lstlisting}[language=MyPython, caption={Requirements Configuration Example}]
+	# Core Application Stack
+	streamlit==1.31.1          # Stable release, avoiding 1.32.x CPU issues
+	pandas==2.2.2              # Latest stable with performance improvements
+	numpy==1.26.4               # LTS version, numpy 2.x compatibility pending
+	scipy==1.13.1               # Pinned for pmdarima compatibility
+	
+	# Machine Learning & Time Series
+	scikit-learn==1.4.2        # Latest stable with security patches
+	statsmodels==0.14.2        # Statistical modeling foundation
+	pmdarima==2.0.4             # ARIMA modeling - requires scipy<1.14
+	joblib==1.4.2               # Parallel processing backend
+\end{lstlisting}
+
+\textbf{Configuration Architecture}: Centralized configuration management through CONFIG dictionaries enabling easy parameter adjustment without code modification, supporting both default values and user-specified overrides.
+
+\subsection{Parameter Handling}
+
+The system implements sophisticated parameter management across multiple levels:
+
+\subsubsection{Training Parameters}
+
+\textbf{Hyperparameter Configuration}: Comprehensive parameter handling for both model types:
+
+\begin{lstlisting}[language=MyPython, caption={Configuration Parameters}]
+	CONFIG = {
+		'TRAIN_TEST_SPLIT': 0.7,  # 70% for training, 30% for testing
+		'DEFAULT_SEASONAL_PERIODS': 20,  # Default seasonal periods for Holt-Winters
+		'DEFAULT_MAX_P': 20,  # Maximum AR terms for ARIMA
+		'DEFAULT_MAX_Q': 20,  # Maximum MA terms for ARIMA
+		'DEFAULT_MAX_P_SEASONAL': 20,  # Maximum seasonal AR terms
+		'DEFAULT_MAX_Q_SEASONAL': 20,  # Maximum seasonal MA terms
+		'PREDICTION_PERIODS': 4,  # Number of weeks to predict
+		'MODEL_FILE_MAP': {
+			"Auto ARIMA": "AutoARIMA",
+			"Exponential Smoothing (Holt-Winters)": "ExponentialSmoothingHoltWinters"
+		}
+	}
+\end{lstlisting}
+
+\textbf{Dynamic Parameter Override}: Both training functions accept optional hyperparameter dictionaries enabling user customization while maintaining sensible defaults.
+
+\subsubsection{Prediction Parameters}
+
+\textbf{Model Configuration}: Prediction pipeline manages model-specific parameters:
+\begin{itemize}
+	\item Prediction horizon (4 weeks) through \texttt{PREDICTION\_PERIODS}
+	\item Model type mapping through \texttt{MODEL\_FILE\_MAP} and \texttt{MODEL\_FUNC\_MAP}
+	\item Default ARIMA orders for model recreation
+\end{itemize}
+
+\textbf{Path Management}: Environment-aware parameter handling through intelligent path resolution supporting both local development and cloud deployment scenarios.
+
+\subsection{Error Handling}
+
+The system implements comprehensive error handling ensuring robust operation across various failure scenarios:
+
+\subsubsection{Input Validation}
+
+\textbf{Data Validation}: Comprehensive input validation across all core functions:
+
+\begin{lstlisting}[language=MyPython, caption={Input Validation Example}]
+	def clean_data(df):
+	if df is None or df.empty:
+	raise ValueError("DataFrame cannot be None or empty")
+	
+	# Additional validation logic
+	required_columns = ['Weekly_Sales', 'Date']
+	missing_columns = [col for col in required_columns if col not in df.columns]
+	if missing_columns:
+	raise ValueError(f"Missing required columns: {missing_columns}")
+	
+	return processed_df
+\end{lstlisting}
+
+\textbf{File Operation Safety}: Robust file handling with existence checks and fallback mechanisms:
+
+\begin{lstlisting}[language=MyPython, caption={Safe File Operations}]
+	def load_default_model():
+	model_path = get_model_path_simple()
+	try:
+	if os.path.exists(model_path):
+	return joblib.load(model_path), None
+	else:
+	return None, f"Model file not found: {model_path}"
+	except Exception as e:
+	return None, f"Error loading model: {str(e)}"
+\end{lstlisting}
+
+\subsubsection{Model Operation Error Handling}
+
+\textbf{Training Error Recovery}: Graceful handling of model training failures with informative error messages.
+
+\textbf{Prediction Error Management}: Comprehensive error handling for prediction generation including model type validation and prediction failure recovery.
+
+\subsubsection{Cross-Platform Error Handling}
+
+\textbf{Serialization Fallbacks}: Multiple serialization methods with fallback mechanisms ensuring model persistence across different environments.
+
+\subsection{Message Handling}
+
+The system implements comprehensive user communication through multiple channels:
+
+\subsubsection{Streamlit User Interface Messages}
+
+\textbf{Training Progress Communication}: Real-time feedback during model training processes:
+\begin{itemize}
+	\item Success messages: " Model training completed!"
+	\item Progress indicators during data upload and processing
+	\item Detailed performance metrics display with formatted WMAE results
+\end{itemize}
+
+\textbf{Validation Messages}: Clear communication of data validation results:
+\begin{itemize}
+	\item File upload confirmation with dataset shape information
+	\item Data quality assessment results
+	\item Model parameter validation feedback
+\end{itemize}
+
+\subsubsection{Error Communication}
+
+\textbf{User-Friendly Error Messages}: Translation of technical errors into actionable user guidance:
+\begin{itemize}
+	\item File format validation: "Please upload CSV files with required columns"
+	\item Model loading failures: Clear indication of missing model files with suggested actions
+	\item Training failures: Informative messages about data quality issues or parameter problems
+\end{itemize}
+
+\subsubsection{System Status Communication}
+
+\textbf{Production Application Messages}: Clear communication of prediction system status including model loading confirmation, prediction generation progress, and export status with format confirmation.
+
+\section{Names}
+
+\subsection{Folders}
+
+The project follows a logical and descriptive folder structure that clearly communicates purpose and organization:
+
+\textbf{Primary Application Directories}:
+\begin{itemize}
+	\item \texttt{WalmartSalesTrainingApp/} - Contains all training-related application files
+	\item \texttt{WalmartSalesPredictionApp/} - Houses production forecasting application components
+	\item \texttt{WalmartDataset/} - Centralized data storage for CSV files
+\end{itemize}
+
+\textbf{Deployment Structure}:
+\begin{itemize}
+	\item \texttt{Code/} - Root deployment directory for Streamlit Cloud compatibility
+	\item \texttt{models/default/} - Standardized model storage location with environment-aware pathing
+\end{itemize}
+
+\subsection{Files}
+
+File naming follows clear, descriptive conventions that immediately convey functionality:
+
+\textbf{Core Application Files}:
+\begin{itemize}
+	\item \texttt{walmartSalesTrainingApp.py} - Main training interface application
+	\item \texttt{walmartSalesPredictionApp.py} - Main prediction interface application
+	\item \texttt{walmartSalesTrainingCore.py} - Core training functionality and algorithms
+	\item \texttt{walmartSalesPredictionCore.py} - Core prediction functionality and model operations
+\end{itemize}
+
+\textbf{Supporting Files}:
+\begin{itemize}
+	\item \texttt{requirements.txt} - Production-ready dependency specification
+	\item \texttt{ExplorativeDataAnalysis.py} - Data analysis and model development
+	\item \texttt{Introduction.tex} - Academic documentation and methodology
+\end{itemize}
+
+\textbf{Test Files}:
+\begin{itemize}
+	\item \texttt{testWalmartSalesTraining.py} - Comprehensive test suite for training functionality
+	\item \texttt{testWalmartSalesPrediction.py} - Complete test coverage for prediction operations
+\end{itemize}
+
+\subsection{Modules}
+
+Module names clearly indicate their specific role within the system architecture:
+
+\textbf{Core Business Logic Modules}:
+\begin{itemize}
+	\item Training core module: Encapsulates all model development functionality
+	\item Prediction core module: Handles production forecasting operations
+	\item Configuration modules: Centralized parameter and path management
+\end{itemize}
+
+\textbf{External Dependencies}: Well-named imports that clearly indicate functionality:
+\begin{itemize}
+	\item \texttt{pmdarima} for automated ARIMA modeling
+	\item \texttt{statsmodels.tsa.holtwinters} for Exponential Smoothing
+	\item \texttt{streamlit} for web application framework
+\end{itemize}
+
+\subsection{Functions}
+
+Function names follow descriptive, action-oriented naming conventions:
+
+\textbf{Data Processing Functions}:
+\begin{itemize}
+	\item \texttt{load\_and\_merge\_data()} - Multi-source data integration
+	\item \texttt{clean\_data()} - Data quality improvement function
+	\item \texttt{prepare\_time\_series\_data()} - Time series preprocessing
+\end{itemize}
+
+\textbf{Model Operations}:
+\begin{itemize}
+	\item \texttt{train\_auto\_arima()} - ARIMA model training
+	\item \texttt{train\_exponential\_smoothing()} - Holt-Winters training
+	\item \texttt{predict\_next\_4\_weeks()} - Prediction with explicit horizon
+	\item \texttt{recreate\_arima\_model()} - Model reconstruction
+\end{itemize}
+
+\subsection{Variables}
+
+Variable naming follows consistent, descriptive conventions that enhance code readability:
+
+\textbf{Data Variables}:
+\begin{itemize}
+	\item \texttt{train\_data\_diff} - Differenced training data
+	\item \texttt{test\_data\_diff} - Corresponding test dataset
+	\item \texttt{hyperparams} - Hyperparameter dictionary
+	\item \texttt{model\_auto\_arima} - Specific model type identification
+\end{itemize}
+
+\textbf{Configuration Variables}:
+\begin{itemize}
+	\item \texttt{CONFIG} - Centralized configuration dictionary
+	\item \texttt{DEFAULT\_SEASONAL\_PERIODS} - Explicit parameter purpose
+	\item \texttt{PREDICTION\_PERIODS} - Clear forecast horizon specification
+\end{itemize}
+
+\section{Test}
+
+\subsection{System's Functions}
+
+The testing framework provides comprehensive coverage of all major system functionality through pytest-based unit tests:
+
+\textbf{Training System Testing}: Complete validation of the training pipeline including data loading, preprocessing, model training, and evaluation functions. Tests cover both successful operations and error conditions to ensure robust system behavior.
+
+\textbf{Prediction System Testing}: Thorough testing of the prediction pipeline including model loading, recreation, forecast generation, and result formatting. Tests validate both default model loading and uploaded model processing scenarios.
+
+\textbf{Data Pipeline Testing}: Comprehensive validation of data processing functions including multi-file merging, data cleaning, and time series preparation.
+
+\subsection{Parts}
+
+The test suite is organized into logical components reflecting the system architecture:
+
+\textbf{Training Test Suite} (\texttt{testWalmartSalesTraining.py}):
+\begin{itemize}
+	\item Data loading and merging functionality
+	\item Data cleaning and validation procedures
+	\item Time series preparation and transformation
+	\item Model training for both ARIMA and Exponential Smoothing
+	\item Performance evaluation and diagnostic plotting
+\end{itemize}
+
+\textbf{Prediction Test Suite} (\texttt{testWalmartSalesPrediction.py}):
+\begin{itemize}
+	\item Model loading from different sources
+	\item ARIMA model recreation procedures
+	\item Prediction generation for various model types
+	\item Error handling for unknown model types and prediction failures
+\end{itemize}
+
+\subsection{SW Modules}
+
+Each software module undergoes dedicated testing ensuring individual component reliability:
+
+\textbf{Core Training Module Testing}: Validates all functions in \texttt{walmartSalesTrainingCore.py} including parameter validation, algorithm implementation, and output formatting.
+
+\textbf{Core Prediction Module Testing}: Comprehensive testing of \texttt{walmartSalesPredictionCore.py} functionality including model serialization/deserialization, cross-platform compatibility, and prediction accuracy validation.
+
+\subsection{SW Classes}
+
+The test suite includes comprehensive class-based testing organization:
+
+\textbf{TestWalmartSales Class}: Primary test class containing all training-related functionality tests with setup methods that create realistic mock datasets simulating actual Walmart data structure.
+
+\textbf{TestWalmartSalesPrediction Class}: Dedicated test class for prediction functionality providing comprehensive testing coverage for model operations, error handling, and edge cases.
+
+\subsection{SW Functions}
+
+Individual function testing ensures reliability at the most granular level:
+
+\begin{lstlisting}[language=MyPython, caption={Example Function Test}]
+	def test_recreate_arima_model_valid_params(self):
+	"""
+	@brief Test ARIMA model recreation with valid parameters
+	@details Verifies that recreate_arima_model successfully creates a model 
+	when given valid parameters
+	@note Uses a basic ARIMA order configuration for testing
+	"""
+	# Test with valid parameters dictionary containing order tuple
+	params = {'order': (1, 1, 1)}
+	model = recreate_arima_model(params)
+	assert model is not None
+\end{lstlisting}
+
+\subsection{Automation of Tests}
+
+The system implements comprehensive test automation through GitHub Actions ensuring continuous quality assurance:
+
+\subsubsection{GitHub Actions CI/CD Pipeline}
+
+The project implements automated testing through GitHub Actions with the following workflow configuration:
+
+\begin{lstlisting}[language=MyPython, caption={GitHub Actions Test Automation Configuration}]
+	name: Run All Tests
+	
+	on:
+	push:
+	branches: [ main, master ]
+	pull_request:
+	branches: [ main, master ]
+	
+	jobs:
+	test:
+	runs-on: ubuntu-latest
+	
+	steps:
+	- name: Checkout code
+	uses: actions/checkout@v4
+	
+	- name: Set up Python
+	uses: actions/setup-python@v4
+	with:
+	python-version: '3.12'
+	
+	- name: Install dependencies
+	run: |
+	python -m pip install --upgrade pip
+	pip install pytest
+	pip install -r Code/WalmartSalesPredictionApp/requirements.txt
+	pip install -r Code/WalmartSalesTrainingApp/requirements.txt
+	
+	- name: Create directory structure
+	run: |
+	mkdir -p Code/WalmartSalesPredictionApp/models/default
+	mkdir -p Code/WalmartSalesTrainingApp/models/default
+	mkdir -p models/default
+	
+	- name: Run Prediction App Tests
+	run: |
+	cd Code/WalmartSalesPredictionApp
+	pytest testWalmartSalesPrediction.py -v
+	
+	- name: Run Training App Tests
+	run: |
+	cd Code/WalmartSalesTrainingApp
+	pytest testWalmartSalesTraining.py -v
+\end{lstlisting}
+
+\subsubsection{Automated Test Features}
+
+\textbf{Continuous Integration Triggers}: The automation runs on:
+\begin{itemize}
+	\item Push events to main and master branches
+	\item Pull request events targeting main and master branches
+	\item Ensuring code quality before integration
+\end{itemize}
+
+\textbf{Environment Setup}: Automated environment configuration including:
+\begin{itemize}
+	\item Python 3.12 installation for consistency with development environment
+	\item Dependency installation from both application requirements files
+	\item Directory structure creation for model storage paths
+	\item Cross-platform compatibility testing on Ubuntu latest
+\end{itemize}
+
+\textbf{Test Execution Strategy}: Separate test execution for each application component:
+\begin{itemize}
+	\item Prediction application tests run independently with verbose output
+	\item Training application tests execute in isolated environment
+	\item Comprehensive error reporting and logging for debugging
+\end{itemize}
+
+\subsubsection{Continuous Quality Assurance}
+
+\textbf{Automated Validation}: Every code change triggers comprehensive testing ensuring:
+\begin{itemize}
+	\item Functionality regression prevention
+	\item Cross-platform compatibility validation
+	\item Dependency compatibility verification
+	\item Performance consistency checking
+\end{itemize}
+
+\textbf{Integration with Development Workflow}: The automation integrates seamlessly with development practices:
+\begin{itemize}
+	\item Pre-merge validation for pull requests
+	\item Immediate feedback on code quality issues
+	\item Automated reporting of test results and coverage
+	\item Prevention of broken code deployment to production
+\end{itemize}
+
+\subsection{Test Protocol}
+
+The testing protocol follows industry best practices ensuring comprehensive validation:
+
+\subsubsection{Test Organization Structure}
+
+\textbf{Hierarchical Test Design}: Tests are organized from unit level to integration level:
+\begin{enumerate}
+	\item \textbf{Unit Tests}: Individual function validation with isolated input/output testing
+	\item \textbf{Integration Tests}: Multi-function workflow validation ensuring proper component interaction
+	\item \textbf{System Tests}: End-to-end validation of complete training and prediction workflows
+\end{enumerate}
+
+\textbf{Test Documentation Standards}: Each test function includes comprehensive documentation following standardized format for clarity and maintainability.
+
+\subsubsection{Validation Methodology}
+
+\textbf{Assertion Strategy}: Tests employ multiple assertion types:
+\begin{itemize}
+	\item Value assertions for numerical accuracy
+	\item Type assertions for object validation
+	\item Exception assertions for error handling
+	\item Length assertions for array/list operations
+\end{itemize}
+
+\textbf{Error Testing Protocol}: Comprehensive error condition testing including invalid input validation, exception propagation verification, error message accuracy validation, and graceful failure recovery testing.
+
+\subsubsection{Test Maintenance Protocol}
+
+\textbf{Mock Management}: Systematic use of mocking for external dependencies ensuring test isolation, predictable behavior, fast execution, and reliable continuous integration.
+
+\textbf{Test Data Consistency}: Standardized test data creation ensuring realistic data scenarios, consistent test conditions, reproducible results, and clear documentation.

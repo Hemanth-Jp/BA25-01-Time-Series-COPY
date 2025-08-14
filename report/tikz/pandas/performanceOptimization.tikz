@@ -1,0 +1,37 @@
+\begin{tikzpicture}[
+    node distance=1.8cm,
+    strategy/.style={rectangle, draw, fill=green!15, text width=2.8cm, text centered, rounded corners, minimum height=1cm},
+    benefit/.style={ellipse, draw, fill=blue!10, text width=2.2cm, text centered, minimum height=0.7cm},
+    arrow/.style={->, thick}
+]
+
+% Central concept
+\node[strategy, fill=yellow!20] (center) {Performance \\ Optimization \\ Strategies};
+
+% Optimization strategies
+\node[strategy, above left=2cm and 2.5cm of center] (vectorize) {Vectorization \\ Use numpy operations \\ Avoid Python loops};
+\node[strategy, above=2.5cm of center] (memory) {Memory Management \\ Appropriate dtypes \\ Chunked processing};
+\node[strategy, above right=2cm and 2.5cm of center] (index) {Efficient Indexing \\ Set proper index \\ Use loc/iloc};
+\node[strategy, below right=2cm and 2.5cm of center] (cache) {Caching \\ Store results \\ Avoid recomputation};
+\node[strategy, below=2.5cm of center] (parallel) {Parallelization \\ Use multiprocessing \\ GPU acceleration};
+\node[strategy, below left=2cm and 2.5cm of center] (io) {I/O Optimization \\ Efficient file formats \\ Compression};
+
+% Benefits
+\node[benefit, above=1.2cm of vectorize] (speed1) {10-100x \\ Speed};
+\node[benefit, above=1.2cm of memory] (mem1) {Reduced \\ Memory};
+\node[benefit, above=1.2cm of index] (access1) {Fast \\ Access};
+
+% Arrows from center to strategies
+\draw[arrow] (center) -- (vectorize);
+\draw[arrow] (center) -- (memory);
+\draw[arrow] (center) -- (index);
+\draw[arrow] (center) -- (cache);
+\draw[arrow] (center) -- (parallel);
+\draw[arrow] (center) -- (io);
+
+% Arrows from strategies to benefits
+\draw[arrow] (vectorize) -- (speed1);
+\draw[arrow] (memory) -- (mem1);
+\draw[arrow] (index) -- (access1);
+
+\end{tikzpicture}

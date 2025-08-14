@@ -1,0 +1,343 @@
+\doxysection{walmart\+Sales\+Prediction\+App.\+py}
+\hypertarget{walmart_sales_prediction_app_8py_source}{}\label{walmart_sales_prediction_app_8py_source}\mbox{\hyperlink{walmart_sales_prediction_app_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00001}\mbox{\hyperlink{namespacewalmart_sales_prediction_app}{00001}}\ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00002}00002\ \textcolor{stringliteral}{@brief\ Streamlit\ web\ application\ for\ Walmart\ sales\ prediction}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00003}00003\ \textcolor{stringliteral}{@details\ This\ module\ provides\ a\ user-\/friendly\ web\ interface\ for\ loading\ time\ series\ models}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00004}00004\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ and\ generating\ sales\ forecasts.\ Supports\ both\ default\ and\ uploaded\ models\ with}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00005}00005\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ interactive\ visualizations\ and\ downloadable\ results.}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00006}00006\ \textcolor{stringliteral}{@author\ Sales\ Prediction\ Team}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00007}00007\ \textcolor{stringliteral}{@date\ 2025}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00008}00008\ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00009}00009\ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00010}00010\ \textcolor{keyword}{import}\ streamlit\ \textcolor{keyword}{as}\ st}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00011}00011\ \textcolor{keyword}{import}\ pandas\ \textcolor{keyword}{as}\ pd}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00012}00012\ \textcolor{keyword}{import}\ numpy\ \textcolor{keyword}{as}\ np}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00013}00013\ \textcolor{keyword}{import}\ plotly.express\ \textcolor{keyword}{as}\ px}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00014}00014\ \textcolor{keyword}{import}\ plotly.graph\_objects\ \textcolor{keyword}{as}\ go}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00015}00015\ \textcolor{keyword}{from}\ datetime\ \textcolor{keyword}{import}\ datetime,\ timedelta}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00016}00016\ \textcolor{keyword}{from}\ walmartSalesPredictionCore\ \textcolor{keyword}{import}\ *}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00017}00017\ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00018}00018\ \textcolor{comment}{\#\ Set\ page\ config}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00019}00019\ st.set\_page\_config(}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00020}\mbox{\hyperlink{namespacewalmart_sales_prediction_app_af7155cce1667976d78292890677869d8}{00020}}\ \ \ \ \ page\_title=\textcolor{stringliteral}{"{}Walmart\ Sales\ Prediction"{}},}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00021}\mbox{\hyperlink{namespacewalmart_sales_prediction_app_a8de5b52d8151adc444941973b3ad7b16}{00021}}\ \ \ \ \ page\_icon=\textcolor{stringliteral}{"{}🔮"{}},}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00022}\mbox{\hyperlink{namespacewalmart_sales_prediction_app_a823e36689185fb4a34986ec462668402}{00022}}\ \ \ \ \ layout=\textcolor{stringliteral}{"{}wide"{}}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00023}00023\ )}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00025}00025\ \textcolor{comment}{\#\ Initialize\ session\ state\ for\ model\ storage}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00026}00026\ \textcolor{keywordflow}{if}\ \textcolor{stringliteral}{'current\_model'}\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ st.session\_state:}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00027}\mbox{\hyperlink{namespacewalmart_sales_prediction_app_aa4675ed703b666fb7d28a281bb94df37}{00027}}\ \ \ \ \ st.session\_state.current\_model\ =\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00028}00028\ \textcolor{keywordflow}{if}\ \textcolor{stringliteral}{'model\_type'}\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ st.session\_state:}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00029}\mbox{\hyperlink{namespacewalmart_sales_prediction_app_aeb11cb56ed4ff66e953818dd0c8610a2}{00029}}\ \ \ \ \ st.session\_state.model\_type\ =\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00030}00030\ \textcolor{keywordflow}{if}\ \textcolor{stringliteral}{'model\_source'}\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ st.session\_state:}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00031}\mbox{\hyperlink{namespacewalmart_sales_prediction_app_abfa23f3a1bb9ba5a69506583948d8797}{00031}}\ \ \ \ \ st.session\_state.model\_source\ =\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00033}\mbox{\hyperlink{namespacewalmart_sales_prediction_app_a124daf58b6c4aa56ff27762b60e00f71}{00033}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacewalmart_sales_prediction_app_a124daf58b6c4aa56ff27762b60e00f71}{validate\_model\_input}}(model,\ model\_type):}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00034}00034\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00035}00035\ \textcolor{stringliteral}{\ \ \ \ @brief\ Validate\ inputs\ before\ calling\ core\ functions}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00036}00036\ \textcolor{stringliteral}{\ \ \ \ @details\ Performs\ basic\ validation\ to\ ensure\ model\ and\ model\_type\ are\ properly\ set}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00037}00037\ \textcolor{stringliteral}{\ \ \ \ @param\ model\ The\ model\ object\ to\ validate}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00038}00038\ \textcolor{stringliteral}{\ \ \ \ @param\ model\_type\ The\ model\ type\ string\ to\ validate}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00039}00039\ \textcolor{stringliteral}{\ \ \ \ @return\ True\ if\ validation\ passes}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00040}00040\ \textcolor{stringliteral}{\ \ \ \ @raises\ ValueError\ If\ model\ is\ None\ or\ model\_type\ is\ empty}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00041}00041\ \textcolor{stringliteral}{\ \ \ \ @note\ This\ function\ helps\ catch\ validation\ errors\ early\ in\ the\ UI\ flow}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00042}00042\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00043}00043\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ model:}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00044}00044\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{"{}Model\ cannot\ be\ None"{}})}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00045}00045\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ model\_type:}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00046}00046\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{"{}Model\ type\ cannot\ be\ empty"{}})}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00047}00047\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{True}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00048}00048\ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00049}\mbox{\hyperlink{namespacewalmart_sales_prediction_app_a9beb5e13aa34100e6ae964f38904db80}{00049}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacewalmart_sales_prediction_app_a9beb5e13aa34100e6ae964f38904db80}{main}}():}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00050}00050\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00051}00051\ \textcolor{stringliteral}{\ \ \ \ @brief\ Main\ application\ function\ that\ renders\ the\ Streamlit\ interface}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00052}00052\ \textcolor{stringliteral}{\ \ \ \ @details\ Orchestrates\ the\ entire\ user\ interface\ flow\ including\ model\ loading,}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00053}00053\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ prediction\ generation,\ and\ results\ visualization}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00054}00054\ \textcolor{stringliteral}{\ \ \ \ @note\ This\ function\ handles\ all\ UI\ state\ management\ and\ user\ interactions}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00055}00055\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00056}00056\ \ \ \ \ \textcolor{comment}{\#\ App\ title\ and\ description}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00057}00057\ \ \ \ \ st.title(\textcolor{stringliteral}{"{}🔮\ Walmart\ Sales\ Prediction"{}})}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00058}00058\ \ \ \ \ st.markdown(\textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00059}00059\ \textcolor{stringliteral}{\ \ \ \ This\ app\ generates\ sales\ forecasts\ for\ the\ next\ 4\ weeks\ using\ trained\ time\ series\ models.}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00060}00060\ \textcolor{stringliteral}{\ \ \ \ }}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00061}00061\ \textcolor{stringliteral}{\ \ \ \ **You\ can:**}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00062}00062\ \textcolor{stringliteral}{\ \ \ \ -\/\ Use\ pre-\/loaded\ default\ models\ (recommended)}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00063}00063\ \textcolor{stringliteral}{\ \ \ \ -\/\ Upload\ your\ own\ trained\ models}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00064}00064\ \textcolor{stringliteral}{\ \ \ \ -\/\ View\ interactive\ forecasts}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00065}00065\ \textcolor{stringliteral}{\ \ \ \ -\/\ Download\ prediction\ results}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00066}00066\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}})}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00067}00067\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00068}00068\ \ \ \ \ \textcolor{comment}{\#\ Model\ selection\ section}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00069}00069\ \ \ \ \ st.header(\textcolor{stringliteral}{"{}🤖\ Model\ Selection"{}})}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00070}00070\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00071}00071\ \ \ \ \ \textcolor{comment}{\#\ Tabs\ for\ default\ vs\ uploaded\ models}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00072}00072\ \ \ \ \ tab1,\ tab2\ =\ st.tabs([\textcolor{stringliteral}{"{}Default\ Models"{}},\ \textcolor{stringliteral}{"{}Upload\ Model"{}}])}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00073}00073\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00074}00074\ \ \ \ \ \textcolor{keyword}{with}\ tab1:}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00075}00075\ \ \ \ \ \ \ \ \ st.subheader(\textcolor{stringliteral}{"{}Use\ Default\ Models"{}})}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00076}00076\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00077}00077\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Show\ only\ Exponential\ Smoothing\ model\ (ARIMA\ removed\ due\ to\ compatibility\ issues)}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00078}00078\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ st.button(\textcolor{stringliteral}{"{}Load\ Exponential\ Smoothing\ (Holt-\/Winters)\ Model"{}},\ use\_container\_width=\textcolor{keyword}{True}):}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00079}00079\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00080}00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Attempt\ to\ load\ the\ default\ Exponential\ Smoothing\ model}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00081}00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ model,\ error\ =\ load\_default\_model(\textcolor{stringliteral}{"{}Exponential\ Smoothing\ (Holt-\/Winters)"{}})}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00082}00082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ error:}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00083}00083\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Display\ error\ message\ if\ loading\ fails}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00084}00084\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ st.error(error)}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00085}00085\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00086}00086\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Update\ session\ state\ with\ loaded\ model}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00087}00087\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ st.session\_state.current\_model\ =\ model}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00088}00088\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ st.session\_state.model\_type\ =\ \textcolor{stringliteral}{"{}Exponential\ Smoothing\ (Holt-\/Winters)"{}}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00089}00089\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ st.session\_state.model\_source\ =\ \textcolor{stringliteral}{"{}Default"{}}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00090}00090\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ st.success(\textcolor{stringliteral}{"{}✅\ Exponential\ Smoothing\ (Holt-\/Winters)\ model\ loaded\ successfully!"{}})}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00091}00091\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{except}\ ValueError\ \textcolor{keyword}{as}\ e:}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00092}00092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Handle\ validation\ errors}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00093}00093\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ st.error(f\textcolor{stringliteral}{"{}Input\ validation\ error:\ \{str(e)\}"{}})}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00094}00094\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{except}\ Exception\ \textcolor{keyword}{as}\ e:}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00095}00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Handle\ unexpected\ errors}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00096}00096\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ st.error(f\textcolor{stringliteral}{"{}Unexpected\ error:\ \{str(e)\}"{}})}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00097}00097\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00098}00098\ \ \ \ \ \textcolor{keyword}{with}\ tab2:}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00099}00099\ \ \ \ \ \ \ \ \ st.subheader(\textcolor{stringliteral}{"{}Upload\ Custom\ Model"{}})}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00100}00100\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00101}00101\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Model\ type\ selection\ for\ upload}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00102}00102\ \ \ \ \ \ \ \ \ model\_type\ =\ st.selectbox(}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00103}00103\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Select\ model\ type:"{}},}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00104}00104\ \ \ \ \ \ \ \ \ \ \ \ \ [\textcolor{stringliteral}{"{}Auto\ ARIMA"{}},\ \textcolor{stringliteral}{"{}Exponential\ Smoothing\ (Holt-\/Winters)"{}}],}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00105}00105\ \ \ \ \ \ \ \ \ \ \ \ \ key=\textcolor{stringliteral}{"{}upload\_model\_type"{}}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00106}00106\ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00107}00107\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00108}00108\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ File\ uploader\ widget}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00109}00109\ \ \ \ \ \ \ \ \ uploaded\_file\ =\ st.file\_uploader(}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00110}00110\ \ \ \ \ \ \ \ \ \ \ \ \ f\textcolor{stringliteral}{"{}Upload\ model\ file\ (.\{CONFIG['SUPPORTED\_EXTENSIONS'][0]\})"{}},\ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00111}00111\ \ \ \ \ \ \ \ \ \ \ \ \ type=CONFIG[\textcolor{stringliteral}{'SUPPORTED\_EXTENSIONS'}],}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00112}00112\ \ \ \ \ \ \ \ \ \ \ \ \ key=\textcolor{stringliteral}{"{}model\_uploader"{}}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00113}00113\ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00114}00114\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00115}00115\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Process\ uploaded\ file\ when\ available}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00116}00116\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ uploaded\_file:}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00117}00117\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ st.button(\textcolor{stringliteral}{"{}Load\ Uploaded\ Model"{}},\ use\_container\_width=\textcolor{keyword}{True}):}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00118}00118\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00119}00119\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Attempt\ to\ load\ the\ uploaded\ model}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00120}00120\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ model,\ error\ =\ load\_uploaded\_model(uploaded\_file,\ model\_type)}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00121}00121\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ error:}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00122}00122\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Display\ error\ message\ if\ loading\ fails}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00123}00123\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ st.error(error)}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00124}00124\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00125}00125\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Update\ session\ state\ with\ uploaded\ model}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00126}00126\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ st.session\_state.current\_model\ =\ model}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00127}00127\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ st.session\_state.model\_type\ =\ model\_type}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00128}00128\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ st.session\_state.model\_source\ =\ \textcolor{stringliteral}{"{}Uploaded"{}}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00129}00129\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ st.success(f\textcolor{stringliteral}{"{}✅\ \{model\_type\}\ model\ loaded\ successfully!"{}})}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00130}00130\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{except}\ ValueError\ \textcolor{keyword}{as}\ e:}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00131}00131\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Handle\ validation\ errors}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00132}00132\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ st.error(f\textcolor{stringliteral}{"{}Input\ validation\ error:\ \{str(e)\}"{}})}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00133}00133\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{except}\ Exception\ \textcolor{keyword}{as}\ e:}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00134}00134\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Handle\ unexpected\ errors}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00135}00135\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ st.error(f\textcolor{stringliteral}{"{}Unexpected\ error:\ \{str(e)\}"{}})}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00136}00136\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00137}00137\ \ \ \ \ \textcolor{comment}{\#\ Display\ current\ model\ info}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00138}00138\ \ \ \ \ \textcolor{keywordflow}{if}\ st.session\_state.current\_model\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00139}00139\ \ \ \ \ \ \ \ \ st.info(f\textcolor{stringliteral}{"{}**Current\ Model:**\ \{st.session\_state.model\_type\}\ (\{st.session\_state.model\_source\})"{}})}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00140}00140\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00141}00141\ \ \ \ \ \ \ \ \ st.warning(\textcolor{stringliteral}{"{}No\ model\ loaded.\ Please\ select\ a\ model\ to\ make\ predictions."{}})}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00142}00142\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00143}00143\ \ \ \ \ \textcolor{comment}{\#\ Prediction\ section}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00144}00144\ \ \ \ \ st.header(\textcolor{stringliteral}{"{}📈\ Generate\ Predictions"{}})}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00145}00145\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00146}00146\ \ \ \ \ \textcolor{comment}{\#\ Only\ show\ prediction\ interface\ if\ model\ is\ loaded}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00147}00147\ \ \ \ \ \textcolor{keywordflow}{if}\ st.session\_state.current\_model\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00148}00148\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ st.button(f\textcolor{stringliteral}{"{}Generate\ \{CONFIG['PREDICTION\_PERIODS']\}-\/Week\ Forecast"{}},\ type=\textcolor{stringliteral}{"{}primary"{}},\ use\_container\_width=\textcolor{keyword}{True}):}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00149}00149\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{with}\ st.spinner(\textcolor{stringliteral}{"{}Generating\ predictions..."{}}):}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00150}00150\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00151}00151\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Validate\ model\ inputs\ before\ prediction}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00152}00152\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacewalmart_sales_prediction_app_a124daf58b6c4aa56ff27762b60e00f71}{validate\_model\_input}}(st.session\_state.current\_model,\ st.session\_state.model\_type)}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00153}00153\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00154}00154\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Generate\ predictions\ using\ the\ loaded\ model}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00155}00155\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ predictions,\ dates,\ error\ =\ predict\_next\_4\_weeks(}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00156}00156\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ st.session\_state.current\_model,}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00157}00157\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ st.session\_state.model\_type}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00158}00158\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00159}00159\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00160}00160\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ error:}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00161}00161\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Display\ prediction\ error}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00162}00162\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ st.error(error)}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00163}00163\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00164}00164\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Create\ prediction\ dataframe\ for\ display\ and\ download}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00165}00165\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ prediction\_df\ =\ pd.DataFrame(\{}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00166}00166\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'Week'}:\ [f\textcolor{stringliteral}{"{}Week\ \{i+1\}"{}}\ \textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ range(CONFIG[\textcolor{stringliteral}{'PREDICTION\_PERIODS'}])],}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00167}00167\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'Date'}:\ [d.strftime(\textcolor{stringliteral}{'\%Y-\/\%m-\/\%d'})\ \textcolor{keywordflow}{for}\ d\ \textcolor{keywordflow}{in}\ dates],}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00168}00168\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'Predicted\_Sales'}:\ predictions}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00169}00169\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00170}00170\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00171}00171\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Display\ results}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00172}00172\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ st.subheader(\textcolor{stringliteral}{"{}📊\ Forecast\ Results"{}})}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00173}00173\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00174}00174\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Create\ interactive\ plot\ using\ Plotly}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00175}00175\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fig\ =\ go.Figure()}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00176}00176\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00177}00177\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Add\ main\ line\ plot\ for\ predictions}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00178}00178\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fig.add\_trace(go.Scatter(}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00179}00179\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ x=prediction\_df[\textcolor{stringliteral}{'Week'}],}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00180}00180\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ y=prediction\_df[\textcolor{stringliteral}{'Predicted\_Sales'}],}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00181}00181\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ mode=\textcolor{stringliteral}{'lines+markers'},}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00182}00182\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ name=\textcolor{stringliteral}{'Week-\/over-\/Week\ Sales\ Change'},}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00183}00183\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ line=dict(color=\textcolor{stringliteral}{'blue'},\ width=3),}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00184}00184\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ marker=dict(size=10)}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00185}00185\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ))}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00186}00186\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00187}00187\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Configure\ plot\ layout}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00188}00188\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fig.update\_layout(}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00189}00189\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ title=f\textcolor{stringliteral}{'Weekly\ Sales\ Change\ Forecast\ for\ Next\ \{CONFIG["{}PREDICTION\_PERIODS"{}]\}\ Weeks'},}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00190}00190\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ xaxis\_title=\textcolor{stringliteral}{'Week'},}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00191}00191\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ yaxis\_title=\textcolor{stringliteral}{'Sales\ Change\ (\$)'},}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00192}00192\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ hovermode=\textcolor{stringliteral}{'x\ unified'},}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00193}00193\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ template=\textcolor{stringliteral}{'plotly\_white'},}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00194}00194\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ height=500}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00195}00195\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00196}00196\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00197}00197\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Add\ horizontal\ reference\ line\ at\ y=0\ for\ better\ interpretation}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00198}00198\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fig.add\_shape(}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00199}00199\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ type=\textcolor{stringliteral}{"{}line"{}},}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00200}00200\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ x0=0,}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00201}00201\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ y0=0,}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00202}00202\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ x1=CONFIG[\textcolor{stringliteral}{'PREDICTION\_PERIODS'}]-\/1,}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00203}00203\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ y1=0,}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00204}00204\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ line=dict(}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00205}00205\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ color=\textcolor{stringliteral}{"{}gray"{}},}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00206}00206\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ width=1,}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00207}00207\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dash=\textcolor{stringliteral}{"{}dash"{}},}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00208}00208\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00209}00209\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00210}00210\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00211}00211\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Add\ grid\ for\ better\ readability}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00212}00212\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fig.update\_xaxes(showgrid=\textcolor{keyword}{True},\ gridwidth=1,\ gridcolor=\textcolor{stringliteral}{'LightGray'})}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00213}00213\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fig.update\_yaxes(showgrid=\textcolor{keyword}{True},\ gridwidth=1,\ gridcolor=\textcolor{stringliteral}{'LightGray'})}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00214}00214\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00215}00215\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Add\ colored\ bars\ based\ on\ positive/negative\ values}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00216}00216\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ i,\ value\ \textcolor{keywordflow}{in}\ enumerate(prediction\_df[\textcolor{stringliteral}{'Predicted\_Sales'}]):}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00217}00217\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ color\ =\ \textcolor{stringliteral}{"{}green"{}}\ \textcolor{keywordflow}{if}\ value\ >=\ 0\ \textcolor{keywordflow}{else}\ \textcolor{stringliteral}{"{}red"{}}\ \ \textcolor{comment}{\#\ Green\ for\ growth,\ red\ for\ decline}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00218}00218\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fig.add\_trace(go.Bar(}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00219}00219\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ x=[prediction\_df[\textcolor{stringliteral}{'Week'}][i]],}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00220}00220\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ y=[value],}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00221}00221\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ name=f\textcolor{stringliteral}{"{}Week\ \{i+1\}"{}},}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00222}00222\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ marker\_color=color,}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00223}00223\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ opacity=0.7,}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00224}00224\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ showlegend=\textcolor{keyword}{False}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00225}00225\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ))}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00226}00226\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00227}00227\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Display\ the\ interactive\ chart}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00228}00228\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ st.plotly\_chart(fig,\ use\_container\_width=\textcolor{keyword}{True})}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00229}00229\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00230}00230\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Display\ interpretation\ message\ for\ user\ understanding}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00231}00231\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ st.info(\textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00232}00232\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ **How\ to\ interpret:**\ This\ forecast\ shows\ week-\/over-\/week\ sales\ changes,\ not\ absolute\ values.}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00233}00233\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/\ Positive\ values\ (green)\ indicate\ sales\ increases\ from\ previous\ week}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00234}00234\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/\ Negative\ values\ (red)\ indicate\ sales\ decreases\ from\ previous\ week}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00235}00235\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/\ Values\ represent\ dollar\ amount\ changes}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00236}00236\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ "{}"{}"{}})}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00237}00237\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00238}00238\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Display\ data\ table\ with\ colored\ text\ for\ values}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00239}00239\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ st.subheader(\textcolor{stringliteral}{"{}📋\ Prediction\ Values"{}})}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00240}00240\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00241}00241\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Create\ HTML\ for\ the\ colored\ data\ table}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00242}00242\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ html\_table\ =\ \textcolor{stringliteral}{"{}<table\ width='100\%'\ style='text-\/align:\ left;'><tr><th>Week</th><th>Date</th><th>Predicted\ Sales</th></tr>"{}}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00243}00243\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00244}00244\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Generate\ table\ rows\ with\ colored\ values}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00245}00245\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ i,\ row\ \textcolor{keywordflow}{in}\ prediction\_df.iterrows():}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00246}00246\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ value\ =\ row[\textcolor{stringliteral}{'Predicted\_Sales'}]}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00247}00247\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ color\ =\ \textcolor{stringliteral}{"{}green"{}}\ \textcolor{keywordflow}{if}\ value\ >=\ 0\ \textcolor{keywordflow}{else}\ \textcolor{stringliteral}{"{}red"{}}\ \ \textcolor{comment}{\#\ Color\ coding\ for\ positive/negative}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00248}00248\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ formatted\_value\ =\ f\textcolor{stringliteral}{"{}\$\{value:,.2f\}"{}}\ \textcolor{keywordflow}{if}\ value\ >=\ 0\ \textcolor{keywordflow}{else}\ f\textcolor{stringliteral}{"{}-\/\$\{abs(value):,.2f\}"{}}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00249}00249\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00250}00250\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ html\_table\ +=\ f\textcolor{stringliteral}{"{}<tr><td>\{row['Week']\}</td><td>\{row['Date']\}</td>"{}}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00251}00251\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ html\_table\ +=\ f\textcolor{stringliteral}{"{}<td><span\ style='color:\ \{color\};'>\{formatted\_value\}</span></td></tr>"{}}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00252}00252\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00253}00253\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ html\_table\ +=\ \textcolor{stringliteral}{"{}</table>"{}}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00254}00254\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00255}00255\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Display\ the\ HTML\ table}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00256}00256\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ st.markdown(html\_table,\ unsafe\_allow\_html=\textcolor{keyword}{True})}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00257}00257\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00258}00258\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Download\ section}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00259}00259\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ st.subheader(\textcolor{stringliteral}{"{}💾\ Download\ Results"{}})}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00260}00260\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00261}00261\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Format\ for\ download\ (keep\ numeric\ values,\ round\ to\ 2\ decimals)}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00262}00262\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ download\_df\ =\ prediction\_df.copy()}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00263}00263\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ download\_df[\textcolor{stringliteral}{'Predicted\_Sales'}]\ =\ download\_df[\textcolor{stringliteral}{'Predicted\_Sales'}].round(2)}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00264}00264\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00265}00265\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Prepare\ CSV\ for\ download}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00266}00266\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ csv\ =\ download\_df.to\_csv(index=\textcolor{keyword}{False}).encode(\textcolor{stringliteral}{'utf-\/8'})}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00267}00267\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00268}00268\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Create\ download\ buttons\ in\ columns}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00269}00269\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ col1,\ col2\ =\ st.columns(2)}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00270}00270\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{with}\ col1:}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00271}00271\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ st.download\_button(}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00272}00272\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ label=\textcolor{stringliteral}{"{}Download\ as\ CSV"{}},}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00273}00273\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ data=csv,}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00274}00274\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ file\_name=\textcolor{stringliteral}{"{}walmart\_sales\_predictions.csv"{}},}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00275}00275\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ mime=\textcolor{stringliteral}{"{}text/csv"{}},}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00276}00276\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ use\_container\_width=\textcolor{keyword}{True}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00277}00277\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00278}00278\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00279}00279\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{with}\ col2:}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00280}00280\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Create\ JSON\ version\ for\ download}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00281}00281\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ json\_str\ =\ download\_df.to\_json(orient=\textcolor{stringliteral}{'records'})}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00282}00282\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ st.download\_button(}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00283}00283\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ label=\textcolor{stringliteral}{"{}Download\ as\ JSON"{}},}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00284}00284\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ data=json\_str,}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00285}00285\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ file\_name=\textcolor{stringliteral}{"{}walmart\_sales\_predictions.json"{}},}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00286}00286\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ mime=\textcolor{stringliteral}{"{}application/json"{}},}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00287}00287\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ use\_container\_width=\textcolor{keyword}{True}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00288}00288\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00289}00289\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00290}00290\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Summary\ statistics\ section}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00291}00291\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ st.subheader(\textcolor{stringliteral}{"{}📊\ Summary\ Statistics"{}})}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00292}00292\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00293}00293\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Calculate\ cumulative\ impact\ across\ all\ predicted\ weeks}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00294}00294\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cumulative\_impact\ =\ predictions.sum()}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00295}00295\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00296}00296\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Display\ key\ metrics\ in\ columns}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00297}00297\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ col1,\ col2,\ col3\ =\ st.columns(3)}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00298}00298\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00299}00299\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{with}\ col1:}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00300}00300\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Show\ total\ cumulative\ sales\ impact}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00301}00301\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ st.metric(}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00302}00302\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Cumulative\ Sales\ Impact"{}},\ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00303}00303\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ f\textcolor{stringliteral}{"{}\$\{cumulative\_impact:,.2f\}"{}}\ \textcolor{keywordflow}{if}\ cumulative\_impact\ >=\ 0\ \textcolor{keywordflow}{else}\ f\textcolor{stringliteral}{"{}-\/\$\{abs(cumulative\_impact):,.2f\}"{}},}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00304}00304\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ delta=f\textcolor{stringliteral}{"{}\{'+'\ if\ cumulative\_impact\ >=\ 0\ else\ ''\}\{cumulative\_impact:,.2f\}"{}}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00305}00305\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00306}00306\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00307}00307\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{with}\ col2:}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00308}00308\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Count\ weeks\ with\ positive\ growth}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00309}00309\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ positive\_weeks\ =\ sum(1\ \textcolor{keywordflow}{for}\ x\ \textcolor{keywordflow}{in}\ predictions\ \textcolor{keywordflow}{if}\ x\ >\ 0)}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00310}00310\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ st.metric(\textcolor{stringliteral}{"{}Growth\ Weeks"{}},\ f\textcolor{stringliteral}{"{}\{positive\_weeks\}\ of\ \{CONFIG['PREDICTION\_PERIODS']\}"{}})}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00311}00311\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00312}00312\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{with}\ col3:}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00313}00313\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Identify\ best\ and\ worst\ performing\ weeks}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00314}00314\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ best\_week\ =\ predictions.argmax()\ +\ 1}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00315}00315\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ worst\_week\ =\ predictions.argmin()\ +\ 1}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00316}00316\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ st.metric(\textcolor{stringliteral}{"{}Best/Worst\ Weeks"{}},\ f\textcolor{stringliteral}{"{}\{best\_week\}/\{worst\_week\}"{}})}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00317}00317\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00318}00318\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{except}\ ValueError\ \textcolor{keyword}{as}\ e:}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00319}00319\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Handle\ validation\ errors\ during\ prediction}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00320}00320\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ st.error(f\textcolor{stringliteral}{"{}Input\ validation\ error:\ \{str(e)\}"{}})}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00321}00321\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{except}\ Exception\ \textcolor{keyword}{as}\ e:}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00322}00322\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Handle\ unexpected\ errors\ during\ prediction}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00323}00323\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ st.error(f\textcolor{stringliteral}{"{}Unexpected\ error:\ \{str(e)\}"{}})}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00324}00324\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00325}00325\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00326}00326\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Display\ message\ when\ no\ model\ is\ loaded}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00327}00327\ \ \ \ \ \ \ \ \ st.info(\textcolor{stringliteral}{"{}👆\ Please\ load\ a\ model\ first\ to\ generate\ predictions"{}})}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00328}00328\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00329}00329\ \ \ \ \ \textcolor{comment}{\#\ Footer\ section}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00330}00330\ \ \ \ \ st.markdown(\textcolor{stringliteral}{"{}-\/-\/-\/"{}})}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00331}00331\ \ \ \ \ st.markdown(\textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00332}00332\ \textcolor{stringliteral}{\ \ \ \ <div\ style='text-\/align:\ center'>}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00333}00333\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ <p>Walmart\ Sales\ Forecasting\ System\ ©\ 2025</p>}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00334}00334\ \textcolor{stringliteral}{\ \ \ \ </div>}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00335}00335\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}},\ unsafe\_allow\_html=\textcolor{keyword}{True})}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00336}00336\ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00337}00337\ \textcolor{keywordflow}{if}\ \_\_name\_\_\ ==\ \textcolor{stringliteral}{"{}\_\_main\_\_"{}}:}
+\DoxyCodeLine{\Hypertarget{walmart_sales_prediction_app_8py_source_l00338}00338\ \ \ \ \ \mbox{\hyperlink{namespacewalmart_sales_prediction_app_a9beb5e13aa34100e6ae964f38904db80}{main}}()}
+
+\end{DoxyCode}

@@ -1,0 +1,34 @@
+\begin{tikzpicture}[
+	node distance=1.5cm,
+	box/.style={rectangle, draw, fill=blue!10, text width=2.5cm, text centered, minimum height=1cm},
+	cache/.style={rectangle, draw, fill=green!10, text width=2.5cm, text centered, minimum height=1cm},
+	worker/.style={rectangle, draw, fill=orange!10, text width=2cm, text centered, minimum height=0.8cm},
+	arrow/.style={->, thick}
+	]
+	% Main application layer
+	\node[box] (app) {Python Application};
+	% Joblib core components
+	\node[box, below=of app] (memory) {Memory Component Caching};
+	\node[box, right=3cm of memory] (parallel) {Parallel Component Processing};
+	\node[box, left=3cm of memory] (persist) {Persistence Component Serialization};
+	% Cache storage
+	\node[cache, below=of memory] (disk_cache) {Disk Cache Storage};
+	% Workers - single block below parallel component
+	\node[worker, below=of parallel] (workers) {Workers 1..2..3..N};
+	% Storage
+	\node[cache, below=of persist] (file_storage) {File Storage Optimized};
+	% Arrows
+	\draw[arrow] (app) -- (memory);
+	\draw[arrow] (app) -- (parallel);
+	\draw[arrow] (app) -- (persist);
+	\draw[arrow] (memory) -- (disk_cache);
+	\draw[arrow] (parallel) -- (workers);
+	\draw[arrow] (persist) -- (file_storage);
+	% Bidirectional arrows
+	\draw[<->, thick] (memory) -- node[above] {Hash Keys} (disk_cache);
+	\draw[<->, thick] (parallel) -- node[above] {Tasks Results} (workers);
+	% Labels
+	\node[above=0.3cm of memory] {\small Transparent Caching};
+	\node[above=0.3cm of parallel] {\small Multi-Backend};
+	\node[above=0.3cm of persist] {\small NumPy Optimized};
+\end{tikzpicture}

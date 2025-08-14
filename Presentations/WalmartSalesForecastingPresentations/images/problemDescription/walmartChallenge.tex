@@ -1,0 +1,30 @@
+
+	
+	\begin{tikzpicture}[
+		node distance=0.8cm,
+		every node/.style={align=center},
+		challenge/.style={rectangle, rounded corners, fill=HSELhellblau!30, draw=HSELblau, thick, minimum width=2.5cm, minimum height=1cm},
+		center/.style={rectangle, rounded corners, fill=HSELblau!20, draw=HSELblau, very thick, minimum width=3cm, minimum height=1.5cm, font=\bfseries}
+		]
+		% Central node
+		\node[center] (walmart) {Walmart\\Sales\\Forecasting};
+		% Challenge nodes around the center
+		\node[challenge, above=of walmart] (seasonal) {Multiple\\Seasonality};
+		\node[challenge, above right=of walmart] (holidays) {Holiday\\Effects};
+		\node[challenge, right=of walmart] (economic) {Economic\\Factors};
+		\node[challenge, below right=of walmart] (regional) {Regional\\Variations};
+		\node[challenge, below=of walmart] (scale) {11,500+\\Stores};
+		\node[challenge, below left=of walmart] (departments) {Multiple\\Departments};
+		\node[challenge, left=of walmart] (complexity) {Non-linear\\Patterns};
+		\node[challenge, above left=of walmart] (data) {Big Data\\Volume};
+		% Arrows pointing to center
+		\draw[->, thick, HSELblau] (seasonal) -- (walmart);
+		\draw[->, thick, HSELblau] (holidays) -- (walmart);
+		\draw[->, thick, HSELblau] (economic) -- (walmart);
+		\draw[->, thick, HSELblau] (regional) -- (walmart);
+		\draw[->, thick, HSELblau] (scale) -- (walmart);
+		\draw[->, thick, HSELblau] (departments) -- (walmart);
+		\draw[->, thick, HSELblau] (complexity) -- (walmart);
+		\draw[->, thick, HSELblau] (data) -- (walmart);
+	\end{tikzpicture}
+	

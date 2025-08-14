@@ -1,0 +1,67 @@
+\begin{center}
+	\begin{tikzpicture}[
+		scale=1.2, transform shape,
+		node distance=0.8cm and 1.6cm,
+		every node/.style={minimum width=1.6cm, minimum height=0.6cm, text centered, font=\tiny, align=center},
+		startstop/.style={rectangle, rounded corners, draw=black, fill=red!20},
+		process/.style={rectangle, draw=black, fill=orange!20},
+		decision/.style={diamond, draw=black, fill=yellow!20, aspect=3, inner sep=0.5pt},
+		storage/.style={cylinder, draw=black, fill=blue!15, shape aspect=0.6, minimum height=0.6cm},
+		alert/.style={rectangle, draw=black, fill=red!30},
+		future/.style={rectangle, draw=black, fill=green!20},
+		arrow/.style={->,>=stealth}
+		]
+		
+		% Input Sources
+		\node (data_in) [storage] {Production\\Sales Data};
+		\node (predictions) [storage, right=of data_in] {Model\\Predictions};
+		
+		% Monitoring Processes
+		\node (data_quality) [process, below=of data_in] {Data Quality\\Check};
+		\node (performance) [process, below=of predictions] {Performance\\Calculation};
+		
+		% Decision Points
+		\node (quality_ok) [decision, below=of data_quality] {Quality\\OK?};
+		\node (perf_ok) [decision, below=of performance] {Performance\\OK?};
+		
+		% Actions and Alerts
+		\node (drift_detect) [process, below=of quality_ok] {Drift\\Detection};
+		\node (assumption_test) [process, below=of perf_ok] {Assumption\\Testing};
+		
+		% Alert and Retraining Actions
+		\node (alert_gen) [alert, left=of drift_detect] {Generate\\Alert};
+		\node (retrain_trigger) [process, right=of assumption_test] {Trigger\\Retraining};
+		
+		% Storage and Dashboard
+		\node (metrics_db) [storage, below=of drift_detect] {Metrics\\Database};
+		\node (dashboard) [process, below=of assumption_test] {Update\\Dashboard};
+		
+		% Future Implementation
+		\node (ml_ops) [future, below=of metrics_db, xshift=0.8cm] {Future: MLOps\\Integration};
+		
+		% Main workflow arrows
+		\draw [arrow] (data_in) -- (data_quality);
+		\draw [arrow] (predictions) -- (performance);
+		\draw [arrow] (data_quality) -- (quality_ok);
+		\draw [arrow] (performance) -- (perf_ok);
+		
+		% Decision outcomes - Clean routing
+		\draw [arrow] (quality_ok) -- node[anchor=west,font=\scriptsize] {Yes} (drift_detect);
+		\draw [arrow] (quality_ok) -| node[anchor=south,font=\scriptsize] {No} (alert_gen);
+		\draw [arrow] (perf_ok) -- node[anchor=west,font=\scriptsize] {Yes} (assumption_test);
+		\draw [arrow] (perf_ok) -| node[anchor=south,font=\scriptsize] {No} (retrain_trigger);
+		
+		% Processing flows
+		\draw [arrow] (drift_detect) -- (metrics_db);
+		\draw [arrow] (assumption_test) -- (dashboard);
+		
+		% Alert and retrain flows - No overlapping
+		\draw [arrow] (alert_gen) |- (metrics_db);
+		\draw [arrow] (retrain_trigger) |- (dashboard);
+		
+		% Future implementation connections
+		\draw [arrow, dashed, color=green!70!black] (metrics_db) -| (ml_ops);
+		\draw [arrow, dashed, color=green!70!black] (dashboard) -- (ml_ops);
+		
+	\end{tikzpicture}
+\end{center}

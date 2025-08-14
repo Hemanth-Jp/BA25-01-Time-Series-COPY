@@ -1,0 +1,44 @@
+\begin{tikzpicture}[
+    node distance=1.8cm,
+    process/.style={rectangle, draw, fill=orange!20, text width=2.2cm, text centered, minimum height=0.8cm},
+    data/.style={diamond, draw, fill=blue!20, text width=1.8cm, text centered, minimum height=0.8cm},
+    result/.style={ellipse, draw, fill=green!20, text width=2cm, text centered, minimum height=0.8cm},
+    arrow/.style={->, thick}
+]
+
+% Data Generation
+\node[data] (raw_data) {Raw Data};
+\node[process, below=of raw_data] (generation) {Data Generation};
+
+% Processing Pipeline
+\node[process, below=of generation] (filtering) {Signal Filtering};
+\node[process, left=of filtering] (fft) {FFT Analysis};
+\node[process, right=of filtering] (statistics) {Statistical Analysis};
+
+% Advanced Processing
+\node[process, below=of filtering] (integration) {Numerical Integration};
+\node[process, left=of integration] (interpolation) {Interpolation};
+\node[process, right=of integration] (optimization) {Optimization};
+
+% Results
+\node[result, below=of integration] (insights) {Scientific Insights};
+\node[result, left=of insights] (models) {Mathematical Models};
+\node[result, right=of insights] (predictions) {Predictions};
+
+% Arrows
+\draw[arrow] (raw_data) -- (generation);
+\draw[arrow] (generation) -- (filtering);
+\draw[arrow] (generation) -- (fft);
+\draw[arrow] (generation) -- (statistics);
+\draw[arrow] (filtering) -- (integration);
+\draw[arrow] (fft) -- (interpolation);
+\draw[arrow] (statistics) -- (optimization);
+\draw[arrow] (integration) -- (insights);
+\draw[arrow] (interpolation) -- (models);
+\draw[arrow] (optimization) -- (predictions);
+
+% Cross connections
+\draw[arrow] (filtering) -- (interpolation);
+\draw[arrow] (filtering) -- (optimization);
+
+\end{tikzpicture}

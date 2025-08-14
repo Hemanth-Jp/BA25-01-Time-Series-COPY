@@ -1,0 +1,37 @@
+\begin{tikzpicture}[
+    node distance=2cm,
+    box/.style={rectangle, draw, fill=blue!10, text width=3cm, text centered, rounded corners, minimum height=1cm},
+    arrow/.style={->, thick}
+]
+
+% Top layer - User Interface
+\node[box, fill=green!10] (user) {User Interface \\ pandas DataFrame/Series API};
+
+% Middle layer - Core Components
+\node[box, below left=1cm and -1cm of user] (structures) {Data Structures \\ Series, DataFrame, Index};
+\node[box, below right=1cm and -1cm of user] (operations) {Operations \\ GroupBy, Merge, Pivot};
+
+% Data Processing Layer
+\node[box, below=2cm of structures] (io) {Input/Output \\ CSV, Excel, SQL, JSON};
+\node[box, below=2cm of operations] (compute) {Computation Engine \\ Vectorized Operations};
+
+% Foundation layer
+\node[box, below=1.5cm of io, fill=orange!10] (numpy) {NumPy Arrays \\ Memory Management};
+\node[box, below=1.5cm of compute, fill=orange!10] (python) {Python Core \\ Object System};
+
+% Arrows
+\draw[arrow] (user) -- (structures);
+\draw[arrow] (user) -- (operations);
+\draw[arrow] (structures) -- (io);
+\draw[arrow] (operations) -- (compute);
+\draw[arrow] (io) -- (numpy);
+\draw[arrow] (compute) -- (python);
+\draw[arrow] (numpy) -- (python);
+
+% Labels
+\node[above=0.2cm of user] {\textbf{Application Layer}};
+\node[right=0.2cm of operations] {\textbf{Core Layer}};
+\node[right=0.2cm of compute] {\textbf{Processing Layer}};
+\node[right=0.2cm of python] {\textbf{Foundation Layer}};
+
+\end{tikzpicture}

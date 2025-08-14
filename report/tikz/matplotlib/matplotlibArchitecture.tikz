@@ -1,0 +1,49 @@
+\begin{tikzpicture}[
+	node distance=2cm,
+	box/.style={rectangle, draw, minimum width=4cm, minimum height=1.2cm, text centered, align=center},
+	subbox/.style={rectangle, draw, minimum width=3cm, minimum height=0.8cm, text centered, align=center},
+	arrow/.style={->, thick}
+	]
+	
+	% Backend Layer (bottom)
+	\node[box, fill=orange!10] (backend) at (0,0) {Backend Layer};
+	\node[subbox, fill=orange!5] (agg) at (-4,-2) {Agg Backend};
+	\node[subbox, fill=orange!5] (qt) at (0,-2) {Qt Backend};
+	\node[subbox, fill=orange!5] (tk) at (4,-2) {Tk Backend};
+	
+	% Artist Layer (middle)
+	\node[box, fill=green!10] (artist) at (0,4) {Artist Layer};
+	\node[subbox, fill=green!5] (primitive) at (-4,2) {Primitive\\Artists};
+	\node[subbox, fill=green!5] (composite) at (0,2) {Composite\\Artists};
+	\node[subbox, fill=green!5] (collections) at (4,2) {Collections};
+	
+	% Scripting Layer (top)
+	\node[box, fill=blue!10] (scripting) at (0,8) {Scripting Layer};
+	\node[subbox, fill=blue!5] (pyplot) at (-4,6) {pyplot\\Interface};
+	\node[subbox, fill=blue!5] (oo) at (0,6) {Object-\\Oriented};
+	\node[subbox, fill=blue!5] (widgets) at (4,6) {Interactive\\Widgets};
+	
+	% User Interface
+	\node[box, fill=gray!10] (user) at (0,10) {User Code};
+	
+	% Main layer arrows
+	\draw[arrow] (user) -- (scripting);
+	\draw[arrow] (scripting) -- (artist);
+	\draw[arrow] (artist) -- (backend);
+	
+	% Component connections (avoid overlapping with text)
+	\draw[arrow] (pyplot.south) -- (primitive.north);
+	\draw[arrow] (oo.south) -- (composite.north);
+	\draw[arrow] (widgets.south) -- (collections.north);
+	
+	\draw[arrow] (primitive.south) -- (agg.north);
+	\draw[arrow] (composite.south) -- (qt.north);
+	\draw[arrow] (collections.south) -- (tk.north);
+	
+	% Labels on the right side
+	\node[anchor=west] at (8, 10) {\textbf{User Interface}};
+	\node[anchor=west] at (8, 8) {\textbf{High-level API}};
+	\node[anchor=west] at (8, 4) {\textbf{Drawing Primitives}};
+	\node[anchor=west] at (8, 0) {\textbf{Output Generation}};
+	
+\end{tikzpicture}

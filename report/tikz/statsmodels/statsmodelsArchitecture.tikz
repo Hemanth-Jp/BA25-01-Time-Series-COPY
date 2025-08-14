@@ -1,0 +1,29 @@
+\begin{tikzpicture}[
+	node distance=2.5cm,
+	every node/.style={font=\footnotesize},
+	box/.style={rectangle, draw, fill=blue!10, minimum width=2.8cm, minimum height=1.2cm, text centered},
+	arrow/.style={->, thick}
+	]
+	
+	% Simple linear flow
+	\node[box] (data) {Data Input};
+	\node[box, below=of data] (model) {Statistical Model};
+	\node[box, below=of model] (fit) {Model Fitting};
+	\node[box, below=of fit] (results) {Statistical Results};
+	\node[box, below=of results] (output) {Summary and Plots};
+	
+	% Side branches for interfaces
+	\node[box, right=3cm of model] (formula) {Formula API};
+	\node[box, right=3cm of fit] (array) {Array API};
+	
+	% Arrows for main flow
+	\draw[arrow] (data) -- (model);
+	\draw[arrow] (model) -- (fit);
+	\draw[arrow] (fit) -- (results);
+	\draw[arrow] (results) -- (output);
+	
+	% Arrows for interfaces
+	\draw[arrow] (formula) -- (model);
+	\draw[arrow] (array) -- (fit);
+	
+\end{tikzpicture}

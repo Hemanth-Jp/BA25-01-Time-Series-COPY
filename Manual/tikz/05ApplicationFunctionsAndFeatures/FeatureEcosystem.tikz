@@ -1,0 +1,38 @@
+\begin{tikzpicture}[
+	node distance=2.5cm,
+	core/.style={ellipse, draw, fill=red!20, text width=3cm, text centered, minimum height=1.5cm},
+	feature/.style={rectangle, draw, fill=blue!20, text width=2.5cm, text centered, rounded corners, minimum height=1cm},
+	data/.style={rectangle, draw, fill=green!20, text width=2cm, text centered, rounded corners, minimum height=0.8cm},
+	arrow/.style={thick,->,>=stealth}
+	]
+	
+	% Title
+
+	
+	% Core system
+	\node[core] (core) at (0,0) {\textbf{Walmart Sales\\Forecasting}};
+	
+	% Training Features (Left side)
+	\node[feature] (training) at (-3.5,1.5) {Data Upload\\+ Training};
+	\node[feature] (model_save) at (-3.5,-1.5) {Model Export};
+	
+	% Prediction Features (Right side)  
+	\node[feature] (forecasting) at (3.5,1.5) {Load Model\\+ Forecast};
+	\node[feature] (results) at (3.5,-1.5) {Visualization\\+ Export};
+	
+	% Data inputs (Top)
+	\node[data] (input_data) at (0,3) {CSV Data Files};
+	
+	% Outputs (Bottom)
+	\node[data] (output_data) at (0,-3) {Results + Charts};
+	
+	% Main connections
+	\draw[arrow] (input_data) -- (training);
+	\draw[arrow] (training) -- (core);
+	\draw[arrow] (core) -- (model_save);
+	\draw[arrow, dashed] (model_save) to[bend left=45] (forecasting);
+	\draw[arrow] (forecasting) -- (core);
+	\draw[arrow] (core) -- (results);
+	\draw[arrow] (results) -- (output_data);
+	
+\end{tikzpicture}

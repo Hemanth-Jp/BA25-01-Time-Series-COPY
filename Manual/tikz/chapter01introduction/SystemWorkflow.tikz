@@ -1,0 +1,27 @@
+% Simplified Sales Forecasting Workflow - Vertical Flow
+\begin{tikzpicture}[
+	node distance=2.5cm,
+	every node/.style={align=center},
+	process/.style={rectangle, draw, fill=blue!20, text width=2.5cm, minimum height=1.2cm, rounded corners},
+	data/.style={ellipse, draw, fill=green!20, text width=2cm, minimum height=0.8cm},
+	arrow/.style={->, thick, blue}
+	]
+	
+	% Main workflow - vertical flow
+	\node[data] (input) {Sales Data\\(CSV)};
+	\node[process, below=of input] (train) {Training App\\{\scriptsize 5-30 min}\\{\color{red!70}\scriptsize Privacy \& Control}};
+	\node[data, below=of train] (model) {Trained Model\\(.pkl)};
+	\node[process, below=of model] (predict) {Prediction App\\{\scriptsize < 1 min}\\{\color{red!70}\scriptsize Speed \& Convenience}};
+	\node[data, below=of predict] (output) {4-Week\\Sales Forecast};
+	
+	% Main flow arrows
+	\draw[arrow] (input) -- (train) node[midway, right] {\small Upload};
+	\draw[arrow] (train) -- (model) node[midway, right] {\small Save};
+	\draw[arrow] (model) -- (predict) node[midway, right] {\small Load};
+	\draw[arrow] (predict) -- (output) node[midway, right] {\small Generate};
+	
+	% Transfer options note
+	\node[left=1.5cm of model, text=gray, font=\scriptsize] {Transfer via:\\file copy or\\UI upload};
+	\draw[arrow, dashed, gray] (model.west) -- ++(-1.2,0);
+	
+\end{tikzpicture}

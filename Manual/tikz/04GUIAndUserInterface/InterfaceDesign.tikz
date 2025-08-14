@@ -1,0 +1,67 @@
+\begin{tikzpicture}[
+	layer/.style={rectangle, draw, fill=blue!20, text width=3.5cm, text centered, rounded corners, minimum height=1.5cm},
+	component/.style={rectangle, draw, fill=green!20, text width=4cm, text centered, rounded corners, minimum height=1.2cm},
+	framework/.style={rectangle, draw, fill=orange!20, text width=4cm, text centered, rounded corners, minimum height=1.5cm},
+	ui/.style={rectangle, draw, fill=purple!20, text width=4cm, text centered, rounded corners, minimum height=1.2cm},
+	user/.style={rectangle, draw, fill=yellow!20, text width=5cm, text centered, rounded corners, minimum height=1.2cm},
+	box/.style={rectangle, draw, fill=gray!10, text width=4.3cm, text centered, rounded corners, minimum height=1.2cm},
+	arrow/.style={thick,->,>=stealth}
+	]
+	
+	% Title
+	\node at (0,13.5) {\Large\textbf{User Interface Design Architecture}};
+	
+	% Framework Layer
+	\node[framework] (streamlit) at (0,12) {\textbf{Streamlit Framework}\\Web-based UI, Reactive Components};
+	
+	% Application Layer
+	\node[layer] (training_app) at (-3.5,9) {\textbf{Training App}\\Model Dev, Data Processing};
+	\node[layer] (prediction_app) at (3.5,9) {\textbf{Prediction App}\\Forecasting, Visualization};
+	
+	% Components Layer
+	\node[component] (training_comp) at (-3.5,6) {Training Components\\Upload, Config, Visualization};
+	\node[component] (prediction_comp) at (3.5,6) {Prediction Components\\Model Mgmt, Forecast, Results};
+	
+	% UI Elements (combined)
+	\node[ui] (ui_components) at (0,3) {\textbf{UI Components}\\Buttons, Forms, Charts, Tables, Downloads};
+	
+	% User Interaction
+	\node[user] (user_layer) at (0,0) {\textbf{User Interaction Layer}\\Mouse, Keyboard, Touch, Browser Events};
+	
+	% Arrows - Framework to Apps
+	\draw[arrow] (streamlit) -- (training_app);
+	\draw[arrow] (streamlit) -- (prediction_app);
+	
+	% Arrows - Apps to Components
+	\draw[arrow] (training_app) -- (training_comp);
+	\draw[arrow] (prediction_app) -- (prediction_comp);
+	
+	% Arrows - Components to UI
+	\draw[arrow] (training_comp) -- (ui_components);
+	\draw[arrow] (prediction_comp) -- (ui_components);
+	
+	% Arrows - UI to User
+	\draw[arrow] (ui_components) -- (user_layer);
+	
+	% Side Boxes
+	\node[box, anchor=west] (principles) at (7.2,9) {
+		\textbf{Design Principles:}\\
+		• User-centric layout\\
+		• Responsive design\\
+		• Clear visual hierarchy\\
+		• Consistent styling
+	};
+	
+	\node[box, anchor=west] (stack) at (7.2,3) {
+		\textbf{Technology Stack:}\\
+		• Streamlit\\
+		• Plotly\\
+		• Pandas\\
+		• HTML/CSS/JS
+	};
+	
+	% Dashed side arrows
+	\draw[arrow, dashed] (streamlit.east) -- (principles.west);
+	\draw[arrow, dashed] (user_layer.east) -- (stack.west);
+	
+\end{tikzpicture}

@@ -1,0 +1,49 @@
+\begin{tikzpicture}[
+    node distance=1.2cm,
+    box/.style={rectangle, rounded corners, minimum width=2cm, minimum height=0.8cm, text centered, draw=black},
+    scope/.style={rectangle, rounded corners, minimum width=1.8cm, minimum height=0.6cm, text centered, draw=black, fill=blue!15},
+    arrow/.style={thick,->,>=stealth}
+]
+
+% Session scope
+\node[scope, fill=green!20] (session) {Session Scope};
+\node[box, below=0.5cm of session] (session_setup) {Database Connection};
+
+% Module scope
+\node[scope, below=1cm of session_setup, fill=yellow!20] (module) {Module Scope};
+\node[box, below=0.5cm of module] (module_setup) {Test Data Setup};
+
+% Function scope
+\node[scope, below=1cm of module_setup, fill=orange!20] (function) {Function Scope};
+\node[box, below=0.5cm of function] (function_setup) {Temp Files};
+
+% Test execution
+\node[box, below=1cm of function_setup, fill=red!15] (test) {Test Execution};
+
+% Teardown process
+\node[box, right=3cm of function_setup, fill=orange!15] (func_teardown) {Function Teardown};
+\node[box, above=1cm of func_teardown, fill=yellow!15] (mod_teardown) {Module Teardown};
+\node[box, above=1cm of mod_teardown, fill=green!15] (sess_teardown) {Session Teardown};
+
+% Flow arrows - Setup
+\draw[arrow] (session) -- (session_setup);
+\draw[arrow] (session_setup) -- (module);
+\draw[arrow] (module) -- (module_setup);
+\draw[arrow] (module_setup) -- (function);
+\draw[arrow] (function) -- (function_setup);
+\draw[arrow] (function_setup) -- (test);
+
+% Flow arrows - Teardown
+\draw[arrow] (test) -- (func_teardown);
+\draw[arrow] (func_teardown) -- (mod_teardown);
+\draw[arrow] (mod_teardown) -- (sess_teardown);
+
+% Labels
+\node[left=0.2cm of session_setup] {\small Setup};
+\node[right=0.2cm of func_teardown] {\small Teardown};
+
+% Dependency arrows
+\draw[arrow, dashed, blue] (session_setup) to[bend right=30] (module_setup);
+\draw[arrow, dashed, blue] (module_setup) to[bend right=30] (function_setup);
+
+\end{tikzpicture}

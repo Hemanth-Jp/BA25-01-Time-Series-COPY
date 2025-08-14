@@ -1,0 +1,176 @@
+%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% $Autor:  Adil Ibraheem Koyava $
+% $Datum: 2025-06-30 $
+% $Pfad: GitHub/BA25-01-Time-Series/report/Contents/en/SoftwareBOM.tex $
+% $Version: 2.0 $
+%
+% $Project: BA25-01-Time-Series - Walmart Sales Forecasting System $
+%
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Software Bill of Materials}
+
+\section*{Introduction}
+This chapter provides a comprehensive overview of all software components, libraries, frameworks, and tools used in the development and deployment of the Walmart Sales Forecasting System. The system is designed as a web-based interactive application that enables users to perform time series forecasting on Walmart sales data using advanced statistical models. This documentation ensures full transparency, reproducibility, and traceability of every component used in the project.
+
+The application leverages Python's robust ecosystem for data science and time series analysis, implemented through a modern web interface using Streamlit. The architecture supports both cloud deployment and local installation, with careful attention to cross-platform compatibility and production stability.
+
+\section*{Programming Environment}
+
+\begin{itemize}
+	\item \textbf{Language: Python 3.12.x} \\
+	Python 3.12 was selected as the primary programming language due to its enhanced performance, improved error messages, and robust support for the statistical computing ecosystem. This version provides optimal compatibility with all required libraries while offering the latest security updates and performance optimizations.
+	
+	\item \textbf{Web Framework: Streamlit 1.31.1} \\
+	Streamlit serves as the core web application framework, enabling rapid development of interactive data applications. Version 1.31.1 was specifically chosen to avoid CPU performance issues present in version 1.32.x, ensuring stable operation in production environments.
+	
+	\item \textbf{Development Environment: Multiple Platforms Supported} \\
+	The application supports development and deployment across Windows 10+, macOS 10.15+, and Linux (Ubuntu 20.04+) on both ARM64 and x86\_64 architectures.
+\end{itemize}
+
+\section*{Core Application Stack}
+
+\subsection*{1. Data Processing and Analytics}
+
+\begin{itemize}
+	\item \textbf{pandas 2.2.2} \\
+	Primary library for data manipulation and analysis. Used extensively for reading CSV files, handling time-indexed data, performing aggregations, and managing the complex Walmart dataset structure containing sales data from 45 stores across multiple departments.
+	
+	\item \textbf{numpy 1.26.4} \\
+	Fundamental numerical computing library providing efficient array operations. This LTS version ensures stability while compatibility with numpy 2.x is pending for the broader ecosystem.
+	
+	\item \textbf{scipy 1.13.1} \\
+	Scientific computing library specifically pinned to version 1.13.1 due to compatibility requirements with pmdarima. Later versions (1.14+) break pmdarima functionality, making this version critical for project stability.
+\end{itemize}
+
+\subsection*{2. Time Series Forecasting Models}
+
+\begin{itemize}
+	\item \textbf{statsmodels 0.14.2} \\
+	Comprehensive statistical modeling library providing the foundation for time series analysis. Used for implementing Exponential Smoothing (Holt-Winters) models with triple smoothing components (level, trend, and seasonal).
+	
+	\item \textbf{pmdarima 2.0.4} \\
+	Advanced ARIMA modeling library enabling automated parameter selection through grid search. The auto\_arima function automatically identifies optimal (p,d,q) parameters using AIC-based optimization and seasonal pattern detection.
+	
+	\item \textbf{scikit-learn 1.4.2} \\
+	Machine learning library used for data preprocessing, cross-validation, and model evaluation metrics. Provides essential utilities for train-test splitting and performance assessment.
+	
+	\item \textbf{joblib 1.4.2} \\
+	Parallel processing backend used for model serialization and persistence. Enables efficient saving and loading of trained forecasting models across different environments.
+\end{itemize}
+
+\subsection*{3. Data Visualization and Interactive Components}
+
+\begin{itemize}
+	\item \textbf{plotly 5.24.1} \\
+	Primary visualization library for creating interactive plots and dashboards. Enables users to explore forecasting results through dynamic, web-ready visualizations integrated seamlessly with the Streamlit interface.
+	
+	\item \textbf{matplotlib 3.8.4} \\
+	Fundamental plotting library used for static visualizations during model development and diagnostic plotting. Version includes important security fixes.
+	
+	\item \textbf{seaborn 0.13.2} \\
+	Statistical visualization library built on matplotlib, used for creating advanced statistical plots including correlation heatmaps and distribution analyses during exploratory data analysis.
+\end{itemize}
+
+\subsection*{4. Web Application Dependencies}
+
+\begin{itemize}
+	\item \textbf{streamlit 1.31.1} \\
+	Core web framework enabling the interactive user interface. Provides widgets for model selection, parameter tuning, and result visualization.
+	
+	\item \textbf{altair 5.0.1} \\
+	Declarative visualization grammar integrated with Streamlit for creating statistical graphics.
+	
+	\item \textbf{tornado 6.4} \\
+	Asynchronous web framework serving as the backend server for Streamlit applications.
+	
+	\item \textbf{watchdog 4.0.0} \\
+	File system monitoring utility enabling automatic reloading during development.
+\end{itemize}
+
+\section*{Security and Production Dependencies}
+
+\begin{itemize}
+	\item \textbf{requests 2.31.0} \\
+	HTTP library with critical security fixes for secure web communications.
+	
+	\item \textbf{urllib3 2.2.3} \\
+	HTTP client with security patches addressing known vulnerabilities.
+	
+	\item \textbf{certifi 2024.2.2} \\
+	Updated SSL certificate bundle ensuring secure HTTPS connections.
+	
+	\item \textbf{pillow 10.2.0} \\
+	Image processing library with security updates for handling user-uploaded images.
+\end{itemize}
+
+\section*{Development and Testing}
+
+\begin{itemize}
+	\item \textbf{pytest 7.4.4} \\
+	Testing framework for ensuring code quality and functionality verification across different deployment environments.
+\end{itemize}
+
+\section*{Deployment Configurations}
+
+\subsection*{Cloud Deployment (Streamlit Cloud)}
+The application is optimized for deployment on Streamlit Cloud with automatic dependency management and cross-platform compatibility. The requirements.txt file includes specific version pins to ensure consistent behavior across different cloud environments.
+
+\subsection*{Local Installation}
+For local development and deployment, the same requirements.txt file supports installation across Windows, macOS, and Linux systems. The application automatically detects the deployment environment and adjusts file paths accordingly.
+
+\section*{Version Compatibility Matrix}
+
+\begin{table}[h]
+	\centering
+	\caption{Platform Compatibility}
+	\begin{tabular}{|p{3cm}|p{10cm}|}
+		\hline
+		\textbf{Component} & \textbf{Supported Versions/Platforms} \\
+		\hline
+		Python & 3.8, 3.9, 3.10, 3.11, 3.12 \\
+		\hline
+		Operating Systems & Linux (Ubuntu 20.04+), macOS (10.15+), Windows 10+ \\
+		\hline
+		Architectures & ARM64, x86\_64 \\
+		\hline
+		Deployment & Streamlit Cloud, Docker, Kubernetes, Local \\
+		\hline
+	\end{tabular}
+	\label{tab:platform-compatibility}
+\end{table}
+
+\section*{Critical Dependencies and Constraints}
+
+\begin{itemize}
+	\item \textbf{scipy version constraint}: Must remain at 1.13.1 due to pmdarima compatibility. Future upgrades require pmdarima update first.
+	
+	\item \textbf{streamlit version}: Version 1.31.1 chosen to avoid CPU performance issues in newer releases.
+	
+	\item \textbf{Security monitoring}: All packages are regularly scanned for vulnerabilities with updates applied monthly or when critical security patches are released.
+\end{itemize}
+
+\section*{Installation and Validation}
+
+For reproducible deployment, use the following commands:
+
+\begin{verbatim}
+# Install dependencies
+pip install -r requirements.txt
+
+# Validate installation
+python -c "import streamlit, pandas, numpy, pmdarima; 
+           print(' All imports successful')"
+
+# Test pmdarima functionality
+python -c "from pmdarima import auto_arima; 
+           print(' pmdarima working')"
+
+# Launch application
+streamlit run walmartSalesPredictionApp.py
+\end{verbatim}
+
+\section*{Summary}
+
+The Walmart Sales Forecasting System utilizes a carefully curated technology stack centered on Python 3.12 and Streamlit. The combination of statsmodels, pmdarima, and plotly enables sophisticated time series analysis with an intuitive web interface. All components are version-pinned for production stability, with particular attention to security updates and cross-platform compatibility. This architecture supports both rapid development and reliable production deployment for time series forecasting applications.

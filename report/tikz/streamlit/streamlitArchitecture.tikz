@@ -1,0 +1,32 @@
+% Streamlit Application Architecture TikZ Diagram
+% File: streamlit_architecture.tikz
+
+\begin{tikzpicture}[
+	node distance=2cm,
+	box/.style={rectangle, draw, minimum width=3cm, minimum height=1cm, align=center},
+	arrow/.style={->, thick}
+	]
+	% Nodes
+	\node[box] (script) {Python Script};
+	\node[box, below of=script] (streamlit) {Streamlit Engine};
+	\node[box, below of=streamlit] (tornado) {Tornado Server};
+	\node[box, below of=tornado] (browser) {Web Browser};
+	\node[box, below of=browser] (user) {User Interaction};
+	
+	% Arrows
+	\draw[arrow] (script) -- (streamlit);
+	\draw[arrow] (streamlit) -- (tornado);
+	\draw[arrow] (tornado) -- (browser);
+	\draw[arrow] (browser) -- (user);
+	\draw[arrow] (user) -- (browser);
+	
+	% Side annotations
+	\node[right of=streamlit, xshift=2cm, align=left] (engine_desc) {Component rendering\\State management};
+	\node[right of=tornado, xshift=2cm, align=left] (server_desc) {HTTP handling\\WebSocket support};
+	\node[right of=browser, xshift=2cm, align=left] (browser_desc) {React frontend\\Component display};
+	
+	% Dotted connections
+	\draw[dotted, gray] (streamlit) -- (engine_desc);
+	\draw[dotted, gray] (tornado) -- (server_desc);
+	\draw[dotted, gray] (browser) -- (browser_desc);
+\end{tikzpicture}

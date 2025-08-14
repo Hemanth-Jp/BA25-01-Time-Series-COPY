@@ -1,0 +1,116 @@
+%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% $Autor: Hemanth Jadiswami Prabhakaran $
+% $Datum: 2025-06-25 13:24:38Z $
+% $Pfad: GitHub/BA25-01-Time-Series/Presentations/WalmartSalesForecastingPresentations/slides/problemDescription.tex $
+% $Version: 1 $
+%
+% $Project: BA25-Time-Series $
+%
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\Mysection{Problem Description \& Motivation}
+\STANDARD{Retail Sales Forecasting - The Challenge}
+{
+	\framesubtitle{Setting the Context}
+	
+	\textbf{The Scale of Modern Retail}
+	\begin{itemize}
+		\item Walmart operates over \textbf{11,500 stores} across multiple countries
+		\item Each store contains \textbf{dozens of departments} with unique sales patterns
+		\item Weekly sales data creates over \textbf{4,400 individual time series}
+		\item Annual revenue exceeds \textbf{\$500 billion} globally
+	\end{itemize}
+	
+	\vspace{0.5cm}
+	
+	\textbf{Why Accurate Forecasting Matters}
+	\begin{itemize}
+		\item \textbf{Inventory Costs}: Poor forecasting leads to \$1.1 trillion in excess inventory globally
+		\item \textbf{Stockouts}: Lost sales opportunities cost retailers 4\% of annual revenue
+		\item \textbf{Operational Efficiency}: Staff scheduling and resource allocation depend on demand predictions
+		\item \textbf{Competitive Advantage}: Better forecasts enable superior customer service
+	\end{itemize}
+	
+	\vspace{0.5cm}
+	
+	\begin{center}
+		\textbf{\textcolor{HSELblau}{Challenge: How do we predict complex, multi-seasonal retail patterns accurately?}}
+	\end{center}
+}
+\STANDARD{The Forecasting Challenge}
+{
+  \framesubtitle{Retail Sales Complexity}
+  \begin{figure}[H]
+    \centering
+   \input{images/problemDescription/walmartChallenge}
+  \end{figure}
+
+  \textbf{Walmart - World's Largest Retailer}
+  \begin{itemize}
+    \item 11,500+ stores worldwide \cite{Zhang:2021}
+    \item Multiple departments per store
+    \item Complex sales patterns with multiple seasonalities
+    \item Influenced by holidays, economic factors, regional variations
+  \end{itemize}
+
+  \textbf{Key Challenges}
+  \begin{itemize}
+    \item Weekly and annual seasonal patterns
+    \item Holiday effects (Christmas, Black Friday, Easter)
+    \item Economic indicators impact
+    \item Store-to-store variations
+  \end{itemize}
+}
+
+\STANDARD{Business Impact}
+{
+  \framesubtitle{Why Accurate Forecasting Matters}
+  
+  \begin{figure}[H]
+    \centering
+    \input{images/problemDescription/businessImpact}
+  \end{figure}
+
+  \textbf{Operational Benefits}
+  \begin{itemize}
+    \item \textbf{Inventory Management}: Optimal stock levels, reduced waste
+    \item \textbf{Workforce Planning}: Efficient staff allocation
+    \item \textbf{Supply Chain}: Better coordination with suppliers
+  \end{itemize}
+
+  \textbf{Strategic Benefits}
+  \begin{itemize}
+    \item \textbf{Marketing Optimization}: Campaign effectiveness evaluation
+    \item \textbf{Financial Planning}: Revenue forecasting and budgeting
+    \item \textbf{Customer Satisfaction}: Avoiding stockouts and overstocking
+  \end{itemize}
+}
+
+\STANDARD{Dataset Overview}
+{
+	\framesubtitle{Walmart Sales Data Characteristics}
+	
+	\textbf{Data Scope}
+	\begin{itemize}
+		\item \textbf{45 stores} across different regions
+		\item \textbf{Multiple departments} per store
+		\item \textbf{Weekly sales} from 2010-2012
+		\item Over \textbf{4,400 time series} to analyze
+	\end{itemize}
+	
+	\textbf{External Factors}
+	\begin{itemize}
+		\item Temperature, fuel prices
+		\item Unemployment rates
+		\item Consumer Price Index (CPI)
+		\item Holiday indicators
+	\end{itemize}
+	
+	\begin{figure}[!h]
+		\centering
+		\input{images/problemDescription/dataStructure}
+	\end{figure}
+}

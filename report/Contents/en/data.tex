@@ -1,0 +1,105 @@
+%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% $Autor: Adil $
+% $Datum: 2025-06-30 06:26:48Z $
+% $Pfad: GitHub/BA25-01-Time-Series/report/Contents/en/data.tex $
+% $Version: 1 $
+%
+% $Project: BA25-Time-Series $
+%
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+\chapter{Data}
+
+In this section, we examine the dataset chosen for our analysis, the Walmart Sales Dataset, in terms of its structure, size, format, anomalies, and origin. Understanding the dataset’s characteristics is foundational to designing a robust business analytics solution.\cite{Yasserh:WalmartDataset}
+
+\section{Data Structure}
+
+The Walmart Sales dataset is structured as a relational flat file comprising 8 distinct attributes (columns) across 6,435 records (rows). Each row corresponds to a weekly sales record for a particular Walmart store, capturing a mix of store-level, temporal, and economic variables.\cite{Yasserh:WalmartDataset} \\ 
+
+
+The data fields are as follows:
+
+\begin{table}[H]
+	\centering
+	\caption{Walmart Dataset Column Descriptions}
+	\begin{tabular}{|l|l|p{9cm}|}
+		\hline
+		\textbf{Column Name} & \textbf{Data Type} & \textbf{Description} \\
+		\hline
+		\texttt{Store} & Integer & Unique identifier for each store. \\
+		\hline
+		\texttt{Date} & String (Object) & Represents the week-ending date for the sales data. Stored in DD-MM-YYYY format. \\
+		\hline
+		\texttt{Weekly\_Sales} & Float & Total sales recorded for the week in U.S. dollars. \\
+		\hline
+		\texttt{Holiday\_Flag} & Integer (Binary) & A binary indicator: 1 if the week includes a major holiday, 0 otherwise. \\
+		\hline
+		\texttt{Temperature} & Float & Average temperature during the week (in Fahrenheit). \\
+		\hline
+		\texttt{Fuel\_Price} & Float & Average fuel price during the week (per gallon). \\
+		\hline
+		\texttt{CPI} & Float & Consumer Price Index — a measure of inflation at that time. \\
+		\hline
+		\texttt{Unemployment} & Float & Unemployment rate for the respective region and week. \\
+		\hline
+	\end{tabular}
+	\label{tab:walmart_columns}
+\end{table}
+
+This well-labeled structure makes the dataset suitable for supervised machine learning models and time-series forecasting after appropriate preprocessing steps.
+
+\section{Data Size}
+
+The dataset is modest in size, making it computationally efficient for exploratory data analysis and predictive modeling even on standard computing environments (e.g., personal laptops).
+
+\begin{itemize}
+    \item Number of rows: 6,435
+    \item Number of columns: 8
+    \item Total data points: 51,480
+    \item File size: ~530 KB
+\end{itemize}
+
+Such a size allows for real-time data exploration, dashboarding, and iterative model training, especially during the prototyping phase of application development.
+
+\section{Data Format}
+
+The idea is to use a data structure that is as uniform and simple as possible. Maple does offer the possibility to define objects. However, it is difficult to use within a procedural environment. Therefore, all data is basically represented as lists. The first list element always contains an identifier of the element \ref{Listekennung}. This is followed by the data, which in turn can be geometry elements. It should be noted that direct access to the data cannot be prevented; here the user is responsible.
+
+\begin{itemize}
+	\item File Type: CSV (Comma-Separated Values)
+	\item Encoding: UTF-8
+	\item Date Representation: The Date column is currently stored as a string (object) in the format DD-MM-YYYY, which may require parsing to a standard datetime format (YYYY-MM-DD) for temporal analysis.
+	\item Numerical Precision: Most financial and economic columns (e.g., Weekly\_Sales, CPI, Unemployment) are in float format, ensuring accuracy and precision in quantitative analysis.
+	\item Categorical Encoding: The Holiday\_Flag is stored as an integer (0 or 1) but logically functions as a binary categorical variable.
+\end{itemize}
+
+This format is highly compatible with data analysis tools such as pandas (Python), Excel, Power BI, Tableau, and R, making it versatile for various stages of data engineering and visualization.
+
+
+\section{Data Anomalies}
+
+Upon inspection, the dataset appears well-structured and clean. However, a few potential preprocessing considerations are highlighted below: \medskip
+
+\begin{itemize}
+	\item Missing Values: No missing or null values are present across any of the columns, which ensures data completeness and reduces the need for imputation strategies.
+	\item Data Type Mismatch: The Date column should be converted from object to datetime format to enable chronological grouping, lag features, or rolling statistics.
+	\item Outlier Detection: While not immediately visible, further statistical analysis should be conducted on Weekly\_Sales to identify possible outliers that may skew results (e.g., extreme spikes during holiday periods).
+	\item Feature Granularity: The Holiday\_Flag is a binary indicator, but the dataset does not specify which holiday is involved. This limits contextual understanding (e.g., Christmas vs. Labor Day sales impact).
+\end{itemize}
+
+No duplicate records were found in the sample tested, and the data appears to maintain relational integrity between dates, stores, and sales metrics.
+
+\section{Data Origin}
+
+This dataset is sourced from Kaggle, a widely used online platform for data science competitions and academic datasets. The original dataset is available at:\\
+
+\href{https://www.kaggle.com/datasets/yasserh/walmart-dataset}{Kaggle - Walmart Dataset}\\
+
+The dataset is publicly available and curated primarily for educational and analytical purposes, simulating historical sales data for Walmart's retail operations across the United States. It reflects actual economic indicators such as unemployment and CPI, making it an excellent candidate for analyzing retail performance in relation to macroeconomic trends.\\
+
+The authenticity and coherence of the dataset make it suitable for business forecasting, promotional impact studies, and hypothesis testing regarding consumer behavior.

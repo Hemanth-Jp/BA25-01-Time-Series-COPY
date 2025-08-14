@@ -1,0 +1,51 @@
+\begin{tikzpicture}[
+	node distance=1.2cm and 2cm,
+	box/.style={rectangle, draw, fill=blue!10, minimum width=3cm, minimum height=1cm, text centered},
+	arrow/.style={->, thick, blue!70}
+	]
+	
+	% Input Layer
+	\node[box] (userinput) {User Input};
+	\node[box, below=of userinput] (widgets) {Dashboard Widgets};
+	
+	% Logic Layer
+	\node[box, below=of widgets] (validation) {Input Validation};
+	\node[box, below=of validation] (processing) {Data Processing};
+	
+	% Visualization Layer
+	\node[box, below=of processing] (generate) {Generate Plots};
+	\node[box, left=of generate] (cache) {Cache Results};
+	\node[box, right=of generate] (format) {Format Output};
+	
+	% Output Layer
+	\node[box, below=of generate] (update) {Update Dashboard};
+	\node[box, below=of update] (display) {User Display};
+	
+	% Feedback
+	\node[box, right=of userinput, xshift=-1cm] (feedback) {User Feedback};
+	
+	% Arrows - Main flow
+	\draw[arrow] (userinput) -- (widgets);
+	\draw[arrow] (widgets) -- (validation);
+	\draw[arrow] (validation) -- (processing);
+	\draw[arrow] (processing) -- (generate);
+	\draw[arrow] (generate) -- (update);
+	\draw[arrow] (cache) -- (update);
+	\draw[arrow] (format) -- (update);
+	\draw[arrow] (update) -- (display);
+	
+	% Feedback loop (adjusted for feedback xshift)
+	\draw[arrow] (display.east) -- ++(1.5,0) |- (feedback.south);
+	\draw[arrow] (feedback.north) |- ++(0,0.5) -| (userinput.east);
+	
+	% Parallel from generate
+	\draw[arrow] (generate) -- (cache);
+	\draw[arrow] (generate) -- (format);
+	
+	% Labels (Layer names)
+	\node[left=2cm of userinput, font=\small\bfseries] {Input Layer};
+	\node[left=2cm of validation, font=\small\bfseries] {Logic Layer};
+	\node[left=2cm of generate, yshift=-1cm, font=\small\bfseries] {Visualization Layer};
+	\node[left=2cm of display, font=\small\bfseries] {Output Layer};
+	
+\end{tikzpicture}

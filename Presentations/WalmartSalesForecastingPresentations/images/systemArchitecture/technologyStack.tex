@@ -1,0 +1,35 @@
+\begin{tikzpicture}[scale=0.8, transform shape,
+	node distance=0.24cm,
+	layer/.style={rectangle, rounded corners, fill=HSELhellblau!40, draw=HSELblau, thick, minimum width=3.2cm, minimum height=0.8cm, font=\bfseries},
+	tech/.style={rectangle, rounded corners, fill=white, draw=HSELblau, minimum width=1.44cm, minimum height=0.48cm, font=\small}
+	]
+	% Technology stack layers (bottom to top)
+	\node[layer] (python) {Python 3.12 Foundation};
+	\node[layer, above=0.56cm of python] (data_layer) {Data Processing Layer};
+	\node[tech, above left=0.14cm and -1.05cm of data_layer] (pandas) {Pandas};
+	\node[tech, above right=0.14cm and -1.05cm of data_layer] (numpy) {NumPy};
+	\node[layer, above=0.56cm of data_layer] (ml_layer) {Machine Learning Layer};
+	\node[tech, above left=0.14cm and -1.05cm of ml_layer] (statsmodels) {Statsmodels};
+	\node[tech, above right=0.14cm and -1.05cm of ml_layer] (pmdarima) {pmdarima};
+	\node[layer, above=0.56cm of ml_layer] (viz_layer) {Visualization Layer};
+	\node[tech, above left=0.14cm and -1.05cm of viz_layer] (plotly) {Plotly};
+	\node[tech, above right=0.14cm and -1.05cm of viz_layer] (matplotlib) {Matplotlib};
+	\node[layer, above=0.56cm of viz_layer] (web_layer) {Web Framework};
+	\node[tech, above=0.14cm of web_layer] (streamlit) {Streamlit};
+	
+	% Individual vertical arrows from layers to tech nodes
+	\draw[->, HSELblau, thick] (data_layer.north) -- (pandas.south);
+	\draw[->, HSELblau, thick] (data_layer.north) -- (numpy.south);
+	\draw[->, HSELblau, thick] (ml_layer.north) -- (statsmodels.south);
+	\draw[->, HSELblau, thick] (ml_layer.north) -- (pmdarima.south);
+	\draw[->, HSELblau, thick] (viz_layer.north) -- (plotly.south);
+	\draw[->, HSELblau, thick] (viz_layer.north) -- (matplotlib.south);
+	\draw[->, HSELblau, thick] (web_layer.north) -- (streamlit.south);
+	
+	% Model types on the side - wider and shorter
+	\node[right=1.2cm of ml_layer, rectangle, rounded corners, fill=green!20, draw=green!60, thick, minimum width=3.7cm, minimum height=1.9cm] (models) {};
+	\node[above=0.08cm of models.north, font=\bfseries] {Models};
+	\node[below=0.16cm of models.north] (arima) {Auto ARIMA};
+	\node[below=0.08cm of arima] (exp_smooth) {Exponential Smoothing};
+	\node[below=0.08cm of exp_smooth] (holt_winters) {Holt-Winters};
+\end{tikzpicture}

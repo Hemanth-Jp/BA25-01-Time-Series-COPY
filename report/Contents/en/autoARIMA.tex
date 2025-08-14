@@ -1,0 +1,271 @@
+%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% $Autor: Hemanth Jadiswami Prabhakaran $
+% $Datum: 2025-06-30 11:10:06Z $
+% $Pfad: GitHub/BA25-01-Time-Series/report/Contents/en/autoARIMA.tex $
+% $Version: 1 $
+%
+% $Project: BA25-Time-Series $
+%
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%
+% !TeX encoding = utf8
+% !TeX root = PythonPackages
+%
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Auto ARIMA Algorithm}
+\label{ch:autoarima}
+
+\section{Algorithm Description}
+\label{sec:algorithm_description}
+
+Auto ARIMA (Automatic AutoRegressive Integrated Moving Average) is an algorithmic approach that automatically determines the optimal parameters for ARIMA models in time series forecasting \cite{HyndmanKhandakar:2008}. The algorithm systematically searches through different combinations of ARIMA parameters $(p, d, q)$ and seasonal parameters $(P, D, Q, s)$ to identify the configuration that minimizes information criteria such as AIC (Akaike Information Criterion) or BIC (Bayesian Information Criterion).\\
+
+The core methodology involves iterative model fitting and comparison. Starting with stationarity tests to determine the differencing parameter $d$, the algorithm then explores various combinations of autoregressive ($p$) and moving average ($q$) terms. For seasonal data, it additionally searches seasonal parameters $(P, D, Q)$ with period $s$. The selection process employs stepwise search algorithms to efficiently navigate the parameter space, avoiding exhaustive grid search while maintaining optimal model selection accuracy.\\
+
+The Auto ARIMA algorithm incorporates several statistical tests including the Augmented Dickey-Fuller test for stationarity, KPSS test for trend stationarity, and seasonal decomposition analysis. These tests guide the automatic parameter selection process, ensuring robust model identification even for complex time series patterns with multiple seasonal components or structural breaks.
+
+\section{Applications}
+\label{sec:applications}
+
+Auto ARIMA finds extensive application across diverse domains requiring time series forecasting:
+
+\subsection{Financial Markets}
+Stock price prediction, currency exchange rate forecasting, and portfolio risk assessment benefit from Auto ARIMA's ability to capture complex market dynamics without manual parameter tuning.
+
+\subsection{Business Analytics}
+Sales forecasting, demand planning, and revenue projection leverage Auto ARIMA for strategic business decisions. The algorithm's automation reduces the expertise barrier for business analysts.
+
+\subsection{Supply Chain Management}
+Inventory optimization, production planning, and logistics scheduling utilize Auto ARIMA to predict demand patterns and optimize resource allocation.
+
+\subsection{Economic Forecasting}
+Macroeconomic indicators such as GDP growth, inflation rates, and unemployment statistics are modeled using Auto ARIMA for policy analysis and economic planning.
+
+\subsection{Environmental Monitoring}
+Climate data analysis, pollution level prediction, and natural resource management employ Auto ARIMA to understand long-term environmental trends and support sustainable development initiatives.
+
+\section{Relevance}
+\label{sec:relevance}
+
+The relevance of Auto ARIMA in modern data science stems from its ability to democratize time series forecasting. Traditional ARIMA modeling requires substantial expertise in time series analysis, including manual identification of parameters through visual inspection of ACF and PACF plots. Auto ARIMA eliminates this barrier by automating the model selection process while maintaining statistical rigor \cite{HyndmanKhandakar:2008}.\\
+
+In the era of big data and automated machine learning, Auto ARIMA serves as a baseline algorithm for time series forecasting competitions and production systems. Its interpretability advantage over black-box methods makes it particularly valuable in regulated industries where model explainability is crucial. The algorithm's computational efficiency and reliable performance across diverse time series patterns have established it as a standard tool in the forecasting practitioner's toolkit.\\
+
+Modern implementations integrate Auto ARIMA with ensemble methods and cross-validation frameworks, enhancing its predictive accuracy while preserving its automated nature. The algorithm's ability to handle both univariate and multivariate time series makes it versatile for complex real-world forecasting scenarios.
+
+\section{Hyperparameters}
+\label{sec:hyperparameters}
+
+Auto ARIMA hyperparameters control the search space and optimization process:
+
+\subsection{Order Parameters}
+\begin{itemize}
+	\item \textbf{max\_p}: Maximum autoregressive order (typically 5-10)
+	\item \textbf{max\_q}: Maximum moving average order (typically 5-10)  
+	\item \textbf{max\_d}: Maximum differencing order (typically 2-3)
+	\item \textbf{start\_p, start\_q}: Starting values for parameter search
+\end{itemize}
+
+\subsection{Seasonal Parameters}
+\begin{itemize}
+	\item \textbf{seasonal}: Boolean flag for seasonal modeling
+	\item \textbf{max\_P, max\_Q, max\_D}: Maximum seasonal parameters
+	\item \textbf{m}: Seasonal period (12 for monthly, 7 for daily weekly patterns)
+\end{itemize}
+
+\subsection{Selection Criteria}
+\begin{itemize}
+	\item \textbf{information\_criterion}: AIC, BIC, or HQIC for model selection
+	\item \textbf{stepwise}: Enable stepwise search vs. grid search
+	\item \textbf{suppress\_warnings}: Control diagnostic output
+\end{itemize}
+
+\subsection{Statistical Tests}
+\begin{itemize}
+	\item \textbf{test}: Stationarity test ('adf', 'kpss', 'pp')
+	\item \textbf{seasonal\_test}: Seasonal unit root test
+	\item \textbf{alpha}: Significance level for statistical tests (typically 0.05)
+\end{itemize}
+
+\section{Requirements}
+\label{sec:requirements}
+
+\subsection{Data Requirements}
+Auto ARIMA requires time series data with the following characteristics:
+
+\begin{itemize}
+	\item \textbf{Minimum Length}: At least 30-50 observations for reliable parameter estimation
+	\item \textbf{Regular Intervals}: Consistent time spacing between observations
+	\item \textbf{Numeric Values}: Continuous or discrete numeric data
+	\item \textbf{Temporal Ordering}: Chronologically ordered observations
+\end{itemize}
+
+\subsection{Computational Requirements}
+\begin{itemize}
+	\item \textbf{Memory}: Sufficient RAM for model fitting (scales with series length)
+	\item \textbf{Processing Power}: CPU-intensive for large parameter search spaces
+	\item \textbf{Storage}: Minimal storage requirements for model persistence
+\end{itemize}
+
+\subsection{Software Dependencies}
+\begin{itemize}
+	\item \textbf{Python}: Version 3.7 or higher
+	\item \textbf{pmdarima}: Primary implementation library
+	\item \textbf{statsmodels}: Alternative implementation
+	\item \textbf{numpy, pandas}: Data manipulation and numerical operations
+	\item \textbf{scipy}: Statistical functions and optimization
+\end{itemize}
+
+\section{Input}
+\label{sec:input}
+
+Auto ARIMA accepts time series data in various formats:
+
+\subsection{Data Formats}
+\begin{itemize}
+	\item \textbf{Pandas Series}: Time-indexed series with datetime index
+	\item \textbf{NumPy Array}: One-dimensional numeric array
+	\item \textbf{Python List}: Sequential numeric values
+	\item \textbf{DataFrame Column}: Single column from pandas DataFrame
+\end{itemize}
+
+\subsection{Data Preprocessing}
+Input data should be preprocessed to handle:
+\begin{itemize}
+	\item \textbf{Missing Values}: Imputation or removal strategies
+	\item \textbf{Outliers}: Detection and treatment of extreme values
+	\item \textbf{Seasonality}: Identification of seasonal patterns
+	\item \textbf{Trends}: Recognition of long-term directional changes
+\end{itemize}
+
+\subsection{Parameter Configuration}
+Users provide hyperparameter settings to guide the search process, though default values often suffice for initial analysis.
+
+\section{Output}
+\label{sec:output}
+
+Auto ARIMA produces comprehensive output for model evaluation and forecasting:
+
+\subsection{Model Object}
+The fitted model object contains:
+\begin{itemize}
+	\item \textbf{Parameters}: Optimal $(p, d, q)(P, D, Q, s)$ configuration
+	\item \textbf{Coefficients}: Estimated model parameters with standard errors
+	\item \textbf{Residuals}: Model residuals for diagnostic analysis
+	\item \textbf{Information Criteria}: AIC, BIC values for model comparison
+\end{itemize}
+
+\subsection{Forecasts}
+Prediction output includes:
+\begin{itemize}
+	\item \textbf{Point Forecasts}: Expected future values
+	\item \textbf{Confidence Intervals}: Uncertainty bounds around predictions
+	\item \textbf{Prediction Intervals}: Forecast intervals for future observations
+\end{itemize}
+
+\subsection{Diagnostic Information}
+\begin{itemize}
+	\item \textbf{Model Summary}: Statistical significance tests and fit metrics
+	\item \textbf{Residual Analysis}: Autocorrelation and normality diagnostics
+	\item \textbf{Selection History}: Search path and alternative models considered
+\end{itemize}
+
+\section{Algorithm Workflow}
+\label{sec:algorithm_workflow}
+
+\begin{figure}[H]
+	\centering
+	\input{tikz/autoARIMA/algorithmWorkflow.tikz}
+	\caption{Auto ARIMA Algorithm Workflow}
+	\label{fig:algorithm_workflow}
+\end{figure}
+
+The Auto ARIMA workflow illustrated in Figure \ref{fig:algorithm_workflow} demonstrates the systematic approach to model selection. The process begins with data preprocessing and stationarity testing, proceeds through parameter search optimization, and concludes with model validation and forecasting.
+
+\begin{figure}[H]
+	\centering
+	\input{tikz/autoARIMA/parameterSelection.tikz}
+	\caption{Parameter Selection Process}
+	\label{fig:parameter_selection}
+\end{figure}
+
+Figure \ref{fig:parameter_selection} shows the parameter selection mechanism, highlighting how the algorithm navigates the parameter space using information criteria to identify optimal model configurations.
+
+\section{Example with Program}
+\label{sec:example_program}
+
+This section demonstrates Auto ARIMA implementation using both pmdarima and statsmodels libraries with practical code examples.
+
+\subsection{pmdarima Implementation}
+\label{subsec:pmdarima_example}
+
+The pmdarima library provides the most comprehensive Auto ARIMA implementation with advanced features and optimization.
+
+\lstinputlisting[language=MyPython, caption={Auto ARIMA with pmdarima}, label={lst:pmdarima_example}, firstline=1, lastline=60]{../Code/autoARIMA/pmdarimaExample.py}
+\noindent\textit{The above code illustrates the use of \texttt{pmdarima}'s \texttt{auto\_arima} function for automated model selection in time series forecasting. The complete script can be found at \texttt{../Code/autoARIMA/pmdarimaExample.py}.}
+
+
+\subsection{statsmodels Implementation}
+\label{subsec:statsmodels_example}
+
+While statsmodels doesn't have built-in Auto ARIMA, we can implement parameter selection logic using its ARIMA functionality.
+
+\lstinputlisting[language=MyPython, caption={Auto ARIMA with statsmodels}, label={lst:statsmodels_example}, firstline=1, lastline=70]{../Code/autoARIMA/statsmodelsExample.py}
+\noindent\textit{This code demonstrates a manual approach to ARIMA modeling using \texttt{statsmodels}, including parameter tuning and diagnostics. The full script is available at \texttt{../Code/autoARIMA/statsmodelsExample.py}.}
+
+\subsection{Library Comparison}
+\label{subsec:library_comparison}
+
+\textbf{pmdarima Advantages:}
+\begin{itemize}
+	\item Native Auto ARIMA implementation with stepwise search
+	\item Extensive statistical tests and diagnostics
+	\item Efficient parameter optimization algorithms
+	\item Built-in seasonal decomposition and handling
+\end{itemize}
+
+\textbf{statsmodels Advantages:}
+\begin{itemize}
+	\item Comprehensive statistical modeling framework
+	\item Detailed model diagnostics and statistical tests
+	\item Integration with broader econometric modeling
+	\item Extensive documentation and academic validation
+\end{itemize}
+
+The examples demonstrate that pmdarima offers more automated functionality, while statsmodels provides greater control over the modeling process. For production applications, pmdarima is recommended for its simplicity and robust automation, while statsmodels excels in research contexts requiring detailed statistical analysis.
+
+\section{Further Reading}
+\label{sec:further_reading}
+
+To deepen understanding of Auto ARIMA and time series forecasting, consider these authoritative resources:
+
+\subsection{Academic Literature}
+\begin{itemize}
+	\item \textbf{Forecasting: Principles and Practice} by Rob J. Hyndman and George Athanasopoulos - Comprehensive coverage of forecasting methods including Auto ARIMA \cite{HyndmanAthanasopoulos:2021}
+	\item \textbf{Original Auto ARIMA Paper}: "Automatic Time Series Forecasting: The forecast Package for R" - foundational methodology \cite{HyndmanKhandakar:2008}
+\end{itemize}
+
+\subsection{Implementation Resources}
+\begin{itemize}
+	\item \textbf{pmdarima Documentation}: \url{https://pmdarima.readthedocs.io/}
+	\item \textbf{statsmodels Time Series Guide}: \url{https://www.statsmodels.org/stable/tsa.html}
+	\item \textbf{Time Series Analysis in Python}: Practical tutorials and case studies
+\end{itemize}
+
+\subsection{Advanced Topics}
+\begin{itemize}
+	\item \textbf{Seasonal ARIMA Modeling}: Advanced seasonal pattern handling
+	\item \textbf{Ensemble Methods}: Combining Auto ARIMA with other forecasting approaches
+	\item \textbf{Real-time Forecasting}: Implementing Auto ARIMA in production systems
+\end{itemize}
+
+\section{Conclusion}
+\label{sec:conclusion}
+
+Auto ARIMA represents a significant advancement in automated time series forecasting, combining statistical rigor with practical accessibility. The algorithm's ability to automatically identify optimal ARIMA parameters has democratized time series analysis, enabling practitioners across diverse domains to leverage sophisticated forecasting techniques without extensive statistical expertise. Through systematic parameter search and robust model selection criteria, Auto ARIMA provides reliable baseline forecasts for both simple and complex time series patterns.\\
+
+The practical implementations demonstrated through pmdarima and statsmodels showcase the algorithm's versatility and integration capabilities within the Python ecosystem. As time series forecasting continues to evolve with machine learning advances, Auto ARIMA maintains its relevance as an interpretable, efficient, and statistically sound forecasting method essential for modern data science applications.

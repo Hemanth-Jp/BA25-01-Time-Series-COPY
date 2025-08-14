@@ -1,0 +1,43 @@
+\begin{tikzpicture}[
+    step/.style={rectangle, draw, fill=blue!10, minimum width=2cm, minimum height=0.8cm, text centered},
+    data/.style={ellipse, draw, fill=green!10, minimum width=1.8cm, minimum height=0.8cm, text centered},
+    decision/.style={diamond, draw, fill=yellow!10, minimum width=1.5cm, minimum height=0.8cm, text centered},
+    arrow/.style={thick, ->}
+]
+
+% Main workflow from top to bottom
+\node[data] (rawdata) at (0,8) {Raw Data};
+\node[step] (load) at (0,6.5) {Load Data};
+\node[decision] (validate) at (0,5) {Data Valid?};
+\node[step] (clean) at (-2.5,3.5) {Clean Data};
+\node[step] (proceed) at (2.5,3.5) {Direct Plot};
+\node[step] (explore) at (0,2) {Exploratory Analysis};
+\node[step] (style) at (0,0.5) {Apply Styling};
+\node[data] (output) at (0,-1) {Final Plot};
+
+% Error handling branch
+\node[step] (error) at (-5,5) {Handle Errors};
+\node[data] (log) at (-5,3.5) {Error Log};
+
+% Main flow arrows
+\draw[arrow] (rawdata) -- (load);
+\draw[arrow] (load) -- (validate);
+\draw[arrow] (validate) -- node[left] {\footnotesize No} (clean);
+\draw[arrow] (validate) -- node[right] {\footnotesize Yes} (proceed);
+\draw[arrow] (clean) -- (explore);
+\draw[arrow] (proceed) -- (explore);
+\draw[arrow] (explore) -- (style);
+\draw[arrow] (style) -- (output);
+
+% Error handling arrows
+\draw[arrow] (validate) -- node[above] {\footnotesize Error} (error);
+\draw[arrow] (error) -- (log);
+\draw[arrow] (log) -- (clean);
+
+% Side annotations
+\node[right] at (3,6.5) {\footnotesize pandas.read_csv()};
+\node[right] at (3,5) {\footnotesize Check columns, types};
+\node[right] at (3,2) {\footnotesize sns.scatterplot()};
+\node[right] at (3,0.5) {\footnotesize sns.set_style()};
+
+\end{tikzpicture}

@@ -1,0 +1,31 @@
+
+	\begin{tikzpicture}[
+		param/.style={rectangle, draw, minimum width=2cm, minimum height=1cm, text centered, fill=blue!20},
+		comp/.style={rectangle, draw, minimum width=2cm, minimum height=1cm, text centered, fill=orange!20},
+		opt/.style={rectangle, draw, minimum width=2cm, minimum height=1cm, text centered, fill=green!20},
+		arrow/.style={->, thick}
+		]
+		
+		% Parameters
+		\node (alpha) [param] {$\alpha$ Level};
+		\node (beta) [param, right=2cm of alpha] {$\beta$ Trend};
+		\node (gamma) [param, right=2cm of beta] {$\gamma$ Seasonal};
+		
+		% Components
+		\node (L) [comp, below=2cm of alpha] {$L_t$};
+		\node (T) [comp, below=2cm of beta] {$T_t$};
+		\node (S) [comp, below=2cm of gamma] {$S_t$};
+		
+		% Optimization
+		\node (opt) [opt, below=2cm of T] {Optimize Parameters};
+		
+		% Arrows
+		\draw [arrow] (alpha) -- (L);
+		\draw [arrow] (beta) -- (T);
+		\draw [arrow] (gamma) -- (S);
+		
+		\draw [arrow] (L) -- (opt);
+		\draw [arrow] (T) -- (opt);
+		\draw [arrow] (S) -- (opt);
+		
+	\end{tikzpicture}

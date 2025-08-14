@@ -1,0 +1,61 @@
+\begin{tikzpicture}[
+	node distance=3cm,
+	user/.style={ellipse, draw, fill=red!20, text width=2cm, text centered, minimum height=1cm},
+	resource/.style={rectangle, draw, fill=blue!20, text width=2.5cm, text centered, rounded corners, minimum height=1cm},
+	community/.style={rectangle, draw, fill=green!20, text width=2.5cm, text centered, rounded corners, minimum height=1cm},
+	emergency/.style={rectangle, draw, fill=orange!20, text width=2.5cm, text centered, rounded corners, minimum height=1cm},
+	arrow/.style={thick,->,>=stealth}
+	]
+	
+	
+	% Central user
+	\node[user] (user) at (-1,0) {\textbf{User}\\Needs Help};
+	
+	% Primary resources (close support) - increased spacing
+	\node[resource] (manual) at (-1,3.5) {User Manual\\Chapter 8\\Troubleshooting};
+	\node[resource] (tests) at (2.5,2) {Pytest\\Validation\\Test Suite};
+	\node[resource] (docs) at (2.5,-2) {Interface\\Documentation\\Chapter 4};
+	\node[resource] (quickstart) at (-1,-3.5) {Quick Start\\Guide\\Chapter 3};
+	\node[resource] (faq) at (-4.5,-2) {FAQ\\Section\\Chapter 9};
+	\node[resource] (examples) at (-4.5,2) {Examples\\Best Practices\\Chapter 7};
+	
+	% Community resources (outer ring) - much more spacing
+	\node[community] (stackoverflow) at (-1,6.5) {Stack Overflow\\Programming\\Questions};
+	\node[community] (streamlit) at (5,4) {Streamlit\\Community\\Forum};
+	\node[community] (reddit) at (5,-4) {Reddit\\r/MachineLearning\\r/datascience};
+	\node[community] (github) at (-1,-6.5) {GitHub Issues\\Package\\Problems};
+	\node[community] (academic) at (-7,-4) {Academic\\Support\\Instructors/TAs};
+	\node[community] (python) at (-7,4) {Python\\Community\\Discord/Forums};
+	
+	% Emergency resources - more spacing
+	\node[emergency] (reset) at (6,0) {Emergency\\Reset\\Procedures};
+	\node[emergency] (cloud) at (-8,0) {Cloud Backup\\Always Available};
+	
+	% Primary support arrows
+	\draw[arrow] (user) -- (manual);
+	\draw[arrow] (user) -- (tests);
+	\draw[arrow] (user) -- (docs);
+	\draw[arrow] (user) -- (quickstart);
+	\draw[arrow] (user) -- (faq);
+	\draw[arrow] (user) -- (examples);
+	
+	% Community support arrows
+	\draw[arrow] (manual) -- (stackoverflow);
+	\draw[arrow] (tests) -- (streamlit);
+	\draw[arrow] (docs) -- (reddit);
+	\draw[arrow] (quickstart) -- (github);
+	\draw[arrow] (faq) -- (academic);
+	\draw[arrow] (examples) -- (python);
+	
+	% Emergency arrows
+	\draw[arrow] (user) -- (reset);
+	\draw[arrow] (user) -- (cloud);
+	
+	
+	% Success paths
+	\node[ellipse, draw, fill=purple!20, text width=2cm, text centered] (success) at (-1,-9) {Problem\\Resolved};
+	\draw[arrow] (github) -- (success);
+	\draw[arrow] (cloud) -- (success);
+	\draw[arrow] (reset) -- (success);
+	
+\end{tikzpicture}

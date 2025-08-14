@@ -1,0 +1,44 @@
+\begin{tikzpicture}[
+	node distance=1.5cm,
+	task/.style={rectangle, draw, fill=blue!15, text width=2.5cm, text centered, minimum height=0.8cm},
+	worker/.style={rectangle, draw, fill=orange!15, text width=2cm, text centered, minimum height=0.8cm},
+	result/.style={rectangle, draw, fill=green!15, text width=2.5cm, text centered, minimum height=0.8cm},
+	arrow/.style={->, thick}
+	]
+	
+	% Input tasks (top)
+	\node[task] (input) {Input Tasks List};
+	
+	% Parallel dispatcher
+	\node[task, below=of input, fill=purple!15] (dispatcher) {Parallel Dispatcher};
+	
+	% Workers layer with better spacing
+	\node[worker, below left=1.5cm and 2cm of dispatcher] (worker1) {Worker 1};
+	\node[worker, below=1.5cm of dispatcher] (worker2) {Worker 2};
+	\node[worker, below right=1.5cm and 2.5cm of dispatcher] (worker3) {Worker 3};
+	
+	% Results collection
+	\node[result, below=2cm of worker2, fill=purple!15] (collector) {Result Collector};
+	
+	% Output
+	\node[result, below=of collector] (output) {Final Results};
+	
+	% Arrows
+	\draw[arrow] (input) -- (dispatcher);
+	
+	\draw[arrow] (dispatcher) -- (worker1);
+	\draw[arrow] (dispatcher) -- (worker2);
+	\draw[arrow] (dispatcher) -- (worker3);
+	
+	\draw[arrow] (worker1) -- (collector);
+	\draw[arrow] (worker2) -- (collector);
+	\draw[arrow] (worker3) -- (collector);
+	
+	\draw[arrow] (collector) -- (output);
+	
+	% Side labels
+	\node[left=1.5cm of worker1] {\small Parallel Execution};
+	\node[right=0.5cm of dispatcher] {\small Task Distribution};
+	\node[right=0.5cm of collector] {\small Result Aggregation};
+	
+\end{tikzpicture}

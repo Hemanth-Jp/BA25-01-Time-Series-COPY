@@ -1,0 +1,50 @@
+\begin{tikzpicture}[
+    node distance=1.5cm,
+    box/.style={rectangle, rounded corners, minimum width=2.2cm, minimum height=1cm, text centered, draw=black, fill=blue!10},
+    arrow/.style={thick,->,>=stealth}
+]
+
+% Test layer
+\node[box, fill=green!15] (test) {Test Function};
+\node[box, right=of test] (fixture) {API Client Fixture};
+
+% HTTP layer
+\node[box, below=of test] (request) {HTTP Request};
+\node[box, right=of request] (headers) {Headers/Auth};
+
+% API layer
+\node[box, below=of request, fill=orange!15] (api) {API Endpoint};
+\node[box, right=of api] (backend) {Backend Service};
+
+% Response layer
+\node[box, below=of api] (response) {HTTP Response};
+\node[box, right=of response] (data) {Response Data};
+
+% Validation layer
+\node[box, below=of response] (validate) {Response Validation};
+\node[box, right=of validate] (assert) {Assertions};
+
+% Error handling
+\node[box, left=of validate, fill=red!15] (error) {Error Handling};
+
+% Flow arrows
+\draw[arrow] (test) -- (request);
+\draw[arrow] (fixture) -- (headers);
+\draw[arrow] (request) -- (api);
+\draw[arrow] (headers) -- (api);
+\draw[arrow] (api) -- (backend);
+\draw[arrow] (backend) -- (api);
+\draw[arrow] (api) -- (response);
+\draw[arrow] (response) -- (data);
+\draw[arrow] (response) -- (validate);
+\draw[arrow] (data) -- (assert);
+\draw[arrow] (validate) -- (assert);
+
+% Error path
+\draw[arrow, red, dashed] (api) -- (error);
+\draw[arrow, red, dashed] (error) -- (validate);
+
+% Feedback loop
+\draw[arrow, blue, dashed] (assert) to[bend left=60] (test);
+
+\end{tikzpicture}

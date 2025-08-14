@@ -1,0 +1,45 @@
+\begin{tikzpicture}[
+	node distance=3cm and 4cm,
+	block/.style={rectangle, draw, fill=blue!20, text width=4cm, text centered, rounded corners, minimum height=1.5cm},
+	data/.style={rectangle, draw, fill=orange!20, text width=4cm, text centered, rounded corners, minimum height=1.5cm},
+	model/.style={rectangle, draw, fill=yellow!20, text width=4cm, text centered, rounded corners, minimum height=1.5cm},
+	output/.style={rectangle, draw, fill=purple!20, text width=4cm, text centered, rounded corners, minimum height=1.5cm},
+	user/.style={ellipse, draw, fill=red!20, text width=3cm, text centered, minimum height=1cm},
+	arrow/.style={thick,->,>=stealth}
+	]
+	
+	% Title
+	\node at (0,10) {\Large\textbf{Walmart Sales Forecasting System Architecture}};
+	
+	% User
+	\node[user] (user) at (0,8.5) {Users\\(Browser or Python)};
+	
+	% Data Sources
+	\node[data] (data) at (0,6) {Data Sources\\train.csv\\features.csv\\stores.csv};
+	
+	% Training Apps
+	\node[block] (cloud_train) at (-4,3) {Cloud Training App\\(Streamlit Cloud)};
+	\node[block] (local_train) at (4,3) {Local Training App\\(localhost:8501)};
+	
+	% Model Storage
+	\node[model] (models) at (0,0) {Model Storage\\ARIMA, Exp. Smoothing};
+	
+	% Prediction Apps
+	\node[block] (cloud_pred) at (-4,-3) {Cloud Prediction App\\(Streamlit Cloud)};
+	\node[block] (local_pred) at (4,-3) {Local Prediction App\\(localhost:8502)};
+	
+	% Output
+	\node[output] (output) at (0,-6) {Forecast Output\\4-week predictions\\CSV/JSON, Visuals};
+	
+	% Arrows
+	\draw[arrow] (user) -- (data);
+	\draw[arrow] (data) -- (cloud_train);
+	\draw[arrow] (data) -- (local_train);
+	\draw[arrow] (cloud_train) -- (models);
+	\draw[arrow] (local_train) -- (models);
+	\draw[arrow] (models) -- (cloud_pred);
+	\draw[arrow] (models) -- (local_pred);
+	\draw[arrow] (cloud_pred) -- (output);
+	\draw[arrow] (local_pred) -- (output);
+	
+\end{tikzpicture}

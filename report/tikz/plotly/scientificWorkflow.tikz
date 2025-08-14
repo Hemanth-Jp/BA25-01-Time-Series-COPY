@@ -1,0 +1,50 @@
+\begin{tikzpicture}[
+	node distance=0.8cm, % increased vertical spacing
+	phase/.style={rectangle, draw, fill=blue!20, minimum width=8cm, minimum height=0.8cm, text centered, font=\small\bfseries},
+	task/.style={rectangle, draw, fill=gray!10, minimum width=7.5cm, minimum height=0.6cm, text centered, font=\footnotesize},
+	viz_type/.style={rectangle, draw, fill=green!15, minimum width=2.2cm, minimum height=0.5cm, text centered, font=\tiny},
+	arrow/.style={->, thick, blue!70}
+	]
+	
+	% Scientific workflow phases (table format)
+	\node[phase] (data_collection) {Data Collection Phase};
+	\node[task, below=0.2cm of data_collection] (raw_data) {Raw experimental data, simulation results, literature data};
+	
+	\node[phase, below=0.5cm of raw_data] (preprocessing) {Data Preprocessing Phase};
+	\node[task, below=0.2cm of preprocessing] (cleaning) {Data cleaning, validation, statistical analysis, modeling};
+	
+	\node[phase, below=0.5cm of cleaning] (visualization) {Visualization Creation Phase};
+	\node[task, below=0.2cm of visualization] (viz_creation) {Generate plots, apply scientific styling, add annotations};
+	
+	\node[phase, below=0.5cm of viz_creation] (enhancement) {Enhancement Phase};
+	\node[task, below=0.2cm of enhancement] (interactivity) {Add interactivity, create multi-panel figures, time animations};
+	
+	\node[phase, below=0.5cm of interactivity] (publication) {Publication Phase};
+	\node[task, below=0.2cm of publication] (final_output) {Export high-resolution figures, prepare for peer review};
+	
+	% Visualization types (side panel)
+	\node[viz_type, right=1.5cm of preprocessing] (scatter3d) {3D Scatter};
+	\node[viz_type, below=0.1cm of scatter3d] (heatmaps) {Heatmaps};
+	\node[viz_type, below=0.1cm of heatmaps] (surfaces) {Surfaces};
+	\node[viz_type, below=0.1cm of surfaces] (statistical) {Statistical};
+	\node[viz_type, below=0.1cm of statistical] (timeseries) {Time Series};
+	
+	% Flow arrows
+	\draw[arrow] (data_collection.south) -- (preprocessing.north);
+	\draw[arrow] (preprocessing.south) -- (visualization.north);
+	\draw[arrow] (visualization.south) -- (enhancement.north);
+	\draw[arrow] (enhancement.south) -- (publication.north);
+	
+	% Visualization type connections
+	\draw[arrow, dashed] (viz_creation.east) -- (scatter3d.west);
+	\draw[arrow, dashed] (viz_creation.east) -- (heatmaps.west);
+	\draw[arrow, dashed] (viz_creation.east) -- (surfaces.west);
+	
+	% Quality control feedback loop (moved 2cm further left)
+	\draw[arrow, dashed, red] ([xshift=-5.5cm]final_output.south) -- ++(0,-0.5) -| ([xshift=-5.5cm]cleaning.south);
+	
+	% Labels
+	\node[right=4cm of visualization, font=\footnotesize, text width=1.8cm, align=center] {Scientific\\Visualization\\Types};
+	\node[below=0.7cm of final_output, font=\footnotesize, text width=6cm, align=center] {Quality Control Loop: Iterative refinement for publication standards};
+	
+\end{tikzpicture}

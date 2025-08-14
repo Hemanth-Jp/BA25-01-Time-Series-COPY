@@ -1,0 +1,77 @@
+\begin{tikzpicture}[
+	node distance=3cm,
+	daily/.style={rectangle, draw, fill=green!20, text width=2.2cm, text centered, rounded corners, minimum height=1cm},
+	weekly/.style={rectangle, draw, fill=blue!20, text width=2.2cm, text centered, rounded corners, minimum height=1cm},
+	monthly/.style={rectangle, draw, fill=orange!20, text width=2.2cm, text centered, rounded corners, minimum height=1cm},
+	quarterly/.style={rectangle, draw, fill=red!20, text width=2.2cm, text centered, rounded corners, minimum height=1cm},
+	arrow/.style={thick,->,>=stealth}
+	]
+	
+	% Time-based maintenance layers with increased horizontal spacing
+	\node[above=1cm] at (-7,6) {\textbf{Daily Tasks }};
+	\node[daily] (status_check) at (-7,4.5) {System Status\\Check};
+	\node[daily] (session_monitor) at (-7,1.5) {Active Session\\Monitoring};
+	\node[daily] (backup_results) at (-7,-1.5) {Results\\Backup};
+	
+	\node[above=1cm] at (-3,6) {\textbf{Weekly Tasks }};
+	\node[weekly] (test_suite) at (-3,4.5) {Pytest\\Validation};
+	\node[weekly] (performance) at (-3,1.5) {Performance\\Review};
+	\node[weekly] (model_backup) at (-3,-1.5) {Model\\Backup};
+	
+	\node[above=1cm] at (1,6) {\textbf{Monthly Tasks}};
+	\node[monthly] (env_health) at (1,4.5) {Environment\\Health Check};
+	\node[monthly] (data_quality) at (1,1.5) {Data Quality\\Review};
+	\node[monthly] (model_analysis) at (1,-1.5) {Model Performance\\Analysis};
+	
+	\node[above=1cm] at (5,6) {\textbf{Quarterly Tasks}};
+	\node[quarterly] (optimization) at (5,4.5) {System\\Optimization};
+	\node[quarterly] (retraining) at (5,1.5) {Model\\Retraining};
+	\node[quarterly] (documentation) at (5,-1.5) {Documentation\\Update};
+	
+	% Central monitoring with more space
+	\node[ellipse, draw, fill=purple!20, text width=2.5cm, text centered] (monitor) at (-1,-4.5) {\textbf{Continuous\\Monitoring}\\System Health};
+	
+	% Flow arrows
+	\draw[arrow] (status_check) -- (monitor);
+	\draw[arrow] (test_suite) -- (monitor);
+	\draw[arrow] (env_health) -- (monitor);
+	\draw[arrow] (optimization) -- (monitor);
+	
+	% Escalation paths with more vertical space
+	\node[rectangle, draw, fill=yellow!20, text width=3cm, text centered] (escalation) at (-1,-7.5) {\textbf{Issue Escalation}\\Chapter 8 Procedures\\Emergency Reset};
+	\draw[arrow] (monitor) -- (escalation);
+	
+	% Best practices with adjusted positioning
+	\node[rectangle, draw, fill=gray!10, text width=4.5cm] (best_practices) at (3,-6) {
+		\textbf{Best Practices:}\\
+		• Automate routine tasks\\
+		• Document all changes\\
+		• Monitor performance trends\\
+		• Regular backup verification\\
+		• Proactive issue detection
+	};
+	
+	% Priority indicators with more space
+	\node[below=0.8cm] at (status_check) {\footnotesize High Priority};
+	\node[below=0.8cm] at (test_suite) {\footnotesize Critical};
+	\node[below=0.8cm] at (env_health) {\footnotesize Medium};
+	\node[below=0.8cm] at (optimization) {\footnotesize Planning};
+	
+	% Command examples with more space
+	\node[above=0.8cm] at (test_suite) {\footnotesize pytest -v};
+	\node[above=0.8cm] at (env_health) {\footnotesize python --version};
+	\node[above=0.8cm] at (model_backup) {\footnotesize cp models/*.pkl};
+	
+	% Performance thresholds with adjusted positioning
+	\node[rectangle, draw, fill=cyan!10, text width=4cm] (thresholds) at (-5,-6) {
+		\textbf{Performance Thresholds:}\\
+		• WMAE > 15\% → Retrain\\
+		• Load time > 30s → Optimize\\
+		• Error rate > 5\% → Investigate\\
+		• Disk usage > 80\% → Cleanup
+	};
+	
+	\draw[arrow, dashed] (model_analysis) -- (thresholds);
+	\draw[arrow, dashed] (optimization) -- (best_practices);
+	
+\end{tikzpicture}

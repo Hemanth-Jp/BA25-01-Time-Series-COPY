@@ -1,0 +1,278 @@
+\doxysection{test\+Walmart\+Sales\+Training.\+Test\+Walmart\+Sales Class Reference}
+\hypertarget{classtest_walmart_sales_training_1_1_test_walmart_sales}{}\label{classtest_walmart_sales_training_1_1_test_walmart_sales}\index{testWalmartSalesTraining.TestWalmartSales@{testWalmartSalesTraining.TestWalmartSales}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classtest_walmart_sales_training_1_1_test_walmart_sales_afbafa90d6eddb63123aa3c4ed1f4e85b}{setup\+\_\+method}} (self)
+\item 
+\mbox{\hyperlink{classtest_walmart_sales_training_1_1_test_walmart_sales_a17bdd94e49dbfbd436547b9e029b159c}{test\+\_\+config\+\_\+values}} (self)
+\item 
+\mbox{\hyperlink{classtest_walmart_sales_training_1_1_test_walmart_sales_a1908acc97649681d902ebf191923ab09}{test\+\_\+load\+\_\+and\+\_\+merge\+\_\+data\+\_\+success}} (self)
+\item 
+\mbox{\hyperlink{classtest_walmart_sales_training_1_1_test_walmart_sales_a3e64ecbd848ab32710431b5c10537fcf}{test\+\_\+load\+\_\+and\+\_\+merge\+\_\+data\+\_\+error\+\_\+handling}} (self)
+\item 
+\mbox{\hyperlink{classtest_walmart_sales_training_1_1_test_walmart_sales_a3490b7362c6d6e796ec04b2a067e670d}{test\+\_\+clean\+\_\+data\+\_\+success}} (self)
+\item 
+\mbox{\hyperlink{classtest_walmart_sales_training_1_1_test_walmart_sales_a5240089f03447b7091ad680f60224176}{test\+\_\+clean\+\_\+data\+\_\+error\+\_\+handling}} (self)
+\item 
+\mbox{\hyperlink{classtest_walmart_sales_training_1_1_test_walmart_sales_a03932661cf01a99752444cf47aa71f34}{test\+\_\+prepare\+\_\+time\+\_\+series\+\_\+data}} (self)
+\item 
+\mbox{\hyperlink{classtest_walmart_sales_training_1_1_test_walmart_sales_aadbe99a709164884508018f61821bd21}{test\+\_\+wmae\+\_\+calculation}} (self)
+\item 
+\mbox{\hyperlink{classtest_walmart_sales_training_1_1_test_walmart_sales_a530ff09714c95226296ecdaf140108fb}{test\+\_\+wmae\+\_\+error\+\_\+handling}} (self)
+\item 
+\mbox{\hyperlink{classtest_walmart_sales_training_1_1_test_walmart_sales_a87d317b1eb422b2669d9f0c0692f99d9}{test\+\_\+train\+\_\+auto\+\_\+arima}} (self, mock\+\_\+arima)
+\item 
+\mbox{\hyperlink{classtest_walmart_sales_training_1_1_test_walmart_sales_ad779adc5e1b57550d5f50ca17e73418d}{test\+\_\+train\+\_\+auto\+\_\+arima\+\_\+error\+\_\+handling}} (self)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classtest_walmart_sales_training_1_1_test_walmart_sales_a29aadb379a17d5d5a2a44a9de8c28681}{train\+\_\+data}}
+\item 
+\mbox{\hyperlink{classtest_walmart_sales_training_1_1_test_walmart_sales_a815e19f97fe1e136f21b4eb1f5cab0c8}{features\+\_\+data}}
+\item 
+\mbox{\hyperlink{classtest_walmart_sales_training_1_1_test_walmart_sales_ab9f2cb34f9709be2e635b4fd9cdf2058}{stores\+\_\+data}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}@brief Test class containing comprehensive unit tests for the training system
+@details Provides thorough testing coverage for data pipeline, model training,
+         and evaluation functions using pytest framework with mock data and dependencies
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{test_walmart_sales_training_8py_source_l00018}{18}} of file \mbox{\hyperlink{test_walmart_sales_training_8py_source}{test\+Walmart\+Sales\+Training.\+py}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classtest_walmart_sales_training_1_1_test_walmart_sales_afbafa90d6eddb63123aa3c4ed1f4e85b}\index{testWalmartSalesTraining.TestWalmartSales@{testWalmartSalesTraining.TestWalmartSales}!setup\_method@{setup\_method}}
+\index{setup\_method@{setup\_method}!testWalmartSalesTraining.TestWalmartSales@{testWalmartSalesTraining.TestWalmartSales}}
+\doxysubsubsection{\texorpdfstring{setup\_method()}{setup\_method()}}
+{\footnotesize\ttfamily \label{classtest_walmart_sales_training_1_1_test_walmart_sales_afbafa90d6eddb63123aa3c4ed1f4e85b} 
+test\+Walmart\+Sales\+Training.\+Test\+Walmart\+Sales.\+setup\+\_\+method (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Setup test data for each test method
+@details Creates mock datasets that simulate real Walmart data structure
+         including the IsHoliday column conflict that occurs during merging
+@note This method runs before each test to ensure clean test environment
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{test_walmart_sales_training_8py_source_l00025}{25}} of file \mbox{\hyperlink{test_walmart_sales_training_8py_source}{test\+Walmart\+Sales\+Training.\+py}}.
+
+\Hypertarget{classtest_walmart_sales_training_1_1_test_walmart_sales_a5240089f03447b7091ad680f60224176}\index{testWalmartSalesTraining.TestWalmartSales@{testWalmartSalesTraining.TestWalmartSales}!test\_clean\_data\_error\_handling@{test\_clean\_data\_error\_handling}}
+\index{test\_clean\_data\_error\_handling@{test\_clean\_data\_error\_handling}!testWalmartSalesTraining.TestWalmartSales@{testWalmartSalesTraining.TestWalmartSales}}
+\doxysubsubsection{\texorpdfstring{test\_clean\_data\_error\_handling()}{test\_clean\_data\_error\_handling()}}
+{\footnotesize\ttfamily \label{classtest_walmart_sales_training_1_1_test_walmart_sales_a5240089f03447b7091ad680f60224176} 
+test\+Walmart\+Sales\+Training.\+Test\+Walmart\+Sales.\+test\+\_\+clean\+\_\+data\+\_\+error\+\_\+handling (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Test error handling for invalid input data in cleaning function
+@details Verifies proper validation of input DataFrame before processing
+@note Tests both None input and empty DataFrame scenarios
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{test_walmart_sales_training_8py_source_l00121}{121}} of file \mbox{\hyperlink{test_walmart_sales_training_8py_source}{test\+Walmart\+Sales\+Training.\+py}}.
+
+\Hypertarget{classtest_walmart_sales_training_1_1_test_walmart_sales_a3490b7362c6d6e796ec04b2a067e670d}\index{testWalmartSalesTraining.TestWalmartSales@{testWalmartSalesTraining.TestWalmartSales}!test\_clean\_data\_success@{test\_clean\_data\_success}}
+\index{test\_clean\_data\_success@{test\_clean\_data\_success}!testWalmartSalesTraining.TestWalmartSales@{testWalmartSalesTraining.TestWalmartSales}}
+\doxysubsubsection{\texorpdfstring{test\_clean\_data\_success()}{test\_clean\_data\_success()}}
+{\footnotesize\ttfamily \label{classtest_walmart_sales_training_1_1_test_walmart_sales_a3490b7362c6d6e796ec04b2a067e670d} 
+test\+Walmart\+Sales\+Training.\+Test\+Walmart\+Sales.\+test\+\_\+clean\+\_\+data\+\_\+success (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Test data cleaning functionality with realistic data scenarios
+@details Validates removal of invalid sales records, missing value imputation,
+         and holiday feature engineering
+@note Tests multiple data quality issues that occur in real-world datasets
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{test_walmart_sales_training_8py_source_l00100}{100}} of file \mbox{\hyperlink{test_walmart_sales_training_8py_source}{test\+Walmart\+Sales\+Training.\+py}}.
+
+\Hypertarget{classtest_walmart_sales_training_1_1_test_walmart_sales_a17bdd94e49dbfbd436547b9e029b159c}\index{testWalmartSalesTraining.TestWalmartSales@{testWalmartSalesTraining.TestWalmartSales}!test\_config\_values@{test\_config\_values}}
+\index{test\_config\_values@{test\_config\_values}!testWalmartSalesTraining.TestWalmartSales@{testWalmartSalesTraining.TestWalmartSales}}
+\doxysubsubsection{\texorpdfstring{test\_config\_values()}{test\_config\_values()}}
+{\footnotesize\ttfamily \label{classtest_walmart_sales_training_1_1_test_walmart_sales_a17bdd94e49dbfbd436547b9e029b159c} 
+test\+Walmart\+Sales\+Training.\+Test\+Walmart\+Sales.\+test\+\_\+config\+\_\+values (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Test CONFIG dictionary contains expected configuration values
+@details Validates that all required configuration parameters are present
+         and set to expected default values for consistent behavior
+@note Configuration validation ensures proper system initialization
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{test_walmart_sales_training_8py_source_l00054}{54}} of file \mbox{\hyperlink{test_walmart_sales_training_8py_source}{test\+Walmart\+Sales\+Training.\+py}}.
+
+\Hypertarget{classtest_walmart_sales_training_1_1_test_walmart_sales_a3e64ecbd848ab32710431b5c10537fcf}\index{testWalmartSalesTraining.TestWalmartSales@{testWalmartSalesTraining.TestWalmartSales}!test\_load\_and\_merge\_data\_error\_handling@{test\_load\_and\_merge\_data\_error\_handling}}
+\index{test\_load\_and\_merge\_data\_error\_handling@{test\_load\_and\_merge\_data\_error\_handling}!testWalmartSalesTraining.TestWalmartSales@{testWalmartSalesTraining.TestWalmartSales}}
+\doxysubsubsection{\texorpdfstring{test\_load\_and\_merge\_data\_error\_handling()}{test\_load\_and\_merge\_data\_error\_handling()}}
+{\footnotesize\ttfamily \label{classtest_walmart_sales_training_1_1_test_walmart_sales_a3e64ecbd848ab32710431b5c10537fcf} 
+test\+Walmart\+Sales\+Training.\+Test\+Walmart\+Sales.\+test\+\_\+load\+\_\+and\+\_\+merge\+\_\+data\+\_\+error\+\_\+handling (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Test error handling for missing files in data loading
+@details Verifies proper validation and error messaging when required files are missing
+@note Tests the input validation layer before attempting data operations
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{test_walmart_sales_training_8py_source_l00090}{90}} of file \mbox{\hyperlink{test_walmart_sales_training_8py_source}{test\+Walmart\+Sales\+Training.\+py}}.
+
+\Hypertarget{classtest_walmart_sales_training_1_1_test_walmart_sales_a1908acc97649681d902ebf191923ab09}\index{testWalmartSalesTraining.TestWalmartSales@{testWalmartSalesTraining.TestWalmartSales}!test\_load\_and\_merge\_data\_success@{test\_load\_and\_merge\_data\_success}}
+\index{test\_load\_and\_merge\_data\_success@{test\_load\_and\_merge\_data\_success}!testWalmartSalesTraining.TestWalmartSales@{testWalmartSalesTraining.TestWalmartSales}}
+\doxysubsubsection{\texorpdfstring{test\_load\_and\_merge\_data\_success()}{test\_load\_and\_merge\_data\_success()}}
+{\footnotesize\ttfamily \label{classtest_walmart_sales_training_1_1_test_walmart_sales_a1908acc97649681d902ebf191923ab09} 
+test\+Walmart\+Sales\+Training.\+Test\+Walmart\+Sales.\+test\+\_\+load\+\_\+and\+\_\+merge\+\_\+data\+\_\+success (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Test successful data loading and merging - test the full pipeline including clean_data
+@details Validates the complete data processing workflow from raw CSV files
+         through merging and cleaning, ensuring proper column handling
+@note Tests both merge operation and subsequent cleaning to verify end-to-end pipeline
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{test_walmart_sales_training_8py_source_l00066}{66}} of file \mbox{\hyperlink{test_walmart_sales_training_8py_source}{test\+Walmart\+Sales\+Training.\+py}}.
+
+\Hypertarget{classtest_walmart_sales_training_1_1_test_walmart_sales_a03932661cf01a99752444cf47aa71f34}\index{testWalmartSalesTraining.TestWalmartSales@{testWalmartSalesTraining.TestWalmartSales}!test\_prepare\_time\_series\_data@{test\_prepare\_time\_series\_data}}
+\index{test\_prepare\_time\_series\_data@{test\_prepare\_time\_series\_data}!testWalmartSalesTraining.TestWalmartSales@{testWalmartSalesTraining.TestWalmartSales}}
+\doxysubsubsection{\texorpdfstring{test\_prepare\_time\_series\_data()}{test\_prepare\_time\_series\_data()}}
+{\footnotesize\ttfamily \label{classtest_walmart_sales_training_1_1_test_walmart_sales_a03932661cf01a99752444cf47aa71f34} 
+test\+Walmart\+Sales\+Training.\+Test\+Walmart\+Sales.\+test\+\_\+prepare\+\_\+time\+\_\+series\+\_\+data (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Test time series data preparation with only available columns
+@details Validates date conversion, weekly aggregation, and differencing operations
+         for time series modeling preparation
+@note Tests the transformation from raw data to model-ready time series format
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{test_walmart_sales_training_8py_source_l00135}{135}} of file \mbox{\hyperlink{test_walmart_sales_training_8py_source}{test\+Walmart\+Sales\+Training.\+py}}.
+
+\Hypertarget{classtest_walmart_sales_training_1_1_test_walmart_sales_a87d317b1eb422b2669d9f0c0692f99d9}\index{testWalmartSalesTraining.TestWalmartSales@{testWalmartSalesTraining.TestWalmartSales}!test\_train\_auto\_arima@{test\_train\_auto\_arima}}
+\index{test\_train\_auto\_arima@{test\_train\_auto\_arima}!testWalmartSalesTraining.TestWalmartSales@{testWalmartSalesTraining.TestWalmartSales}}
+\doxysubsubsection{\texorpdfstring{test\_train\_auto\_arima()}{test\_train\_auto\_arima()}}
+{\footnotesize\ttfamily \label{classtest_walmart_sales_training_1_1_test_walmart_sales_a87d317b1eb422b2669d9f0c0692f99d9} 
+test\+Walmart\+Sales\+Training.\+Test\+Walmart\+Sales.\+test\+\_\+train\+\_\+auto\+\_\+arima (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{mock\+\_\+arima}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Test Auto ARIMA training with mocked dependencies
+@details Validates the Auto ARIMA training workflow without actual model fitting
+@param mock_arima Mocked auto_arima function to simulate training process
+@note Uses mocking to isolate the training logic from external dependencies
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{test_walmart_sales_training_8py_source_l00186}{186}} of file \mbox{\hyperlink{test_walmart_sales_training_8py_source}{test\+Walmart\+Sales\+Training.\+py}}.
+
+\Hypertarget{classtest_walmart_sales_training_1_1_test_walmart_sales_ad779adc5e1b57550d5f50ca17e73418d}\index{testWalmartSalesTraining.TestWalmartSales@{testWalmartSalesTraining.TestWalmartSales}!test\_train\_auto\_arima\_error\_handling@{test\_train\_auto\_arima\_error\_handling}}
+\index{test\_train\_auto\_arima\_error\_handling@{test\_train\_auto\_arima\_error\_handling}!testWalmartSalesTraining.TestWalmartSales@{testWalmartSalesTraining.TestWalmartSales}}
+\doxysubsubsection{\texorpdfstring{test\_train\_auto\_arima\_error\_handling()}{test\_train\_auto\_arima\_error\_handling()}}
+{\footnotesize\ttfamily \label{classtest_walmart_sales_training_1_1_test_walmart_sales_ad779adc5e1b57550d5f50ca17e73418d} 
+test\+Walmart\+Sales\+Training.\+Test\+Walmart\+Sales.\+test\+\_\+train\+\_\+auto\+\_\+arima\+\_\+error\+\_\+handling (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Test Auto ARIMA error handling for invalid training data
+@details Verifies proper validation of training data before model fitting
+@note Tests both None input and empty data scenarios
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{test_walmart_sales_training_8py_source_l00208}{208}} of file \mbox{\hyperlink{test_walmart_sales_training_8py_source}{test\+Walmart\+Sales\+Training.\+py}}.
+
+\Hypertarget{classtest_walmart_sales_training_1_1_test_walmart_sales_aadbe99a709164884508018f61821bd21}\index{testWalmartSalesTraining.TestWalmartSales@{testWalmartSalesTraining.TestWalmartSales}!test\_wmae\_calculation@{test\_wmae\_calculation}}
+\index{test\_wmae\_calculation@{test\_wmae\_calculation}!testWalmartSalesTraining.TestWalmartSales@{testWalmartSalesTraining.TestWalmartSales}}
+\doxysubsubsection{\texorpdfstring{test\_wmae\_calculation()}{test\_wmae\_calculation()}}
+{\footnotesize\ttfamily \label{classtest_walmart_sales_training_1_1_test_walmart_sales_aadbe99a709164884508018f61821bd21} 
+test\+Walmart\+Sales\+Training.\+Test\+Walmart\+Sales.\+test\+\_\+wmae\+\_\+calculation (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Test WMAE (Weighted Mean Absolute Error) calculation
+@details Validates the evaluation metric calculation with known input/output pairs
+@note WMAE is the primary evaluation metric for sales forecasting models
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{test_walmart_sales_training_8py_source_l00159}{159}} of file \mbox{\hyperlink{test_walmart_sales_training_8py_source}{test\+Walmart\+Sales\+Training.\+py}}.
+
+\Hypertarget{classtest_walmart_sales_training_1_1_test_walmart_sales_a530ff09714c95226296ecdaf140108fb}\index{testWalmartSalesTraining.TestWalmartSales@{testWalmartSalesTraining.TestWalmartSales}!test\_wmae\_error\_handling@{test\_wmae\_error\_handling}}
+\index{test\_wmae\_error\_handling@{test\_wmae\_error\_handling}!testWalmartSalesTraining.TestWalmartSales@{testWalmartSalesTraining.TestWalmartSales}}
+\doxysubsubsection{\texorpdfstring{test\_wmae\_error\_handling()}{test\_wmae\_error\_handling()}}
+{\footnotesize\ttfamily \label{classtest_walmart_sales_training_1_1_test_walmart_sales_a530ff09714c95226296ecdaf140108fb} 
+test\+Walmart\+Sales\+Training.\+Test\+Walmart\+Sales.\+test\+\_\+wmae\+\_\+error\+\_\+handling (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Test WMAE error handling for invalid inputs
+@details Verifies proper validation of input arrays before calculation
+@note Tests None input validation to prevent runtime errors
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{test_walmart_sales_training_8py_source_l00175}{175}} of file \mbox{\hyperlink{test_walmart_sales_training_8py_source}{test\+Walmart\+Sales\+Training.\+py}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classtest_walmart_sales_training_1_1_test_walmart_sales_a815e19f97fe1e136f21b4eb1f5cab0c8}\index{testWalmartSalesTraining.TestWalmartSales@{testWalmartSalesTraining.TestWalmartSales}!features\_data@{features\_data}}
+\index{features\_data@{features\_data}!testWalmartSalesTraining.TestWalmartSales@{testWalmartSalesTraining.TestWalmartSales}}
+\doxysubsubsection{\texorpdfstring{features\_data}{features\_data}}
+{\footnotesize\ttfamily \label{classtest_walmart_sales_training_1_1_test_walmart_sales_a815e19f97fe1e136f21b4eb1f5cab0c8} 
+test\+Walmart\+Sales\+Training.\+Test\+Walmart\+Sales.\+features\+\_\+data}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \ pd.DataFrame(\{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'Store'}:\ [1,\ 1,\ 2,\ 2],}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'Date'}:\ [\textcolor{stringliteral}{'2010-\/02-\/05'},\ \textcolor{stringliteral}{'2010-\/02-\/12'},\ \textcolor{stringliteral}{'2010-\/02-\/05'},\ \textcolor{stringliteral}{'2010-\/02-\/12'}],}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'Temperature'}:\ [42.31,\ 38.51,\ 45.07,\ 49.27],}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'IsHoliday'}:\ [\textcolor{keyword}{False},\ \textcolor{keyword}{False},\ \textcolor{keyword}{False},\ \textcolor{keyword}{False}],\ \ \textcolor{comment}{\#\ This\ will\ become\ IsHoliday\_y\ after\ merge}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'MarkDown1'}:\ [np.nan,\ np.nan,\ np.nan,\ np.nan]\ \ \textcolor{comment}{\#\ Test\ missing\ value\ handling}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \})}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{test_walmart_sales_training_8py_source_l00040}{40}} of file \mbox{\hyperlink{test_walmart_sales_training_8py_source}{test\+Walmart\+Sales\+Training.\+py}}.
+
+\Hypertarget{classtest_walmart_sales_training_1_1_test_walmart_sales_ab9f2cb34f9709be2e635b4fd9cdf2058}\index{testWalmartSalesTraining.TestWalmartSales@{testWalmartSalesTraining.TestWalmartSales}!stores\_data@{stores\_data}}
+\index{stores\_data@{stores\_data}!testWalmartSalesTraining.TestWalmartSales@{testWalmartSalesTraining.TestWalmartSales}}
+\doxysubsubsection{\texorpdfstring{stores\_data}{stores\_data}}
+{\footnotesize\ttfamily \label{classtest_walmart_sales_training_1_1_test_walmart_sales_ab9f2cb34f9709be2e635b4fd9cdf2058} 
+test\+Walmart\+Sales\+Training.\+Test\+Walmart\+Sales.\+stores\+\_\+data}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \ pd.DataFrame(\{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'Store'}:\ [1,\ 2],}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'Type'}:\ [\textcolor{stringliteral}{'A'},\ \textcolor{stringliteral}{'A'}],}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'Size'}:\ [151315,\ 202307]}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \})}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{test_walmart_sales_training_8py_source_l00048}{48}} of file \mbox{\hyperlink{test_walmart_sales_training_8py_source}{test\+Walmart\+Sales\+Training.\+py}}.
+
+\Hypertarget{classtest_walmart_sales_training_1_1_test_walmart_sales_a29aadb379a17d5d5a2a44a9de8c28681}\index{testWalmartSalesTraining.TestWalmartSales@{testWalmartSalesTraining.TestWalmartSales}!train\_data@{train\_data}}
+\index{train\_data@{train\_data}!testWalmartSalesTraining.TestWalmartSales@{testWalmartSalesTraining.TestWalmartSales}}
+\doxysubsubsection{\texorpdfstring{train\_data}{train\_data}}
+{\footnotesize\ttfamily \label{classtest_walmart_sales_training_1_1_test_walmart_sales_a29aadb379a17d5d5a2a44a9de8c28681} 
+test\+Walmart\+Sales\+Training.\+Test\+Walmart\+Sales.\+train\+\_\+data}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \ pd.DataFrame(\{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'Store'}:\ [1,\ 1,\ 2,\ 2],}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'Date'}:\ [\textcolor{stringliteral}{'2010-\/02-\/05'},\ \textcolor{stringliteral}{'2010-\/02-\/12'},\ \textcolor{stringliteral}{'2010-\/02-\/05'},\ \textcolor{stringliteral}{'2010-\/02-\/12'}],}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'Weekly\_Sales'}:\ [1643690.90,\ 1641957.44,\ 647054.47,\ 684064.00],}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'IsHoliday'}:\ [\textcolor{keyword}{False},\ \textcolor{keyword}{True},\ \textcolor{keyword}{False},\ \textcolor{keyword}{True}]\ \ \textcolor{comment}{\#\ This\ will\ become\ IsHoliday\_x\ after\ merge}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \})}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{test_walmart_sales_training_8py_source_l00033}{33}} of file \mbox{\hyperlink{test_walmart_sales_training_8py_source}{test\+Walmart\+Sales\+Training.\+py}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{test_walmart_sales_training_8py}{test\+Walmart\+Sales\+Training.\+py}}\end{DoxyCompactItemize}

@@ -1,0 +1,150 @@
+\doxysection{walmart\+Sales\+Prediction\+Core Namespace Reference}
+\hypertarget{namespacewalmart_sales_prediction_core}{}\label{namespacewalmart_sales_prediction_core}\index{walmartSalesPredictionCore@{walmartSalesPredictionCore}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacewalmart_sales_prediction_core_ad842284eac4b164b974e21b7756a2ff0}{get\+\_\+model\+\_\+path\+\_\+simple}} ()
+\item 
+\mbox{\hyperlink{namespacewalmart_sales_prediction_core_a25221e5ea402afa7dc7231da69775dff}{recreate\+\_\+arima\+\_\+model}} (params)
+\item 
+\mbox{\hyperlink{namespacewalmart_sales_prediction_core_ac991ee367e08a10198f08589bc8b713e}{load\+\_\+default\+\_\+model}} (model\+\_\+type)
+\item 
+\mbox{\hyperlink{namespacewalmart_sales_prediction_core_a014c82867e4ac73108c1213bb7b679f5}{load\+\_\+uploaded\+\_\+model}} (uploaded\+\_\+file, model\+\_\+type)
+\item 
+\mbox{\hyperlink{namespacewalmart_sales_prediction_core_a4281a87f350a80e7a3656d540ac4322c}{predict\+\_\+next\+\_\+4\+\_\+weeks}} (model, model\+\_\+type)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+dict \mbox{\hyperlink{namespacewalmart_sales_prediction_core_a3570526706b1b91b093a6b76fc89586d}{CONFIG}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}@brief Core module for Walmart sales prediction functionality
+@details This module provides the core functionality for loading and using time series models
+         to predict sales data. It supports both ARIMA and Exponential Smoothing models
+         with fallback mechanisms for cross-platform compatibility.
+@author Sales Prediction Team
+@date 2025
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespacewalmart_sales_prediction_core_ad842284eac4b164b974e21b7756a2ff0}\index{walmartSalesPredictionCore@{walmartSalesPredictionCore}!get\_model\_path\_simple@{get\_model\_path\_simple}}
+\index{get\_model\_path\_simple@{get\_model\_path\_simple}!walmartSalesPredictionCore@{walmartSalesPredictionCore}}
+\doxysubsubsection{\texorpdfstring{get\_model\_path\_simple()}{get\_model\_path\_simple()}}
+{\footnotesize\ttfamily \label{namespacewalmart_sales_prediction_core_ad842284eac4b164b974e21b7756a2ff0} 
+walmart\+Sales\+Prediction\+Core.\+get\+\_\+model\+\_\+path\+\_\+simple (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Determine the appropriate model path based on deployment environment
+@details Simple check for Streamlit Cloud vs local deployment by examining file structure
+@return Path string to the models directory
+@note This function helps with cross-platform deployment compatibility
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{walmart_sales_prediction_core_8py_source_l00020}{20}} of file \mbox{\hyperlink{walmart_sales_prediction_core_8py_source}{walmart\+Sales\+Prediction\+Core.\+py}}.
+
+\Hypertarget{namespacewalmart_sales_prediction_core_ac991ee367e08a10198f08589bc8b713e}\index{walmartSalesPredictionCore@{walmartSalesPredictionCore}!load\_default\_model@{load\_default\_model}}
+\index{load\_default\_model@{load\_default\_model}!walmartSalesPredictionCore@{walmartSalesPredictionCore}}
+\doxysubsubsection{\texorpdfstring{load\_default\_model()}{load\_default\_model()}}
+{\footnotesize\ttfamily \label{namespacewalmart_sales_prediction_core_ac991ee367e08a10198f08589bc8b713e} 
+walmart\+Sales\+Prediction\+Core.\+load\+\_\+default\+\_\+model (\begin{DoxyParamCaption}\item[{}]{model\+\_\+type}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Load default model from models/default/ directory with improved error handling
+@details Attempts to load pre-trained models using both joblib and pickle for compatibility
+@param model_type Type of model to load (must be in MODEL_FILE_MAP)
+@return Tuple of (model_object, error_message) where error_message is None on success
+@raises ValueError If model_type is empty or invalid
+@note Uses fallback loading mechanisms for cross-platform compatibility
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{walmart_sales_prediction_core_8py_source_l00080}{80}} of file \mbox{\hyperlink{walmart_sales_prediction_core_8py_source}{walmart\+Sales\+Prediction\+Core.\+py}}.
+
+\Hypertarget{namespacewalmart_sales_prediction_core_a014c82867e4ac73108c1213bb7b679f5}\index{walmartSalesPredictionCore@{walmartSalesPredictionCore}!load\_uploaded\_model@{load\_uploaded\_model}}
+\index{load\_uploaded\_model@{load\_uploaded\_model}!walmartSalesPredictionCore@{walmartSalesPredictionCore}}
+\doxysubsubsection{\texorpdfstring{load\_uploaded\_model()}{load\_uploaded\_model()}}
+{\footnotesize\ttfamily \label{namespacewalmart_sales_prediction_core_a014c82867e4ac73108c1213bb7b679f5} 
+walmart\+Sales\+Prediction\+Core.\+load\+\_\+uploaded\+\_\+model (\begin{DoxyParamCaption}\item[{}]{uploaded\+\_\+file}{, }\item[{}]{model\+\_\+type}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Load model from uploaded file with improved error handling for cross-platform compatibility
+@details Saves uploaded file to temporary location and attempts loading with multiple methods
+@param uploaded_file Streamlit uploaded file object containing model data
+@param model_type Type of model being uploaded (for error handling context)
+@return Tuple of (model_object, error_message) where error_message is None on success
+@raises ValueError If uploaded_file is None or model_type is empty
+@note Automatically cleans up temporary files after processing
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{walmart_sales_prediction_core_8py_source_l00125}{125}} of file \mbox{\hyperlink{walmart_sales_prediction_core_8py_source}{walmart\+Sales\+Prediction\+Core.\+py}}.
+
+\Hypertarget{namespacewalmart_sales_prediction_core_a4281a87f350a80e7a3656d540ac4322c}\index{walmartSalesPredictionCore@{walmartSalesPredictionCore}!predict\_next\_4\_weeks@{predict\_next\_4\_weeks}}
+\index{predict\_next\_4\_weeks@{predict\_next\_4\_weeks}!walmartSalesPredictionCore@{walmartSalesPredictionCore}}
+\doxysubsubsection{\texorpdfstring{predict\_next\_4\_weeks()}{predict\_next\_4\_weeks()}}
+{\footnotesize\ttfamily \label{namespacewalmart_sales_prediction_core_a4281a87f350a80e7a3656d540ac4322c} 
+walmart\+Sales\+Prediction\+Core.\+predict\+\_\+next\+\_\+4\+\_\+weeks (\begin{DoxyParamCaption}\item[{}]{model}{, }\item[{}]{model\+\_\+type}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Predict next 4 weeks of sales using the provided model
+@details Generates predictions based on model type and creates corresponding date ranges
+@param model Trained model object (ARIMA or Exponential Smoothing)
+@param model_type Type of model being used for prediction routing
+@return Tuple of (predictions_array, dates_list, error_message) where error_message is None on success
+@raises ValueError If model is None or model_type is empty
+@note Dates are generated starting from next week after current date
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{walmart_sales_prediction_core_8py_source_l00181}{181}} of file \mbox{\hyperlink{walmart_sales_prediction_core_8py_source}{walmart\+Sales\+Prediction\+Core.\+py}}.
+
+\Hypertarget{namespacewalmart_sales_prediction_core_a25221e5ea402afa7dc7231da69775dff}\index{walmartSalesPredictionCore@{walmartSalesPredictionCore}!recreate\_arima\_model@{recreate\_arima\_model}}
+\index{recreate\_arima\_model@{recreate\_arima\_model}!walmartSalesPredictionCore@{walmartSalesPredictionCore}}
+\doxysubsubsection{\texorpdfstring{recreate\_arima\_model()}{recreate\_arima\_model()}}
+{\footnotesize\ttfamily \label{namespacewalmart_sales_prediction_core_a25221e5ea402afa7dc7231da69775dff} 
+walmart\+Sales\+Prediction\+Core.\+recreate\+\_\+arima\+\_\+model (\begin{DoxyParamCaption}\item[{}]{params}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Attempt to recreate an ARIMA model from parameters if pickle loading fails
+@details This function serves as a fallback mechanism when model deserialization fails
+         due to version incompatibilities or missing dependencies
+@param params Dictionary containing model parameters, must include 'order' key
+@return ARIMA model object or None if recreation fails
+@raises ValueError If parameters are not a dictionary or order is invalid
+@warning This creates a dummy model and may not preserve original training data
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{walmart_sales_prediction_core_8py_source_l00049}{49}} of file \mbox{\hyperlink{walmart_sales_prediction_core_8py_source}{walmart\+Sales\+Prediction\+Core.\+py}}.
+
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespacewalmart_sales_prediction_core_a3570526706b1b91b093a6b76fc89586d}\index{walmartSalesPredictionCore@{walmartSalesPredictionCore}!CONFIG@{CONFIG}}
+\index{CONFIG@{CONFIG}!walmartSalesPredictionCore@{walmartSalesPredictionCore}}
+\doxysubsubsection{\texorpdfstring{CONFIG}{CONFIG}}
+{\footnotesize\ttfamily \label{namespacewalmart_sales_prediction_core_a3570526706b1b91b093a6b76fc89586d} 
+dict walmart\+Sales\+Prediction\+Core.\+CONFIG}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ =\ \ \{}
+\DoxyCodeLine{00002\ \ \ \ \ \textcolor{stringliteral}{'PREDICTION\_PERIODS'}:\ 4,\ \ \textcolor{comment}{\#\ Number\ of\ weeks\ to\ predict}}
+\DoxyCodeLine{00003\ \ \ \ \ \textcolor{stringliteral}{'MODEL\_FILE\_MAP'}:\ \{}
+\DoxyCodeLine{00004\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Auto\ ARIMA"{}}:\ \textcolor{stringliteral}{"{}AutoARIMA"{}},}
+\DoxyCodeLine{00005\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Exponential\ Smoothing\ (Holt-\/Winters)"{}}:\ \textcolor{stringliteral}{"{}ExponentialSmoothingHoltWinters"{}}}
+\DoxyCodeLine{00006\ \ \ \ \ \},}
+\DoxyCodeLine{00007\ \ \ \ \ \textcolor{stringliteral}{'MODEL\_FUNC\_MAP'}:\ \{}
+\DoxyCodeLine{00008\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Auto\ ARIMA"{}}:\ \textcolor{stringliteral}{"{}Auto\ ARIMA"{}},}
+\DoxyCodeLine{00009\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Exponential\ Smoothing\ (Holt-\/Winters)"{}}:\ \textcolor{stringliteral}{"{}Exponential\ Smoothing\ (Holt-\/Winters)"{}}}
+\DoxyCodeLine{00010\ \ \ \ \ \},}
+\DoxyCodeLine{00011\ \ \ \ \ \textcolor{stringliteral}{'DEFAULT\_MODEL\_PATH'}:\ get\_model\_path\_simple(),\ \ \textcolor{comment}{\#\ Dynamic\ path\ based\ on\ environment}}
+\DoxyCodeLine{00012\ \ \ \ \ \textcolor{stringliteral}{'SUPPORTED\_EXTENSIONS'}:\ [\textcolor{stringliteral}{"{}pkl"{}}],\ \ \textcolor{comment}{\#\ Supported\ file\ extensions\ for\ model\ files}}
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{stringliteral}{'DEFAULT\_ARIMA\_ORDER'}:\ (1,\ 1,\ 1)\ \ \textcolor{comment}{\#\ Default\ ARIMA\ parameters\ (p,\ d,\ q)}}
+\DoxyCodeLine{00014\ \}}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{walmart_sales_prediction_core_8py_source_l00034}{34}} of file \mbox{\hyperlink{walmart_sales_prediction_core_8py_source}{walmart\+Sales\+Prediction\+Core.\+py}}.
+

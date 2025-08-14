@@ -1,0 +1,34 @@
+\begin{tikzpicture}[
+	node distance=2cm,
+	every node/.style={font=\footnotesize},
+	box/.style={rectangle, draw, fill=green!10, minimum width=2.2cm, minimum height=1cm, text centered},
+	decision/.style={diamond, draw, fill=orange!10, minimum width=2cm, minimum height=1cm, text centered},
+	arrow/.style={->, thick}
+	]
+	
+	% Time series workflow
+	\node[box] (import) {Import Time Series Data};
+	\node[box, below=of import] (visualize) {Initial Visualization};
+	\node[decision, below=of visualize] (stationary) {Stationary?};
+	\node[box, below left=2cm and 1cm of stationary] (difference) {Apply Differencing};
+	\node[box, below right=2cm and 1cm of stationary] (decompose) {Seasonal Decomposition};
+	\node[box, below=3cm of stationary] (identify) {Model Identification};
+	\node[box, below=of identify] (estimate) {Parameter Estimation};
+	\node[box, below=of estimate] (validate) {Model Validation};
+	\node[box, below=of validate] (forecast) {Generate Forecasts};
+	
+	% Arrows
+	\draw[arrow] (import) -- (visualize);
+	\draw[arrow] (visualize) -- (stationary);
+	\draw[arrow] (stationary.west) -- node[left, pos=0.3] {No} (difference.north);
+	\draw[arrow] (stationary.east) -- node[right, pos=0.3] {Yes} (decompose.north);
+	\draw[arrow] (difference.south) -- (identify.north west);
+	\draw[arrow] (decompose.south) -- (identify.north east);
+	\draw[arrow] (identify) -- (estimate);
+	\draw[arrow] (estimate) -- (validate);
+	\draw[arrow] (validate) -- (forecast);
+	
+	% Feedback loop
+	\draw[arrow, dashed] (validate.west) -| ([xshift=-3cm]estimate.west) -- (estimate.west);
+	
+\end{tikzpicture}

@@ -1,0 +1,37 @@
+\begin{tikzpicture}[
+    node distance=1.5cm,
+    process/.style={rectangle, draw, fill=blue!15, text width=2.5cm, text centered, rounded corners, minimum height=0.8cm},
+    data/.style={ellipse, draw, fill=yellow!15, text width=2cm, text centered, minimum height=0.6cm},
+    arrow/.style={->, thick}
+]
+
+% Data flow
+\node[data] (raw) {Raw Data \\ CSV, Excel, SQL};
+\node[process, below=of raw] (load) {Data Loading \\ pd.read\_csv()};
+\node[process, below=of load] (clean) {Data Cleaning \\ Missing values, Duplicates};
+\node[process, below=of clean] (transform) {Transformation \\ Grouping, Pivoting};
+\node[process, below=of transform] (analyze) {Analysis \\ Statistics, Aggregation};
+\node[data, below=of analyze] (insights) {Insights \\ Reports, Visualizations};
+
+% Side processes
+\node[process, right=3cm of clean] (validate) {Validation \\ Data types, Ranges};
+\node[process, right=3cm of transform] (feature) {Feature Engineering \\ New columns};
+
+% Arrows
+\draw[arrow] (raw) -- (load);
+\draw[arrow] (load) -- (clean);
+\draw[arrow] (clean) -- (transform);
+\draw[arrow] (transform) -- (analyze);
+\draw[arrow] (analyze) -- (insights);
+
+% Side connections
+\draw[arrow] (clean) -- (validate);
+\draw[arrow] (validate) -- (transform);
+\draw[arrow] (transform) -- (feature);
+\draw[arrow] (feature) -- (analyze);
+
+% Feedback loops
+\draw[arrow, dashed] (validate) to[bend left=45] (clean);
+\draw[arrow, dashed] (analyze) to[bend right=60] (transform);
+
+\end{tikzpicture}

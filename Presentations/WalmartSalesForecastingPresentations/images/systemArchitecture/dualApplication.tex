@@ -1,0 +1,36 @@
+\begin{tikzpicture}[
+	node distance=0.8cm,
+	app/.style={rectangle, rounded corners, fill=HSELhellblau!30, draw=HSELblau, very thick, minimum width=1.8cm, minimum height=4cm, text width=1.6cm, align=center},
+	feature/.style={rectangle, rounded corners, fill=white, draw=HSELblau, minimum width=1.5cm, minimum height=0.3cm, font=\scriptsize, text width=1.4cm, align=center},
+	data/.style={rectangle, rounded corners, fill=yellow!20, draw=orange, thick, minimum width=1.2cm, minimum height=0.8cm, text width=1.1cm, align=center, font=\scriptsize}
+	]
+	
+	% Horizontal flow: CSV Data -> Training App -> Model File -> Prediction App -> Results
+	\node[data] (csv_data) {CSV Data \\ train.csv \\ features.csv \\ stores.csv};
+	
+	\node[app, right=of csv_data] (training) {};
+	\node[above=0.05cm of training.north, font=\bfseries\scriptsize, color=HSELblau] {Training Application};
+	\node[feature, below=0.1cm of training.north] (upload) {Data Upload};
+	\node[feature, below=0.05cm of upload] (model_sel) {Model Selection};
+	\node[feature, below=0.05cm of model_sel] (hyperparam) {Hyperparameter \\ Tuning};
+	\node[feature, below=0.05cm of hyperparam] (evaluation) {Performance \\ Evaluation};
+	\node[feature, below=0.05cm of evaluation] (export) {Model Export};
+	
+	\node[data, right=of training] (model_file) {Model File \\ (.pkl)};
+	
+	\node[app, right=of model_file] (prediction) {};
+	\node[above=0.05cm of prediction.north, font=\bfseries\scriptsize, color=HSELblau] {Prediction Application};
+	\node[feature, below=0.1cm of prediction.north] (load) {Model Loading};
+	\node[feature, below=0.05cm of load] (generate) {Forecast \\ Generation};
+	\node[feature, below=0.05cm of generate] (visualize) {Interactive \\ Visualization};
+	\node[feature, below=0.05cm of visualize] (download) {Results Export};
+	
+	\node[data, right=of prediction] (results) {Forecasts \\ CSV/JSON \\ Charts};
+	
+	% Horizontal arrows with 0.5cm length
+	\draw[->, thick, HSELblau] (csv_data.east) -- ++(0.5cm,0) -- (training.west);
+	\draw[->, thick, HSELblau] (training.east) -- ++(0.5cm,0) -- (model_file.west);
+	\draw[->, thick, HSELblau] (model_file.east) -- ++(0.5cm,0) -- (prediction.west);
+	\draw[->, thick, HSELblau] (prediction.east) -- ++(0.5cm,0) -- (results.west);
+	
+\end{tikzpicture}

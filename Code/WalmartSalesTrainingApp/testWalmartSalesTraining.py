@@ -156,31 +156,84 @@ class TestWalmartSales:
         assert isinstance(df_week_diff, pd.Series)
         assert len(df_week_diff) == len(df_week) - 1  # Differencing reduces length by 1
     
-    def test_wmae_calculation(self):
+    def test_wmae_ts_detailed_calculation(self):
         """
-        @brief Test WMAE (Weighted Mean Absolute Error) calculation
+        @brief Test detailed WMAE (Weighted Mean Absolute Error) calculation
         @details Validates the evaluation metric calculation with known input/output pairs
+                 and verifies all return values (absolute, normalized, formatted)
         @note WMAE is the primary evaluation metric for sales forecasting models
         """
         # Create test data with known error patterns
-        y_true = np.array([1, 2, 3, 4, 5])
-        y_pred = np.array([1.1, 1.9, 3.1, 3.9, 5.1])
+        y_true = np.array([100, 200, 300, 400, 500])
+        y_pred = np.array([110, 190, 310, 390, 510])
         
-        wmae = wmae_ts(y_true, y_pred)
+        wmae_results = wmae_ts_detailed(y_true, y_pred)
         
-        # Verify WMAE calculation properties
-        assert isinstance(wmae, (float, np.float64))
-        assert wmae >= 0  # WMAE should always be non-negative
+        # Verify WMAE calculation structure and properties
+        assert isinstance(wmae_results, dict)
+        assert 'absolute' in wmae_results
+        assert 'normalized' in wmae_results
+        assert 'formatted' in wmae_results
+        
+        # Verify data types and value ranges
+        assert isinstance(wmae_results['absolute'], (float, np.float64))
+        assert isinstance(wmae_results['normalized'], (float, np.float64))
+        assert isinstance(wmae_results['formatted'], str)
+        
+        assert wmae_results['absolute'] >= 0  # WMAE should always be non-negative
+        assert wmae_results['normalized'] >= 0  # Normalized WMAE should also be non-negative
+        
+        # Verify formatted string contains both metrics
+        assert 'Absolute WMAE:' in wmae_results['formatted']
+        assert 'Normalized WMAE:' in wmae_results['formatted']
     
-    def test_wmae_error_handling(self):
+    def test_wmae_ts_detailed_error_handling(self):
         """
-        @brief Test WMAE error handling for invalid inputs
+        @brief Test detailed WMAE error handling for invalid inputs
         @details Verifies proper validation of input arrays before calculation
         @note Tests None input validation to prevent runtime errors
         """
         # Test with None inputs
         with pytest.raises(ValueError, match="cannot be None"):
-            wmae_ts(None, None)
+            wmae_ts_detailed(None, None)
+        
+        # Test with mismatched shapes
+        y_true = np.array([1, 2, 3])
+        y_pred = np.array([1, 2])
+        with pytest.raises(ValueError, match="Shapes.*must match"):
+            wmae_ts_detailed(y_true, y_pred)
+    
+    def test_get_wmae_interpretation(self):
+        """
+        @brief Test WMAE interpretation function for different performance levels
+        @details Validates the business-friendly interpretation of WMAE scores
+                 across different performance ranges (excellent, acceptable, poor)
+        @note This function helps stakeholders understand model quality
+        """
+        # Test excellent performance (< 5%)
+        interpretation, color = get_wmae_interpretation(2.5)
+        assert "Excellent" in interpretation
+        assert color == "success"
+        
+        # Test acceptable performance (5-15%)
+        interpretation, color = get_wmae_interpretation(10.0)
+        assert "Acceptable" in interpretation
+        assert color == "warning"
+        
+        # Test poor performance (> 15%)
+        interpretation, color = get_wmae_interpretation(20.0)
+        assert "Poor" in interpretation
+        assert color == "error"
+        
+        # Test boundary cases
+        interpretation, color = get_wmae_interpretation(5.0)
+        assert "Acceptable" in interpretation  # 5% should be acceptable
+        
+        interpretation, color = get_wmae_interpretation(15.0)
+        assert "Acceptable" in interpretation  # 15% should be acceptable
+        
+        interpretation, color = get_wmae_interpretation(15.1)
+        assert "Poor" in interpretation  # 15.1% should be poor
     
     @patch('walmartSalesTrainingCore.auto_arima')
     def test_train_auto_arima(self, mock_arima):
@@ -218,11 +271,76 @@ class TestWalmartSales:
         # Test with empty training data
         with pytest.raises(ValueError, match="cannot be None or empty"):
             train_auto_arima([])
+    
+    @patch('walmartSalesTrainingCore.ExponentialSmoothing')
+    def test_train_exponential_smoothing(self, mock_exp_smoothing):
+        """
+        @brief Test Exponential Smoothing training with mocked dependencies
+        @details Validates the Exponential Smoothing training workflow
+        @param mock_exp_smoothing Mocked ExponentialSmoothing class
+        @note Tests the training workflow for Holt-Winters model
+        """
+        # Setup mock Exponential Smoothing model
+        mock_model = Mock()
+        mock_exp_smoothing.return_value.fit.return_value = mock_model
+        
+        # Create test training data
+        train_data = pd.Series([1, 2, 3, 4, 5])
+        
+        result = train_exponential_smoothing(train_data)
+        
+        # Verify Exponential Smoothing training workflow
+        mock_exp_smoothing.assert_called_once()
+        assert result == mock_model
+    
+    def test_train_exponential_smoothing_error_handling(self):
+        """
+        @brief Test Exponential Smoothing error handling for invalid training data
+        @details Verifies proper validation of training data before model fitting
+        @note Tests both None input and empty data scenarios
+        """
+        # Test with None training data
+        with pytest.raises(ValueError, match="cannot be None or empty"):
+            train_exponential_smoothing(None)
+        
+        # Test with empty training data
+        with pytest.raises(ValueError, match="cannot be None or empty"):
+            train_exponential_smoothing([])
+    
+    @patch('walmartSalesTrainingCore.plt')
+    def test_create_diagnostic_plots(self, mock_plt):
+        """
+        @brief Test diagnostic plot creation functionality
+        @details Validates the plotting workflow for model evaluation
+        @param mock_plt Mocked matplotlib.pyplot module
+        @note Tests visual diagnostic functionality without actual plot rendering
+        """
+        # Create test data for plotting
+        train_data = pd.Series([1, 2, 3], index=pd.date_range('2010-01-01', periods=3, freq='W'))
+        test_data = pd.Series([4, 5], index=pd.date_range('2010-01-22', periods=2, freq='W'))
+        predictions = np.array([4.1, 4.9])
+        
+        # Mock matplotlib figure
+        mock_fig = Mock()
+        mock_plt.gcf.return_value = mock_fig
+        
+        result = create_diagnostic_plots(train_data, test_data, predictions, "Test Model")
+        
+        # Verify plotting workflow
+        mock_plt.figure.assert_called_once()
+        mock_plt.title.assert_called_once()
+        assert mock_plt.plot.call_count == 3  # Should plot train, test, and predictions
+        assert result == mock_fig
+    
+    def test_create_diagnostic_plots_error_handling(self):
+        """
+        @brief Test diagnostic plots error handling for invalid inputs
+        @details Verifies proper validation of input data before plotting
+        @note Tests None input validation for plotting functions
+        """
+        # Test with None inputs
+        with pytest.raises(ValueError, match="cannot be None"):
+            create_diagnostic_plots(None, None, None, "Test")
 
 if __name__ == "__main__":
-    """
-    @brief Entry point for running tests directly with verbose output
-    @details Allows running the test suite directly when executed as main module
-    @note Uses pytest.main() to run tests with verbose flag for detailed reporting
-    """
     pytest.main([__file__, "-v"])

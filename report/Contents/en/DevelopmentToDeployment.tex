@@ -1,0 +1,200 @@
+%%%
+%
+% $Autor: Ayush Plawat $
+% $Datum: 2021-05-14 $
+% $Pfad: GitLab/CornerBlending $
+% $Dateiname: DomainProblem
+% $Version: 4620 $
+%
+% !TeX spellcheck = de_DE/GB
+%
+%%%
+
+
+\chapter{From Development to Deployment}
+
+\section{Introduction}
+Moving a forecasting model from an exploratory notebook to a production-grade artefact demands disciplined engineering.  
+For the Walmart Sales Forecasting project this means  
+(i) codifying every assumption about the \emph{data contract};  
+(ii) freezing the \emph{software bill of materials} so that any team member can rebuild the environment byte-for-byte;  
+(iii) enforcing a \emph{deterministic file hierarchy} that doubles as living documentation; and  
+(iv) treating every trained model as an immutable artefact with cryptographic provenance metadata.  
+The subsections below expand each pillar in detail, following the project manual\cite{Box:2016}\cite{Montgomery:2008}\cite{Guyon:2003}.
+
+%--------------------------------------------------------------------
+\section{Data Structure} % 10 marks
+A robust data structure underpins reproducible science and reliable operations.
+
+\begin{itemize}
+	\item \textbf{Canonical schema.}  All source files (\verb|train.csv|, \verb|features.csv|, \verb|stores.csv|) load into a long-format fact table with exactly five index columns\\
+	\verb|Store|, \verb|Dept|, \verb|Date|, \verb|Weekly_Sales|, \verb|IsHoliday|.  
+	Down-stream code asserts both the column set and the data-types before continuing.
+	\item \textbf{Strict typing.}  \verb|Store| and \verb|Dept| are \verb|int16|; dates use \verb|datetime64[ns]|; monetary values are \verb|float32|, saving \mbox{38\,\%} RAM versus 64-bit floats.
+	\item \textbf{Partitioned storage.}  Raw CSVs are written once to \verb|data/raw/YYYY/| so Git LFS can delta-compress while keeping history.  
+	ETL writes Parquet to \verb|data/processed/| and tags each folder with a SHA-256 of the pipeline code (\verb|pipeline_sha|).
+	\item \textbf{Audit columns.}  Every processed row carries \verb|ingested_at| (UTC) and \verb|pipeline_sha|, enabling point-in-time reproduction without polluting statistical features.
+	\item \textbf{Referential integrity.}  Foreign-key checks between \verb|stores.csv| and the fact table run at job start; any mismatch aborts the run.
+\end{itemize}
+
+%--------------------------------------------------------------------
+\section{Tools} % 20 marks
+All tools are pinned in \texttt{requirements.txt} and therefore identical in CI, notebooks and production.
+
+\begin{table}[h]
+	\centering\small
+	\begin{tabular}{|l|p{7.6cm}|}
+		\hline
+		Python 3.12.0 & single interpreter; clearer trace-backs; about 5\,\% faster \\ \hline
+		pandas 2.2.2 / NumPy 1.26.4 & memory-optimised ETL, rolling windows, typed dtypes \\ \hline
+		statsmodels 0.14.2 & ETS back-end, Ljung--Box, Jarque--Bera diagnostics \\ \hline
+		pmdarima 2.0.4 & auto-ARIMA grid search, scikit-learn style API \\ \hline
+		joblib 1.4.2 & compressed pickle, \verb|mmap_mode="r"| in prod \\ \hline
+		Streamlit 1.32.0 & single GUI code-base for Training~App \& Prediction~App \\ \hline
+		pytest 8.2 + coverage & unit / integration tests in GitHub Actions \\ \hline
+		git 2.43 + hooks & blocks commits if tests fail or dependencies drift \\ \hline
+	\end{tabular}
+\end{table}
+
+Quick start (cross-platform):
+
+\begin{lstlisting}[language=bash,basicstyle=\ttfamily\small]
+	python3.12 -m venv venv
+	source venv/bin/activate     # Windows: venv\Scripts\activate
+	pip install -r requirements.txt
+\end{lstlisting}
+
+%--------------------------------------------------------------------
+\section{File Structure for Model Exchangements} % 10 marks
+Verified ASCII tree:
+
+\begin{lstlisting}[basicstyle=\ttfamily\footnotesize]
+	walmart_forecasting/
+	|- data/
+	|  |- raw/YYYY/                  # immutable Kaggle CSVs
+	|  |- processed/                 # Parquet after ETL
+	|- models/
+	|  |- arima/                     # one .pkl per (store, dept)
+	|  |- registry/                  # CI-promoted, read-only
+	|- WalmartSalesTrainingApp/
+	|  |- train.py
+	|  |- models/                    # staging before CI
+	|- WalmartSalesPredictionApp/
+	|  |- walmartSalesPredictionApp.py
+	|  |- models/
+	|     |- default/                # shipped with repo
+	|- src/                          # shared Python code
+	|- config/                       # YAML configs
+	|- notebooks/                    # EDA / R&D
+	|- tests/                        # pytest suites
+\end{lstlisting}
+
+Model path:
+\begin{enumerate}
+	\item Training-App writes \verb|arima__store-01__dept-01__v1.0.0.pkl| to its local \texttt{models/}.
+	\item CI validates\,(tests+WMAE\,$\le$\,5\,\%) then copies the file and its JSON meta to \texttt{models/registry/}.
+	\item Prediction-App lets the user upload the newest registry file into its private \texttt{models/default/}; checksum verification runs before the model is served.
+\end{enumerate}
+
+%--------------------------------------------------------------------
+\section{Description of the Filetypes} % 25 marks
+
+The deployment pipeline touches eight filetypes; the table below explains each in operational depth.
+
+\begin{table}[H]
+	\centering\footnotesize
+	\begin{tabular}{|l|p{3.5cm}|p{8.4cm}|}
+		\hline
+		\textbf{File} & \textbf{Where used} & \textbf{Practical details and best practice} \\ \hline\hline
+		\texttt{.csv} & Raw ingestion + some exports &
+		UTF-8, LF.  Loaded with an explicit dtype map to stop pandas guessing.  
+		Timestamps parsed via \verb|parse_dates|; duplicate primary keys abort ETL.  
+		Large (>500 MB) files streamed in 10 k-row chunks so peak RAM stays < 1 GB. \\ \hline
+		\texttt{.parquet} & \verb|data/processed/| &
+		Column-oriented; Snappy compression saves about 70 \%.  
+		Predicate push-down makes store-level slices 10× faster than CSV.  
+		Schema evolution is safe; new columns append without rewriting old partitions. \\ \hline
+		\texttt{.pkl} & Model artefacts (\texttt{models/}) &
+		Written by \verb|joblib.dump(model, compress=3)|.  
+		Name pattern \texttt{arima\_\_store-<nn>\_\_dept-<nn>\_\_vX.Y.Z.pkl} enforces semantic versioning.  
+		Loaded with \verb|mmap_mode="r"| so multiple requests share RAM in Streamlit Cloud. \\ \hline
+		\texttt{.json} & Side-car to every \texttt{.pkl} &
+		Contains order, seasonal order, AIC, SHA-256 of training data, Git SHA and timestamp.  
+		Language-agnostic, so ops can inspect provenance without Python.  
+		Used at load-time for drift detection; mismatch aborts serving. \\ \hline
+		\texttt{.yaml} & \texttt{config/} &
+		Human-readable configs parsed by \verb|ruamel.yaml| with JSON-Schema validation.  
+		Layered files allow environment overrides (\textit{dev}, \textit{stage}, \textit{prod}).  
+		Editing a YAML triggers CI to rebuild the lock-file, preventing "works-on-my-machine" bugs. \\ \hline
+		\texttt{.ipynb} & \texttt{notebooks/} &
+		Executed nightly with \verb|nbconvert --execute|; failures break the build, ensuring examples never rot.  
+		Outputs stripped before commit so diffs remain readable.  First cell prints current Git SHA for traceability. \\ \hline
+		\texttt{.py} & \texttt{src/}, apps, CLI &
+		PEP 8 + mypy-checked; public functions carry doc-strings with I/O contracts.  
+		Imported by both Streamlit apps, guaranteeing single-source-of-truth logic. \\ \hline
+		\texttt{.log} & \texttt{logs/} (rotating JSON lines) &
+		Training: epoch stats, WMAE, CPU\,\%, RAM\,\%.  
+		Prediction: request latency, 95\textsuperscript{th} percentile throughput.  
+		Ingested by Grafana via Loki for real-time dashboards. \\ \hline
+	\end{tabular}
+	\caption{Filetypes and their role in the Walmart pipeline}
+	\label{tab:filetypes}
+\end{table}
+
+Why multiple formats? CSV for universal exchange; Parquet for speed and compression; Pickle for binary weights; JSON for human-readable provenance; YAML for operator-friendly config; logs in JSON-lines for DevOps ingestion.
+
+%--------------------------------------------------------------------
+\section{Saving Models} % 5 marks
+
+\begin{lstlisting}[language=Python,basicstyle=\ttfamily\small]
+	from pathlib import Path
+	import joblib, json, hashlib, pandas as pd, tempfile, shutil
+	
+	def save_model(model, store, dept, y_train):
+	tag = f"store-{store:02d}__dept-{dept:02d}"
+	out_dir = Path("WalmartSalesTrainingApp/models")
+	out_dir.mkdir(parents=True, exist_ok=True)
+	
+	tmp = Path(tempfile.mkdtemp())
+	pkl_tmp  = tmp / f"arima__{tag}__v1.0.0.pkl"
+	meta_tmp = pkl_tmp.with_suffix(".json")
+	
+	joblib.dump(model, pkl_tmp, compress=3)
+	
+	sha = hashlib.sha256(
+	pd.util.hash_pandas_object(y_train, index=True).values
+	).hexdigest()
+	json.dump({"store":store,"dept":dept,
+		"order":model.order,"aic":model.aic(),
+		"data_sha256":sha},
+	open(meta_tmp, "w"), indent=2)
+	
+	shutil.move(pkl_tmp,  out_dir / pkl_tmp.name)
+	shutil.move(meta_tmp, out_dir / meta_tmp.name)
+\end{lstlisting}
+
+%--------------------------------------------------------------------
+\section{Loading Models} % 5 marks
+\begin{lstlisting}[language=Python,basicstyle=\ttfamily\small]
+	import joblib, json, hashlib, pandas as pd
+	from pathlib import Path
+	
+	def secure_load(pkl_path: Path, y_input: pd.Series):
+	meta = json.loads(pkl_path.with_suffix(".json").read_text())
+	cur_sha = hashlib.sha256(
+	pd.util.hash_pandas_object(y_input, index=True).values
+	).hexdigest()
+	if cur_sha != meta["data_sha256"]:
+	raise ValueError("Feature drift detected -- abort")
+	return joblib.load(pkl_path, mmap_mode="r")
+\end{lstlisting}
+
+%--------------------------------------------------------------------
+\section{Development--Deployment Workflow}
+
+\input{tikz/DevelopmentToDeployment/DevelopmentToDeploymentFlowchart.tikz}
+
+%--------------------------------------------------------------------
+\section{Conclusion}
+A strict data contract, pinned tool-chain, ASCII-safe hierarchy and checksum-verified promotion guarantee that a model trained in the Streamlit Training-App is the exact artefact powering forecasts in the Prediction-App.  
+This foundation supports future upgrades such as Docker images or MLflow registries while preserving the statistical rigour necessary for enterprise retail forecasting.

@@ -1,0 +1,37 @@
+\begin{tikzpicture}[
+	node distance=1cm,
+	challenge/.style={rectangle, rounded corners, fill=red!20, draw=red!60, thick, minimum width=1.8cm, minimum height=0.7cm, font=\small},
+	detail/.style={rectangle, rounded corners, fill=white, draw=gray, minimum width=1.5cm, minimum height=0.4cm, font=\scriptsize}
+	]
+	
+	% Main challenge categories
+	\node[challenge] (seasonal) {Multiple Seasonality};
+	\node[detail, below=0.2cm of seasonal] (seasonal_detail) {Weekly \& Annual};
+	
+	\node[challenge, right=1.5cm of seasonal] (holidays) {Holiday Effects};
+	\node[detail, below=0.2cm of holidays] (holiday_detail) {Irregular Impact};
+	
+	\node[challenge, right=1.5cm of holidays] (hierarchy) {Hierarchical Structure};
+	\node[detail, below=0.2cm of hierarchy] (hierarchy_detail) {45 Stores × Depts};
+	
+	\node[challenge, below=1.5cm of seasonal] (external) {External Variables};
+	\node[detail, below=0.2cm of external] (external_detail) {Economic Indicators};
+	
+	\node[challenge, right=1.5cm of external] (nonlinear) {Non-linear Relations};
+	\node[detail, below=0.2cm of nonlinear] (nonlinear_detail) {Complex Interactions};
+	
+	\node[challenge, right=1.5cm of nonlinear] (scale) {Large Scale};
+	\node[detail, below=0.2cm of scale] (scale_detail) {4,400+ Series};
+	
+	% Central problem
+	\node[below=4cm of holidays, rectangle, rounded corners, fill=blue!20, draw=blue!60, very thick, minimum width=3cm, minimum height=0.8cm, font=\bfseries\small] (forecasting) {Retail Sales Forecasting Complexity};
+	
+	% Arrows pointing to central problem
+	\draw[->, thick, red!60] (seasonal_detail) -- (forecasting.north west);
+	\draw[->, thick, red!60] (holiday_detail) -- (forecasting.north);
+	\draw[->, thick, red!60] (hierarchy_detail) -- (forecasting.north east);
+	\draw[->, thick, red!60] (external_detail) -- (forecasting.north west);
+	\draw[->, thick, red!60] (nonlinear_detail) -- (forecasting.north);
+	\draw[->, thick, red!60] (scale_detail) -- (forecasting.north east);
+	
+\end{tikzpicture}

@@ -1,0 +1,147 @@
+%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% $Autor: Hemanth Jadiswami Prabhakaran $
+% $Datum: 2025-06-25 13:26:44Z $
+% $Pfad: GitHub/BA25-01-Time-Series/Presentations/WalmartSalesForecastingPresentations/slides/systemArchitecture.tex $
+% $Version: 1 $
+%
+% $Project: BA25-Time-Series $
+%
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\Mysection{System Architecture \& Applications}
+
+\STANDARD{Dual-Application Architecture}
+{
+  \framesubtitle{Complete Forecasting Workflow}
+  
+  \begin{figure}[H]
+    \centering
+    \input{images/systemArchitecture/dualApplication}
+  \end{figure}
+
+    \vspace{2cm}
+
+
+  \textbf{Training Application}
+  \begin{itemize}
+    \item Model development \& validation
+    \item Hyperparameter tuning
+    \item Performance evaluation
+    \item Model export capabilities
+  \end{itemize}
+
+  \textbf{Prediction Application}
+  \begin{itemize}
+    \item Production forecasting
+    \item Interactive visualizations
+    \item Real-time results
+    \item Multiple export formats
+  \end{itemize}
+}
+
+\MYNOTE{
+  The system is designed with separation of concerns - training and prediction are handled by different applications for better workflow management.
+}
+
+% First slide - Technology Stack Architecture
+\STANDARD{Technology Stack Architecture}
+{
+	\framesubtitle{System Overview and Component Structure}
+	\begin{figure}[H]
+		\centering
+		\input{images/systemArchitecture/technologyStack}
+	\end{figure}
+}
+
+% Second slide - Technology Details
+\STANDARD{Technology Stack Details}
+{
+	\framesubtitle{Core Technologies and Implementation}
+	\begin{columns}[T]
+		\begin{column}{0.5\textwidth}
+			\textbf{Core Technologies}
+			\begin{itemize}
+				\item \textbf{Python 3.12}: Exact version requirement
+				\item \textbf{Streamlit}: Web application framework
+				\item \textbf{Plotly}: Interactive visualizations
+				\item \textbf{Pandas/NumPy}: Data processing
+			\end{itemize}
+		\end{column}
+		
+		\begin{column}{0.5\textwidth}
+			\textbf{Forecasting Models}
+			\begin{itemize}
+				\item \textbf{Auto ARIMA}: Automated parameter selection
+				\item \textbf{Exponential Smoothing}: Holt-Winters method
+				\item \textbf{Joblib}: Model serialization
+				\item \textbf{Statsmodels/pmdarima}: Implementation
+			\end{itemize}
+		\end{column}
+	\end{columns}
+}
+\MYNOTE{
+  The technology stack was chosen for rapid development, ease of deployment, and strong time series analysis capabilities.
+}
+
+\STANDARD{Data Pipeline}
+{
+  \framesubtitle{From Raw Data to Forecasts}
+  \begin{figure}[!h]
+    \centering
+   \input{images/systemArchitecture/dataPipeline}
+  \end{figure}
+  
+  \textbf{Input Processing}
+  \begin{itemize}
+    \item \textbf{train.csv}: Historical sales data with store, date, weekly sales
+    \item \textbf{features.csv}: External factors (temperature, fuel price, CPI, unemployment)
+    \item \textbf{stores.csv}: Store metadata (type, size)
+  \end{itemize}
+
+  \textbf{Output Generation}
+  \begin{itemize}
+    \item \textbf{4-week forecasts}: Week-over-week sales changes
+    \item \textbf{Interactive charts}: Color-coded visualizations
+    \item \textbf{Export formats}: CSV, JSON for further analysis
+  \end{itemize}
+}
+
+\MYNOTE{
+  The data pipeline handles the complete workflow from data validation through preprocessing to forecast generation and visualization.
+}
+
+\STANDARD{Deployment Options}
+{
+  \framesubtitle{Flexible Access Methods}
+  
+  \begin{figure}[!h]
+    \centering
+    \input{images/systemArchitecture/deploymentOptions}
+  \end{figure}
+
+  \begin{columns}[T]
+    \begin{column}{0.5\textwidth}
+      \textbf{Cloud Deployment}
+      \begin{itemize}
+        \item Immediate browser access
+        \item No installation required
+        \item Automatic updates
+        \item Cross-platform compatibility
+      \end{itemize}
+    \end{column}
+    
+    \begin{column}{0.5\textwidth}
+      \textbf{Local Installation}
+      \begin{itemize}
+        \item Full performance control
+        \item Offline capability
+        \item Large dataset support
+        \item Data privacy assurance
+      \end{itemize}
+    \end{column}
+  \end{columns}
+}
+

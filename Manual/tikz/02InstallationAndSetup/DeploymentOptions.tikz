@@ -1,0 +1,53 @@
+\begin{tikzpicture}[
+    node distance=2.5cm,
+    option/.style={rectangle, draw, fill=blue!20, text width=4cm, text centered, rounded corners, minimum height=2cm},
+    pro/.style={rectangle, draw, fill=green!10, text width=3.5cm, text centered, minimum height=1cm},
+    con/.style={rectangle, draw, fill=red!10, text width=3.5cm, text centered, minimum height=1cm},
+    arrow/.style={thick,->,>=stealth}
+]
+
+% Title
+\node[above=2cm] at (0,0) {\Large\textbf{Deployment Options Comparison}};
+
+% Main options
+\node[option] (cloud) at (-4,0) {\textbf{Cloud Deployment}\\Streamlit Community Cloud\\Browser-based access\\No installation required};
+
+\node[option] (local) at (4,0) {\textbf{Local Installation}\\Python 3.12 environment\\Local processing\\Full control};
+
+% Cloud advantages
+\node[pro] (cloud_pro1) at (-6,-3) { Immediate access\\ No setup required\\ Cross-platform};
+\node[pro] (cloud_pro2) at (-2,-3) { Automatic updates\\ No resource usage\\ Always available};
+
+% Cloud disadvantages  
+\node[con] (cloud_con1) at (-6,-5) { Internet dependency\\ Session timeouts\\ File size limits};
+\node[con] (cloud_con2) at (-2,-5) { Shared resources\\ Limited storage\\ Privacy concerns};
+
+% Local advantages
+\node[pro] (local_pro1) at (2,-3) { Offline capability\\ Full performance\\ Large datasets};
+\node[pro] (local_pro2) at (6,-3) { Data privacy\\ Custom config\\ No timeouts};
+
+% Local disadvantages
+\node[con] (local_con1) at (2,-5) { Setup complexity\\ Python 3.12 req\\ Manual updates};
+\node[con] (local_con2) at (6,-5) { Resource usage\\ Single user\\ Port conflicts};
+
+% Connecting arrows
+\draw[arrow] (cloud) -- (cloud_pro1);
+\draw[arrow] (cloud) -- (cloud_pro2);
+\draw[arrow] (cloud) -- (cloud_con1);
+\draw[arrow] (cloud) -- (cloud_con2);
+
+\draw[arrow] (local) -- (local_pro1);
+\draw[arrow] (local) -- (local_pro2);
+\draw[arrow] (local) -- (local_con1);
+\draw[arrow] (local) -- (local_con2);
+
+% Decision flow
+\node[rectangle, draw, fill=yellow!20, text width=8cm, text centered] (decision) at (0,-7) {
+\textbf{Choose Cloud for:} Quick evaluation, occasional use, no installation preference\\
+\textbf{Choose Local for:} Regular use, large datasets, offline work, data privacy
+};
+
+\draw[arrow] (cloud_con2) -- (decision);
+\draw[arrow] (local_con2) -- (decision);
+
+\end{tikzpicture}

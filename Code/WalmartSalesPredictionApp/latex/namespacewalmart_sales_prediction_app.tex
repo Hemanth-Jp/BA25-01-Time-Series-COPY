@@ -1,0 +1,133 @@
+\doxysection{walmart\+Sales\+Prediction\+App Namespace Reference}
+\hypertarget{namespacewalmart_sales_prediction_app}{}\label{namespacewalmart_sales_prediction_app}\index{walmartSalesPredictionApp@{walmartSalesPredictionApp}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacewalmart_sales_prediction_app_a124daf58b6c4aa56ff27762b60e00f71}{validate\+\_\+model\+\_\+input}} (model, \mbox{\hyperlink{namespacewalmart_sales_prediction_app_aeb11cb56ed4ff66e953818dd0c8610a2}{model\+\_\+type}})
+\item 
+\mbox{\hyperlink{namespacewalmart_sales_prediction_app_a9beb5e13aa34100e6ae964f38904db80}{main}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacewalmart_sales_prediction_app_af7155cce1667976d78292890677869d8}{page\+\_\+title}}
+\item 
+\mbox{\hyperlink{namespacewalmart_sales_prediction_app_a8de5b52d8151adc444941973b3ad7b16}{page\+\_\+icon}}
+\item 
+\mbox{\hyperlink{namespacewalmart_sales_prediction_app_a823e36689185fb4a34986ec462668402}{layout}}
+\item 
+\mbox{\hyperlink{namespacewalmart_sales_prediction_app_aa4675ed703b666fb7d28a281bb94df37}{current\+\_\+model}}
+\item 
+\mbox{\hyperlink{namespacewalmart_sales_prediction_app_aeb11cb56ed4ff66e953818dd0c8610a2}{model\+\_\+type}}
+\item 
+\mbox{\hyperlink{namespacewalmart_sales_prediction_app_abfa23f3a1bb9ba5a69506583948d8797}{model\+\_\+source}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}@brief Streamlit web application for Walmart sales prediction
+@details This module provides a user-friendly web interface for loading time series models
+         and generating sales forecasts. Supports both default and uploaded models with
+         interactive visualizations and downloadable results.
+@author Sales Prediction Team
+@date 2025
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespacewalmart_sales_prediction_app_a9beb5e13aa34100e6ae964f38904db80}\index{walmartSalesPredictionApp@{walmartSalesPredictionApp}!main@{main}}
+\index{main@{main}!walmartSalesPredictionApp@{walmartSalesPredictionApp}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily \label{namespacewalmart_sales_prediction_app_a9beb5e13aa34100e6ae964f38904db80} 
+walmart\+Sales\+Prediction\+App.\+main (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Main application function that renders the Streamlit interface
+@details Orchestrates the entire user interface flow including model loading,
+         prediction generation, and results visualization
+@note This function handles all UI state management and user interactions
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{walmart_sales_prediction_app_8py_source_l00049}{49}} of file \mbox{\hyperlink{walmart_sales_prediction_app_8py_source}{walmart\+Sales\+Prediction\+App.\+py}}.
+
+\Hypertarget{namespacewalmart_sales_prediction_app_a124daf58b6c4aa56ff27762b60e00f71}\index{walmartSalesPredictionApp@{walmartSalesPredictionApp}!validate\_model\_input@{validate\_model\_input}}
+\index{validate\_model\_input@{validate\_model\_input}!walmartSalesPredictionApp@{walmartSalesPredictionApp}}
+\doxysubsubsection{\texorpdfstring{validate\_model\_input()}{validate\_model\_input()}}
+{\footnotesize\ttfamily \label{namespacewalmart_sales_prediction_app_a124daf58b6c4aa56ff27762b60e00f71} 
+walmart\+Sales\+Prediction\+App.\+validate\+\_\+model\+\_\+input (\begin{DoxyParamCaption}\item[{}]{model}{, }\item[{}]{model\+\_\+type}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Validate inputs before calling core functions
+@details Performs basic validation to ensure model and model_type are properly set
+@param model The model object to validate
+@param model_type The model type string to validate
+@return True if validation passes
+@raises ValueError If model is None or model_type is empty
+@note This function helps catch validation errors early in the UI flow
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{walmart_sales_prediction_app_8py_source_l00033}{33}} of file \mbox{\hyperlink{walmart_sales_prediction_app_8py_source}{walmart\+Sales\+Prediction\+App.\+py}}.
+
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespacewalmart_sales_prediction_app_aa4675ed703b666fb7d28a281bb94df37}\index{walmartSalesPredictionApp@{walmartSalesPredictionApp}!current\_model@{current\_model}}
+\index{current\_model@{current\_model}!walmartSalesPredictionApp@{walmartSalesPredictionApp}}
+\doxysubsubsection{\texorpdfstring{current\_model}{current\_model}}
+{\footnotesize\ttfamily \label{namespacewalmart_sales_prediction_app_aa4675ed703b666fb7d28a281bb94df37} 
+walmart\+Sales\+Prediction\+App.\+current\+\_\+model}
+
+
+
+Definition at line \mbox{\hyperlink{walmart_sales_prediction_app_8py_source_l00027}{27}} of file \mbox{\hyperlink{walmart_sales_prediction_app_8py_source}{walmart\+Sales\+Prediction\+App.\+py}}.
+
+\Hypertarget{namespacewalmart_sales_prediction_app_a823e36689185fb4a34986ec462668402}\index{walmartSalesPredictionApp@{walmartSalesPredictionApp}!layout@{layout}}
+\index{layout@{layout}!walmartSalesPredictionApp@{walmartSalesPredictionApp}}
+\doxysubsubsection{\texorpdfstring{layout}{layout}}
+{\footnotesize\ttfamily \label{namespacewalmart_sales_prediction_app_a823e36689185fb4a34986ec462668402} 
+walmart\+Sales\+Prediction\+App.\+layout}
+
+
+
+Definition at line \mbox{\hyperlink{walmart_sales_prediction_app_8py_source_l00022}{22}} of file \mbox{\hyperlink{walmart_sales_prediction_app_8py_source}{walmart\+Sales\+Prediction\+App.\+py}}.
+
+\Hypertarget{namespacewalmart_sales_prediction_app_abfa23f3a1bb9ba5a69506583948d8797}\index{walmartSalesPredictionApp@{walmartSalesPredictionApp}!model\_source@{model\_source}}
+\index{model\_source@{model\_source}!walmartSalesPredictionApp@{walmartSalesPredictionApp}}
+\doxysubsubsection{\texorpdfstring{model\_source}{model\_source}}
+{\footnotesize\ttfamily \label{namespacewalmart_sales_prediction_app_abfa23f3a1bb9ba5a69506583948d8797} 
+walmart\+Sales\+Prediction\+App.\+model\+\_\+source}
+
+
+
+Definition at line \mbox{\hyperlink{walmart_sales_prediction_app_8py_source_l00031}{31}} of file \mbox{\hyperlink{walmart_sales_prediction_app_8py_source}{walmart\+Sales\+Prediction\+App.\+py}}.
+
+\Hypertarget{namespacewalmart_sales_prediction_app_aeb11cb56ed4ff66e953818dd0c8610a2}\index{walmartSalesPredictionApp@{walmartSalesPredictionApp}!model\_type@{model\_type}}
+\index{model\_type@{model\_type}!walmartSalesPredictionApp@{walmartSalesPredictionApp}}
+\doxysubsubsection{\texorpdfstring{model\_type}{model\_type}}
+{\footnotesize\ttfamily \label{namespacewalmart_sales_prediction_app_aeb11cb56ed4ff66e953818dd0c8610a2} 
+walmart\+Sales\+Prediction\+App.\+model\+\_\+type}
+
+
+
+Definition at line \mbox{\hyperlink{walmart_sales_prediction_app_8py_source_l00029}{29}} of file \mbox{\hyperlink{walmart_sales_prediction_app_8py_source}{walmart\+Sales\+Prediction\+App.\+py}}.
+
+\Hypertarget{namespacewalmart_sales_prediction_app_a8de5b52d8151adc444941973b3ad7b16}\index{walmartSalesPredictionApp@{walmartSalesPredictionApp}!page\_icon@{page\_icon}}
+\index{page\_icon@{page\_icon}!walmartSalesPredictionApp@{walmartSalesPredictionApp}}
+\doxysubsubsection{\texorpdfstring{page\_icon}{page\_icon}}
+{\footnotesize\ttfamily \label{namespacewalmart_sales_prediction_app_a8de5b52d8151adc444941973b3ad7b16} 
+walmart\+Sales\+Prediction\+App.\+page\+\_\+icon}
+
+
+
+Definition at line \mbox{\hyperlink{walmart_sales_prediction_app_8py_source_l00021}{21}} of file \mbox{\hyperlink{walmart_sales_prediction_app_8py_source}{walmart\+Sales\+Prediction\+App.\+py}}.
+
+\Hypertarget{namespacewalmart_sales_prediction_app_af7155cce1667976d78292890677869d8}\index{walmartSalesPredictionApp@{walmartSalesPredictionApp}!page\_title@{page\_title}}
+\index{page\_title@{page\_title}!walmartSalesPredictionApp@{walmartSalesPredictionApp}}
+\doxysubsubsection{\texorpdfstring{page\_title}{page\_title}}
+{\footnotesize\ttfamily \label{namespacewalmart_sales_prediction_app_af7155cce1667976d78292890677869d8} 
+walmart\+Sales\+Prediction\+App.\+page\+\_\+title}
+
+
+
+Definition at line \mbox{\hyperlink{walmart_sales_prediction_app_8py_source_l00020}{20}} of file \mbox{\hyperlink{walmart_sales_prediction_app_8py_source}{walmart\+Sales\+Prediction\+App.\+py}}.
+

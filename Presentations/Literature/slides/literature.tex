@@ -1,0 +1,549 @@
+%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% $Autor:  Adil $
+% $Datum: 2025-06-29 22:27:37Z $
+% $Pfad: GitHub/BA25-01-Time-Series/Presentations/Literature/slides/literature.tex $
+% $Version: 1 $
+%
+% $Project: BA25-Time-Series $
+%
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% !TeX encoding = utf8
+% !TeX root = LiteratureReview.tex
+%
+%%%%%%
+
+\Mysection{Introduction}
+
+\STANDARD{}
+{
+	
+	Time series analysis and forecasting have become fundamental components of modern data science, with applications spanning from retail sales prediction to financial market analysis. The integration of powerful Python libraries such as pandas, NumPy, statsmodels, and specialized forecasting packages like pmdarima has revolutionized how we approach temporal data analysis.
+	
+	This literature review examines the current state of time series forecasting methodologies, focusing on ARIMA modeling, exponential smoothing techniques, and the Python ecosystem tools that enable efficient implementation and deployment of forecasting solutions. We explore both theoretical foundations and practical applications, with particular attention to retail forecasting scenarios and modern deployment frameworks.
+	
+}
+
+\Mysection{Literature Review Article: 1}
+
+\STANDARD{Time Series Analysis: Forecasting and Control}
+{ 
+	
+	\textbf{Authors:}
+	Box, George E. P.; Jenkins, Gwilym M.; Reinsel, Greta C.; Ljung, Gregory M.
+	
+	\textbf{Description:}
+	This definitive resource on Box-Jenkins methodology covers ARIMA modeling, transfer functions, intervention analysis, and multivariate time series. The fifth edition includes updated material on state-space models and nonlinear time series, providing comprehensive coverage of classical time series analysis techniques \autocite{Box:2016}.
+	
+	\textbf{Keywords:}
+	ARIMA, Box-Jenkins methodology, Transfer functions, Intervention analysis, State-space models
+	
+	\textbf{Disadvantages:}
+	The mathematical rigor may be challenging for practitioners without strong statistical backgrounds. The focus on classical methods may not adequately address modern machine learning approaches to time series analysis.
+	
+	\textbf{Conclusion:}
+	This foundational work remains essential for understanding the theoretical underpinnings of ARIMA modeling and provides the mathematical framework that underlies modern automated forecasting tools like pmdarima.
+	
+}
+
+\Mysection{Literature Review Article: 2}
+
+\STANDARD{Forecasting: Principles and Practice}
+{ 
+	
+	\textbf{Authors:} 
+	Hyndman, Rob J. and Athanasopoulos, George
+	
+	\textbf{Description:} 
+	
+	This comprehensive textbook provides both theoretical foundations and practical applications of forecasting methods. The third edition covers modern forecasting techniques with extensive R examples, offering accessible explanations of complex concepts including ARIMA modeling, exponential smoothing, and forecast evaluation metrics \autocite{HyndmanAthanasopoulos:2021}.
+	
+	\textbf{Keywords:} 
+	
+	Forecasting principles, Exponential smoothing, ARIMA models, Forecast evaluation, Time series decomposition
+	
+	\textbf{Disadvantages:} 
+	
+	The primary focus on R programming may limit direct applicability for Python-centric workflows, though the theoretical concepts remain universally applicable.
+	
+	\textbf{Conclusion:} 
+	
+	This resource provides essential theoretical knowledge for understanding forecasting principles and serves as a foundation for implementing automated forecasting systems using Python libraries like pmdarima.
+	
+}
+
+\Mysection{Literature Review Article: 3}
+
+\STANDARD{Automatic Time Series Forecasting: The forecast Package for R}
+{ 
+	
+	\textbf{Authors:} 
+	Hyndman, Rob J. and Khandakar, Yeasmin
+	
+	\textbf{Description:} 
+	
+	This foundational paper introduces the Auto ARIMA algorithm and its implementation in the forecast package. It describes the stepwise search procedure and statistical tests used for automatic model selection, providing the theoretical basis for automated ARIMA modeling that has been adapted in Python through pmdarima \autocite{HyndmanKhandakar:2008}.
+	
+	\textbf{Keywords:} 
+	
+	Auto ARIMA, Automatic model selection, Stepwise search, Information criteria, Model diagnostics
+	
+	\textbf{Disadvantages:} 
+	
+	The algorithm may be computationally intensive for large datasets and might not always select the optimal model for specific domain applications without manual intervention.
+	
+	\textbf{Conclusion:} 
+	
+	This paper establishes the foundation for automated ARIMA modeling and directly influences the implementation of modern Python forecasting libraries, making complex time series analysis accessible to practitioners.
+	
+}
+
+\Mysection{Literature Review Article: 4}
+
+\STANDARD{Exponential Smoothing: The State of the Art—Part II}
+{ 
+	
+	\textbf{Authors:} Gardner, Everette S. Jr.
+	
+	\textbf{Description:} 
+	
+	This comprehensive review examines exponential smoothing methods, covering theoretical developments, practical applications, and comparative performance analysis. The paper provides a modern perspective on the evolution and effectiveness of exponential smoothing in contemporary forecasting practice \autocite{Gardner:2006}.
+	
+	\textbf{Keywords:} 
+	
+	Exponential smoothing, Holt-Winters method, Seasonal forecasting, Smoothing parameters, Forecast accuracy
+	
+	\textbf{Disadvantages:} 
+	
+	The review predates many modern developments in machine learning and ensemble methods that have enhanced traditional exponential smoothing approaches.
+	
+	\textbf{Conclusion:} 
+	
+	This work provides essential background for understanding exponential smoothing techniques and their continued relevance in modern forecasting applications, particularly when implemented through Python libraries.
+	
+}
+
+\Mysection{Literature Review Article: 5}
+
+\STANDARD{Forecasting Seasonals and Trends by Exponentially Weighted Moving Averages}
+{ 
+	
+	\textbf{Authors:} Winters, Peter R.
+	
+	\textbf{Description:} 
+	
+	This foundational paper introduces the Holt-Winters exponential smoothing method for forecasting time series with trend and seasonal components. It establishes the mathematical framework for additive and multiplicative seasonal models that remain standard in modern forecasting practice \autocite{Winters:1960}.
+	
+	\textbf{Keywords:} 
+	
+	Holt-Winters method, Seasonal forecasting, Exponential smoothing, Trend analysis, Multiplicative seasonality
+	
+	\textbf{Disadvantages:} 
+	
+	The original formulation lacks the robustness and automation features found in modern implementations, requiring manual parameter tuning and model specification.
+	
+	\textbf{Conclusion:} 
+	
+	This seminal work establishes the theoretical foundation for seasonal forecasting methods that continue to be widely used and have been enhanced through modern Python implementations in libraries like statsmodels and pmdarima.
+	
+}
+
+\Mysection{Literature Review Article: 6}
+
+\STANDARD{Array programming with NumPy}
+{ 
+	
+	\textbf{Authors:} Harris, Charles R. and Millman, K. Jarrod and others
+	
+	\textbf{Description:}
+	
+	This seminal research paper, published in Nature, describes NumPy's architecture, design principles, and impact on scientific computing. It demonstrates NumPy's significance as the foundation of the Python scientific computing ecosystem and its role in enabling efficient numerical operations for time series analysis \autocite{Harris:2020}.
+	
+	\textbf{Keywords:}
+	
+	NumPy, Scientific computing, Array programming, Python ecosystem, Numerical computing
+	
+	\textbf{Disadvantages:}
+	
+	As a foundational library, NumPy requires additional specialized packages for specific time series operations and lacks built-in forecasting capabilities.
+	
+	\textbf{Conclusion:}
+	
+	NumPy serves as the computational foundation for all time series analysis in Python, enabling efficient data manipulation and mathematical operations essential for forecasting applications.
+	
+}
+
+\Mysection{Literature Review Article: 7}
+
+\STANDARD{Data Structures for Statistical Computing in Python}
+{ 
+	
+	\textbf{Authors:} McKinney, Wes
+	
+	\textbf{Description:}
+	
+	This foundational paper introduces pandas data structures and design philosophy, establishing the framework for efficient data manipulation in Python. It describes the DataFrame and Series objects that have become essential for time series analysis and data preparation in forecasting workflows \autocite{McKinney:2010}.
+	
+	\textbf{Keywords:}
+	
+	Pandas, DataFrame, Data structures, Data manipulation, Time series indexing
+	
+	\textbf{Disadvantages:}
+	
+	While excellent for data manipulation, pandas requires integration with specialized libraries for advanced statistical modeling and forecasting operations.
+	
+	\textbf{Conclusion:}
+	
+	Pandas provides the essential data manipulation capabilities that enable efficient preprocessing, analysis, and visualization of time series data in modern forecasting pipelines.
+	
+}
+
+\Mysection{Literature Review Article: 8}
+
+\STANDARD{Statsmodels: Econometric and Statistical Modeling with Python}
+{ 
+	
+	\textbf{Authors:} Seabold, Skipper and Perktold, Josef
+	
+	\textbf{Description:}
+	
+	This paper introduces statsmodels architecture and design principles, establishing a comprehensive statistical modeling library for Python. It provides the foundation for implementing classical econometric and statistical methods, including time series analysis and ARIMA modeling \autocite{Seabold:2010}.
+	
+	\textbf{Keywords:}
+	
+	Statistical modeling, Econometrics, Time series analysis, Statistical inference, Python implementation
+	
+	\textbf{Disadvantages:}
+	
+	The library's focus on statistical rigor can result in more complex APIs compared to simplified forecasting packages, requiring deeper statistical knowledge for effective use.
+	
+	\textbf{Conclusion:}
+	
+	Statsmodels provides the statistical foundation for rigorous time series analysis in Python, offering comprehensive tools for model estimation, diagnostics, and inference that complement automated forecasting approaches.
+	
+}
+
+\Mysection{Literature Review Article: 9}
+
+\STANDARD{Python for Data Analysis: Data Wrangling with pandas, NumPy, and Jupyter}
+{ 
+	
+	\textbf{Authors:} McKinney, Wes
+	
+	\textbf{Description:} 
+	
+	This authoritative guide covers the Python data analysis ecosystem, including visualization best practices and integration patterns with various libraries. The third edition provides comprehensive coverage of pandas functionality and demonstrates effective workflows for data analysis and time series processing \autocite{McKinney:2023}.
+	
+	\textbf{Keywords:} 
+	
+	Data analysis, Pandas workflows, Data visualization, Time series processing, Python ecosystem
+	
+	\textbf{Disadvantages:} 
+	
+	While comprehensive for general data analysis, the book provides limited coverage of specialized forecasting techniques and automated model selection procedures.
+	
+	\textbf{Conclusion:} 
+	
+	This resource provides essential practical knowledge for implementing effective data analysis workflows that support time series forecasting applications using the Python ecosystem.
+	
+}
+
+\Mysection{Literature Review Article: 10}
+
+\STANDARD{Matplotlib: A 2D Graphics Environment}
+{ 
+	
+	\textbf{Authors:} Hunter, John D.
+	
+	\textbf{Description:} 
+	
+	This seminal paper introduces Matplotlib and its design philosophy, describing the library's architecture and demonstrating its capabilities for scientific computing visualization. It establishes the foundation for data visualization in Python that supports time series analysis and forecasting result presentation \autocite{Hunter:2007}.
+	
+	\textbf{Keywords:} 
+	
+	Data visualization, Scientific plotting, Time series visualization, Python graphics, Statistical graphics
+	
+	\textbf{Disadvantages:} 
+	
+	The original design predates modern interactive visualization needs, requiring additional libraries for sophisticated interactive dashboards and web-based applications.
+	
+	\textbf{Conclusion:} 
+	
+	Matplotlib provides the fundamental visualization capabilities essential for exploratory time series analysis, model diagnostics, and forecast result presentation in Python-based forecasting workflows.
+	
+}
+
+\Mysection{Literature Review Article: 11}
+
+\STANDARD{Joblib: Optimizing Python for Scientific Computing}
+{ 
+	
+	\textbf{Authors:} Varoquaux, Gael; Gramfort, Alexandre; Pedregosa, Fabian
+	
+	\textbf{Description:}
+	
+	This academic paper details Joblib's design principles, performance optimizations for NumPy arrays, and applications in scientific computing workflows. It provides theoretical foundation for caching mechanisms and parallel processing strategies that enhance computational efficiency in time series analysis \autocite{Varoquaux:2022}.
+	
+	\textbf{Keywords:}
+	
+	Parallel processing, Memory caching, Performance optimization, Scientific computing, Computational efficiency
+	
+	\textbf{Disadvantages:}
+	
+	The focus on general scientific computing may not address specific optimization needs for time series forecasting workflows and specialized model training procedures.
+	
+	\textbf{Conclusion:}
+	
+	Joblib provides essential computational optimization capabilities that enable efficient processing of large-scale time series datasets and accelerate model training in forecasting applications.
+	
+}
+
+\Mysection{Literature Review Article: 12}
+
+\STANDARD{seaborn: statistical data visualization}
+{ 
+	
+	\textbf{Authors:} Waskom, Michael L.
+	
+	\textbf{Description:}
+	
+	This peer-reviewed paper describes seaborn's design philosophy, statistical capabilities, and integration with the scientific Python ecosystem. It establishes seaborn as a high-level interface for creating informative statistical visualizations that support time series analysis and forecasting result interpretation \autocite{Waskom:2021}.
+	
+	\textbf{Keywords:}
+	
+	Statistical visualization, Exploratory data analysis, Time series plotting, Distribution analysis, Correlation visualization
+	
+	\textbf{Disadvantages:}
+	
+	While excellent for statistical visualization, seaborn lacks specialized time series plotting capabilities and forecasting-specific visualization functions.
+	
+	\textbf{Conclusion:}
+	
+	Seaborn enhances the visualization capabilities of the Python ecosystem, providing sophisticated statistical graphics that support exploratory time series analysis and model result communication.
+	
+}
+
+\Mysection{Literature Review Article: 13}
+
+\STANDARD{Retail forecasting: Research and practice}
+{ 
+	
+	\textbf{Authors:} Fildes, Robert and Goodwin, Paul
+	
+	\textbf{Description:}
+	
+	This comprehensive review examines retail forecasting challenges, methodologies, and practical considerations. It provides insights into the specific requirements and constraints of retail time series forecasting, including demand patterns, promotional effects, and inventory management considerations \autocite{Fildes:2019}.
+	
+	\textbf{Keywords:}
+	
+	Retail forecasting, Demand prediction, Promotional effects, Inventory management, Seasonal patterns
+	
+	\textbf{Disadvantages:}
+	
+	The focus on retail applications may limit generalizability to other time series forecasting domains, and the review may not cover the latest developments in machine learning approaches.
+	
+	\textbf{Conclusion:}
+	
+	This work provides valuable domain-specific insights for retail forecasting applications and demonstrates the practical considerations essential for implementing effective forecasting systems in commercial environments.
+	
+}
+
+\Mysection{Literature Review Article: 14}
+
+\STANDARD{Interactive Web-Based Data Visualization with R, plotly, and shiny}
+{ 
+	
+	\textbf{Authors:} Sievert, Carson
+	
+	\textbf{Description:}
+	
+	This comprehensive guide covers interactive data visualization principles and implementation, with extensive coverage of Plotly's architecture and capabilities. While focused on R, the principles and Plotly functionality translate directly to Python applications for creating interactive forecasting dashboards \autocite{Sievert:2020}.
+	
+	\textbf{Keywords:}
+	
+	Interactive visualization, Dashboard development, Time series visualization, Web applications, Plotly framework
+	
+	\textbf{Disadvantages:}
+	
+	The R-centric approach requires adaptation for Python implementations, and some advanced features may not have direct Python equivalents.
+	
+	\textbf{Conclusion:}
+	
+	This resource provides essential knowledge for creating interactive visualizations and dashboards that enhance the presentation and interpretation of time series forecasting results.
+	
+}
+
+\Mysection{Literature Review Article: 15}
+
+\STANDARD{From data mining to knowledge discovery in databases}
+{ 
+	
+	\textbf{Authors:} Fayyad, Usama; Piatetsky-Shapiro, Gregory; Smyth, Padhraic
+	
+	\textbf{Description:}
+	
+	This seminal paper establishes the KDD (Knowledge Discovery in Databases) process framework, defining the systematic approach to extracting useful knowledge from large datasets. It provides the theoretical basis for modern data mining methodologies that support time series analysis and forecasting \autocite{Fayyad:1996}.
+	
+	\textbf{Keywords:}
+	
+	Knowledge discovery, Data mining, KDD process, Data preprocessing, Pattern recognition
+	
+	\textbf{Disadvantages:}
+	
+	The framework predates modern machine learning developments and may not adequately address the specific challenges of time series data and temporal pattern recognition.
+	
+	\textbf{Conclusion:}
+	
+	This foundational work provides the methodological framework for systematic data analysis that underlies effective time series forecasting projects and ensures rigorous analytical approaches.
+	
+}
+
+\Mysection{Literature Review Article: 16}
+
+\STANDARD{The CRISP-DM model: the new blueprint for data mining}
+{ 
+	
+	\textbf{Authors:} Shearer, Colin
+	
+	\textbf{Description:}
+	
+	This paper introduces the industry-standard CRISP-DM methodology for data mining projects, providing a business-oriented framework with six phases: Business Understanding, Data Understanding, Data Preparation, Modeling, Evaluation, and Deployment. It offers a structured approach widely adopted in commercial forecasting applications \autocite{Shearer:2000}.
+	
+	\textbf{Keywords:}
+	
+	CRISP-DM methodology, Project management, Business understanding, Model deployment, Data mining process
+	
+	\textbf{Disadvantages:}
+	
+	The general framework may not address specific challenges of time series forecasting projects, such as temporal validation and dynamic model updating.
+	
+	\textbf{Conclusion:}
+	
+	CRISP-DM provides essential project management structure for time series forecasting initiatives, ensuring systematic approaches to business problem solving and successful model deployment.
+	
+}
+
+\Mysection{Literature Review Article: 17}
+
+\STANDARD{Hidden technical debt in machine learning systems}
+{ 
+	
+	\textbf{Authors:} Sculley, David and others
+	
+	\textbf{Description:}
+	
+	This influential paper from Google researchers highlights the challenges of maintaining machine learning systems in production. It discusses ML-specific technical debt including boundary erosion, entanglement, hidden feedback loops, and system-level anti-patterns that are particularly relevant for deployed forecasting systems \autocite{Sculley:2015}.
+	
+	\textbf{Keywords:}
+	
+	Technical debt, ML systems, Production deployment, System maintenance, Model management
+	
+	\textbf{Disadvantages:}
+	
+	The focus on general ML systems may not address specific challenges of time series forecasting systems, such as concept drift and temporal validation requirements.
+	
+	\textbf{Conclusion:}
+	
+	This work provides essential insights for maintaining robust forecasting systems in production environments and avoiding common pitfalls in ML system design and deployment.
+	
+}
+
+\Mysection{Literature Review Article: 18}
+
+\STANDARD{Sales Prediction of Walmart Based on Regression Models}
+{ 
+	
+	\textbf{Authors:} Zhang, Jiayuan
+	
+	\textbf{Description:}
+	
+	This study demonstrates the application of regression models for sales forecasting using Walmart data, providing practical insights into retail forecasting challenges and methodologies. It offers empirical results and comparative analysis of different modeling approaches for time series prediction \autocite{Zhang:2021}.
+	
+	\textbf{Keywords:}
+	
+	Sales forecasting, Regression models, Retail analytics, Walmart dataset, Empirical analysis
+	
+	\textbf{Disadvantages:}
+	
+	The focus on regression approaches may not explore more sophisticated time series methods like ARIMA or seasonal decomposition that could provide better forecasting performance.
+	
+	\textbf{Conclusion:}
+	
+	This study provides valuable empirical insights into retail forecasting applications and demonstrates practical implementation approaches for sales prediction using real-world data.
+	
+}
+
+\Mysection{Literature Review Article: 19}
+
+\STANDARD{Streamlit 101: An In-Depth Introduction}
+{ 
+	
+	\textbf{Authors:} Johnson, Alex
+	
+	\textbf{Description:}
+	
+	This comprehensive tutorial introduces Streamlit as a framework for rapid development of data science applications and interactive dashboards. It demonstrates how to create user-friendly interfaces for forecasting models and provides practical examples for deploying time series analysis applications \autocite{Towards:2023}.
+	
+	\textbf{Keywords:}
+	
+	Streamlit, Web applications, Dashboard development, Model deployment, Interactive interfaces
+	
+	\textbf{Disadvantages:}
+	
+	Streamlit may have limitations for complex enterprise applications and might not provide the flexibility needed for sophisticated forecasting dashboard requirements.
+	
+	\textbf{Conclusion:}
+	
+	Streamlit enables rapid prototyping and deployment of forecasting applications, making sophisticated time series analysis accessible through user-friendly web interfaces.
+	
+}
+
+\Mysection{Literature Review Article: 20}
+
+\STANDARD{Dash: A Python Framework for Building Analytical Web Applications}
+{ 
+	
+	\textbf{Authors:} Parmer, Chris; Mease, Jon; Johnson, Alex
+	
+	\textbf{Description:}
+	
+	This technical paper describes the Dash framework architecture and its integration with Plotly for building interactive web applications. It covers advanced dashboard development patterns and deployment strategies particularly relevant for creating sophisticated forecasting visualization and monitoring systems \autocite{DashFramework:2023}.
+	
+	\textbf{Keywords:}
+	
+	Dash framework, Interactive dashboards, Web applications, Plotly integration, Real-time visualization
+	
+	\textbf{Disadvantages:}
+	
+	The framework complexity may require significant development effort for simple applications, and learning curve might be steep for non-web developers.
+	
+	\textbf{Conclusion:}
+	
+	Dash provides powerful capabilities for building production-ready forecasting dashboards and enables sophisticated interactive visualization of time series analysis results.
+	
+}
+
+\Mysection{Summary and Conclusion}
+
+\STANDARD{}
+{
+	
+	This literature review reveals several key insights relevant to modern time series forecasting and the Python data science ecosystem:
+	
+	\textbf{Theoretical Foundations:} Classical methods like ARIMA modeling and exponential smoothing, established by Box-Jenkins and Holt-Winters respectively, remain fundamental to modern forecasting practice. The theoretical frameworks developed in these foundational works continue to underlie automated forecasting tools.
+	
+	\textbf{Automation and Accessibility:} The development of automated model selection procedures, particularly Auto ARIMA algorithms, has democratized access to sophisticated forecasting techniques. Python implementations through libraries like pmdarima make these methods accessible to practitioners without deep statistical expertise.
+	
+	\textbf{Python Ecosystem Integration:} The combination of NumPy, pandas, matplotlib, and statsmodels provides a comprehensive foundation for time series analysis. Each library contributes essential capabilities while maintaining interoperability that enables efficient forecasting workflows.
+	
+	\textbf{Visualization and Deployment:} Modern frameworks like Plotly, Streamlit, and Dash enable the creation of interactive dashboards and web applications that make forecasting results accessible to business stakeholders and support real-time monitoring.
+	
+	\textbf{Production Considerations:} The challenges of deploying and maintaining forecasting systems in production environments require careful attention to technical debt, system design, and ongoing model maintenance as highlighted in recent ML systems research.
+	
+	\textbf{Domain Applications:} Retail forecasting represents a particularly well-studied application area, demonstrating the practical implementation challenges and considerations essential for successful commercial forecasting systems.
+	
+	These insights highlight the maturation of time series forecasting from academic statistical methods to practical, automated tools that can be effectively deployed in business environments through modern Python-based workflows.
+	
+}

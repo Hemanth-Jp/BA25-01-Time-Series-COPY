@@ -1,0 +1,87 @@
+
+	\begin{tikzpicture}[
+		node distance=2cm and 0.8cm,
+		box/.style={rectangle, rounded corners=5pt, minimum width=3.5cm, minimum height=1.2cm, text centered, draw=black, fill=blue!20, font=\small, text width=3cm},
+		arrow/.style={thick,->,>=stealth},
+		data/.style={rectangle, rounded corners=5pt, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=orange!20, font=\footnotesize, text width=2.5cm},
+		process/.style={rectangle, rounded corners=5pt, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=green!20, font=\small, text width=2.5cm},
+		output/.style={rectangle, rounded corners=5pt, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=purple!20, font=\footnotesize, text width=2.5cm}
+		]
+		
+		% Input data sources
+		\node[data] (raw_data) {Raw Data\\(CSV Files)};
+		\node[data, right=of raw_data] (domain_knowledge) {Domain Knowledge};
+		
+		% KDD Process Steps - Left column
+		\node[box, below=of raw_data] (domain_understanding) {1. Domain Understanding};
+		\node[box, below=of domain_understanding] (data_selection) {2. Data Selection};
+		\node[box, below=of data_selection] (data_cleaning) {3. Data Cleaning \& Preprocessing};
+		\node[box, below=of data_cleaning] (data_transformation) {4. Data Transformation};
+		\node[box, below=of data_transformation] (pattern_discovery) {5. Pattern Discovery};
+		
+		% KDD Process Steps - Right column
+		\node[box, right=0.5cm of data_cleaning] (model_development) {6. Model Development};
+		\node[box, below=of model_development] (evaluation) {7. Evaluation \& Interpretation};
+		\node[box, below=of evaluation] (web_app_dev) {8. Web App Development};
+		\node[box, below=of web_app_dev] (deployment) {9. Deployment \& Validation};
+		
+		% Intermediate outputs
+		\node[process, right=of model_development] (clean_dataset) {Clean Dataset};
+		\node[process, right=of evaluation] (features) {Engineered Features};
+		\node[process, right=of web_app_dev] (patterns) {Discovered Patterns};
+		
+		% Final outputs
+		\node[output, right=of deployment] (training_app) {Training Application};
+		\node[output, below=of training_app] (prediction_app) {Prediction Application};
+		\node[output, below=1.5cm of prediction_app] (forecasts) {Sales Forecasts};
+		
+		% Main flow arrows - Left column
+		\draw[arrow] (raw_data) -- (domain_understanding);
+		\draw[arrow] (domain_knowledge) -- (domain_understanding);
+		\draw[arrow] (domain_understanding) -- (data_selection);
+		\draw[arrow] (data_selection) -- (data_cleaning);
+		\draw[arrow] (data_cleaning) -- (data_transformation);
+		\draw[arrow] (data_transformation) -- (pattern_discovery);
+		
+		% Horizontal connections
+		\draw[arrow] (data_cleaning) -- (model_development);
+		\draw[arrow] (data_transformation) -- (evaluation);
+		\draw[arrow] (pattern_discovery) -- (web_app_dev);
+		
+		% Right column flow
+		\draw[arrow] (model_development) -- (evaluation);
+		\draw[arrow] (evaluation) -- (web_app_dev);
+		\draw[arrow] (web_app_dev) -- (deployment);
+		
+		% To intermediate outputs
+		\draw[arrow] (model_development) -- (clean_dataset);
+		\draw[arrow] (evaluation) -- (features);
+		\draw[arrow] (web_app_dev) -- (patterns);
+		
+		% To final outputs
+		\draw[arrow] (deployment) -- (training_app);
+		\draw[arrow] (deployment) -- (prediction_app);
+		\draw[arrow] (training_app) -- (forecasts);
+		\draw[arrow] (prediction_app) -- (forecasts);
+		
+		% Feedback arrows (dashed, red)
+		\draw[arrow, dashed, color=red] (evaluation.west) to[bend right=800] (data_transformation.east);
+		\draw[arrow, dashed, color=red] (web_app_dev.west) to[bend right=800] (pattern_discovery.east);
+		\draw[arrow, dashed, color=red] (deployment.west) to[bend right=40] (model_development.south);
+		
+		% Section labels
+		\node[font=\scriptsize, color=gray] at ([yshift=0.5cm]domain_understanding.north) {\textbf{Data Preparation}};
+		\node[font=\scriptsize, color=gray] at ([yshift=0.5cm]model_development.north) {\textbf{Knowledge Discovery}};
+		\node[font=\scriptsize, color=gray] at ([yshift=0.5cm]clean_dataset.north) {\textbf{Outputs}};
+		\node[font=\scriptsize, color=gray] at ([yshift=0.5cm]forecasts.north) {\textbf{Applications}};
+		
+		% Legend - positioned to the right of Domain Knowledge
+		\node[font=\scriptsize] at ([xshift=3cm]domain_knowledge.east) {\textbf{Legend:}};
+		\node[data, minimum width=2cm, minimum height=0.6cm, text width=1.8cm] at ([xshift=3cm, yshift=-0.7cm]domain_knowledge.east) {Input Data};
+		\node[box, minimum width=2cm, minimum height=0.6cm, text width=1.8cm] at ([xshift=3cm, yshift=-2.4cm]domain_knowledge.east) {KDD Process};
+		\node[process, minimum width=2cm, minimum height=0.6cm, text width=1.8cm] at ([xshift=3cm, yshift=-3.1cm]domain_knowledge.east) {Intermediate};
+		\node[output, minimum width=2cm, minimum height=0.6cm, text width=1.8cm] at ([xshift=3cm, yshift=-3.8cm]domain_knowledge.east) {Final Output};
+		\draw[arrow, dashed, color=red] ([xshift=2cm, yshift=-3.3cm]domain_knowledge.east) -- ([xshift=4cm, yshift=-4.3cm]domain_knowledge.east);
+		\node[font=\tiny] at ([xshift=3cm, yshift=-3.6cm]domain_knowledge.east) {Feedback Loop};
+		
+	\end{tikzpicture}

@@ -1,0 +1,37 @@
+\begin{tikzpicture}[
+	node distance=1cm,
+	solution/.style={rectangle, rounded corners, fill=blue!20, draw=blue!60, thick, minimum width=2.2cm, minimum height=0.7cm, font=\small},
+	benefit/.style={rectangle, rounded corners, fill=green!15, draw=green!40, minimum width=1.8cm, minimum height=0.5cm, font=\scriptsize}
+	]
+	
+	% Main solutions
+	\node[solution] (streamlit) {Streamlit Framework};
+	\node[benefit, below=0.2cm of streamlit] (rapid) {Rapid Prototyping};
+	
+	\node[solution, right=1.2cm of streamlit] (modular) {Modular Architecture};
+	\node[benefit, below=0.2cm of modular] (separation) {Clear Separation};
+	
+	\node[solution, right=1cm of modular] (interactive) {Interactive UI Design};
+	\node[benefit, below=0.2cm of interactive] (user_friendly) {User-Friendly};
+	
+	\node[solution, below=1.5cm of streamlit] (testing) {Comprehensive Testing};
+	\node[benefit, below=0.2cm of testing] (reliability) {System Reliability};
+	
+	\node[solution, right=1.2cm of testing] (error_handling) {Error Handling};
+	\node[benefit, below=0.2cm of error_handling] (graceful) {Graceful Recovery};
+	
+	\node[solution, right=1.77cm of error_handling] (validation) {Data Validation};
+	\node[benefit, below=0.2cm of validation] (data_quality) {Data Quality};
+	
+	% Central outcome
+	\node[below=3.5cm of modular, rectangle, rounded corners, fill=blue!30, draw=blue!60, very thick, minimum width=3.5cm, minimum height=0.8cm, font=\bfseries\small] (outcome) {Production-Ready Forecasting System};
+	
+	% Arrows
+	\draw[->, thick, blue!60] (rapid) -- (outcome.north west);
+	\draw[->, thick, blue!60] (separation) -- (outcome.north);
+	\draw[->, thick, blue!60] (user_friendly) -- (outcome.north east);
+	\draw[->, thick, blue!60] (reliability) -- (outcome.north west);
+	\draw[->, thick, blue!60] (graceful) -- (outcome.north);
+	\draw[->, thick, blue!60] (data_quality) -- (outcome.north east);
+	
+\end{tikzpicture}

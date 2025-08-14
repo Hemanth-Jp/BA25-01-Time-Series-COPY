@@ -1,0 +1,104 @@
+%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% $Autor: Hemanth Jadiswami Prabhakaran $
+% $Datum: 2025-06-30 11:00:21Z $
+% $Pfad: GitHub/BA25-01-Time-Series/report/Contents/en/methodology.tex $
+% $Version: 1 $
+%
+% $Project: BA25-Time-Series $
+%
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Methodology}
+\label{ch:methodology}
+
+\section{Introduction}
+\label{sec:methodology_intro}
+
+This chapter presents the methodological framework employed in developing the Manual Proct presentation application for Walmart sales forecasting. The selection of an appropriate data mining methodology is crucial for ensuring systematic, reproducible, and effective knowledge discovery from large-scale retail datasets. This study adopts the Knowledge Discovery in Databases (KDD) process as the primary methodological framework, with specific justification for this choice over alternative approaches such as CRISP-DM (Cross-Industry Standard Process for Data Mining) and traditional machine learning pipelines.
+
+\section{Data Mining Process Selection}
+\label{sec:process_selection}
+
+\subsection{Comparison of Methodological Frameworks}
+\label{subsec:framework_comparison}
+
+The landscape of data mining methodologies includes several well-established frameworks, each with distinct characteristics and applications. The three primary candidates considered for this project were:
+
+\textbf{CRISP-DM (Cross-Industry Standard Process for Data Mining):} A widely adopted industry standard that emphasizes business understanding, iterative processes, and practical deployment considerations. CRISP-DM consists of six phases: Business Understanding, Data Understanding, Data Preparation, Modeling, Evaluation, and Deployment \cite{Shearer:2000}.
+
+\textbf{Traditional ML Pipeline:} A streamlined approach focusing on data preprocessing, feature engineering, model training, validation, and deployment. This methodology is particularly suited for well-defined machine learning problems with clear input-output relationships \cite{Sculley:2015}.
+
+\textbf{KDD Process (Knowledge Discovery in Databases):} An academic framework that emphasizes the systematic extraction of useful knowledge from large datasets through a structured nine-step process. KDD provides a comprehensive theoretical foundation for understanding the entire knowledge discovery workflow \cite{Fayyad:1996}.
+
+\subsection{Justification for KDD Process Selection}
+\label{subsec:kdd_justification}
+
+The KDD process was selected as the primary methodological framework for this project based on several compelling reasons that align with the specific requirements and challenges of retail sales forecasting:
+
+\textbf{Comprehensive Data Understanding:} The KDD process places exceptional emphasis on understanding the domain and data characteristics before proceeding to modeling phases. In retail sales forecasting, this comprehensive understanding is crucial given the complex interactions between seasonal patterns, holiday effects, store characteristics, and external economic factors. The Walmart dataset's hierarchical structure (multiple stores and departments) and temporal complexity necessitate the thorough data exploration that KDD facilitates \cite{Fayyad:1996}.
+
+\textbf{Academic Rigor and Theoretical Foundation:} Unlike CRISP-DM, which is primarily industry-focused, KDD provides a solid theoretical foundation that is essential for academic research. The methodology's emphasis on knowledge discovery rather than mere prediction aligns with the research objectives of understanding underlying patterns in retail sales behavior. This theoretical grounding supports the development of generalizable insights that extend beyond the specific Walmart dataset \cite{Piatetsky:1991}.
+
+\textbf{Systematic Knowledge Extraction:} The KDD process explicitly focuses on extracting actionable knowledge and patterns from data, which is particularly relevant for retail forecasting where understanding seasonal patterns, holiday impacts, and store-specific behaviors is as important as generating accurate predictions. The methodology's systematic approach ensures that valuable insights are not overlooked during the analysis process.
+
+\textbf{Flexibility in Model Selection:} While CRISP-DM can sometimes constrain thinking within business-oriented frameworks, KDD provides greater flexibility in exploring diverse modeling approaches. This flexibility proved essential in this project, where multiple forecasting techniques (time series analysis, machine learning regression, and ensemble methods) were evaluated to identify the most effective approach for different aspects of the problem.
+
+\textbf{Integration with Web Application Development:} The KDD process seamlessly integrates with modern software development practices, particularly in the context of building web-based analytical applications. The methodology's emphasis on iterative refinement and systematic evaluation supports the development of robust, user-friendly forecasting tools that can be deployed as interactive web applications using frameworks like Streamlit.
+
+\subsection{Limitations of Alternative Approaches}
+\label{subsec:alternative_limitations}
+
+\textbf{CRISP-DM Limitations:} While CRISP-DM offers valuable business-oriented perspectives, its primary focus on commercial applications can limit the depth of scientific inquiry required for academic research. The methodology's emphasis on rapid deployment may compromise the thoroughness of data exploration and pattern discovery that is essential for understanding complex retail dynamics.
+
+\textbf{Traditional ML Pipeline Limitations:} Standard machine learning pipelines often treat data mining as a purely technical exercise, potentially overlooking the domain-specific knowledge that is crucial for retail forecasting. The linear progression through preprocessing, modeling, and evaluation may not adequately capture the iterative nature of knowledge discovery required for complex forecasting problems.
+
+\section{KDD Process Implementation}
+\label{sec:kdd_implementation}
+
+\subsection{Adapted KDD Framework}
+\label{subsec:adapted_kdd}
+
+This project implements a customized version of the KDD process specifically tailored for retail sales forecasting and web application development. The framework consists of the following phases as illustrated in Figure \ref{fig:kdd_process}:
+
+\begin{figure}[H]
+	\centering
+	\input{tikz/methodology/kddProcess.tikz}
+	\caption{ (KDD) Process Framework}
+	\label{fig:kdd_process}
+\end{figure}
+
+\begin{enumerate}
+	\item \textbf{Domain Understanding:} Comprehensive analysis of retail industry characteristics, seasonal patterns, and business requirements
+	\item \textbf{Data Selection:} Identification and acquisition of relevant datasets (sales, store characteristics, external factors)
+	\item \textbf{Data Cleaning and Preprocessing:} Handling missing values, outlier detection, and data quality assessment
+	\item \textbf{Data Transformation:} Feature engineering, encoding, and preparation for modeling
+	\item \textbf{Pattern Discovery:} Application of multiple analytical techniques to identify underlying patterns
+	\item \textbf{Model Development:} Implementation and comparison of various forecasting approaches
+	\item \textbf{Evaluation and Interpretation:} Systematic assessment of model performance and insight generation
+	\item \textbf{Web Application Development:} Translation of analytical results into user-friendly interfaces
+	\item \textbf{Deployment and Validation:} Implementation of production-ready forecasting systems
+\end{enumerate}
+
+\subsection{Integration with Modern Development Practices}
+\label{subsec:modern_integration}
+
+The KDD process implementation incorporates contemporary software development practices to ensure reproducibility, scalability, and maintainability. This integration includes version control systems, automated testing frameworks, and continuous integration pipelines that support the iterative nature of knowledge discovery while maintaining code quality and documentation standards.
+
+\section{Technical Architecture}
+\label{sec:technical_architecture}
+
+\subsection{Dual-Application Framework}
+\label{subsec:dual_application}
+
+The methodology employs a dual-application architecture that separates model development from production forecasting. This separation aligns with KDD principles by providing distinct environments for knowledge discovery (training application) and knowledge application (prediction application). The training application facilitates experimentation and model refinement, while the prediction application focuses on delivering reliable forecasts to end users.
+
+\subsection{Technology Stack Selection}
+\label{subsec:technology_stack}
+
+The implementation leverages Python-based technologies including Streamlit for web interface development, scikit-learn and statsmodels for analytical modeling, and pandas for data manipulation. This technology stack was selected to support the iterative nature of the KDD process while ensuring accessibility and ease of deployment.
+
+\section{Conclusion}
+\label{sec:methodology_conclusion}
+
+The adoption of the KDD process as the primary methodological framework provides a robust foundation for systematic knowledge discovery in retail sales forecasting. The methodology's emphasis on comprehensive data understanding, theoretical rigor, and flexible model development aligns well with the project's objectives of developing both accurate forecasting capabilities and meaningful insights into retail sales patterns. The integration of KDD principles with modern web development practices creates a framework that is both academically sound and practically applicable, supporting the development of accessible, interactive forecasting tools that can benefit both researchers and practitioners in the retail industry.

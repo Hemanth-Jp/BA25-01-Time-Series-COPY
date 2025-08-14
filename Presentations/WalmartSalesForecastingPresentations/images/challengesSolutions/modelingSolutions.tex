@@ -1,0 +1,37 @@
+\begin{tikzpicture}[
+	node distance=2cm,
+	model/.style={rectangle, rounded corners, fill=blue!30, draw=green!60, very thick, minimum width=4cm, minimum height=3cm},
+	feature/.style={rectangle, rounded corners, fill=white, draw=green!60, minimum width=3.5cm, minimum height=0.6cm, font=\small},
+	vs/.style={circle, fill=HSELblau, text=white, font=\bfseries\large, minimum size=1cm},
+	baseline=(current bounding box.center),
+	yshift=2cm
+	]
+	
+	% Auto ARIMA
+	\node[model] (arima) {};
+	\node[above=0.2cm of arima.north, font=\bfseries\small, color=red!60] {Auto ARIMA};
+	
+	\node[feature, below=0.3cm of arima.north] (auto_param) {Automated Parameter Selection};
+	\node[feature, below=0.1cm of auto_param] (seasonal_detect) {Seasonal Pattern Detection};
+	\node[feature, below=0.1cm of seasonal_detect] (aic_opt) {AIC-based Optimization};
+	\node[feature, below=0.1cm of aic_opt] (flexibility) {High Flexibility};
+	
+	% VS symbol
+	\node[vs, right=1cm of arima,yshift=-.2cm] (vs_node) {VS};
+	
+	% Exponential Smoothing
+	\node[model, right=3cm of arima] (exp_smooth) {};
+	\node[above=0.2cm of exp_smooth.north, font=\bfseries\small, color=red!60] {ETS (Holt-Winters)};
+	
+	\node[feature, below=0.3cm of exp_smooth.north] (triple) {Triple Smoothing Components};
+	\node[feature, below=0.1cm of triple] (seasonal_flex) {Flexible Seasonality Options};
+	\node[feature, below=0.1cm of seasonal_flex] (fast_comp) {Fast Computation};
+	\node[feature, below=0.1cm of fast_comp] (interpretable) {Highly Interpretable};
+	
+	% Performance comparison
+	\node[below=1.5cm of vs_node, rectangle, rounded corners, fill=HSELhellblau!20, draw=HSELblau, thick, minimum width=9cm, minimum height=1.3cm] (comparison) {};
+	\node[above=0.2cm of comparison.north, font=\bfseries, color=HSELblau] {Performance Comparison};
+	\node[below=0.1cm of comparison.north, font=\small] {Auto ARIMA: More flexible, slower training};
+	\node[below=0.4cm of comparison.north, font=\small] {Exp. Smoothing: Faster, excellent for seasonality};
+	\node[below=0.7cm of comparison.north, font=\small] {Default Model: ETS(Holt-Winters) 3.58\% WMAPE (Excellent) };
+\end{tikzpicture}

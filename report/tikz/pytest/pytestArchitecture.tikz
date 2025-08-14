@@ -1,0 +1,48 @@
+\begin{tikzpicture}[
+    node distance=1.5cm,
+    box/.style={rectangle, rounded corners, minimum width=2.5cm, minimum height=1cm, text centered, draw=black, fill=blue!10},
+    arrow/.style={thick,->,>=stealth}
+]
+
+% Top level - User Interface
+\node[box, fill=green!15] (cli) {CLI Interface};
+\node[box, fill=green!15, right=of cli] (config) {Configuration};
+
+% Test Discovery Layer
+\node[box, below=of cli] (discovery) {Test Discovery};
+\node[box, below=of config] (collection) {Test Collection};
+
+% Core Engine
+\node[box, below=of discovery, fill=orange!10] (engine) {Execution Engine};
+\node[box, right=of engine] (fixtures) {Fixture Manager};
+\node[box, left=of engine] (parametrize) {Parametrization};
+
+% Plugin System
+\node[box, below=of parametrize] (plugins) {Plugin System};
+\node[box, below=of engine] (hooks) {Hook System};
+\node[box, below=of fixtures] (markers) {Marker System};
+
+% Output Layer
+\node[box, below=of hooks] (reporting) {Reporting};
+\node[box, left=of reporting] (output) {Output Formats};
+\node[box, right=of reporting] (results) {Test Results};
+
+% Arrows for flow
+\draw[arrow] (cli) -- (discovery);
+\draw[arrow] (config) -- (collection);
+\draw[arrow] (discovery) -- (engine);
+\draw[arrow] (collection) -- (engine);
+\draw[arrow] (parametrize) -- (engine);
+\draw[arrow] (fixtures) -- (engine);
+\draw[arrow] (engine) -- (hooks);
+\draw[arrow] (plugins) -- (hooks);
+\draw[arrow] (markers) -- (hooks);
+\draw[arrow] (hooks) -- (reporting);
+\draw[arrow] (reporting) -- (output);
+\draw[arrow] (reporting) -- (results);
+
+% Side connections
+\draw[arrow, dashed] (plugins) -- (fixtures);
+\draw[arrow, dashed] (plugins) -- (markers);
+
+\end{tikzpicture}

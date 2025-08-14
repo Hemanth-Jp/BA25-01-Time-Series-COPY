@@ -1,0 +1,36 @@
+% Simple Data Pipeline Flowchart
+\begin{tikzpicture}[
+	node distance=2cm,
+	every node/.style={align=center},
+	source/.style={rectangle, draw, fill=orange!20, rounded corners, minimum width=3cm, minimum height=1cm},
+	process/.style={rectangle, draw, fill=blue!20, rounded corners, minimum width=3cm, minimum height=1cm},
+	check/.style={diamond, draw, fill=yellow!20, minimum width=2cm, minimum height=1cm},
+	result/.style={rectangle, draw, fill=green!20, rounded corners, minimum width=3cm, minimum height=1cm},
+	error/.style={rectangle, draw, fill=red!20, rounded corners, minimum width=3cm, minimum height=1cm},
+	arrow/.style={->, thick}
+	]
+	
+	% Main flow
+	\node[source] (data) {Raw Data Sources};
+	\node[process, below=of data] (create) {Create CSV Files};
+	\node[check, below=of create] (format) {Format\\OK?};
+	\node[check, below=of format] (quality) {Quality\\OK?};
+	\node[result, below=of quality] (ready) {Ready for Upload};
+	
+	% Error handling
+	\node[error, right=3cm of format] (fix_format) {Fix Format};
+	\node[error, right=3cm of quality] (fix_data) {Fix Data};
+	
+	% Arrows
+	\draw[arrow] (data) -- (create);
+	\draw[arrow] (create) -- (format);
+	\draw[arrow] (format) -- (quality) node[midway, left] {Yes};
+	\draw[arrow] (quality) -- (ready) node[midway, left] {Yes};
+	
+	% Error arrows
+	\draw[arrow] (format) -- (fix_format) node[midway, above] {No};
+	\draw[arrow] (quality) -- (fix_data) node[midway, above] {No};
+	\draw[arrow] (fix_format) |- (format);
+	\draw[arrow] (fix_data) |- (quality);
+	
+\end{tikzpicture}

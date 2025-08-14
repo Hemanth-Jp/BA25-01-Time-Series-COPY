@@ -1,0 +1,36 @@
+
+	
+	\begin{tikzpicture}[
+		node distance=2cm,
+		benefit/.style={rectangle, rounded corners, fill=green!20, draw=green!60, thick, minimum width=2.5cm, minimum height=1.2cm, align=center},
+		forecast/.style={rectangle, rounded corners, fill=HSELblau!30, draw=HSELblau, very thick, minimum width=2.5cm, minimum height=1.5cm, font=\bfseries, align=center},
+		arrow/.style={->, thick, HSELblau}
+		]
+		
+		% Central forecasting node
+		\node[forecast] (forecast) {Accurate\\Sales\\Forecasting};
+		
+		% Operational benefits (left side)
+		\node[benefit, above left=0.8cm and 1.2cm of forecast] (inventory) {Inventory\\Management};
+		\node[benefit, left=1.2cm of forecast] (workforce) {Workforce\\Planning};
+		\node[benefit, below left=0.8cm and 1.2cm of forecast] (supply) {Supply Chain\\Optimization};
+		
+		% Strategic benefits (right side)
+		\node[benefit, above right=0.8cm and 1.2cm of forecast] (marketing) {Marketing\\Optimization};
+		\node[benefit, right=1.2cm of forecast] (financial) {Financial\\Planning};
+		\node[benefit, below right=0.8cm and 1.2cm of forecast] (customer) {Customer\\Satisfaction};
+		
+		% Arrows from forecast to benefits
+		\draw[arrow] (forecast) -- (inventory);
+		\draw[arrow] (forecast) -- (workforce);
+		\draw[arrow] (forecast) -- (supply);
+		\draw[arrow] (forecast) -- (marketing);
+		\draw[arrow] (forecast) -- (financial);
+		\draw[arrow] (forecast) -- (customer);
+		
+		% Group labels
+		\node[above=0.3cm of inventory, font=\small\bfseries, color=HSELblau] {Operational};
+		\node[above=0.3cm of marketing, font=\small\bfseries, color=HSELblau] {Strategic};
+		
+	\end{tikzpicture}
+	

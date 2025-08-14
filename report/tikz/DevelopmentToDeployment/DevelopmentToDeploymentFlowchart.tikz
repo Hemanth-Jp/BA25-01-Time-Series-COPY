@@ -1,0 +1,26 @@
+\begin{center}
+	\begin{tikzpicture}[
+		node distance=1.1cm and 2.1cm,
+		every node/.style={draw, rounded corners, minimum height=0.8cm,
+			font=\footnotesize, align=center},
+		process/.style={fill=orange!20},
+		storage/.style={cylinder, shape aspect=0.3, fill=blue!15},
+		arrow/.style={thick,->,>=stealth}]
+		\node (raw)   [storage] {Raw\\CSV};
+		\node (etl)   [process, below=of raw] {ETL\\+ QA};
+		\node (feat)  [process, below=of etl]  {Feature\\Build};
+		\node (train) [process, below=of feat] {AutoARIMA\\Train};
+		\node (save)  [process, below=of train] {Save\\PKL+JSON};
+		\node (reg)   [storage, below=of save] {Registry\\(CI)};
+		\node (app)   [process, right=4cm of feat] {Prediction\\Streamlit};
+		\node (api)   [process, below=of app] {REST\\Endpoint};
+		
+		\draw[arrow] (raw)  -- (etl);
+		\draw[arrow] (etl)  -- (feat);
+		\draw[arrow] (feat) -- (train);
+		\draw[arrow] (train)-- (save);
+		\draw[arrow] (save) -- (reg);
+		\draw[arrow] (reg)  -- (app) node[midway,above]{\tiny upload / CI};
+		\draw[arrow] (app)  -- (api);
+	\end{tikzpicture}
+\end{center}

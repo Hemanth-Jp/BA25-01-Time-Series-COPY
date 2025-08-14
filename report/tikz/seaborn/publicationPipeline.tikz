@@ -1,0 +1,42 @@
+\begin{tikzpicture}[
+    stage/.style={rectangle, draw, fill=blue!10, minimum width=2.2cm, minimum height=1cm, text centered},
+    output/.style={rectangle, draw, fill=green!10, minimum width=2.2cm, minimum height=1cm, text centered},
+    arrow/.style={thick, ->}
+]
+
+% Vertical pipeline layout
+\node[stage] (data) at (0,6) {Data Preparation};
+\node[stage] (analysis) at (0,4.5) {Statistical Analysis};
+\node[stage] (styling) at (0,3) {Theme Configuration};
+\node[stage] (plotting) at (0,1.5) {Plot Generation};
+\node[stage] (refinement) at (0,0) {Visual Refinement};
+
+% Output formats
+\node[output] (pdf) at (3,2.25) {PDF Export};
+\node[output] (png) at (3,0.75) {PNG Export};
+\node[output] (svg) at (3,-0.75) {SVG Export};
+
+% Process flow
+\draw[arrow] (data) -- (analysis);
+\draw[arrow] (analysis) -- (styling);
+\draw[arrow] (styling) -- (plotting);
+\draw[arrow] (plotting) -- (refinement);
+
+% Output arrows
+\draw[arrow] (refinement) -- (pdf);
+\draw[arrow] (refinement) -- (png);
+\draw[arrow] (refinement) -- (svg);
+
+% Side annotations
+\node[left] at (-2,6) {\footnotesize Clean \& Transform};
+\node[left] at (-2,4.5) {\footnotesize Statistical Functions};
+\node[left] at (-2,3) {\footnotesize Professional Styling};
+\node[left] at (-2,1.5) {\footnotesize High-Quality Rendering};
+\node[left] at (-2,0) {\footnotesize Final Adjustments};
+
+% Quality indicators
+\node[right] at (5,2.25) {\footnotesize Vector Format};
+\node[right] at (5,0.75) {\footnotesize High Resolution};
+\node[right] at (5,-0.75) {\footnotesize Scalable Graphics};
+
+\end{tikzpicture}

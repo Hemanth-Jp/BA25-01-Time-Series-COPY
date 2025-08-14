@@ -1,0 +1,123 @@
+%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% $Autor: Hemanth Jadiswami Prabhakaran $
+% $Datum: 2025-06-25 13:25:39Z $
+% $Pfad: GitHub/BA25-01-Time-Series/Presentations/WalmartSalesForecastingPresentations/slides/challengesSolutions.tex $
+% $Version: 1 $
+%
+% $Project: BA25-Time-Series $
+%
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\Mysection{Technical Challenges \& Solutions}
+\STANDARD{Forecasting Challenges}
+{
+	\framesubtitle{Complex Retail Sales Patterns}
+	
+	\begin{figure}[H]
+		\centering
+		\input{images/challengesSolutions/forecastingChallenges}
+	\end{figure}
+	
+	\textbf{Multiple Seasonal Patterns}
+	\begin{itemize}
+		\item \textbf{Weekly seasonality}: Day-of-week effects
+		\item \textbf{Annual seasonality}: Yearly consumption patterns
+		\item \textbf{Holiday effects}: Irregular but significant impacts \cite{McElroy:2018}
+	\end{itemize}
+	
+	\textbf{Data Complexity}
+	\begin{itemize}
+		\item \textbf{Hierarchical structure}: 45 stores × multiple departments
+		\item \textbf{External variables}: Economic indicators integration
+		\item \textbf{Non-linear relationships}: Traditional models limitations \cite{Pao:2017}
+	\end{itemize}
+}
+\MYNOTE{
+	These challenges require sophisticated modeling approaches that can handle multiple forms of seasonality and complex relationships.
+}
+
+\STANDARD{Implementation Challenges}
+{
+	\framesubtitle{Technical and Deployment Issues}
+	
+	\begin{figure}[H]
+		\centering
+		\input{images/challengesSolutions/implementationChallenges}
+	\end{figure}
+	\vspace{1cm}
+	\textbf{Cross-Platform Compatibility}
+	\begin{itemize}
+		\item Python version dependencies
+		\item Package compatibility issues
+		\item Operating system variations
+		\item Model serialization consistency
+	\end{itemize}
+	
+	\textbf{Performance Optimization}
+	\begin{itemize}
+		\item Memory management for large datasets
+		\item Processing speed requirements
+		\item Interactive response times
+		\item Concurrent user support
+	\end{itemize}
+}
+\MYNOTE{
+	Implementation challenges required careful consideration of deployment environments and user experience requirements.
+}
+
+\STANDARD{Modeling Solutions}
+{
+	\framesubtitle{Advanced Time Series Approaches}
+	
+	\textbf{Auto ARIMA Implementation}
+	\begin{itemize}
+		\item \textbf{Automated parameter selection}: Grid search across parameter space
+		\item \textbf{Seasonal detection}: Automatic identification of patterns
+		\item \textbf{AIC-based optimization}: Information criteria for model selection
+	\end{itemize}
+	
+	\textbf{Exponential Smoothing (Holt-Winters)}
+	\begin{itemize}
+		\item \textbf{Triple smoothing}: Level, trend, and seasonal components
+		\item \textbf{Flexible seasonality}: Additive or multiplicative options
+		\item \textbf{Fast computation}: Suitable for real-time applications
+	\end{itemize}
+	
+		\begin{figure}[H]
+		\centering
+		\input{images/challengesSolutions/modelingSolutions}
+	\end{figure}
+}
+\MYNOTE{
+	Both modeling approaches complement each other - ARIMA for flexibility and Exponential Smoothing for speed and interpretability.
+}
+
+\STANDARD{Technical Solutions}
+{
+	\framesubtitle{Web Application Development Strategy}
+	
+	
+	\textbf{Development Framework}
+	\begin{itemize}
+		\item \textbf{Streamlit}: Rapid prototyping capability
+		\item \textbf{Modular architecture}: Separate training/prediction
+		\item \textbf{Interactive UI}: User-friendly interface design
+		\item \textbf{Real-time feedback}: Progress indicators and validation
+	\end{itemize}
+	
+	\textbf{Quality Assurance}
+	\begin{itemize}
+		\item \textbf{Comprehensive testing}: Pytest validation suite
+		\item \textbf{Error handling}: Graceful failure recovery
+		\item \textbf{Data validation}: Schema and format checking
+	\end{itemize}
+		\begin{figure}[H]
+		\centering
+		\input{images/challengesSolutions/technicalSolutions}
+	\end{figure}
+}
+\MYNOTE{
+	The technical solutions focus on reliability, usability, and maintainability of the forecasting system.
+}

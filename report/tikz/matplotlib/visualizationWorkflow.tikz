@@ -1,0 +1,60 @@
+\begin{tikzpicture}[
+    node distance=2cm,
+    process/.style={rectangle, draw, fill=blue!10, minimum width=2.5cm, minimum height=1cm, text centered},
+    data/.style={ellipse, draw, fill=green!10, minimum width=2cm, minimum height=0.8cm, text centered},
+    arrow/.style={->, thick}
+]
+
+% Data flow
+\node[data] (rawdata) at (0,0) {Raw Data};
+\node[process] (analyze) at (3,0) {Data Analysis};
+\node[process] (select) at (6,0) {Plot Selection};
+\node[process] (create) at (9,0) {Plot Creation};
+
+% Customization branch
+\node[process] (style) at (6,-2.5) {Style Selection};
+\node[process] (customize) at (9,-2.5) {Customization};
+
+% Output
+\node[data] (output) at (12,0) {Final Plot};
+
+% Quality check loop
+\node[process] (review) at (9,2.5) {Review Quality};
+\node[process] (refine) at (6,2.5) {Refine Parameters};
+
+% Export options
+\node[process] (export) at (12,-2.5) {Export Format};
+\node[data] (formats) at (15,-2.5) {PDF/PNG/SVG};
+
+% Main flow arrows
+\draw[arrow] (rawdata) -- (analyze);
+\draw[arrow] (analyze) -- (select);
+\draw[arrow] (select) -- (create);
+\draw[arrow] (create) -- (output);
+
+% Customization flow
+\draw[arrow] (select) -- (style);
+\draw[arrow] (style) -- (customize);
+\draw[arrow] (customize) -- (create);
+
+% Quality loop
+\draw[arrow] (create) -- (review);
+\draw[arrow] (review) -- (refine);
+\draw[arrow] (refine) -- (select);
+
+% Export flow
+\draw[arrow] (output) -- (export);
+\draw[arrow] (export) -- (formats);
+
+% Labels
+\node[anchor=south] at (1.5,0.7) {Preparation};
+\node[anchor=south] at (4.5,0.7) {Planning};
+\node[anchor=south] at (7.5,0.7) {Implementation};
+\node[anchor=south] at (12,0.7) {Publication};
+
+% Process annotations
+\node[anchor=north, text width=2cm, align=center] at (3,-0.8) {Statistical Summary};
+\node[anchor=north, text width=2cm, align=center] at (6,-0.8) {Chart Type};
+\node[anchor=north, text width=2cm, align=center] at (9,-0.8) {Matplotlib API};
+
+\end{tikzpicture}

@@ -1,0 +1,40 @@
+\begin{tikzpicture}[
+    node distance=2cm,
+    strategy/.style={rectangle, draw, fill=yellow!20, text width=2.5cm, text centered, minimum height=1cm},
+    technique/.style={rectangle, draw, fill=blue!20, text width=2.3cm, text centered, minimum height=0.8cm},
+    benefit/.style={ellipse, draw, fill=green!20, text width=2cm, text centered, minimum height=0.8cm},
+    arrow/.style={->, thick}
+]
+
+% Main Strategies
+\node[strategy] (vectorization) {Vectorization};
+\node[strategy, right=of vectorization] (memory) {Memory Optimization};
+\node[strategy, below=of vectorization] (algorithms) {Algorithm Selection};
+\node[strategy, below=of memory] (dtypes) {Data Type Optimization};
+
+% Techniques
+\node[technique, above=of vectorization] (avoid_loops) {Avoid Python Loops};
+\node[technique, above=of memory] (cache_friendly) {Cache-Friendly Access};
+\node[technique, below=of algorithms] (broadcasting) {Broadcasting Rules};
+\node[technique, below=of dtypes] (precision) {Appropriate Precision};
+
+% Benefits
+\node[benefit, right=2.5cm of memory] (speed) {Speed Improvement};
+\node[benefit, below=of speed] (efficiency) {Memory Efficiency};
+\node[benefit, below=of efficiency] (scalability) {Scalability};
+
+% Arrows
+\draw[arrow] (avoid_loops) -- (vectorization);
+\draw[arrow] (cache_friendly) -- (memory);
+\draw[arrow] (vectorization) -- (broadcasting);
+\draw[arrow] (memory) -- (dtypes);
+\draw[arrow] (algorithms) -- (broadcasting);
+\draw[arrow] (dtypes) -- (precision);
+
+% Benefits arrows
+\draw[arrow] (vectorization) -- (speed);
+\draw[arrow] (memory) -- (efficiency);
+\draw[arrow] (algorithms) -- (scalability);
+\draw[arrow] (dtypes) -- (efficiency);
+
+\end{tikzpicture}

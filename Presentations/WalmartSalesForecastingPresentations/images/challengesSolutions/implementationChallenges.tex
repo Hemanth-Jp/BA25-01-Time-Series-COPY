@@ -1,0 +1,39 @@
+\begin{tikzpicture}[
+	node distance=0.6cm,
+	challenge/.style={rectangle, rounded corners, fill=orange!30, draw=orange!60, thick, minimum width=2.2cm, minimum height=0.6cm, font=\scriptsize},
+	category/.style={rectangle, rounded corners, fill=blue!20, draw=blue!60, thick, minimum width=2.5cm, minimum height=1.8cm}
+	]
+	
+	% Compatibility challenges
+	\node[category] (compat) {};
+	\node[above=0.05cm of compat.north, font=\bfseries\scriptsize, blue!80] {Cross-Platform Compatibility};
+	
+	\node[challenge, below=0.2cm of compat.north] (python_ver) {Python Dependencies};
+	\node[challenge, below=0.05cm of python_ver] (packages) {Package Compatibility};
+	\node[challenge, below=0.05cm of packages] (os_var) {OS Variations};
+	
+	% Performance challenges
+	\node[category, right=1.2cm of compat] (performance) {};
+	\node[above=0.05cm of performance.north, font=\bfseries\scriptsize, blue!80] {Performance Optimization};
+	
+	\node[challenge, below=0.2cm of performance.north] (memory) {Memory Management};
+	\node[challenge, below=0.05cm of memory] (speed) {Processing Speed};
+	\node[challenge, below=0.05cm of speed] (response) {Interactive Response};
+	
+	% Deployment challenges
+	\node[category, below=1cm of compat] (deployment) {};
+	\node[above=0.05cm of deployment.north, font=\bfseries\scriptsize, blue!80] {Deployment Complexity};
+	
+	\node[challenge, below=0.2cm of deployment.north] (serialization) {Model Serialization};
+	\node[challenge, below=0.05cm of serialization] (cloud_limits) {Cloud Limitations};
+	\node[challenge, below=0.05cm of cloud_limits] (user_exp) {User Experience};
+	
+	% User interface challenges
+	\node[category, right=1.2cm of deployment] (ui) {};
+	\node[above=0.05cm of ui.north, font=\bfseries\scriptsize, blue!80] {User Interface Design};
+	
+	\node[challenge, below=0.2cm of ui.north] (intuitive) {Intuitive Design};
+	\node[challenge, below=0.05cm of intuitive] (visualization) {Interactive Visualization};
+	\node[challenge, below=0.05cm of visualization] (accessibility) {Accessibility};
+	
+	\end{tikzpicture}

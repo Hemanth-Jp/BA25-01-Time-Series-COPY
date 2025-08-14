@@ -1,0 +1,35 @@
+\begin{tikzpicture}[
+	node distance=2cm,
+	start/.style={rectangle, rounded corners, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=blue!10},
+	process/.style={rectangle, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=orange!10},
+	decision/.style={diamond, minimum width=3.5cm, minimum height=1.5cm, text centered, draw=black, fill=yellow!10, aspect=2},
+	end/.style={rectangle, rounded corners, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=green!10},
+	arrow/.style={thick,->,>=stealth}
+	]
+	
+	% Nodes
+	\node (start) [start] {Input Time Series};
+	\node (preprocess) [process, below of=start] {Data Preprocessing};
+	\node (stationarity) [decision, below of=preprocess, yshift=-0.5cm] {Stationarity Test};
+	\node (differencing) [process, left of=stationarity, xshift=-3.5cm] {Apply Differencing};
+	\node (seasonal) [decision, below of=stationarity, yshift=-1cm] {Seasonal Patterns?};
+	\node (search) [process, below of=seasonal, yshift=-0.5cm] {Parameter Search};
+	\node (evaluate) [process, below of=search] {Model Evaluation};
+	\node (select) [decision, below of=evaluate, yshift=-0.5cm] {Best Model?};
+	\node (validate) [process, below of=select, yshift=-0.5cm] {Model Validation};
+	\node (forecast) [end, below of=validate] {Generate Forecasts};
+	
+	% Arrows
+	\draw [arrow] (start) -- (preprocess);
+	\draw [arrow] (preprocess) -- (stationarity);
+	\draw [arrow ] (stationarity.west) -- node[anchor=south,yshift=-1.3cm] {Non-stationary} (differencing.east);
+	\draw [arrow] (differencing.north) -- ++(0,1) -| (stationarity.north);
+	\draw [arrow] (stationarity.south) -- node[anchor=west] {Stationary} (seasonal.north);
+	\draw [arrow] (seasonal.south) -- node[anchor=west] {Yes/No} (search.north);
+	\draw [arrow] (search) -- (evaluate);
+	\draw [arrow] (evaluate) -- (select);
+	\draw [arrow] (select.south) -- node[anchor=west] {Yes} (validate.north);
+	\draw [arrow] (select.east) -- ++(2.5,0) |- node[near start, anchor=west] {No} (search.east);
+	\draw [arrow] (validate) -- (forecast);
+	
+\end{tikzpicture}

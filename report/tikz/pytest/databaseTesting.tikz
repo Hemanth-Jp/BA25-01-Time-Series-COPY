@@ -1,0 +1,47 @@
+\begin{tikzpicture}[
+    node distance=1.3cm,
+    box/.style={rectangle, rounded corners, minimum width=2.2cm, minimum height=0.9cm, text centered, draw=black, fill=blue!10},
+    arrow/.style={thick,->,>=stealth}
+]
+
+% Setup phase
+\node[box, fill=green!20] (setup) {Test Setup};
+\node[box, below=of setup] (db_create) {Create Test DB};
+\node[box, below=of db_create] (schema) {Apply Schema};
+\node[box, below=of schema] (seed) {Seed Test Data};
+
+% Test execution
+\node[box, right=3cm of seed, fill=orange!15] (test) {Test Execution};
+\node[box, above=of test] (transaction) {Transaction Start};
+\node[box, below=of test] (rollback) {Transaction Rollback};
+
+% Validation phase
+\node[box, right=3cm of test, fill=yellow!15] (validate) {Data Validation};
+\node[box, above=of validate] (query) {Query Results};
+\node[box, below=of validate] (integrity) {Data Integrity};
+
+% Cleanup phase
+\node[box, below=3cm of rollback, fill=red!15] (cleanup) {Cleanup};
+\node[box, right=of cleanup] (drop_db) {Drop Test DB};
+
+% Flow arrows - Setup
+\draw[arrow] (setup) -- (db_create);
+\draw[arrow] (db_create) -- (schema);
+\draw[arrow] (schema) -- (seed);
+
+% Flow arrows - Execution
+\draw[arrow] (seed) -- (transaction);
+\draw[arrow] (transaction) -- (test);
+\draw[arrow] (test) -- (query);
+\draw[arrow] (query) -- (validate);
+\draw[arrow] (validate) -- (integrity);
+
+% Flow arrows - Cleanup
+\draw[arrow] (test) -- (rollback);
+\draw[arrow] (rollback) -- (cleanup);
+\draw[arrow] (cleanup) -- (drop_db);
+
+% Parallel paths
+\draw[arrow, dashed] (integrity) to[bend right=30] (cleanup);
+
+\end{tikzpicture}

@@ -1,0 +1,275 @@
+%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% $Autor: Adil Ibraheem Koyava $
+% $Datum: 2025-06-30 12:04:16Z $
+% $Pfad: GitHub/BA25-01-Time-Series/report/Contents/en/KDD.tex $
+% $Version: 1 $
+%
+% $Project: BA25-Time-Series $
+%
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+\chapter{Knowledge Discovery in Databases}
+
+\section{The KDD Process}
+
+Knowledge Discovery in Databases (KDD) is a systematic process for extracting valid, novel, useful, and understandable patterns from large datasets. The KDD process is not a single-step operation but a structured approach consisting of several iterative and interactive stages. \cite{Maimon:2005}
+
+\subsection{Typical Steps in the KDD Process}
+
+\begin{enumerate}[label=\textbf{\arabic*.}, leftmargin=2.5em]
+	
+	\item \textbf{Data Selection:} Identifying and selecting relevant data from various sources such as databases, data warehouses, web data, and sensor data. This step ensures that only pertinent data is considered for further analysis. \cite{Maimon:2005}
+	
+	\item \textbf{Data Preprocessing (Cleaning and Integration):} Preparing the data by handling missing values, removing duplicates, and integrating data from different sources. This step improves data quality and ensures consistency. \cite{Maimon:2005}
+	
+	\item \textbf{Data Transformation:} Converting the data into suitable formats or structures for mining, which may involve normalization, aggregation, or other transformation techniques. \cite{Maimon:2005}
+	
+	\item \textbf{Data Mining:} Applying computational algorithms to discover patterns, correlations, or relationships within the data. Data mining is the core of the KDD process and includes methods such as classification, clustering, regression, and association rule mining. \cite{Maimon:2005}
+	
+	\item \textbf{Pattern Evaluation and Knowledge Representation:} Assessing the discovered patterns for validity, novelty, and usefulness, and presenting the knowledge in an understandable form for decision-making. \cite{Maimon:2005}
+	
+\end{enumerate}
+
+\subsection{Iterative Nature of the Process}
+
+The KDD process is inherently iterative; feedback and refinement are often required at each stage to ensure that the extracted knowledge is actionable and meaningful. This process is crucial in turning raw data into valuable insights, especially given the increasing volume and complexity of data in modern applications. \cite{Maimon:2005}
+
+
+\section{Data Selection}
+
+\subsection{Origin}
+
+The data is sourced from the publicly available Walmart Store Sales Forecasting dataset on Kaggle, contributed by Yasser H. It contains historical sales figures across 45 different Walmart stores and spans from February 2010 to October 2012. The data integrates both internal features (such as store size and department-level sales) and external macroeconomic factors (like fuel prices, unemployment, CPI, and holiday flags), making it suitable for comprehensive forecasting and trend analysis.
+\cite{Yasserh:WalmartDataset}
+
+
+\subsection{Features}
+
+The dataset includes 12 primary columns, each serving a specific analytical purpose:
+
+\begin{itemize}
+	\item \textbf{Store}: Unique identifier for each of the 45 stores.
+	\item \textbf{Dept}: Department identifier (not uniform across all stores).
+	\item \textbf{Date}: The week of the sale, in date format.
+	\item \textbf{Weekly\_Sales}: Total sales for that department in that store during the given week.
+	\item \textbf{IsHoliday}: Boolean flag indicating whether the week includes a major holiday.
+	\item \textbf{Type}: Classification of store size and structure (A, B, or C).
+	\item \textbf{Size}: Physical store size in square feet.
+	\item \textbf{Fuel\_Price}: Cost of fuel in the region at that time.
+	\item \textbf{CPI}: Consumer Price Index for the region.
+	\item \textbf{Unemployment}: Unemployment rate for the region.
+	\item \textbf{MarkDown1–5}: Promotional markdowns across five types of campaigns.
+\end{itemize}
+
+
+
+These features enable time series analysis, holiday impact assessment, store type segmentation, and department-level sales tracking.
+
+\subsection{Data Types}
+
+Each column was assessed for its data type and converted as necessary:
+
+\begin{itemize}
+	\item \textbf{Categorical}: \texttt{Store}, \texttt{Dept}, \texttt{Type}, \texttt{IsHoliday}
+	\item \textbf{DateTime}: \texttt{Date}
+	\item \textbf{Float}: \texttt{Weekly\_Sales}, \texttt{Fuel\_Price}, \texttt{CPI}, \texttt{Unemployment}, \texttt{MarkDown1–5}
+	\item \textbf{Integer}: \texttt{Size}
+\end{itemize}
+
+
+
+Conversion steps included:
+
+\begin{itemize}
+	\item Parsing dates using pd.to\_datetime.
+	\item Handling categorical variables (e.g., converting Store Type into dummy variables if required).
+	\item Treating all missing markdowns as 0 based on domain logic.
+\end{itemize}
+
+
+\subsection{Quality}
+
+The data was mostly clean but required thoughtful preprocessing:
+
+\begin{itemize}
+	\item Null values existed primarily in MarkDown1-5 columns. According to data context, these nulls do not signify missing information, but rather that no markdown campaign occurred in that week — thus replaced with 0.
+	\item Negative sales values (approx. 0.3\% of records) were removed, as they likely represented returns or data entry anomalies.
+	\item Data completeness: The dataset lacks November and December 2012, which skews year-wise comparisons slightly.
+\end{itemize}
+
+\subsection{Quantity}
+
+\begin{itemize}
+	\item Records: Over 420,000 entries across multiple years
+	\item Stores: 45
+	\item Departments: 81 unique ones (though not all departments appear in every store)
+	\item Temporal Range: February 2010 – October 2012 (Weekly)
+\end{itemize}
+
+This volume offers robust grounds for time series, comparative, and seasonal analysis.
+
+\subsection{Fairness / Bias}
+
+\begin{itemize}
+	\item Coverage bias: Some departments are underrepresented or absent in certain stores.
+	\item Temporal bias: The dataset ends in October 2012, omitting the high-sales holiday months (Nov–Dec 2012), limiting full-year comparisons.
+	\item Geographical bias: Stores vary in location and type (A, B, C), affecting local sales patterns.
+\end{itemize}
+
+Despite these, the dataset’s multi-feature scope ensures a rich base for analysis, while acknowledging potential distortions in generalized patterns.
+
+
+
+
+\section{Data Processing}
+
+\subsection{One Database}
+
+All operations were performed on a single pandas DataFrame created from the CSV file. The table was manipulated in Jupyter Notebook environments using Python libraries such as Pandas, NumPy, Matplotlib, and Seaborn.
+
+\subsection{Properties}
+
+Key transformations and feature engineering steps included:
+
+\begin{itemize}
+	\item Filtering rows with Weekly\_Sales > 0 to remove refunds or data errors.
+	\item Replacing nulls in markdowns with 0s.
+	\item Date transformation: Extracted new columns such as Week, Year, and Month from Date.
+	\item Feature Aggregation: Computed averages and totals across stores, departments, and weeks.
+	\item Categorical Encoding: If required, encoded Store Type for model-readiness.
+\end{itemize}
+
+\subsection{Outliers}
+
+\begin{itemize}
+	\item Sales spikes in Department 72 during Thanksgiving were detected.
+	\item Week 51 (Christmas) and Week 47 (Black Friday) consistently showed sharp peaks in sales.
+	\item These are domain-valid outliers, reflecting retail seasonality.
+\end{itemize}
+
+Outliers were preserved for analysis due to their explanatory power regarding consumer behavior.
+
+
+\subsection{Anomalies}
+
+\begin{itemize}
+	\item Negative Sales: Small portion of the dataset (0.3\%) — removed as anomalies.
+	\item Non-uniform department availability: Some departments appear in only a subset of stores.
+	\item Missing values: Interpreted logically and filled (e.g., MarkDown as 0).
+\end{itemize}
+
+No severe anomalies were found in external indicators (CPI, unemployment, etc.).
+
+
+\subsection{Augmentation}
+
+New insights were generated via data augmentation:
+
+\begin{itemize}
+	\item Holiday segmentation: Compared average sales in IsHoliday=True vs False
+	\item Temporal analysis: Generated weekly, monthly, and yearly aggregations
+	\item Store-based analysis: Ranked stores by average weekly sales
+	\item Departmental trends: Identified top-performing departments seasonally and overall
+\end{itemize}
+
+
+
+\section{Data Transformation}
+
+Data transformation prepares raw data into a format suitable for analysis, ensuring compatibility with time series forecasting models and machine learning pipelines.
+
+\subsection{Application to Our Project}
+
+In our project, the original dataset consisted of multiple CSV files—\texttt{train.csv}, \texttt{features.csv}, and \texttt{stores.csv}. After merging and cleaning, we performed several transformation steps:
+
+\begin{itemize}
+	\item Converted \texttt{Date} into \texttt{datetime} format.
+	\item Extracted additional temporal features: \texttt{week}, \texttt{month}, \texttt{year}.
+	\item Encoded categorical features like \texttt{Type} (A/B/C) as numerical (1/2/3).
+	\item Created binary flags for holidays (\texttt{Super\_Bowl}, \texttt{Thanksgiving}, \texttt{Christmas}, \texttt{Labor\_Day}).
+	\item Aggregated sales data to weekly and monthly granularity using \texttt{resample()}.
+	\item Differenced the weekly sales data to remove trend and make it stationary—required for time series models like ARIMA.
+\end{itemize}
+
+\subsection{Input}
+
+The input to the transformation process was a merged DataFrame with 421,570 rows across 16 columns.
+
+\subsection{Output}
+
+The output was a set of structured datasets:
+\begin{itemize}
+	\item \texttt{df\_week}: Weekly aggregated features.
+	\item \texttt{df\_week\_diff}: Differenced weekly sales for stationarity.
+	\item \texttt{df\_encoded}: Categorical and holiday indicators encoded for machine learning.
+\end{itemize}
+
+\subsection{Interpretation}
+
+The transformation ensured the data was statistically and semantically ready for time series modeling and allowed the extraction of cyclical patterns like seasonality and trends. Feature engineering such as temporal encoding improved the models’ forecasting accuracy.
+
+\section{Data Mining}
+
+Data mining refers to applying algorithmic techniques to extract patterns and predictions from data. For our project, we used both statistical time series models and machine learning.
+
+\subsection{Application to Our Project}
+
+We evaluated two major time series models for weekly sales forecasting:
+
+\begin{itemize}
+	\item \textbf{Auto-ARIMA (Auto-Regressive Integrated Moving Average)}: Automatically selects optimal (p, d, q) and seasonal (P, D, Q, m) parameters using AIC.
+	\item \textbf{Exponential Smoothing (Holt-Winters)}: Captures level, trend, and seasonality with additive seasonal and trend components.
+\end{itemize}
+
+\subsection{Hyperparameters}
+
+The key hyperparameters were:
+
+\begin{itemize}
+	\item \textbf{Auto-ARIMA:}
+	\begin{itemize}
+		\item \texttt{max\_p = 20}, \texttt{max\_q = 20}, \texttt{max\_P = 20}, \texttt{max\_Q = 20}
+		\item \texttt{D = 1}, \texttt{seasonal = True}, \texttt{maxiter = 200}
+	\end{itemize}
+	\item \textbf{Exponential Smoothing:}
+	\begin{itemize}
+		\item \texttt{seasonal='additive'}, \texttt{trend='additive'}, \texttt{damped=True}
+		\item \texttt{seasonal\_periods = 20}
+	\end{itemize}
+\end{itemize}
+
+\subsection{Input}
+
+The input for both models was the differenced weekly sales time series (\texttt{df\_week\_diff}) split into 70\% training and 30\% testing sets. The target variable was \texttt{Weekly\_Sales}.
+
+\subsection{Training}
+
+Both models were trained using historical sales trends from the training set:
+
+\begin{itemize}
+	\item \texttt{Auto-ARIMA} conducted an extensive grid search on possible parameter combinations.
+	\item \texttt{Exponential Smoothing} fitted a triple seasonal model with damping.
+\end{itemize}
+
+\subsection{Output}
+
+Each model produced a series of forecasted sales values matching the test period's length. These were compared with actual test values using WMAE (Weighted Mean Absolute Error) for evaluation.
+
+\subsection{Interpretation}
+
+The models revealed:
+\begin{itemize}
+	\item \textbf{Seasonality:} Strong 20-week seasonal patterns, especially during Thanksgiving and Week 51 (Christmas).
+	\item \textbf{Accuracy:} 
+	\begin{itemize}
+		\item Auto-ARIMA: WMAE $\approx 1500.00$
+		\item Holt-Winters: WMAE $\approx 821.00$ (Best performing)
+	\end{itemize}
+	\item \textbf{Insights:} Forecasting performance was best using Exponential Smoothing, affirming the value of seasonal awareness in retail sales forecasting.
+\end{itemize}
+

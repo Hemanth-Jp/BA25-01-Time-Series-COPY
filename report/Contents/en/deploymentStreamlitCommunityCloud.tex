@@ -1,0 +1,346 @@
+%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% $Autor: Hemanth Jadiswami Prabhakaran $
+% $Datum: 2025-06-30 09:28:14Z $
+% $Pfad: GitHub/BA25-01-Time-Series/report/Contents/en/deploymentStreamlitCommunityCloud.tex $
+% $Version: 1 $
+%
+% $Project: BA25-Time-Series $
+%
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Deployment to Streamlit Community Cloud}
+
+\section{Introduction}
+
+This chapter documents the step-by-step process used to deploy both Walmart Sales Forecasting applications to Streamlit Community Cloud, following the official Streamlit deployment methodology \cite{StreamlitDeploy:2024}. The deployment process transforms locally developed applications into publicly accessible web applications that can be accessed by users worldwide without requiring any local installations.
+
+The decision to use Streamlit Community Cloud was driven by its seamless integration with GitHub, one-click deployment capabilities, and cost-effectiveness for academic projects. As the official documentation states, ``From your workspace at share.streamlit.io, in the upper-right corner, click `Create app''' \cite{Streamlit:2024deploy}. This simple process makes it ideal for rapid deployment of machine learning applications.
+
+\section{Prerequisites and Account Setup}
+
+\subsection{Step 1: GitHub Account and Repository Preparation}
+
+Before deploying to Streamlit Community Cloud, I ensured that both applications were properly organized in a GitHub repository. The repository structure was designed to support the dual-application architecture:
+
+\begin{verbatim}
+	Project Repository/
+	|- Code/
+	|  |- WalmartSalesTrainingApp/
+	|  |  |- walmartSalesTrainingApp.py
+	|  |  |- walmartSalesTrainingCore.py
+	|  |  |- requirements.txt
+	|  |  \- models/
+	|  |     \- default/
+	|  |- WalmartSalesPredictionApp/
+	|  |  |- walmartSalesPredictionApp.py
+	|  |  |- walmartSalesPredictionCore.py
+	|  |  |- requirements.txt
+	|  |  \- models/
+	|  |     \- default/
+	|  \- WalmartDataset/
+	|     |- train.csv
+	|     |- features.csv
+	|     \- stores.csv
+\end{verbatim}
+
+Each application was placed in its own directory with all necessary files, following Streamlit's file organization requirements for Community Cloud deployment \cite{Streamlit:2024fileorg}.
+
+\subsection{Step 2: Creating the Streamlit Community Cloud Account}
+
+Following the official quickstart guide \cite{Streamlit:2024quickstart}, I created a Streamlit Community Cloud account:
+
+\begin{enumerate}
+\item \textbf{Navigate to share.streamlit.io} - I accessed the Community Cloud platform
+\item \textbf{GitHub Authentication} - As documented: ``Enter your GitHub credentials and follow GitHub's authentication prompts'' \cite{Streamlit:2024quickstart}
+\item \textbf{Account Information} - I filled in the required account details and accepted the terms
+\item \textbf{GitHub Connection} - Connected my GitHub account to enable repository access
+\end{enumerate}
+
+The Community Cloud account was automatically linked to my GitHub account email, establishing the necessary connection between the platform and my repository.
+
+\section{Pre-Deployment Configuration}
+
+\subsection{File Organization and Dependencies}
+
+Each application required specific configuration files to ensure proper deployment:
+
+\textbf{Requirements.txt Configuration:}
+I created comprehensive requirements.txt files for both applications, pinning all dependencies to specific versions \cite{Streamlit:2024dependencies}:
+
+\begin{verbatim}
+# Core Application Stack
+streamlit==1.31.1          # Stable release, avoiding 1.32.x CPU issues
+pandas==2.2.2              # Latest stable with performance improvements
+numpy==1.26.4               # LTS version, numpy 2.x compatibility pending
+scipy==1.13.1               # Pinned for pmdarima compatibility
+pmdarima==2.0.4             # ARIMA modeling - requires scipy<1.14
+scikit-learn==1.4.2        # Latest stable with security patches
+statsmodels==0.14.2        # Statistical modeling foundation
+plotly==5.24.1             # Interactive plotting for dashboards
+matplotlib==3.8.4          # Plotting foundation with security fixes
+\end{verbatim}
+
+All packages were scanned for vulnerabilities and pinned to secure versions to ensure reliable deployment.
+
+\subsection{Cross-Platform Path Management}
+
+One critical aspect was implementing environment detection to handle different file paths between local development and cloud deployment:
+
+\textbf{Training Application Path Detection:}
+\begin{verbatim}
+def get_model_path_simple():
+    # Check if we're on Streamlit Cloud by looking for specific training environment
+    if os.path.exists("Code/WalmartSalesTrainingApp"):
+        return "Code/WalmartSalesTrainingApp/models/default/"
+    else:
+        return "models/default/"
+\end{verbatim}
+
+\textbf{Prediction Application Path Detection:}
+\begin{verbatim}
+def get_model_path_simple():
+    # Check if we're on Streamlit Cloud by looking for specific environment
+    if os.path.exists("Code/WalmartSalesPredictionApp"):
+        return "Code/WalmartSalesPredictionApp/models/default/"
+    else:
+        return "models/default/"
+\end{verbatim}
+
+This approach ensured that both applications would work correctly regardless of the deployment environment.
+
+\section{Deploying the Training Application}
+
+\subsection{Step 1: Accessing the Deployment Interface}
+
+Following the official documentation steps \cite{Streamlit:2024deploy}:
+
+\begin{enumerate}
+\item \textbf{Navigate to Workspace} - I went to share.streamlit.io and accessed my workspace
+\item \textbf{Initiate Deployment} - As instructed: ``From your workspace at share.streamlit.io, in the upper-right corner, click `Create app.'''
+\item \textbf{Select Existing App} - When prompted ``Do you already have an app?'' I clicked ``Yup, I have an app.''
+\end{enumerate}
+
+\subsection{Step 2: Configuring the Training Application}
+
+I filled in the deployment configuration with the following details:
+
+\textbf{Repository Information:}
+\begin{itemize}
+\item \textbf{Repository:} Selected my GitHub repository containing the project
+\item \textbf{Branch:} main (default branch)
+\item \textbf{Main file path:} \texttt{Code/WalmartSalesTrainingApp/walmartSalesTrainingApp.py}
+\end{itemize}
+
+\textbf{App URL Configuration:}
+\begin{itemize}
+\item \textbf{Custom subdomain:} I configured a memorable subdomain for easy access
+\item \textbf{Final URL:} \texttt{walmart-sales-training-app-py.streamlit.app}
+\end{itemize}
+
+\subsection{Step 3: Deployment Process}
+
+As documented: ``After you've organized your files and added your dependencies as described on the previous pages, you're ready to deploy your app to Community Cloud!'' \cite{Streamlit:2024deploy}
+
+\begin{enumerate}
+\item \textbf{Submit Deployment} - I clicked ``Deploy'' to initiate the process
+\item \textbf{Monitor Progress} - The system showed: ``Your app is now being deployed, and you can watch while it launches. Most apps are deployed within a few minutes'' \cite{Streamlit:2024deploy}
+\item \textbf{Dependency Installation} - The platform automatically processed the requirements.txt file and installed all dependencies
+\item \textbf{Environment Setup} - Streamlit Community Cloud configured the Python environment and initialized the application
+\end{enumerate}
+
+The training application deployment completed successfully within approximately 3 minutes.
+
+\section{Deploying the Prediction Application}
+
+\subsection{Step 1: Second Application Deployment}
+
+Following the same deployment process for the prediction application:
+
+\begin{enumerate}
+\item \textbf{Create New App} - I clicked ``Create app'' again from the workspace
+\item \textbf{Configure Repository Details:}
+\begin{itemize}
+\item \textbf{Repository:} Same GitHub repository
+\item \textbf{Branch:} main
+\item \textbf{Main file path:} 
+\texttt{Code/WalmartSalesPredictionApp/walmartSalesPredictionApp.py}
+\end{itemize}
+\end{enumerate}
+
+\subsection{Step 2: URL Configuration}
+
+\textbf{Custom Subdomain Setup:}
+\begin{itemize}
+\item \textbf{Subdomain:} Configured a distinct subdomain for the prediction app
+\item \textbf{Final URL:} \texttt{walmart-sales-prediction-app-py.streamlit.app}
+\end{itemize}
+
+\subsection{Step 3: Deployment Completion}
+
+The prediction application deployment followed the same process:
+
+\begin{enumerate}
+\item \textbf{Dependency Resolution} - All required packages were installed automatically
+\item \textbf{Model Loading} - Pre-trained models were made available in the cloud environment
+\item \textbf{Application Initialization} - The prediction interface was successfully deployed
+\end{enumerate}
+
+Both applications were now live and accessible through their respective URLs.
+
+\section{Post-Deployment Verification and Testing}
+
+\subsection{Application Functionality Testing}
+
+After successful deployment, I conducted comprehensive testing of both applications:
+
+\textbf{Training Application Verification:}
+\begin{itemize}
+\item \textbf{File Upload Functionality} - Tested upload of train.csv, features.csv, and stores.csv
+\item \textbf{Model Training Process} - Verified both Auto ARIMA and Exponential Smoothing training
+\item \textbf{Hyperparameter Customization} - Tested parameter adjustment interfaces
+\item \textbf{Model Export} - Confirmed download functionality for trained models
+\item \textbf{Diagnostic Visualizations} - Verified all plots and charts rendered correctly
+\end{itemize}
+
+\textbf{Prediction Application Verification:}
+\begin{itemize}
+\item \textbf{Default Model Loading} - Confirmed pre-trained models loaded automatically
+\item \textbf{Custom Model Upload} - Tested upload of newly trained models
+\item \textbf{Forecast Generation} - Verified 4-week ahead predictions
+\item \textbf{Interactive Visualizations} - Tested Plotly charts and color-coded trend indicators
+\item \textbf{Export Functionality} - Confirmed CSV and JSON export capabilities
+\end{itemize}
+
+\subsection{Performance Monitoring}
+
+The documentation notes: ``After the initial deployment, changes to your code should be reflected immediately in your app. Changes to your dependencies will be processed immediately, but may take a few minutes to install'' \cite{Streamlit:2024manage}.
+
+I monitored both applications for:
+\begin{itemize}
+\item \textbf{Response Times} - Both apps loaded within acceptable timeframes
+\item \textbf{Memory Usage} - Applications operated within Streamlit Cloud's resource limits
+\item \textbf{Error Handling} - All implemented error handling mechanisms functioned correctly
+\item \textbf{Cross-browser Compatibility} - Verified functionality across different browsers
+\end{itemize}
+
+\section{Application Management and Monitoring}
+
+\subsection{Accessing Application Management}
+
+Following the management guidelines: ``From your app at \textless{}your-custom-subdomain\textgreater{}.streamlit.app, click `Manage app' in the lower-right corner'' \cite{Streamlit:2024manage}.
+
+This provided access to:
+\begin{itemize}
+\item \textbf{Application Logs} - For troubleshooting and monitoring
+\item \textbf{Analytics} - Usage statistics and performance metrics
+\item \textbf{Reboot Options} - For application restart if needed
+\item \textbf{Settings Management} - Configuration adjustments
+\end{itemize}
+
+\subsection{Continuous Integration Setup}
+
+The deployment leveraged GitHub integration for automatic updates \cite{Streamlit:2024manage}:
+
+\textbf{Automatic Deployment:}
+\begin{itemize}
+\item \textbf{Code Changes} - Any commits to the main branch automatically updated the deployed applications
+\item \textbf{Dependency Updates} - Changes to requirements.txt triggered automatic reinstallation
+\item \textbf{Real-time Reflection} - Most code changes appeared immediately in the live applications
+\end{itemize}
+
+\textbf{Development Workflow:}
+\begin{enumerate}
+\item Make changes locally
+\item Commit and push to GitHub
+\item Applications update automatically on Streamlit Cloud
+\item Verify changes in the live environment
+\end{enumerate}
+
+\section{Final Deployment Results}
+
+\subsection{Successfully Deployed Applications}
+
+Both applications were successfully deployed and made publicly accessible:
+
+\textbf{Training Application:}
+\begin{itemize}
+\item \textbf{URL:} \texttt{walmart-sales-training-app-py.streamlit.app}
+\item \textbf{Functionality:} Full model training capabilities with file upload, hyperparameter tuning, and model export
+\item \textbf{Performance:} Stable operation with responsive user interface
+\end{itemize}
+
+\textbf{Prediction Application:}
+\begin{itemize}
+\item \textbf{URL:} \texttt{walmart-sales-prediction-app-py.streamlit.app}
+\item \textbf{Functionality:} Complete forecasting system with model loading, prediction generation, and interactive visualization
+\item \textbf{Performance:} Fast forecast generation with real-time chart updates
+\end{itemize}
+
+\subsection{Application Features Verification}
+
+\textbf{Training Application Features:}
+\begin{itemize}
+\item[\checkmark] Multi-file CSV upload (train.csv, features.csv, stores.csv)
+\item[\checkmark] Model selection (Auto ARIMA and Exponential Smoothing)
+\item[\checkmark] Hyperparameter customization interfaces
+\item[\checkmark] Real-time training progress monitoring
+\item[\checkmark] Diagnostic visualization generation
+\item[\checkmark] Trained model download capabilities
+\end{itemize}
+
+\textbf{Prediction Application Features:}
+\begin{itemize}
+\item[\checkmark] Default pre-trained model loading
+\item[\checkmark] Custom model upload functionality
+\item[\checkmark] Four-week ahead sales forecasting
+\item[\checkmark] Interactive Plotly visualizations
+\item[\checkmark] Color-coded trend indicators
+\item[\checkmark] Multi-format result export (CSV, JSON)
+\end{itemize}
+
+\section{Lessons Learned and Best Practices}
+
+\subsection{Technical Insights}
+
+The deployment process revealed several important considerations:
+
+\textbf{Path Management:} Implementing environment-aware path detection was crucial for applications that need to function in both local and cloud environments. The \texttt{os.path.exists()} checks successfully differentiated between deployment contexts.
+
+\textbf{Dependency Management:} As noted in the documentation, ``It is best practice to pin your Streamlit version in requirements.txt'' \cite{Streamlit:2024manage}. Pinning all dependencies to specific versions ensured reproducible deployments and prevented version conflicts.
+
+\textbf{File Organization:} Structuring each application in its own directory with dedicated requirements.txt files enabled independent deployment and management.
+
+\subsection{Deployment Strategy Benefits}
+
+The dual-application architecture proved highly effective:
+
+\textbf{Separation of Concerns:} Independent applications allowed for specialized optimization and focused functionality
+
+\textbf{User Workflow:} Clear separation between training and prediction phases improved user experience
+
+\textbf{Maintenance Advantages:} Independent deployments enabled targeted updates without affecting both applications
+
+\subsection{Performance Considerations}
+
+\textbf{Resource Management:} Both applications operated successfully within Streamlit Community Cloud's resource limits through efficient coding practices and optimized data processing.
+
+\textbf{Loading Optimization:} Implementing caching strategies and efficient model loading mechanisms ensured responsive user experiences.
+
+\section{Conclusion}
+
+The successful deployment of both Walmart Sales Forecasting applications to Streamlit Community Cloud demonstrates the effectiveness of the platform for machine learning application deployment. Following the official deployment steps - ``Fill in your repository, branch, and file path'' and clicking ``Deploy'' - resulted in fully functional applications deployed within minutes \cite{Streamlit:2024deploy}.
+
+The deployment process showcased several key advantages of Streamlit Community Cloud:
+
+\textbf{Simplicity:} The one-click deployment process eliminated complex configuration requirements
+
+\textbf{Integration:} Seamless GitHub integration enabled continuous deployment workflows
+
+\textbf{Accessibility:} Public URLs made the applications immediately accessible to users worldwide
+
+\textbf{Maintenance:} Automatic updates and integrated monitoring simplified application management
+
+Both applications now serve as practical demonstrations of how academic research can be effectively translated into accessible, production-ready web applications. The deployment success validates the architectural decisions made during development and provides a robust foundation for sharing the research outcomes with the broader community.
+
+The final deployed applications represent a complete forecasting system that enables users to train custom models and generate sales predictions through intuitive web interfaces, making sophisticated time series analysis accessible to users without technical expertise or local software installations.

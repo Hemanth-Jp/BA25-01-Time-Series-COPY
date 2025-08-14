@@ -1,0 +1,36 @@
+\begin{tikzpicture}[
+    node distance=2cm,
+    every node/.style={font=\footnotesize},
+    box/.style={rectangle, draw, fill=purple!10, minimum width=2.5cm, minimum height=1cm, text centered},
+    process/.style={rectangle, draw, fill=blue!10, minimum width=2.5cm, minimum height=1cm, text centered},
+    arrow/.style={->, thick}
+]
+
+% Logistic regression process
+\node[box] (data) {Binary Response Data};
+\node[process, right=of data] (prepare) {Data Preparation};
+\node[process, below=of data] (transform) {Logit Transformation};
+\node[process, below=of prepare] (mle) {Maximum Likelihood};
+\node[box, below=of transform] (coefficients) {Model Coefficients};
+\node[box, below=of mle] (inference) {Statistical Inference};
+\node[process, below=1.5cm of coefficients] (predict) {Probability Prediction};
+\node[process, below=1.5cm of inference] (evaluate) {Model Evaluation};
+\node[box, below=of predict] (odds) {Odds Ratios};
+\node[box, below=of evaluate] (metrics) {Performance Metrics};
+
+% Arrows
+\draw[arrow] (data) -- (prepare);
+\draw[arrow] (data) -- (transform);
+\draw[arrow] (prepare) -- (mle);
+\draw[arrow] (transform) -- (coefficients);
+\draw[arrow] (mle) -- (inference);
+\draw[arrow] (coefficients) -- (predict);
+\draw[arrow] (inference) -- (evaluate);
+\draw[arrow] (predict) -- (odds);
+\draw[arrow] (evaluate) -- (metrics);
+
+% Cross connections
+\draw[arrow] (coefficients) -- (inference);
+\draw[arrow] (inference) -- (predict);
+
+\end{tikzpicture}

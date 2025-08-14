@@ -1,0 +1,48 @@
+\begin{tikzpicture}[
+    node distance=1.5cm and 2cm,
+    box/.style={rectangle, draw, rounded corners=5pt, minimum width=3cm, minimum height=1cm, align=center, fill=blue!10},
+    modelbox/.style={rectangle, draw, rounded corners=5pt, minimum width=3cm, minimum height=1cm, align=center, fill=purple!20},
+    outputbox/.style={rectangle, draw, rounded corners=5pt, minimum width=3cm, minimum height=1cm, align=center, fill=green!20},
+    cloudbox/.style={rectangle, draw, rounded corners=5pt, minimum width=4cm, minimum height=1.2cm, align=center, fill=gray!20},
+    arrow/.style={->, >=stealth, thick}
+]
+
+% Model Loading
+\node[modelbox] (loading) {Model Loading\\(load\_default\_model\\or load\_uploaded\\\_model)};
+
+% Model Recreation
+\node[box, below=of loading] (recreation) {Model Recreation\\(recreate\_arima\\\_model for ARIMA\\models)};
+
+% Forecast Generation
+\node[box, below=of recreation] (forecast) {Forecast Generation\\(predict\_next\_4\\\_weeks)};
+
+% Interactive Visualization
+\node[box, below=of forecast] (visualization) {Interactive\\Visualization\\(Plotly charts,\\color-coded trends)};
+
+% Results Export
+\node[outputbox, below=of visualization] (export) {Results Export\\(CSV, JSON formats\\with summary\\statistics)};
+
+% Live Deployment (side branch)
+\node[cloudbox, right=3cm of loading] (streamlit) {Streamlit Cloud\\Deployment};
+
+\node[cloudbox, below=of streamlit] (training_url) {Training App URL:\\walmart-sales-\\training-app-py.\\streamlit.app};
+
+\node[cloudbox, below=of training_url] (prediction_url) {Prediction App URL:\\walmart-sales-\\prediction-app-py.\\streamlit.app};
+
+\node[cloudbox, below=of prediction_url] (backup) {Backup Plan:\\Local Streamlit\\Apps (fallback\\deployment)};
+
+% Main flow arrows
+\draw[arrow] (loading) -- (recreation);
+\draw[arrow] (recreation) -- (forecast);
+\draw[arrow] (forecast) -- (visualization);
+\draw[arrow] (visualization) -- (export);
+
+% Deployment flow arrows
+\draw[arrow] (streamlit) -- (training_url);
+\draw[arrow] (training_url) -- (prediction_url);
+\draw[arrow] (prediction_url) -- (backup);
+
+% Connection from main flow to deployment
+\draw[arrow, dashed] (loading) -- (streamlit);
+
+\end{tikzpicture}

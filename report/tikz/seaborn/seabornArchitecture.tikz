@@ -1,0 +1,42 @@
+\begin{tikzpicture}[
+	box/.style={rectangle, draw, fill=blue!10, minimum width=2.5cm, minimum height=1cm, text centered},
+	data/.style={rectangle, draw, fill=green!10, minimum width=2.5cm, minimum height=1cm, text centered},
+	arrow/.style={thick, ->}
+	]
+	
+	% Data Layer (moved further apart)
+	\node[data] (data) at (-2.5,0) {Pandas DataFrame};
+	\node[data] (numpy) at (2.5,0) {NumPy Arrays};
+	
+	% Seaborn Layer
+	\node[box] (seaborn) at (0,2.2) {Seaborn API};
+	\node[box] (stats) at (-2.5,4.4) {Statistical Functions};
+	\node[box] (themes) at (2.5,4.4) {Themes \& Styles};
+	
+	% Matplotlib Layer
+	\node[box] (matplotlib) at (0,6.6) {Matplotlib Engine};
+	\node[box] (axes) at (-2.5,8.8) {Axes Objects};
+	\node[box] (figures) at (2.5,8.8) {Figure Objects};
+	
+	% Output Layer
+	\node[data] (output) at (0,11) {Visual Output};
+	
+	% Arrows
+	\draw[arrow] (data) -- (seaborn);
+	\draw[arrow] (numpy) -- (seaborn);
+	\draw[arrow] (seaborn) -- (stats);
+	\draw[arrow] (seaborn) -- (themes);
+	\draw[arrow] (stats) -- (matplotlib);
+	\draw[arrow] (themes) -- (matplotlib);
+	\draw[arrow] (matplotlib) -- (axes);
+	\draw[arrow] (matplotlib) -- (figures);
+	\draw[arrow] (axes) -- (output);
+	\draw[arrow] (figures) -- (output);
+	
+	% Layer Labels (aligned to left of the leftmost node)
+	\node[left] at (-5,0) {\footnotesize \textbf{Data Input}};
+	\node[left] at (-4,2.2) {\footnotesize High-Level API};
+	\node[left] at (-4,6.6) {\footnotesize Rendering Engine};
+	\node[left] at (-4,11) {\footnotesize Visualization};
+	
+\end{tikzpicture}

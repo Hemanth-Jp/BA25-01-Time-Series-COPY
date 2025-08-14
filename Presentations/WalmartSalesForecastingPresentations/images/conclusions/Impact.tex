@@ -1,0 +1,19 @@
+\begin{tikzpicture}[scale=0.7]
+	% Impact circles - increased spacing to prevent overlap
+	\node[circle, draw, minimum width=1.8cm, fill=blue!30, align=center] 
+	(academic) at (0,4) {\footnotesize \textbf{Academic}  \textbf{Research}};
+	
+	\node[circle, draw, minimum width=1.8cm, fill=green!20, align=center] 
+	(business) at (-2.5,0) {\footnotesize \textbf{Business}  \textbf{Application}};
+	
+	\node[circle, draw, minimum width=1.8cm, fill=orange!20, align=center] 
+	(tech) at (2.5,0) {\footnotesize \textbf{Technical}  \textbf{Innovation}};
+	
+	% Connections - bidirectional arrows between business and tech
+	\draw[->, thick] (academic) -- (business);
+	\draw[->, thick] (academic) -- (tech);
+	\draw[<->, thick] (business) -- (tech);
+	
+	% Central impact
+	\node[font=\bf] at (0,-2.3) {Sustainable Impact};
+\end{tikzpicture}

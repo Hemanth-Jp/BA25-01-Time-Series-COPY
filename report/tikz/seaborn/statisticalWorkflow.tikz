@@ -1,0 +1,27 @@
+\begin{tikzpicture}[
+	process/.style={rectangle, draw, fill=blue!10, minimum width=2cm, minimum height=0.8cm, text centered},
+	data/.style={ellipse, draw, fill=green!10, minimum width=1.8cm, minimum height=0.8cm, text centered},
+	arrow/.style={thick, ->}
+	]
+	
+	% Vertical flow from top to bottom
+	\node[data] (input) at (0,3) {Raw Data};
+	\node[process] (load) at (0,2) {Load \& Clean};
+	\node[process] (analyze) at (0,1) {Statistical Analysis};
+	\node[data] (output) at (0,0) {Visualization};
+	
+	% Flow arrows
+	\draw[arrow] (input) -- (load);
+	\draw[arrow] (load) -- (analyze);
+	\draw[arrow] (analyze) -- (output);
+	
+	% Tool labels
+\node[right] at (2,2) {\footnotesize pandas};
+\node[right] at (2,1) {\footnotesize seaborn};
+\node[right] at (2,0) {\footnotesize matplotlib};
+	
+	% Process details
+	\node[left] at (-2,2) {\footnotesize Data prep};
+	\node[left] at (-2,1) {\footnotesize Plot creation};
+	
+\end{tikzpicture}

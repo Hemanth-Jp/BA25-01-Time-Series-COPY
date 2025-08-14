@@ -1,0 +1,29 @@
+\begin{tikzpicture}[
+	node distance=0.5cm,
+	box/.style={rectangle, rounded corners, minimum width=2.5cm, minimum height=0.8cm, font=\footnotesize},
+	input/.style={box, fill=yellow!30, draw=orange, thick},
+	process/.style={box, fill=HSELhellblau!30, draw=HSELblau, thick},
+	output/.style={box, fill=green!30, draw=green!60, thick},
+	arrow/.style={->, thick, HSELblau}
+	]
+	
+	% Vertical flow
+	\node[input] (data) {CSV Data Files (train, features, stores)};
+	\node[process, below=of data] (validate) {Data Validation  Preprocessing};
+	\node[process, below=of validate] (model) {Model Training  or Loading};
+	\node[process, below=of model] (forecast) {4-Week Forecast Generation};
+	\node[output, below=of forecast] (results) {Interactive Results  Export};
+	
+	% Arrows with exactly 0.5cm length
+	\draw[arrow] (data.south) -- (validate.north);
+	\draw[arrow] (validate.south) -- (model.north);
+	\draw[arrow] (model.south) -- (forecast.north);
+	\draw[arrow] (forecast.south) -- (results.north);
+	
+	% Side labels
+	\node[left=1cm of data, font=\small\bfseries, orange] {Input};
+	\node[left=1cm of validate, font=\small\bfseries, HSELblau] {Processing};
+	\node[left=1cm of forecast, font=\small\bfseries, HSELblau] {};
+	\node[left=1cm of results, font=\small\bfseries, green!60] {Output};
+	
+\end{tikzpicture}

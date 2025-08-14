@@ -1,0 +1,41 @@
+\begin{tikzpicture}[
+    node distance=2cm,
+    process/.style={rectangle, draw, fill=blue!20, text width=2.5cm, text centered, minimum height=1cm},
+    data/.style={ellipse, draw, fill=green!20, text width=2cm, text centered, minimum height=0.8cm},
+    arrow/.style={->, thick}
+]
+
+% Input Data
+\node[data] (input) {Matrix Data};
+
+% Basic Operations
+\node[process, below=of input] (basic_ops) {Basic Operations (dot, multiply)};
+\node[process, left=of basic_ops] (transpose) {Transpose Operations};
+\node[process, right=of basic_ops] (inverse) {Matrix Inversion};
+
+% Advanced Operations
+\node[process, below=of basic_ops] (decomp) {Matrix Decomposition};
+\node[process, left=of decomp] (eigen) {Eigenvalue Analysis};
+\node[process, right=of decomp] (solve) {Linear System Solving};
+
+% Applications
+\node[data, below=of decomp] (applications) {Applications};
+\node[data, left=of applications] (ml) {Machine Learning};
+\node[data, right=of applications] (science) {Scientific Computing};
+
+% Arrows
+\draw[arrow] (input) -- (basic_ops);
+\draw[arrow] (input) -- (transpose);
+\draw[arrow] (input) -- (inverse);
+\draw[arrow] (basic_ops) -- (decomp);
+\draw[arrow] (transpose) -- (eigen);
+\draw[arrow] (inverse) -- (solve);
+\draw[arrow] (decomp) -- (applications);
+\draw[arrow] (eigen) -- (ml);
+\draw[arrow] (solve) -- (science);
+
+% Additional connections
+\draw[arrow] (basic_ops) -- (eigen);
+\draw[arrow] (basic_ops) -- (solve);
+
+\end{tikzpicture}

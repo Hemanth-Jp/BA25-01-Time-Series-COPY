@@ -1,0 +1,45 @@
+\begin{tikzpicture}[
+    node distance=1.5cm,
+    box/.style={rectangle, draw, fill=blue!10, text width=3cm, text centered, minimum height=1cm},
+    arrow/.style={->, thick}
+]
+
+% Python Interface Layer
+\node[box, fill=green!10] (python) {Python Interface};
+\node[box, below=of python] (ndarray) {ndarray Object};
+\node[box, left=of ndarray] (dtype) {Data Types};
+\node[box, right=of ndarray] (ufunc) {Universal Functions};
+
+% Core Layer
+\node[box, below=of ndarray, fill=orange!10] (core) {NumPy Core};
+\node[box, left=of core] (memory) {Memory Management};
+\node[box, right=of core] (broadcast) {Broadcasting Engine};
+
+% C Implementation Layer
+\node[box, below=of core, fill=red!10] (c_impl) {C Implementation};
+\node[box, left=of c_impl] (blas) {BLAS/LAPACK};
+\node[box, right=of c_impl] (simd) {SIMD Instructions};
+
+% Memory Layout
+\node[box, below=of c_impl, fill=gray!10] (memory_layout) {Contiguous Memory};
+
+% Arrows
+\draw[arrow] (python) -- (ndarray);
+\draw[arrow] (python) -- (dtype);
+\draw[arrow] (python) -- (ufunc);
+\draw[arrow] (ndarray) -- (core);
+\draw[arrow] (dtype) -- (core);
+\draw[arrow] (ufunc) -- (core);
+\draw[arrow] (memory) -- (core);
+\draw[arrow] (broadcast) -- (core);
+\draw[arrow] (core) -- (c_impl);
+\draw[arrow] (c_impl) -- (blas);
+\draw[arrow] (c_impl) -- (simd);
+\draw[arrow] (c_impl) -- (memory_layout);
+
+% Labels
+\node[above=0.3cm of python, font=\small] {High-Level Interface};
+\node[left=0.3cm of core, font=\small, rotate=90] {Core Layer};
+\node[below=0.3cm of memory_layout, font=\small] {Hardware Optimization};
+
+\end{tikzpicture}

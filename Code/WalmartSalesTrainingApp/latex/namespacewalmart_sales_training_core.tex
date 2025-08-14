@@ -1,0 +1,266 @@
+\doxysection{walmart\+Sales\+Training\+Core Namespace Reference}
+\hypertarget{namespacewalmart_sales_training_core}{}\label{namespacewalmart_sales_training_core}\index{walmartSalesTrainingCore@{walmartSalesTrainingCore}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacewalmart_sales_training_core_a614e4dd18892cd545111f2bcc1554c80}{get\+\_\+model\+\_\+path\+\_\+simple}} ()
+\item 
+\mbox{\hyperlink{namespacewalmart_sales_training_core_ad1f6088670e02eb3e6d0925e1a555155}{get\+\_\+data\+\_\+path\+\_\+simple}} ()
+\item 
+\mbox{\hyperlink{namespacewalmart_sales_training_core_acc68bb42b56d933c08cc5af9e6fe58f0}{load\+\_\+and\+\_\+merge\+\_\+data}} (train\+\_\+file, features\+\_\+file, stores\+\_\+file)
+\item 
+\mbox{\hyperlink{namespacewalmart_sales_training_core_ad868c9a8710bfe88d3f497e5b8197452}{clean\+\_\+data}} (df)
+\item 
+\mbox{\hyperlink{namespacewalmart_sales_training_core_a8bf9cdb589d84d055093c2be6660d2d3}{prepare\+\_\+time\+\_\+series\+\_\+data}} (df)
+\item 
+\mbox{\hyperlink{namespacewalmart_sales_training_core_ac30de0f3c32a59adb1a0ca9eeb23fe3e}{train\+\_\+auto\+\_\+arima}} (train\+\_\+data\+\_\+diff, hyperparams=None)
+\item 
+\mbox{\hyperlink{namespacewalmart_sales_training_core_af06ae77bbfed12491b4257554740159e}{train\+\_\+exponential\+\_\+smoothing}} (train\+\_\+data\+\_\+diff, hyperparams=None)
+\item 
+\mbox{\hyperlink{namespacewalmart_sales_training_core_ad8323b5389b9a4b25bc85f7f5c1cc9e5}{wmae\+\_\+ts}} (y\+\_\+true, y\+\_\+pred)
+\item 
+\mbox{\hyperlink{namespacewalmart_sales_training_core_ad5eb00a6b6a3ca1ffcb3528d779f447c}{create\+\_\+diagnostic\+\_\+plots}} (train\+\_\+data, test\+\_\+data, predictions, model\+\_\+type)
+\item 
+\mbox{\hyperlink{namespacewalmart_sales_training_core_a7d3b2d4f4a44cc377a84471038960408}{save\+\_\+model}} (model, model\+\_\+type)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+dict \mbox{\hyperlink{namespacewalmart_sales_training_core_aaf4e7d3a8d2fc1075064bd4f3cf59f77}{CONFIG}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}@brief Core module for Walmart sales model training functionality
+@details This module provides comprehensive functionality for training time series models
+         on Walmart sales data, including data preprocessing, feature engineering,
+         model training (ARIMA and Exponential Smoothing), and model evaluation
+@author Sales Prediction Team
+@date 2025
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespacewalmart_sales_training_core_ad868c9a8710bfe88d3f497e5b8197452}\index{walmartSalesTrainingCore@{walmartSalesTrainingCore}!clean\_data@{clean\_data}}
+\index{clean\_data@{clean\_data}!walmartSalesTrainingCore@{walmartSalesTrainingCore}}
+\doxysubsubsection{\texorpdfstring{clean\_data()}{clean\_data()}}
+{\footnotesize\ttfamily \label{namespacewalmart_sales_training_core_ad868c9a8710bfe88d3f497e5b8197452} 
+walmart\+Sales\+Training\+Core.\+clean\+\_\+data (\begin{DoxyParamCaption}\item[{}]{df}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Clean and preprocess the merged sales data
+@details Removes invalid sales records, fills missing values, and creates
+         specific holiday indicator features for improved model performance
+@param df Merged DataFrame containing sales and feature data
+@return Cleaned DataFrame ready for time series analysis
+@raises ValueError If input DataFrame is None or empty
+@note Creates binary holiday indicators for major sales-affecting holidays
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{walmart_sales_training_core_8py_source_l00106}{106}} of file \mbox{\hyperlink{walmart_sales_training_core_8py_source}{walmart\+Sales\+Training\+Core.\+py}}.
+
+\Hypertarget{namespacewalmart_sales_training_core_ad5eb00a6b6a3ca1ffcb3528d779f447c}\index{walmartSalesTrainingCore@{walmartSalesTrainingCore}!create\_diagnostic\_plots@{create\_diagnostic\_plots}}
+\index{create\_diagnostic\_plots@{create\_diagnostic\_plots}!walmartSalesTrainingCore@{walmartSalesTrainingCore}}
+\doxysubsubsection{\texorpdfstring{create\_diagnostic\_plots()}{create\_diagnostic\_plots()}}
+{\footnotesize\ttfamily \label{namespacewalmart_sales_training_core_ad5eb00a6b6a3ca1ffcb3528d779f447c} 
+walmart\+Sales\+Training\+Core.\+create\+\_\+diagnostic\+\_\+plots (\begin{DoxyParamCaption}\item[{}]{train\+\_\+data}{, }\item[{}]{test\+\_\+data}{, }\item[{}]{predictions}{, }\item[{}]{model\+\_\+type}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Create diagnostic plots for model evaluation and visualization
+@details Generates comprehensive plots showing training data, test data,
+         and model predictions for visual assessment of model performance
+@param train_data Training dataset time series
+@param test_data Test dataset time series
+@param predictions Model predictions for test period
+@param model_type String identifier for the model type (for plot title)
+@return Matplotlib figure object containing the diagnostic plot
+@raises ValueError If any input data is None or plotting fails
+@note Visual inspection helps identify model biases and seasonal patterns
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{walmart_sales_training_core_8py_source_l00299}{299}} of file \mbox{\hyperlink{walmart_sales_training_core_8py_source}{walmart\+Sales\+Training\+Core.\+py}}.
+
+\Hypertarget{namespacewalmart_sales_training_core_ad1f6088670e02eb3e6d0925e1a555155}\index{walmartSalesTrainingCore@{walmartSalesTrainingCore}!get\_data\_path\_simple@{get\_data\_path\_simple}}
+\index{get\_data\_path\_simple@{get\_data\_path\_simple}!walmartSalesTrainingCore@{walmartSalesTrainingCore}}
+\doxysubsubsection{\texorpdfstring{get\_data\_path\_simple()}{get\_data\_path\_simple()}}
+{\footnotesize\ttfamily \label{namespacewalmart_sales_training_core_ad1f6088670e02eb3e6d0925e1a555155} 
+walmart\+Sales\+Training\+Core.\+get\+\_\+data\+\_\+path\+\_\+simple (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Determine the appropriate data path for training datasets
+@details Simple check for data path in Training App deployment environment
+@return Path string to the dataset directory
+@note Handles different deployment scenarios for accessing training datasets
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{walmart_sales_training_core_8py_source_l00031}{31}} of file \mbox{\hyperlink{walmart_sales_training_core_8py_source}{walmart\+Sales\+Training\+Core.\+py}}.
+
+\Hypertarget{namespacewalmart_sales_training_core_a614e4dd18892cd545111f2bcc1554c80}\index{walmartSalesTrainingCore@{walmartSalesTrainingCore}!get\_model\_path\_simple@{get\_model\_path\_simple}}
+\index{get\_model\_path\_simple@{get\_model\_path\_simple}!walmartSalesTrainingCore@{walmartSalesTrainingCore}}
+\doxysubsubsection{\texorpdfstring{get\_model\_path\_simple()}{get\_model\_path\_simple()}}
+{\footnotesize\ttfamily \label{namespacewalmart_sales_training_core_a614e4dd18892cd545111f2bcc1554c80} 
+walmart\+Sales\+Training\+Core.\+get\+\_\+model\+\_\+path\+\_\+simple (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Determine the appropriate model path for training environment
+@details Simple check for Streamlit Cloud vs local deployment specific to Training App
+@return Path string to the models directory for training output
+@note This function helps with cross-platform deployment compatibility for training
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{walmart_sales_training_core_8py_source_l00018}{18}} of file \mbox{\hyperlink{walmart_sales_training_core_8py_source}{walmart\+Sales\+Training\+Core.\+py}}.
+
+\Hypertarget{namespacewalmart_sales_training_core_acc68bb42b56d933c08cc5af9e6fe58f0}\index{walmartSalesTrainingCore@{walmartSalesTrainingCore}!load\_and\_merge\_data@{load\_and\_merge\_data}}
+\index{load\_and\_merge\_data@{load\_and\_merge\_data}!walmartSalesTrainingCore@{walmartSalesTrainingCore}}
+\doxysubsubsection{\texorpdfstring{load\_and\_merge\_data()}{load\_and\_merge\_data()}}
+{\footnotesize\ttfamily \label{namespacewalmart_sales_training_core_acc68bb42b56d933c08cc5af9e6fe58f0} 
+walmart\+Sales\+Training\+Core.\+load\+\_\+and\+\_\+merge\+\_\+data (\begin{DoxyParamCaption}\item[{}]{train\+\_\+file}{, }\item[{}]{features\+\_\+file}{, }\item[{}]{stores\+\_\+file}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Load and merge the three required CSV files for Walmart sales analysis
+@details Performs inner joins between train, features, and stores datasets,
+         handles duplicate holiday columns, and ensures data consistency
+@param train_file CSV file containing training sales data with Store, Date, Weekly_Sales
+@param features_file CSV file containing feature data with Store, Date, external factors
+@param stores_file CSV file containing store metadata with Store, Type, Size
+@return Merged pandas DataFrame with all data combined
+@raises ValueError If any file is missing or data merging fails
+@note Automatically resolves IsHoliday column conflicts from multiple sources
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{walmart_sales_training_core_8py_source_l00070}{70}} of file \mbox{\hyperlink{walmart_sales_training_core_8py_source}{walmart\+Sales\+Training\+Core.\+py}}.
+
+\Hypertarget{namespacewalmart_sales_training_core_a8bf9cdb589d84d055093c2be6660d2d3}\index{walmartSalesTrainingCore@{walmartSalesTrainingCore}!prepare\_time\_series\_data@{prepare\_time\_series\_data}}
+\index{prepare\_time\_series\_data@{prepare\_time\_series\_data}!walmartSalesTrainingCore@{walmartSalesTrainingCore}}
+\doxysubsubsection{\texorpdfstring{prepare\_time\_series\_data()}{prepare\_time\_series\_data()}}
+{\footnotesize\ttfamily \label{namespacewalmart_sales_training_core_a8bf9cdb589d84d055093c2be6660d2d3} 
+walmart\+Sales\+Training\+Core.\+prepare\+\_\+time\+\_\+series\+\_\+data (\begin{DoxyParamCaption}\item[{}]{df}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Prepare data for time series modeling by aggregation and differencing
+@details Converts data to weekly frequency, aggregates numerical features,
+         and creates differenced series for stationarity
+@param df Cleaned DataFrame with date and numerical columns
+@return Tuple of (weekly_aggregated_data, differenced_sales_series)
+@raises ValueError If input DataFrame is None or empty
+@note Differencing helps achieve stationarity required for ARIMA modeling
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{walmart_sales_training_core_8py_source_l00150}{150}} of file \mbox{\hyperlink{walmart_sales_training_core_8py_source}{walmart\+Sales\+Training\+Core.\+py}}.
+
+\Hypertarget{namespacewalmart_sales_training_core_a7d3b2d4f4a44cc377a84471038960408}\index{walmartSalesTrainingCore@{walmartSalesTrainingCore}!save\_model@{save\_model}}
+\index{save\_model@{save\_model}!walmartSalesTrainingCore@{walmartSalesTrainingCore}}
+\doxysubsubsection{\texorpdfstring{save\_model()}{save\_model()}}
+{\footnotesize\ttfamily \label{namespacewalmart_sales_training_core_a7d3b2d4f4a44cc377a84471038960408} 
+walmart\+Sales\+Training\+Core.\+save\+\_\+model (\begin{DoxyParamCaption}\item[{}]{model}{, }\item[{}]{model\+\_\+type}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Save trained model to default location with error handling
+@details Saves model using joblib serialization to the configured default path
+         with automatic directory creation if needed
+@param model Trained model object to save
+@param model_type String identifier for model type (used for filename)
+@return Tuple of (success_boolean, error_message)
+@note Uses joblib for cross-platform compatibility and efficient serialization
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{walmart_sales_training_core_8py_source_l00338}{338}} of file \mbox{\hyperlink{walmart_sales_training_core_8py_source}{walmart\+Sales\+Training\+Core.\+py}}.
+
+\Hypertarget{namespacewalmart_sales_training_core_ac30de0f3c32a59adb1a0ca9eeb23fe3e}\index{walmartSalesTrainingCore@{walmartSalesTrainingCore}!train\_auto\_arima@{train\_auto\_arima}}
+\index{train\_auto\_arima@{train\_auto\_arima}!walmartSalesTrainingCore@{walmartSalesTrainingCore}}
+\doxysubsubsection{\texorpdfstring{train\_auto\_arima()}{train\_auto\_arima()}}
+{\footnotesize\ttfamily \label{namespacewalmart_sales_training_core_ac30de0f3c32a59adb1a0ca9eeb23fe3e} 
+walmart\+Sales\+Training\+Core.\+train\+\_\+auto\+\_\+arima (\begin{DoxyParamCaption}\item[{}]{train\+\_\+data\+\_\+diff}{, }\item[{}]{hyperparams}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Train Auto ARIMA model with automatic parameter selection
+@details Uses pmdarima's auto_arima to automatically select optimal ARIMA parameters
+         through grid search and information criteria optimization
+@param train_data_diff Differenced training data (stationary time series)
+@param hyperparams Optional dictionary of hyperparameters to override defaults
+@return Fitted Auto ARIMA model object
+@raises ValueError If training data is None, empty, or training fails
+@note Auto ARIMA automatically handles parameter selection and seasonal components
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{walmart_sales_training_core_8py_source_l00181}{181}} of file \mbox{\hyperlink{walmart_sales_training_core_8py_source}{walmart\+Sales\+Training\+Core.\+py}}.
+
+\Hypertarget{namespacewalmart_sales_training_core_af06ae77bbfed12491b4257554740159e}\index{walmartSalesTrainingCore@{walmartSalesTrainingCore}!train\_exponential\_smoothing@{train\_exponential\_smoothing}}
+\index{train\_exponential\_smoothing@{train\_exponential\_smoothing}!walmartSalesTrainingCore@{walmartSalesTrainingCore}}
+\doxysubsubsection{\texorpdfstring{train\_exponential\_smoothing()}{train\_exponential\_smoothing()}}
+{\footnotesize\ttfamily \label{namespacewalmart_sales_training_core_af06ae77bbfed12491b4257554740159e} 
+walmart\+Sales\+Training\+Core.\+train\+\_\+exponential\+\_\+smoothing (\begin{DoxyParamCaption}\item[{}]{train\+\_\+data\+\_\+diff}{, }\item[{}]{hyperparams}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Train Exponential Smoothing (Holt-Winters) model
+@details Implements triple exponential smoothing with trend and seasonal components
+         for robust time series forecasting
+@param train_data_diff Differenced training data for model fitting
+@param hyperparams Optional dictionary of hyperparameters to override defaults
+@return Fitted Exponential Smoothing model object
+@raises ValueError If training data is None, empty, or training fails
+@note Holt-Winters method handles trend and seasonality simultaneously
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{walmart_sales_training_core_8py_source_l00231}{231}} of file \mbox{\hyperlink{walmart_sales_training_core_8py_source}{walmart\+Sales\+Training\+Core.\+py}}.
+
+\Hypertarget{namespacewalmart_sales_training_core_ad8323b5389b9a4b25bc85f7f5c1cc9e5}\index{walmartSalesTrainingCore@{walmartSalesTrainingCore}!wmae\_ts@{wmae\_ts}}
+\index{wmae\_ts@{wmae\_ts}!walmartSalesTrainingCore@{walmartSalesTrainingCore}}
+\doxysubsubsection{\texorpdfstring{wmae\_ts()}{wmae\_ts()}}
+{\footnotesize\ttfamily \label{namespacewalmart_sales_training_core_ad8323b5389b9a4b25bc85f7f5c1cc9e5} 
+walmart\+Sales\+Training\+Core.\+wmae\+\_\+ts (\begin{DoxyParamCaption}\item[{}]{y\+\_\+true}{, }\item[{}]{y\+\_\+pred}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Calculate weighted mean absolute error for time series evaluation
+@details Computes WMAE metric which is commonly used for sales forecasting
+         evaluation, providing equal weighting to all observations
+@param y_true True/actual values from test dataset
+@param y_pred Predicted values from trained model
+@return WMAE score (lower is better)
+@raises ValueError If inputs are None or calculation fails
+@note WMAE is preferred over RMSE for sales data due to robustness to outliers
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{walmart_sales_training_core_8py_source_l00269}{269}} of file \mbox{\hyperlink{walmart_sales_training_core_8py_source}{walmart\+Sales\+Training\+Core.\+py}}.
+
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespacewalmart_sales_training_core_aaf4e7d3a8d2fc1075064bd4f3cf59f77}\index{walmartSalesTrainingCore@{walmartSalesTrainingCore}!CONFIG@{CONFIG}}
+\index{CONFIG@{CONFIG}!walmartSalesTrainingCore@{walmartSalesTrainingCore}}
+\doxysubsubsection{\texorpdfstring{CONFIG}{CONFIG}}
+{\footnotesize\ttfamily \label{namespacewalmart_sales_training_core_aaf4e7d3a8d2fc1075064bd4f3cf59f77} 
+dict walmart\+Sales\+Training\+Core.\+CONFIG}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ =\ \ \{}
+\DoxyCodeLine{00002\ \ \ \ \ \textcolor{stringliteral}{'TRAIN\_TEST\_SPLIT'}:\ 0.7,\ \ \textcolor{comment}{\#\ 70\%\ for\ training,\ 30\%\ for\ testing}}
+\DoxyCodeLine{00003\ \ \ \ \ \textcolor{stringliteral}{'DEFAULT\_SEASONAL\_PERIODS'}:\ 20,\ \ \textcolor{comment}{\#\ Default\ seasonal\ periods\ for\ Holt-\/Winters}}
+\DoxyCodeLine{00004\ \ \ \ \ \textcolor{stringliteral}{'DEFAULT\_MAX\_P'}:\ 20,\ \ \textcolor{comment}{\#\ Maximum\ AR\ terms\ for\ ARIMA}}
+\DoxyCodeLine{00005\ \ \ \ \ \textcolor{stringliteral}{'DEFAULT\_MAX\_Q'}:\ 20,\ \ \textcolor{comment}{\#\ Maximum\ MA\ terms\ for\ ARIMA}}
+\DoxyCodeLine{00006\ \ \ \ \ \textcolor{stringliteral}{'DEFAULT\_MAX\_P\_SEASONAL'}:\ 20,\ \ \textcolor{comment}{\#\ Maximum\ seasonal\ AR\ terms}}
+\DoxyCodeLine{00007\ \ \ \ \ \textcolor{stringliteral}{'DEFAULT\_MAX\_Q\_SEASONAL'}:\ 20,\ \ \textcolor{comment}{\#\ Maximum\ seasonal\ MA\ terms}}
+\DoxyCodeLine{00008\ \ \ \ \ \textcolor{stringliteral}{'DEFAULT\_MAX\_ITER'}:\ 200,\ \ \textcolor{comment}{\#\ Maximum\ iterations\ for\ model\ fitting}}
+\DoxyCodeLine{00009\ \ \ \ \ \textcolor{stringliteral}{'DEFAULT\_MAX\_D'}:\ 10,\ \ \textcolor{comment}{\#\ Maximum\ differencing\ order}}
+\DoxyCodeLine{00010\ \ \ \ \ \textcolor{stringliteral}{'HOLIDAY\_DATES'}:\ \{\ \ \textcolor{comment}{\#\ Known\ holiday\ dates\ affecting\ sales}}
+\DoxyCodeLine{00011\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'SUPER\_BOWL'}:\ [\textcolor{stringliteral}{'2010-\/02-\/12'},\ \textcolor{stringliteral}{'2011-\/02-\/11'},\ \textcolor{stringliteral}{'2012-\/02-\/10'}],}
+\DoxyCodeLine{00012\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'LABOR\_DAY'}:\ [\textcolor{stringliteral}{'2010-\/09-\/10'},\ \textcolor{stringliteral}{'2011-\/09-\/09'},\ \textcolor{stringliteral}{'2012-\/09-\/07'}],}
+\DoxyCodeLine{00013\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'THANKSGIVING'}:\ [\textcolor{stringliteral}{'2010-\/11-\/26'},\ \textcolor{stringliteral}{'2011-\/11-\/25'}],}
+\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'CHRISTMAS'}:\ [\textcolor{stringliteral}{'2010-\/12-\/31'},\ \textcolor{stringliteral}{'2011-\/12-\/30'}]}
+\DoxyCodeLine{00015\ \ \ \ \ \},}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{stringliteral}{'MODEL\_FILE\_MAP'}:\ \{\ \ \textcolor{comment}{\#\ Mapping\ of\ model\ names\ to\ file\ names}}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Auto\ ARIMA"{}}:\ \textcolor{stringliteral}{"{}AutoARIMA"{}},}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Exponential\ Smoothing\ (Holt-\/Winters)"{}}:\ \textcolor{stringliteral}{"{}ExponentialSmoothingHoltWinters"{}}}
+\DoxyCodeLine{00019\ \ \ \ \ \},}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{stringliteral}{'DEFAULT\_MODEL\_PATH'}:\ get\_model\_path\_simple(),\ \ \textcolor{comment}{\#\ Dynamic\ model\ output\ path}}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{stringliteral}{'DEFAULT\_DATA\_PATH'}:\ get\_data\_path\_simple(),\ \ \textcolor{comment}{\#\ Dynamic\ data\ input\ path}}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{stringliteral}{'SUPPORTED\_EXTENSIONS'}:\ [\textcolor{stringliteral}{"{}pkl"{}}],\ \ \textcolor{comment}{\#\ Supported\ model\ file\ extensions}}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{stringliteral}{'DEFAULT\_ARIMA\_ORDER'}:\ (1,\ 1,\ 1)\ \ \textcolor{comment}{\#\ Default\ ARIMA\ parameters\ (p,\ d,\ q)}}
+\DoxyCodeLine{00024\ \}}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{walmart_sales_training_core_8py_source_l00045}{45}} of file \mbox{\hyperlink{walmart_sales_training_core_8py_source}{walmart\+Sales\+Training\+Core.\+py}}.
+

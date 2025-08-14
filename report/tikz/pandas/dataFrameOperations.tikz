@@ -1,0 +1,36 @@
+\begin{tikzpicture}[
+    node distance=2cm,
+    table/.style={rectangle, draw, fill=blue!10, text width=2.5cm, text centered, minimum height=1.2cm},
+    operation/.style={rectangle, draw, fill=green!15, text width=2cm, text centered, rounded corners, minimum height=0.8cm},
+    arrow/.style={->, thick}
+]
+
+% Central DataFrame
+\node[table, fill=yellow!20] (df) {DataFrame \\ Index + Columns \\ Structured Data};
+
+% Operations around DataFrame
+\node[operation, above left=1.5cm and 2cm of df] (select) {Selection \\ df[column] \\ df.loc[]};
+\node[operation, above=2cm of df] (filter) {Filtering \\ df[condition] \\ df.query()};
+\node[operation, above right=1.5cm and 2cm of df] (group) {Grouping \\ df.groupby() \\ agg()};
+\node[operation, right=3cm of df] (merge) {Merging \\ pd.merge() \\ df.join()};
+\node[operation, below right=1.5cm and 2cm of df] (pivot) {Reshaping \\ df.pivot() \\ df.melt()};
+\node[operation, below=2cm of df] (time) {Time Series \\ resample() \\ shift()};
+\node[operation, below left=1.5cm and 2cm of df] (math) {Mathematics \\ df.sum() \\ df.mean()};
+\node[operation, left=3cm of df] (io) {Input/Output \\ read\_csv() \\ to\_excel()};
+
+% Arrows
+\draw[arrow] (df) -- (select);
+\draw[arrow] (df) -- (filter);
+\draw[arrow] (df) -- (group);
+\draw[arrow] (df) -- (merge);
+\draw[arrow] (df) -- (pivot);
+\draw[arrow] (df) -- (time);
+\draw[arrow] (df) -- (math);
+\draw[arrow] (io) -- (df);
+
+% Return arrows (showing these operations can create new DataFrames)
+\draw[arrow, dashed, bend left=20] (select) -- (df);
+\draw[arrow, dashed, bend left=20] (filter) -- (df);
+\draw[arrow, dashed, bend left=20] (group) -- (df);
+
+\end{tikzpicture}

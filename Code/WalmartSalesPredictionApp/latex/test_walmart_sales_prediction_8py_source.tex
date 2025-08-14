@@ -1,0 +1,247 @@
+\doxysection{test\+Walmart\+Sales\+Prediction.\+py}
+\hypertarget{test_walmart_sales_prediction_8py_source}{}\label{test_walmart_sales_prediction_8py_source}\mbox{\hyperlink{test_walmart_sales_prediction_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00001}\mbox{\hyperlink{namespacetest_walmart_sales_prediction}{00001}}\ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00002}00002\ \textcolor{stringliteral}{@brief\ Comprehensive\ test\ suite\ for\ Walmart\ sales\ prediction\ functionality}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00003}00003\ \textcolor{stringliteral}{@details\ This\ module\ contains\ unit\ tests\ for\ all\ core\ functions\ in\ the\ sales\ prediction\ system,}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00004}00004\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ including\ model\ loading,\ recreation,\ and\ prediction\ generation\ with\ various\ edge\ cases}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00005}00005\ \textcolor{stringliteral}{@author\ Sales\ Prediction\ Team}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00006}00006\ \textcolor{stringliteral}{@date\ 2025}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00007}00007\ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00008}00008\ }
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00009}00009\ \textcolor{keyword}{import}\ pytest}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00010}00010\ \textcolor{keyword}{import}\ os}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00011}00011\ \textcolor{keyword}{import}\ tempfile}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00012}00012\ \textcolor{keyword}{import}\ joblib}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00013}00013\ \textcolor{keyword}{import}\ numpy\ \textcolor{keyword}{as}\ np}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00014}00014\ \textcolor{keyword}{from}\ unittest.mock\ \textcolor{keyword}{import}\ Mock,\ patch,\ MagicMock}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00015}00015\ \textcolor{keyword}{from}\ walmartSalesPredictionCore\ \textcolor{keyword}{import}\ (}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00016}00016\ \ \ \ \ recreate\_arima\_model,}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00017}00017\ \ \ \ \ load\_default\_model,}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00018}00018\ \ \ \ \ load\_uploaded\_model,}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00019}00019\ \ \ \ \ predict\_next\_4\_weeks,}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00020}00020\ \ \ \ \ CONFIG}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00021}00021\ )}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00022}00022\ }
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00023}\mbox{\hyperlink{classtest_walmart_sales_prediction_1_1_test_walmart_sales_prediction}{00023}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classtest_walmart_sales_prediction_1_1_test_walmart_sales_prediction}{TestWalmartSalesPrediction}}:}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00024}00024\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00025}00025\ \textcolor{stringliteral}{\ \ \ \ @brief\ Test\ class\ containing\ all\ unit\ tests\ for\ the\ Walmart\ sales\ prediction\ system}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00026}00026\ \textcolor{stringliteral}{\ \ \ \ @details\ Provides\ comprehensive\ testing\ coverage\ for\ model\ operations,\ error\ handling,}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00027}00027\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ and\ edge\ cases\ using\ pytest\ framework\ with\ mocking\ for\ external\ dependencies}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00028}00028\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00029}00029\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00030}\mbox{\hyperlink{classtest_walmart_sales_prediction_1_1_test_walmart_sales_prediction_ac6735a81aa6e3a5f9298729e5122a789}{00030}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classtest_walmart_sales_prediction_1_1_test_walmart_sales_prediction_ac6735a81aa6e3a5f9298729e5122a789}{test\_recreate\_arima\_model\_valid\_params}}(self):}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00031}00031\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00032}00032\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ @brief\ Test\ ARIMA\ model\ recreation\ with\ valid\ parameters}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00033}00033\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ @details\ Verifies\ that\ recreate\_arima\_model\ successfully\ creates\ a\ model\ when\ given\ valid\ parameters}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00034}00034\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ @note\ Uses\ a\ basic\ ARIMA\ order\ configuration\ for\ testing}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00035}00035\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00036}00036\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Test\ with\ valid\ parameters\ dictionary\ containing\ order\ tuple}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00037}00037\ \ \ \ \ \ \ \ \ params\ =\ \{\textcolor{stringliteral}{'order'}:\ (1,\ 1,\ 1)\}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00038}00038\ \ \ \ \ \ \ \ \ model\ =\ recreate\_arima\_model(params)}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00039}00039\ \ \ \ \ \ \ \ \ \textcolor{keyword}{assert}\ model\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00040}00040\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00041}\mbox{\hyperlink{classtest_walmart_sales_prediction_1_1_test_walmart_sales_prediction_a56ead8a90e8a307b2691968dc8023df6}{00041}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classtest_walmart_sales_prediction_1_1_test_walmart_sales_prediction_a56ead8a90e8a307b2691968dc8023df6}{test\_recreate\_arima\_model\_invalid\_params}}(self):}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00042}00042\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00043}00043\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ @brief\ Test\ ARIMA\ model\ recreation\ with\ invalid\ parameters}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00044}00044\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ @details\ Verifies\ proper\ error\ handling\ for\ invalid\ parameter\ types\ and\ malformed\ orders}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00045}00045\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ @note\ Tests\ both\ ValueError\ for\ invalid\ input\ types\ and\ None\ return\ for\ malformed\ orders}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00046}00046\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00047}00047\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Test\ with\ invalid\ parameter\ type\ (string\ instead\ of\ dict)}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00048}00048\ \ \ \ \ \ \ \ \ \textcolor{keyword}{with}\ pytest.raises(ValueError):}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00049}00049\ \ \ \ \ \ \ \ \ \ \ \ \ recreate\_arima\_model(\textcolor{stringliteral}{"{}invalid"{}})}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00050}00050\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00051}00051\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Test\ with\ invalid\ order\ tuple\ (wrong\ length)}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00052}00052\ \ \ \ \ \ \ \ \ params\ =\ \{\textcolor{stringliteral}{'order'}:\ (1,\ 2)\}\ \ \textcolor{comment}{\#\ Wrong\ length\ -\/\ should\ be\ (p,\ d,\ q)}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00053}00053\ \ \ \ \ \ \ \ \ model\ =\ recreate\_arima\_model(params)}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00054}00054\ \ \ \ \ \ \ \ \ \textcolor{keyword}{assert}\ model\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00055}00055\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00056}\mbox{\hyperlink{classtest_walmart_sales_prediction_1_1_test_walmart_sales_prediction_a9d932e0ba58dbf33b1dceaa6c3276b1d}{00056}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classtest_walmart_sales_prediction_1_1_test_walmart_sales_prediction_a9d932e0ba58dbf33b1dceaa6c3276b1d}{test\_load\_default\_model\_invalid\_type}}(self):}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00057}00057\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00058}00058\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ @brief\ Test\ loading\ default\ model\ with\ invalid\ model\ type}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00059}00059\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ @details\ Verifies\ error\ handling\ for\ empty\ strings\ and\ unsupported\ model\ types}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00060}00060\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ @note\ Tests\ both\ ValueError\ for\ empty\ strings\ and\ proper\ error\ messages\ for\ invalid\ types}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00061}00061\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00062}00062\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Test\ with\ empty\ string\ (should\ raise\ ValueError)}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00063}00063\ \ \ \ \ \ \ \ \ \textcolor{keyword}{with}\ pytest.raises(ValueError):}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00064}00064\ \ \ \ \ \ \ \ \ \ \ \ \ load\_default\_model(\textcolor{stringliteral}{"{}"{}})}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00065}00065\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00066}00066\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Test\ with\ invalid\ model\ type\ name}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00067}00067\ \ \ \ \ \ \ \ \ model,\ error\ =\ load\_default\_model(\textcolor{stringliteral}{"{}Invalid\ Model"{}})}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00068}00068\ \ \ \ \ \ \ \ \ \textcolor{keyword}{assert}\ model\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00069}00069\ \ \ \ \ \ \ \ \ \textcolor{keyword}{assert}\ \textcolor{stringliteral}{"{}Invalid\ model\ type"{}}\ \textcolor{keywordflow}{in}\ error}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00070}00070\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00071}00071\ \ \ \ \ \textcolor{preprocessor}{@patch('os.path.exists')}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00072}\mbox{\hyperlink{classtest_walmart_sales_prediction_1_1_test_walmart_sales_prediction_a34bd3bfb9709931c41613ffbccfc85ad}{00072}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classtest_walmart_sales_prediction_1_1_test_walmart_sales_prediction_a34bd3bfb9709931c41613ffbccfc85ad}{test\_load\_default\_model\_file\_not\_found}}(self,\ mock\_exists):}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00073}00073\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00074}00074\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ @brief\ Test\ loading\ default\ model\ when\ file\ doesn't\ exist}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00075}00075\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ @details\ Verifies\ proper\ error\ handling\ when\ model\ files\ are\ missing\ from\ filesystem}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00076}00076\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ @param\ mock\_exists\ Mocked\ os.path.exists\ function\ to\ simulate\ missing\ files}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00077}00077\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ @note\ Uses\ patching\ to\ simulate\ file\ system\ conditions\ without\ actual\ files}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00078}00078\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00079}00079\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Mock\ file\ system\ to\ return\ False\ (file\ doesn't\ exist)}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00080}00080\ \ \ \ \ \ \ \ \ mock\_exists.return\_value\ =\ \textcolor{keyword}{False}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00081}00081\ \ \ \ \ \ \ \ \ model,\ error\ =\ load\_default\_model(\textcolor{stringliteral}{"{}Auto\ ARIMA"{}})}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00082}00082\ \ \ \ \ \ \ \ \ \textcolor{keyword}{assert}\ model\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00083}00083\ \ \ \ \ \ \ \ \ \textcolor{keyword}{assert}\ \textcolor{stringliteral}{"{}Default\ model\ not\ found"{}}\ \textcolor{keywordflow}{in}\ error}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00084}00084\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00085}00085\ \ \ \ \ \textcolor{preprocessor}{@patch('os.path.exists')}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00086}00086\ \ \ \ \ \textcolor{preprocessor}{@patch('joblib.load')}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00087}\mbox{\hyperlink{classtest_walmart_sales_prediction_1_1_test_walmart_sales_prediction_a9ba8c02e04140b2d75d7709ee324850a}{00087}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classtest_walmart_sales_prediction_1_1_test_walmart_sales_prediction_a9ba8c02e04140b2d75d7709ee324850a}{test\_load\_default\_model\_success}}(self,\ mock\_joblib\_load,\ mock\_exists):}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00088}00088\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00089}00089\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ @brief\ Test\ successful\ default\ model\ loading}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00090}00090\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ @details\ Verifies\ successful\ loading\ when\ file\ exists\ and\ joblib\ can\ deserialize\ the\ model}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00091}00091\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ @param\ mock\_joblib\_load\ Mocked\ joblib.load\ function\ to\ simulate\ successful\ loading}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00092}00092\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ @param\ mock\_exists\ Mocked\ os.path.exists\ function\ to\ simulate\ file\ existence}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00093}00093\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ @note\ Uses\ double\ mocking\ to\ isolate\ the\ loading\ logic\ from\ file\ system\ and\ serialization}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00094}00094\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00095}00095\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Mock\ file\ system\ and\ joblib\ loading\ for\ success\ case}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00096}00096\ \ \ \ \ \ \ \ \ mock\_exists.return\_value\ =\ \textcolor{keyword}{True}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00097}00097\ \ \ \ \ \ \ \ \ mock\_model\ =\ Mock()}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00098}00098\ \ \ \ \ \ \ \ \ mock\_joblib\_load.return\_value\ =\ mock\_model}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00099}00099\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00100}00100\ \ \ \ \ \ \ \ \ model,\ error\ =\ load\_default\_model(\textcolor{stringliteral}{"{}Auto\ ARIMA"{}})}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00101}00101\ \ \ \ \ \ \ \ \ \textcolor{keyword}{assert}\ model\ ==\ mock\_model}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00102}00102\ \ \ \ \ \ \ \ \ \textcolor{keyword}{assert}\ error\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00103}00103\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00104}\mbox{\hyperlink{classtest_walmart_sales_prediction_1_1_test_walmart_sales_prediction_a48a0846cc0be0865dc8f810132d025cd}{00104}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classtest_walmart_sales_prediction_1_1_test_walmart_sales_prediction_a48a0846cc0be0865dc8f810132d025cd}{test\_load\_uploaded\_model\_invalid\_input}}(self):}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00105}00105\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00106}00106\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ @brief\ Test\ loading\ uploaded\ model\ with\ invalid\ inputs}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00107}00107\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ @details\ Verifies\ proper\ validation\ of\ uploaded\ file\ and\ model\ type\ parameters}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00108}00108\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ @note\ Tests\ both\ None\ file\ objects\ and\ empty\ model\ type\ strings}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00109}00109\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00110}00110\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Test\ with\ None\ uploaded\ file}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00111}00111\ \ \ \ \ \ \ \ \ \textcolor{keyword}{with}\ pytest.raises(ValueError):}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00112}00112\ \ \ \ \ \ \ \ \ \ \ \ \ load\_uploaded\_model(\textcolor{keywordtype}{None},\ \textcolor{stringliteral}{"{}Auto\ ARIMA"{}})}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00113}00113\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00114}00114\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Test\ with\ empty\ model\ type\ string}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00115}00115\ \ \ \ \ \ \ \ \ \textcolor{keyword}{with}\ pytest.raises(ValueError):}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00116}00116\ \ \ \ \ \ \ \ \ \ \ \ \ load\_uploaded\_model(Mock(),\ \textcolor{stringliteral}{"{}"{}})}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00117}00117\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00118}00118\ \ \ \ \ \textcolor{preprocessor}{@patch('tempfile.NamedTemporaryFile')}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00119}00119\ \ \ \ \ \textcolor{preprocessor}{@patch('joblib.load')}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00120}00120\ \ \ \ \ \textcolor{preprocessor}{@patch('os.unlink')}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00121}\mbox{\hyperlink{classtest_walmart_sales_prediction_1_1_test_walmart_sales_prediction_a653520497011e847ff794233815dfdde}{00121}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classtest_walmart_sales_prediction_1_1_test_walmart_sales_prediction_a653520497011e847ff794233815dfdde}{test\_load\_uploaded\_model\_success}}(self,\ mock\_unlink,\ mock\_joblib\_load,\ mock\_temp):}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00122}00122\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00123}00123\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ @brief\ Test\ successful\ uploaded\ model\ loading}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00124}00124\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ @details\ Verifies\ the\ complete\ workflow\ of\ temporary\ file\ creation,\ model\ loading,\ and\ cleanup}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00125}00125\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ @param\ mock\_unlink\ Mocked\ os.unlink\ function\ to\ simulate\ file\ cleanup}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00126}00126\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ @param\ mock\_joblib\_load\ Mocked\ joblib.load\ function\ to\ simulate\ successful\ deserialization}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00127}00127\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ @param\ mock\_temp\ Mocked\ tempfile.NamedTemporaryFile\ for\ temporary\ file\ handling}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00128}00128\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ @note\ Uses\ comprehensive\ mocking\ to\ test\ file\ upload\ workflow\ without\ actual\ I/O}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00129}00129\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00130}00130\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Setup\ mock\ file\ object\ with\ test\ data}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00131}00131\ \ \ \ \ \ \ \ \ mock\_file\ =\ Mock()}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00132}00132\ \ \ \ \ \ \ \ \ mock\_file.getvalue.return\_value\ =\ b\textcolor{stringliteral}{"{}test\ data"{}}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00133}00133\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00134}00134\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Setup\ temporary\ file\ mock}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00135}00135\ \ \ \ \ \ \ \ \ mock\_temp.return\_value.\_\_enter\_\_.return\_value.name\ =\ \textcolor{stringliteral}{"{}/tmp/test"{}}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00136}00136\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00137}00137\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Setup\ successful\ model\ loading}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00138}00138\ \ \ \ \ \ \ \ \ mock\_model\ =\ Mock()}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00139}00139\ \ \ \ \ \ \ \ \ mock\_joblib\_load.return\_value\ =\ mock\_model}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00140}00140\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00141}00141\ \ \ \ \ \ \ \ \ model,\ error\ =\ load\_uploaded\_model(mock\_file,\ \textcolor{stringliteral}{"{}Auto\ ARIMA"{}})}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00142}00142\ \ \ \ \ \ \ \ \ \textcolor{keyword}{assert}\ model\ ==\ mock\_model}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00143}00143\ \ \ \ \ \ \ \ \ \textcolor{keyword}{assert}\ error\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00144}00144\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00145}\mbox{\hyperlink{classtest_walmart_sales_prediction_1_1_test_walmart_sales_prediction_a82c67d473ede6ace77a6f6cc7309a88b}{00145}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classtest_walmart_sales_prediction_1_1_test_walmart_sales_prediction_a82c67d473ede6ace77a6f6cc7309a88b}{test\_predict\_next\_4\_weeks\_invalid\_input}}(self):}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00146}00146\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00147}00147\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ @brief\ Test\ prediction\ with\ invalid\ inputs}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00148}00148\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ @details\ Verifies\ proper\ validation\ of\ model\ object\ and\ model\ type\ parameters}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00149}00149\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ @note\ Tests\ both\ None\ model\ objects\ and\ empty\ model\ type\ strings}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00150}00150\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00151}00151\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Test\ with\ None\ model\ object}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00152}00152\ \ \ \ \ \ \ \ \ \textcolor{keyword}{with}\ pytest.raises(ValueError):}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00153}00153\ \ \ \ \ \ \ \ \ \ \ \ \ predict\_next\_4\_weeks(\textcolor{keywordtype}{None},\ \textcolor{stringliteral}{"{}Auto\ ARIMA"{}})}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00154}00154\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00155}00155\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Test\ with\ empty\ model\ type\ string}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00156}00156\ \ \ \ \ \ \ \ \ \textcolor{keyword}{with}\ pytest.raises(ValueError):}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00157}00157\ \ \ \ \ \ \ \ \ \ \ \ \ predict\_next\_4\_weeks(Mock(),\ \textcolor{stringliteral}{"{}"{}})}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00158}00158\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00159}\mbox{\hyperlink{classtest_walmart_sales_prediction_1_1_test_walmart_sales_prediction_a4b35079cab55f6eeaafaae2ce2803d40}{00159}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classtest_walmart_sales_prediction_1_1_test_walmart_sales_prediction_a4b35079cab55f6eeaafaae2ce2803d40}{test\_predict\_next\_4\_weeks\_arima\_success}}(self):}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00160}00160\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00161}00161\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ @brief\ Test\ successful\ ARIMA\ prediction}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00162}00162\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ @details\ Verifies\ that\ ARIMA\ models\ generate\ correct\ number\ of\ predictions\ and\ dates}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00163}00163\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ @note\ Uses\ mock\ model\ with\ predict\ method\ to\ simulate\ ARIMA\ behavior}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00164}00164\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00165}00165\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Setup\ mock\ ARIMA\ model\ with\ predict\ method}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00166}00166\ \ \ \ \ \ \ \ \ mock\_model\ =\ Mock()}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00167}00167\ \ \ \ \ \ \ \ \ mock\_model.predict.return\_value\ =\ np.array([1.0,\ 2.0,\ 3.0,\ 4.0])}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00168}00168\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00169}00169\ \ \ \ \ \ \ \ \ predictions,\ dates,\ error\ =\ predict\_next\_4\_weeks(mock\_model,\ \textcolor{stringliteral}{"{}Auto\ ARIMA"{}})}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00170}00170\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00171}00171\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Verify\ successful\ prediction\ generation}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00172}00172\ \ \ \ \ \ \ \ \ \textcolor{keyword}{assert}\ predictions\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00173}00173\ \ \ \ \ \ \ \ \ \textcolor{keyword}{assert}\ len(predictions)\ ==\ CONFIG[\textcolor{stringliteral}{'PREDICTION\_PERIODS'}]}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00174}00174\ \ \ \ \ \ \ \ \ \textcolor{keyword}{assert}\ dates\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00175}00175\ \ \ \ \ \ \ \ \ \textcolor{keyword}{assert}\ len(dates)\ ==\ CONFIG[\textcolor{stringliteral}{'PREDICTION\_PERIODS'}]}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00176}00176\ \ \ \ \ \ \ \ \ \textcolor{keyword}{assert}\ error\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00177}00177\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00178}00178\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Verify\ correct\ method\ call\ with\ proper\ parameters}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00179}00179\ \ \ \ \ \ \ \ \ mock\_model.predict.assert\_called\_once\_with(n\_periods=CONFIG[\textcolor{stringliteral}{'PREDICTION\_PERIODS'}])}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00180}00180\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00181}\mbox{\hyperlink{classtest_walmart_sales_prediction_1_1_test_walmart_sales_prediction_aca8bae989390e2b5a1014e749abf015c}{00181}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classtest_walmart_sales_prediction_1_1_test_walmart_sales_prediction_aca8bae989390e2b5a1014e749abf015c}{test\_predict\_next\_4\_weeks\_exponential\_smoothing\_success}}(self):}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00182}00182\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00183}00183\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ @brief\ Test\ successful\ Exponential\ Smoothing\ prediction}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00184}00184\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ @details\ Verifies\ that\ Exponential\ Smoothing\ models\ generate\ correct\ forecasts}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00185}00185\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ @note\ Uses\ mock\ model\ with\ forecast\ method\ to\ simulate\ Holt-\/Winters\ behavior}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00186}00186\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00187}00187\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Setup\ mock\ Exponential\ Smoothing\ model\ with\ forecast\ method}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00188}00188\ \ \ \ \ \ \ \ \ mock\_model\ =\ Mock()}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00189}00189\ \ \ \ \ \ \ \ \ mock\_model.forecast.return\_value\ =\ np.array([1.0,\ 2.0,\ 3.0,\ 4.0])}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00190}00190\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00191}00191\ \ \ \ \ \ \ \ \ predictions,\ dates,\ error\ =\ predict\_next\_4\_weeks(mock\_model,\ \textcolor{stringliteral}{"{}Exponential\ Smoothing\ (Holt-\/Winters)"{}})}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00192}00192\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00193}00193\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Verify\ successful\ forecast\ generation}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00194}00194\ \ \ \ \ \ \ \ \ \textcolor{keyword}{assert}\ predictions\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00195}00195\ \ \ \ \ \ \ \ \ \textcolor{keyword}{assert}\ len(predictions)\ ==\ CONFIG[\textcolor{stringliteral}{'PREDICTION\_PERIODS'}]}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00196}00196\ \ \ \ \ \ \ \ \ \textcolor{keyword}{assert}\ dates\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00197}00197\ \ \ \ \ \ \ \ \ \textcolor{keyword}{assert}\ len(dates)\ ==\ CONFIG[\textcolor{stringliteral}{'PREDICTION\_PERIODS'}]}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00198}00198\ \ \ \ \ \ \ \ \ \textcolor{keyword}{assert}\ error\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00199}00199\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00200}00200\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Verify\ correct\ method\ call\ with\ proper\ parameters}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00201}00201\ \ \ \ \ \ \ \ \ mock\_model.forecast.assert\_called\_once\_with(CONFIG[\textcolor{stringliteral}{'PREDICTION\_PERIODS'}])}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00202}00202\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00203}\mbox{\hyperlink{classtest_walmart_sales_prediction_1_1_test_walmart_sales_prediction_a3d50fe064aa4b3357d0896ad7f7f6da5}{00203}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classtest_walmart_sales_prediction_1_1_test_walmart_sales_prediction_a3d50fe064aa4b3357d0896ad7f7f6da5}{test\_predict\_next\_4\_weeks\_unknown\_model\_type}}(self):}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00204}00204\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00205}00205\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ @brief\ Test\ prediction\ with\ unknown\ model\ type}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00206}00206\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ @details\ Verifies\ proper\ error\ handling\ for\ unsupported\ model\ types}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00207}00207\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ @note\ Tests\ the\ model\ type\ validation\ and\ error\ message\ generation}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00208}00208\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00209}00209\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Test\ with\ unsupported\ model\ type}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00210}00210\ \ \ \ \ \ \ \ \ mock\_model\ =\ Mock()}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00211}00211\ \ \ \ \ \ \ \ \ predictions,\ dates,\ error\ =\ predict\_next\_4\_weeks(mock\_model,\ \textcolor{stringliteral}{"{}Unknown\ Model"{}})}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00212}00212\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00213}00213\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Verify\ error\ handling\ for\ unknown\ model\ type}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00214}00214\ \ \ \ \ \ \ \ \ \textcolor{keyword}{assert}\ predictions\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00215}00215\ \ \ \ \ \ \ \ \ \textcolor{keyword}{assert}\ dates\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00216}00216\ \ \ \ \ \ \ \ \ \textcolor{keyword}{assert}\ \textcolor{stringliteral}{"{}Unknown\ model\ type"{}}\ \textcolor{keywordflow}{in}\ error}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00217}00217\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00218}\mbox{\hyperlink{classtest_walmart_sales_prediction_1_1_test_walmart_sales_prediction_a715f0ae42c74de8d85ba8ccf52fe3378}{00218}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classtest_walmart_sales_prediction_1_1_test_walmart_sales_prediction_a715f0ae42c74de8d85ba8ccf52fe3378}{test\_error\_handling\_prediction\_failure}}(self):}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00219}00219\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00220}00220\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ @brief\ Test\ error\ handling\ when\ prediction\ fails}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00221}00221\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ @details\ Verifies\ robust\ error\ handling\ when\ model\ prediction\ methods\ raise\ exceptions}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00222}00222\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ @note\ Uses\ side\_effect\ to\ simulate\ prediction\ failures\ and\ verify\ error\ propagation}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00223}00223\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00224}00224\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Setup\ mock\ model\ that\ raises\ exception\ during\ prediction}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00225}00225\ \ \ \ \ \ \ \ \ mock\_model\ =\ Mock()}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00226}00226\ \ \ \ \ \ \ \ \ mock\_model.predict.side\_effect\ =\ Exception(\textcolor{stringliteral}{"{}Prediction\ failed"{}})}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00227}00227\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00228}00228\ \ \ \ \ \ \ \ \ predictions,\ dates,\ error\ =\ predict\_next\_4\_weeks(mock\_model,\ \textcolor{stringliteral}{"{}Auto\ ARIMA"{}})}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00229}00229\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00230}00230\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Verify\ error\ handling\ for\ prediction\ failure}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00231}00231\ \ \ \ \ \ \ \ \ \textcolor{keyword}{assert}\ predictions\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00232}00232\ \ \ \ \ \ \ \ \ \textcolor{keyword}{assert}\ dates\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00233}00233\ \ \ \ \ \ \ \ \ \textcolor{keyword}{assert}\ \textcolor{stringliteral}{"{}Error\ generating\ predictions"{}}\ \textcolor{keywordflow}{in}\ error}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00234}00234\ }
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00235}00235\ \textcolor{comment}{\#\ Pytest\ automation\ setup}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00236}00236\ \textcolor{keywordflow}{if}\ \_\_name\_\_\ ==\ \textcolor{stringliteral}{"{}\_\_main\_\_"{}}:}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00237}00237\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00238}00238\ \textcolor{stringliteral}{\ \ \ \ @brief\ Entry\ point\ for\ running\ tests\ directly}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00239}00239\ \textcolor{stringliteral}{\ \ \ \ @details\ Allows\ running\ the\ test\ suite\ directly\ with\ verbose\ output\ when\ executed\ as\ main\ module}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00240}00240\ \textcolor{stringliteral}{\ \ \ \ @note\ Uses\ pytest.main()\ to\ run\ tests\ with\ verbose\ flag\ for\ detailed\ output}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00241}00241\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{test_walmart_sales_prediction_8py_source_l00242}00242\ \ \ \ \ pytest.main([\_\_file\_\_,\ \textcolor{stringliteral}{"{}-\/v"{}}])}
+
+\end{DoxyCode}

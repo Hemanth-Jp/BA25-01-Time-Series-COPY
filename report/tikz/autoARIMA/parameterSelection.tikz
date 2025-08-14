@@ -1,0 +1,60 @@
+
+\begin{tikzpicture}[
+	node distance=1.2cm,
+	param/.style={rectangle, minimum width=4cm, minimum height=0.8cm, text centered, draw=blue!60, fill=blue!15, font=\small},
+	process/.style={rectangle, minimum width=4cm, minimum height=0.8cm, text centered, draw=orange!60, fill=orange!15, font=\small},
+	decision/.style={diamond, minimum width=3cm, minimum height=1cm, text centered, draw=red!60, fill=red!15, font=\small, aspect=2},
+	result/.style={rectangle, minimum width=4cm, minimum height=0.8cm, text centered, draw=green!60, fill=green!15, font=\small},
+	arrow/.style={thick,->}
+	]
+	
+	% Start
+	\node (start) [param] {Define Parameter Ranges p,d,q (0 to max) \& P,D,Q (0 to max)};
+	
+	% Grid search
+	\node (grid) [process, below=of start] {Grid Search Generate All Parameter Combinations};
+	
+	% For each combination
+	\node (foreach) [process, below=of grid] {For Each (p,d,q,P,D,Q) Combination};
+	
+	% Stationarity tests
+	\node (tests) [decision, below=of foreach] {Statistical Tests ADF \& KPSS};
+	
+	% Fit model
+	\node (fit) [process, below=of tests] {Fit ARIMA Model Check Convergence};
+	
+	% Calculate criteria
+	\node (criteria) [process, below=of fit] {Calculate Information Criteria AIC, BIC, AICc};
+	
+	% Store results
+	\node (store) [process, below=of criteria] {Store Model Results Parameters \& Criteria Values};
+	
+	% All combinations done?
+	\node (done) [decision, below=of store] {All Combinations Tested?};
+	
+	% Select best
+	\node (select) [result, below=of done] {Select Optimal Model Minimum AIC/BIC};
+	
+	% Final model
+	\node (final) [result, below=of select] {Final ARIMA Model Best Parameters};
+	
+	% Arrows
+	\draw [arrow] (start) -- (grid);
+	\draw [arrow] (grid) -- (foreach);
+	\draw [arrow] (foreach) -- (tests);
+	\draw [arrow] (tests) -- node[right, font=\small] {Pass} (fit);
+	\draw [arrow] (fit) -- (criteria);
+	\draw [arrow] (criteria) -- (store);
+	\draw [arrow] (store) -- (done);
+	\draw [arrow] (done) -- node[right, font=\small] {Yes} (select);
+	\draw [arrow] (select) -- (final);
+	
+	% Loop back arrow
+	\draw [arrow] (done.west) -- ++(-1.5,0) |- node[left, font=\small] {No} (foreach.west);
+	
+	% Skip failed tests
+	\draw [arrow] (tests.east) -- ++(1.5,0) |- node[right, font=\small] {Fail} (store.east);
+	
+	
+	
+\end{tikzpicture}

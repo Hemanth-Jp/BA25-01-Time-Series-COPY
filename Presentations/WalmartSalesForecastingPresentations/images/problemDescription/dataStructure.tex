@@ -1,0 +1,21 @@
+\begin{tikzpicture}[
+	node distance=1cm,
+	file/.style={rectangle, rounded corners, fill=HSELhellblau!40, draw=HSELblau, thick, minimum width=2.2cm, minimum height=0.8cm, font=\small},
+	data/.style={rectangle, fill=gray!20, draw=gray, minimum width=2cm, minimum height=0.6cm, font=\tiny}
+	]
+	% File structure
+	\node[file] (train) {train.csv};
+	\node[data, below=0.2cm of train] (train_data) {\parbox{2cm}{\centering Store, Date \\ Weekly\_Sales \\ IsHoliday}};
+	\node[file, right=1.5cm of train] (features) {features.csv};
+	\node[data, below=0.2cm of features] (features_data) {\parbox{2cm}{\centering Temperature \\ Fuel\_Price, CPI \\ Unemployment}};
+	\node[file, right=1.5cm of features] (stores) {stores.csv};
+	\node[data, below=0.2cm of stores] (stores_data) {\parbox{2cm}{\centering Store, Type \\ Size}};
+	% Arrow to processing
+	\node[below=2cm of features, rectangle, rounded corners, fill=HSELblau!30, draw=HSELblau, thick, minimum width=4cm, minimum height=1cm, font=\bfseries] (processing) {Data Processing \& Integration};
+	\draw[->, thick, HSELblau] (train_data) -- (processing.north west);
+	\draw[->, thick, HSELblau] (features_data) -- (processing.north);
+	\draw[->, thick, HSELblau] (stores_data) -- (processing.north east);
+	% Output
+	\node[below=1cm of processing, rectangle, rounded corners, fill=green!20, draw=green!60, thick, minimum width=3cm, minimum height=0.8cm] (output) {\parbox{3cm}{\centering 4,400+ Time Series \\ Ready for Analysis}};
+	\draw[->, thick, green!60] (processing) -- (output);
+\end{tikzpicture}

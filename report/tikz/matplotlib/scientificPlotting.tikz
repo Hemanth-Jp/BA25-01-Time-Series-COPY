@@ -1,0 +1,57 @@
+\begin{tikzpicture}[
+    node distance=1.8cm,
+    plottype/.style={rectangle, draw, fill=blue!10, minimum width=2.8cm, minimum height=1cm, text centered, rounded corners},
+    category/.style={rectangle, draw, fill=orange!15, minimum width=3.5cm, minimum height=1.5cm, text centered, thick},
+    arrow/.style={->, thick}
+]
+
+% Main categories
+\node[category] (2d) at (0,4) {\textbf{2D Scientific Plots}};
+\node[category] (3d) at (6,4) {\textbf{3D Visualizations}};
+\node[category] (special) at (3,0) {\textbf{Specialized Plots}};
+
+% 2D plot types
+\node[plottype] (contour) at (-2.5,2) {Contour Plots};
+\node[plottype] (vector) at (0,2) {Vector Fields};
+\node[plottype] (heatmap) at (2.5,2) {Heatmaps};
+
+% 3D plot types
+\node[plottype] (surface) at (4,2) {Surface Plots};
+\node[plottype] (scatter3d) at (6,2) {3D Scatter};
+\node[plottype] (wireframe) at (8,2) {Wireframes};
+
+% Specialized plot types
+\node[plottype] (polar) at (1,-2) {Polar Plots};
+\node[plottype] (log) at (3,-2) {Log Scales};
+\node[plottype] (error) at (5,-2) {Error Bars};
+
+% Arrows from categories to plot types
+\draw[arrow] (2d) -- (contour);
+\draw[arrow] (2d) -- (vector);
+\draw[arrow] (2d) -- (heatmap);
+
+\draw[arrow] (3d) -- (surface);
+\draw[arrow] (3d) -- (scatter3d);
+\draw[arrow] (3d) -- (wireframe);
+
+\draw[arrow] (special) -- (polar);
+\draw[arrow] (special) -- (log);
+\draw[arrow] (special) -- (error);
+
+% Applications
+\node[anchor=south, text width=2.5cm, align=center, font=\small] at (-2.5,1.2) {Physics Simulations};
+\node[anchor=south, text width=2.5cm, align=center, font=\small] at (0,1.2) {Fluid Dynamics};
+\node[anchor=south, text width=2.5cm, align=center, font=\small] at (2.5,1.2) {Heat Transfer};
+
+\node[anchor=south, text width=2.5cm, align=center, font=\small] at (4,1.2) {Topology Analysis};
+\node[anchor=south, text width=2.5cm, align=center, font=\small] at (6,1.2) {Molecular Modeling};
+\node[anchor=south, text width=2.5cm, align=center, font=\small] at (8,1.2) {Engineering Design};
+
+\node[anchor=north, text width=2.5cm, align=center, font=\small] at (1,-2.8) {Circular Data};
+\node[anchor=north, text width=2.5cm, align=center, font=\small] at (3,-2.8) {Wide Range Data};
+\node[anchor=north, text width=2.5cm, align=center, font=\small] at (5,-2.8) {Uncertainty Viz};
+
+% Title
+\node[anchor=south, font=\Large\bfseries] at (3,5.5) {Scientific Visualization Capabilities};
+
+\end{tikzpicture}

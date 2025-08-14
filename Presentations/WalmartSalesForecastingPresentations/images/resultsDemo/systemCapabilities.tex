@@ -1,0 +1,38 @@
+\begin{tikzpicture}[
+	node distance=1cm,
+	capability/.style={rectangle, rounded corners, fill=HSELhellblau!30, draw=HSELblau, thick, minimum width=2.2cm, minimum height=0.8cm, font=\small},
+	performance/.style={rectangle, rounded corners, fill=green!20, draw=green!60, minimum width=1.8cm, minimum height=0.5cm, font=\tiny}
+	]
+	
+	% Top row capabilities
+	\node[capability] (forecast_gen) {Forecast Generation};
+	\node[performance, below=0.1cm of forecast_gen] (sub1sec) {less than 5 second};
+	
+	\node[capability, right=1.5cm of forecast_gen] (model_load) {Model Loading};
+	\node[performance, below=0.1cm of model_load] (load_time) {1-5 seconds};
+	
+	\node[capability, right=1.5cm of model_load] (visualization) {Interactive Visualization};
+	\node[performance, below=0.1cm of visualization] (real_time) {Real-time Updates};
+	
+	% Bottom row capabilities
+	\node[capability, below=1.8cm of forecast_gen] (color_coding) {Color-Coded Results};
+	\node[performance, below=0.1cm of color_coding] (intuitive) {Green/Red};
+	
+	\node[capability, below=1.8cm of model_load] (interactive_charts) {Interactive Charts};
+	\node[performance, below=0.1cm of interactive_charts] (hover_zoom) {Hover \& Zoom};
+	
+	\node[capability, below=1.8cm of visualization] (export) {Multi-Format Export};
+	\node[performance, below=0.1cm of export] (csv_json) {CSV/JSON};
+	
+	% Central system - more compact
+	\node[below=1.2cm of interactive_charts, rectangle, rounded corners, fill=HSELblau!40, draw=HSELblau, very thick, minimum width=4cm, minimum height=1.2cm, font=\bfseries] (system) {High-Performance Forecasting System};
+	
+	% Compact arrows
+	\draw[->, thick, HSELblau] (sub1sec) -- (system.120);
+	\draw[->, thick, HSELblau] (load_time) -- (system.90);
+	\draw[->, thick, HSELblau] (real_time) -- (system.60);
+	\draw[->, thick, HSELblau] (intuitive) -- (system.120);
+	\draw[->, thick, HSELblau] (hover_zoom) -- (system.90);
+	\draw[->, thick, HSELblau] (csv_json) -- (system.60);
+	
+\end{tikzpicture}

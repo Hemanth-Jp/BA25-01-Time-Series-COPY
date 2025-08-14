@@ -1,0 +1,34 @@
+
+	\begin{tikzpicture}[
+		start/.style={rectangle, draw, minimum width=2.5cm, minimum height=0.8cm, text centered, fill=blue!20},
+		process/.style={rectangle, draw, minimum width=2.5cm, minimum height=0.8cm, text centered, fill=orange!20},
+		model/.style={rectangle, draw, minimum width=2.5cm, minimum height=0.8cm, text centered, fill=yellow!20},
+		opt/.style={rectangle, draw, minimum width=2.5cm, minimum height=0.8cm, text centered, fill=purple!20},
+		end/.style={rectangle, draw, minimum width=2.5cm, minimum height=0.8cm, text centered, fill=green!20},
+		arrow/.style={->, thick}
+		]
+		
+		% Main flow
+		\node (input) [start] {Input Data};
+		\node (analyze) [process, below=1cm of input] {Analyze Pattern};
+		\node (choose) [process, below=1cm of analyze] {Choose Model};
+		\node (optimize) [opt, below=1cm of choose] {Optimize};
+		\node (forecast) [end, below=1cm of optimize] {Forecast};
+		
+		% Model options
+		\node (simple) [model, left=2cm of choose] {Simple ES};
+		\node (holt) [model, right=2cm of choose] {Holt ES};
+		
+		% Main arrows
+		\draw [arrow] (input) -- (analyze);
+		\draw [arrow] (analyze) -- (choose);
+		\draw [arrow] (choose) -- (optimize);
+		\draw [arrow] (optimize) -- (forecast);
+		
+		% Model choice arrows
+		\draw [arrow] (choose) -- (simple);
+		\draw [arrow] (choose) -- (holt);
+		\draw [arrow] (simple) |- (optimize);
+		\draw [arrow] (holt) |- (optimize);
+		
+	\end{tikzpicture}

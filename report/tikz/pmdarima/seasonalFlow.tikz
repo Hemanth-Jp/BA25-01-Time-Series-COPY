@@ -1,0 +1,39 @@
+\begin{tikzpicture}[scale=0.8, every node/.style={scale=0.8}]
+	
+	% Define colors
+	\definecolor{lightblue}{RGB}{173,216,230}
+	\definecolor{lightgreen}{RGB}{144,238,144}
+	\definecolor{lightorange}{RGB}{255,218,185}
+	
+	% Simple linear flow with wider boxes
+	\draw[fill=lightblue!50] (0,6) rectangle (3,7);
+	\node at (1.5,6.5) {Raw Data};
+	
+	\draw[fill=lightgreen!50] (4,6) rectangle (7,7);
+	\node at (5.5,6.5) {Test Stationarity};
+	
+	\draw[fill=lightorange!50] (8,6) rectangle (11,7);
+	\node at (9.5,6.5) {Check Seasonality};
+	
+	\draw[fill=lightblue!50] (0,4) rectangle (3.5,5);
+	\node at (1.75,4.5) {Select Parameters};
+	
+	\draw[fill=lightgreen!50] (4.5,4) rectangle (7.5,5);
+	\node at (6,4.5) {Fit SARIMA};
+	
+	\draw[fill=lightorange!50] (8.5,4) rectangle (11.5,5);
+	\node at (10,4.5) {Generate Forecasts};
+	
+	% Correct sequential arrows
+	\draw[->, thick] (3,6.5) -- (4,6.5);
+	\draw[->, thick] (7,6.5) -- (8,6.5);
+	\draw[->, thick] (9.5,6) -- (9.5,5.5) -- (1.75,5.5) -- (1.75,5);
+	\draw[->, thick] (3.5,4.5) -- (4.5,4.5);
+	\draw[->, thick] (7.5,4.5) -- (8.5,4.5);
+	
+	% Labels
+	\node at (1.75,3.2) {\small p, d, q};
+	\node at (6,3.2) {\small P, D, Q, m};
+	\node at (10,3.2) {\small Predictions};
+	
+\end{tikzpicture}

@@ -1,0 +1,37 @@
+\begin{tikzpicture}[
+	box/.style={rectangle, draw, fill=blue!20, text width=3cm, text centered, minimum height=1cm},
+	arrow/.style={thick,->,>=stealth}
+	]
+	
+	% Title
+
+	
+	% Main layers
+	\node[box] (ui) at (0,3) {\textbf{User Interface}\\Streamlit Web App};
+	
+	\node[box] (app) at (0,1) {\textbf{Application}\\Python ML Pipeline};
+	
+	\node[box] (data) at (0,-1) {\textbf{Data Layer}\\CSV Processing};
+	
+	% Side components
+	\node[box, fill=green!20] (train) at (-5,2.5) {\textbf{Training}\\Port 8501};
+	
+	\node[box, fill=green!20] (predict) at (5,2.5) {\textbf{Prediction}\\Port 8502};
+	
+	\node[box, fill=orange!20] (models) at (5,1) {\textbf{Models}\\ARIMA \& ETS};
+	
+	% Arrows
+	\draw[arrow] (ui) -- (app);
+	\draw[arrow] (app) -- (data);
+	\draw[arrow] (train) -- (ui);
+	\draw[arrow] (predict) -- (ui);
+	\draw[arrow] (models) -- (app);
+	
+	% Requirements box
+	\node[box, fill=yellow!10, text width=4cm] at (0,-3.5) {
+		\textbf{Requirements:}\\
+		Python 3.12, 4GB RAM\\
+		Modern Browser
+	};
+	
+\end{tikzpicture}

@@ -1,0 +1,35 @@
+\begin{tikzpicture}[
+	node distance=2cm,
+	deployment/.style={rectangle, rounded corners, fill=HSELhellblau!40, draw=HSELblau, very thick, minimum width=4cm, minimum height=3cm},
+	feature/.style={rectangle, rounded corners, fill=white, draw=HSELblau, minimum width=3.5cm, minimum height=0.5cm, font=\small},
+	vs/.style={circle, fill=HSELblau, text=white, font=\bfseries\Large, minimum size=1cm}
+	]
+	
+	% Move everything up and adjust spacing
+	% Cloud deployment
+	\node[deployment] (cloud) at (0,1) {};
+	\node[above=0.2cm of cloud.north, font=\bfseries\large, HSELblau] {Cloud Deployment};
+	\node[feature, below=0.3cm of cloud.north] (browser) {Browser Access};
+	\node[feature, below=0.1cm of browser] (no_install) {No Installation};
+	\node[feature, below=0.1cm of no_install] (auto_update) {Automatic Updates};
+	\node[feature, below=0.1cm of auto_update] (cross_platform) {Cross-Platform};
+	
+	% VS symbol
+	\node[vs, right=.7cm of cloud] {VS};
+	
+	% Local deployment - moved closer to center
+	\node[deployment, right=2.4cm of cloud] (local) {};
+	\node[above=0.2cm of local.north, font=\bfseries\large, HSELblau] {Local Installation};
+	\node[feature, below=0.3cm of local.north] (performance) {Full Performance};
+	\node[feature, below=0.1cm of performance] (offline) {Offline Capability};
+	\node[feature, below=0.1cm of offline] (privacy) {Data Privacy};
+	\node[feature, below=0.1cm of privacy] (large_data) {Large Datasets};
+	
+	% Decision factors - smaller and positioned lower
+	\node[below=1cm of cloud.south, rectangle, rounded corners, fill=yellow!20, draw=orange, thick, minimum width=4.5cm, minimum height=1cm, xshift=3.2cm] (decision) {};
+	\node[above=0.1cm of decision.north, font=\bfseries\footnotesize] {Choose Based On:};
+	\node[below=0.03cm of decision.north, font=\small] {Quick Start → Cloud};
+	\node[below=0.35cm of decision.north, font=\small] {Production Use → Local};
+	\node[below=0.65cm of decision.north, font=\small] {Sensitive Data → Local};
+	
+\end{tikzpicture}

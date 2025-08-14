@@ -1,0 +1,32 @@
+% ML Model Deployment Architecture TikZ Diagram
+% File: ml_deployment.tikz
+
+\begin{tikzpicture}[
+	node distance=1.5cm and 2cm,
+	input/.style={rectangle, draw, minimum width=2cm, minimum height=0.8cm, align=center, fill=yellow!20},
+	model/.style={rectangle, draw, minimum width=2.5cm, minimum height=1.2cm, align=center, fill=blue!20},
+	output/.style={rectangle, draw, minimum width=2cm, minimum height=0.8cm, align=center, fill=green!20},
+	arrow/.style={->, thick}
+	]
+	
+	% Input section
+	\node[input] (features) {Feature\\Input};
+	\node[input, below=0.8cm of features] (upload) {File\\Upload};
+	
+	% Model
+	\node[model, right=3cm of features, yshift=-0.4cm] (mlmodel) {ML Model\\Prediction};
+	
+	% Output section
+	\node[output, right=3cm of mlmodel, yshift=0.4cm] (prediction) {Prediction\\Result};
+	\node[output, below=0.8cm of prediction] (confidence) {Confidence\\Score};
+	
+	% Connections
+	\draw[arrow] (features) -- (mlmodel);
+	\draw[arrow] (upload) -- (mlmodel);
+	\draw[arrow] (mlmodel) -- (prediction);
+	\draw[arrow] (mlmodel) -- (confidence);
+	
+	% Labels
+	\node[above=0.3cm of features] {\textbf{User Input}};
+	\node[above=0.3cm of prediction] {\textbf{Results}};
+\end{tikzpicture}

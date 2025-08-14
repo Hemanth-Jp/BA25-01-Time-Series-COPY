@@ -1,0 +1,367 @@
+\doxysection{walmart\+Sales\+Training\+Core.\+py}
+\hypertarget{walmart_sales_training_core_8py_source}{}\label{walmart_sales_training_core_8py_source}\mbox{\hyperlink{walmart_sales_training_core_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00001}\mbox{\hyperlink{namespacewalmart_sales_training_core}{00001}}\ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00002}00002\ \textcolor{stringliteral}{@brief\ Core\ module\ for\ Walmart\ sales\ model\ training\ functionality}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00003}00003\ \textcolor{stringliteral}{@details\ This\ module\ provides\ comprehensive\ functionality\ for\ training\ time\ series\ models}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00004}00004\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ on\ Walmart\ sales\ data,\ including\ data\ preprocessing,\ feature\ engineering,}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00005}00005\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ model\ training\ (ARIMA\ and\ Exponential\ Smoothing),\ and\ model\ evaluation}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00006}00006\ \textcolor{stringliteral}{@author\ Sales\ Prediction\ Team}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00007}00007\ \textcolor{stringliteral}{@date\ 2025}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00008}00008\ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00009}00009\ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00010}00010\ \textcolor{keyword}{import}\ pandas\ \textcolor{keyword}{as}\ pd}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00011}00011\ \textcolor{keyword}{import}\ numpy\ \textcolor{keyword}{as}\ np}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00012}00012\ \textcolor{keyword}{import}\ matplotlib.pyplot\ \textcolor{keyword}{as}\ plt}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00013}00013\ \textcolor{keyword}{import}\ joblib}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00014}00014\ \textcolor{keyword}{from}\ statsmodels.tsa.holtwinters\ \textcolor{keyword}{import}\ ExponentialSmoothing}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00015}00015\ \textcolor{keyword}{from}\ pmdarima\ \textcolor{keyword}{import}\ auto\_arima}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00016}00016\ \textcolor{keyword}{import}\ os}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00017}00017\ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00018}\mbox{\hyperlink{namespacewalmart_sales_training_core_a614e4dd18892cd545111f2bcc1554c80}{00018}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacewalmart_sales_training_core_a614e4dd18892cd545111f2bcc1554c80}{get\_model\_path\_simple}}():}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00019}00019\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00020}00020\ \textcolor{stringliteral}{\ \ \ \ @brief\ Determine\ the\ appropriate\ model\ path\ for\ training\ environment}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00021}00021\ \textcolor{stringliteral}{\ \ \ \ @details\ Simple\ check\ for\ Streamlit\ Cloud\ vs\ local\ deployment\ specific\ to\ Training\ App}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00022}00022\ \textcolor{stringliteral}{\ \ \ \ @return\ Path\ string\ to\ the\ models\ directory\ for\ training\ output}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00023}00023\ \textcolor{stringliteral}{\ \ \ \ @note\ This\ function\ helps\ with\ cross-\/platform\ deployment\ compatibility\ for\ training}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00024}00024\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00025}00025\ \ \ \ \ \textcolor{comment}{\#\ Check\ if\ we're\ on\ Streamlit\ Cloud\ by\ looking\ for\ specific\ training\ environment}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00026}00026\ \ \ \ \ \textcolor{keywordflow}{if}\ os.path.exists(\textcolor{stringliteral}{"{}Code/WalmartSalesTrainingApp"{}}):}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00027}00027\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}Code/WalmartSalesTrainingApp/models/default/"{}}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00028}00028\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00029}00029\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}models/default/"{}}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00030}00030\ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00031}\mbox{\hyperlink{namespacewalmart_sales_training_core_ad1f6088670e02eb3e6d0925e1a555155}{00031}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacewalmart_sales_training_core_ad1f6088670e02eb3e6d0925e1a555155}{get\_data\_path\_simple}}():}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00032}00032\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00033}00033\ \textcolor{stringliteral}{\ \ \ \ @brief\ Determine\ the\ appropriate\ data\ path\ for\ training\ datasets}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00034}00034\ \textcolor{stringliteral}{\ \ \ \ @details\ Simple\ check\ for\ data\ path\ in\ Training\ App\ deployment\ environment}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00035}00035\ \textcolor{stringliteral}{\ \ \ \ @return\ Path\ string\ to\ the\ dataset\ directory}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00036}00036\ \textcolor{stringliteral}{\ \ \ \ @note\ Handles\ different\ deployment\ scenarios\ for\ accessing\ training\ datasets}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00037}00037\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00038}00038\ \ \ \ \ \textcolor{comment}{\#\ Check\ if\ we're\ on\ Streamlit\ Cloud\ by\ looking\ for\ specific\ dataset\ environment}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00039}00039\ \ \ \ \ \textcolor{keywordflow}{if}\ os.path.exists(\textcolor{stringliteral}{"{}Code/WalmartDataset"{}}):}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00040}00040\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}Code/WalmartDataset/"{}}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00041}00041\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00042}00042\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}../WalmartDataset/"{}}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00044}00044\ \textcolor{comment}{\#\ Configuration\ dictionary\ with\ all\ hardcoded\ values\ for\ training}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00045}\mbox{\hyperlink{namespacewalmart_sales_training_core_aaf4e7d3a8d2fc1075064bd4f3cf59f77}{00045}}\ CONFIG\ =\ \{}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00046}00046\ \ \ \ \ \textcolor{stringliteral}{'TRAIN\_TEST\_SPLIT'}:\ 0.7,\ \ \textcolor{comment}{\#\ 70\%\ for\ training,\ 30\%\ for\ testing}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00047}00047\ \ \ \ \ \textcolor{stringliteral}{'DEFAULT\_SEASONAL\_PERIODS'}:\ 20,\ \ \textcolor{comment}{\#\ Default\ seasonal\ periods\ for\ Holt-\/Winters}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00048}00048\ \ \ \ \ \textcolor{stringliteral}{'DEFAULT\_MAX\_P'}:\ 20,\ \ \textcolor{comment}{\#\ Maximum\ AR\ terms\ for\ ARIMA}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00049}00049\ \ \ \ \ \textcolor{stringliteral}{'DEFAULT\_MAX\_Q'}:\ 20,\ \ \textcolor{comment}{\#\ Maximum\ MA\ terms\ for\ ARIMA}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00050}00050\ \ \ \ \ \textcolor{stringliteral}{'DEFAULT\_MAX\_P\_SEASONAL'}:\ 20,\ \ \textcolor{comment}{\#\ Maximum\ seasonal\ AR\ terms}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00051}00051\ \ \ \ \ \textcolor{stringliteral}{'DEFAULT\_MAX\_Q\_SEASONAL'}:\ 20,\ \ \textcolor{comment}{\#\ Maximum\ seasonal\ MA\ terms}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00052}00052\ \ \ \ \ \textcolor{stringliteral}{'DEFAULT\_MAX\_ITER'}:\ 200,\ \ \textcolor{comment}{\#\ Maximum\ iterations\ for\ model\ fitting}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00053}00053\ \ \ \ \ \textcolor{stringliteral}{'DEFAULT\_MAX\_D'}:\ 10,\ \ \textcolor{comment}{\#\ Maximum\ differencing\ order}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00054}00054\ \ \ \ \ \textcolor{stringliteral}{'HOLIDAY\_DATES'}:\ \{\ \ \textcolor{comment}{\#\ Known\ holiday\ dates\ affecting\ sales}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00055}00055\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'SUPER\_BOWL'}:\ [\textcolor{stringliteral}{'2010-\/02-\/12'},\ \textcolor{stringliteral}{'2011-\/02-\/11'},\ \textcolor{stringliteral}{'2012-\/02-\/10'}],}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00056}00056\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'LABOR\_DAY'}:\ [\textcolor{stringliteral}{'2010-\/09-\/10'},\ \textcolor{stringliteral}{'2011-\/09-\/09'},\ \textcolor{stringliteral}{'2012-\/09-\/07'}],}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00057}00057\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'THANKSGIVING'}:\ [\textcolor{stringliteral}{'2010-\/11-\/26'},\ \textcolor{stringliteral}{'2011-\/11-\/25'}],}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00058}00058\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'CHRISTMAS'}:\ [\textcolor{stringliteral}{'2010-\/12-\/31'},\ \textcolor{stringliteral}{'2011-\/12-\/30'}]}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00059}00059\ \ \ \ \ \},}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00060}00060\ \ \ \ \ \textcolor{stringliteral}{'MODEL\_FILE\_MAP'}:\ \{\ \ \textcolor{comment}{\#\ Mapping\ of\ model\ names\ to\ file\ names}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00061}00061\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Auto\ ARIMA"{}}:\ \textcolor{stringliteral}{"{}AutoARIMA"{}},}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00062}00062\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Exponential\ Smoothing\ (Holt-\/Winters)"{}}:\ \textcolor{stringliteral}{"{}ExponentialSmoothingHoltWinters"{}}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00063}00063\ \ \ \ \ \},}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00064}00064\ \ \ \ \ \textcolor{stringliteral}{'DEFAULT\_MODEL\_PATH'}:\ \mbox{\hyperlink{namespacewalmart_sales_training_core_a614e4dd18892cd545111f2bcc1554c80}{get\_model\_path\_simple}}(),\ \ \textcolor{comment}{\#\ Dynamic\ model\ output\ path}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00065}00065\ \ \ \ \ \textcolor{stringliteral}{'DEFAULT\_DATA\_PATH'}:\ \mbox{\hyperlink{namespacewalmart_sales_training_core_ad1f6088670e02eb3e6d0925e1a555155}{get\_data\_path\_simple}}(),\ \ \textcolor{comment}{\#\ Dynamic\ data\ input\ path}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00066}00066\ \ \ \ \ \textcolor{stringliteral}{'SUPPORTED\_EXTENSIONS'}:\ [\textcolor{stringliteral}{"{}pkl"{}}],\ \ \textcolor{comment}{\#\ Supported\ model\ file\ extensions}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00067}00067\ \ \ \ \ \textcolor{stringliteral}{'DEFAULT\_ARIMA\_ORDER'}:\ (1,\ 1,\ 1)\ \ \textcolor{comment}{\#\ Default\ ARIMA\ parameters\ (p,\ d,\ q)}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00068}00068\ \}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00069}00069\ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00070}\mbox{\hyperlink{namespacewalmart_sales_training_core_acc68bb42b56d933c08cc5af9e6fe58f0}{00070}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacewalmart_sales_training_core_acc68bb42b56d933c08cc5af9e6fe58f0}{load\_and\_merge\_data}}(train\_file,\ features\_file,\ stores\_file):}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00071}00071\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00072}00072\ \textcolor{stringliteral}{\ \ \ \ @brief\ Load\ and\ merge\ the\ three\ required\ CSV\ files\ for\ Walmart\ sales\ analysis}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00073}00073\ \textcolor{stringliteral}{\ \ \ \ @details\ Performs\ inner\ joins\ between\ train,\ features,\ and\ stores\ datasets,}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00074}00074\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ handles\ duplicate\ holiday\ columns,\ and\ ensures\ data\ consistency}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00075}00075\ \textcolor{stringliteral}{\ \ \ \ @param\ train\_file\ CSV\ file\ containing\ training\ sales\ data\ with\ Store,\ Date,\ Weekly\_Sales}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00076}00076\ \textcolor{stringliteral}{\ \ \ \ @param\ features\_file\ CSV\ file\ containing\ feature\ data\ with\ Store,\ Date,\ external\ factors}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00077}00077\ \textcolor{stringliteral}{\ \ \ \ @param\ stores\_file\ CSV\ file\ containing\ store\ metadata\ with\ Store,\ Type,\ Size}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00078}00078\ \textcolor{stringliteral}{\ \ \ \ @return\ Merged\ pandas\ DataFrame\ with\ all\ data\ combined}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00079}00079\ \textcolor{stringliteral}{\ \ \ \ @raises\ ValueError\ If\ any\ file\ is\ missing\ or\ data\ merging\ fails}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00080}00080\ \textcolor{stringliteral}{\ \ \ \ @note\ Automatically\ resolves\ IsHoliday\ column\ conflicts\ from\ multiple\ sources}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00081}00081\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00082}00082\ \ \ \ \ \textcolor{comment}{\#\ Validate\ that\ all\ required\ files\ are\ provided}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00083}00083\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ train\_file\ \textcolor{keywordflow}{or}\ \textcolor{keywordflow}{not}\ features\_file\ \textcolor{keywordflow}{or}\ \textcolor{keywordflow}{not}\ stores\_file:}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00084}00084\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{"{}All\ three\ files\ (train,\ features,\ stores)\ must\ be\ provided"{}})}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00085}00085\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00086}00086\ \ \ \ \ \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00087}00087\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Load\ individual\ CSV\ files\ into\ DataFrames}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00088}00088\ \ \ \ \ \ \ \ \ df\_store\ =\ pd.read\_csv(stores\_file)}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00089}00089\ \ \ \ \ \ \ \ \ df\_train\ =\ pd.read\_csv(train\_file)}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00090}00090\ \ \ \ \ \ \ \ \ df\_features\ =\ pd.read\_csv(features\_file)}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00091}00091\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00092}00092\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Merge\ datasets\ using\ inner\ joins\ to\ ensure\ data\ consistency}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00093}00093\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ First\ merge\ train\ with\ features\ on\ Store\ and\ Date}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00094}00094\ \ \ \ \ \ \ \ \ df\ =\ df\_train.merge(df\_features,\ on=[\textcolor{stringliteral}{'Store'},\ \textcolor{stringliteral}{'Date'}],\ how=\textcolor{stringliteral}{'inner'})}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00095}00095\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Then\ merge\ with\ store\ information\ on\ Store}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00096}00096\ \ \ \ \ \ \ \ \ df\ =\ df.merge(df\_store,\ on=[\textcolor{stringliteral}{'Store'}],\ how=\textcolor{stringliteral}{'inner'})}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00097}00097\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00098}00098\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Handle\ duplicate\ IsHoliday\ columns\ created\ during\ merge}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00099}00099\ \ \ \ \ \ \ \ \ df.drop([\textcolor{stringliteral}{'IsHoliday\_y'}],\ axis=1,\ inplace=\textcolor{keyword}{True})\ \ \textcolor{comment}{\#\ Remove\ features\ IsHoliday}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00100}00100\ \ \ \ \ \ \ \ \ df.rename(columns=\{\textcolor{stringliteral}{'IsHoliday\_x'}:\textcolor{stringliteral}{'IsHoliday'}\},\ inplace=\textcolor{keyword}{True})\ \ \textcolor{comment}{\#\ Keep\ train\ IsHoliday}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00101}00101\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00102}00102\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ df}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00103}00103\ \ \ \ \ \textcolor{keywordflow}{except}\ Exception\ \textcolor{keyword}{as}\ e:}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00104}00104\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(f\textcolor{stringliteral}{"{}Error\ loading\ and\ merging\ data:\ \{str(e)\}"{}})}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00105}00105\ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00106}\mbox{\hyperlink{namespacewalmart_sales_training_core_ad868c9a8710bfe88d3f497e5b8197452}{00106}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacewalmart_sales_training_core_ad868c9a8710bfe88d3f497e5b8197452}{clean\_data}}(df):}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00107}00107\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00108}00108\ \textcolor{stringliteral}{\ \ \ \ @brief\ Clean\ and\ preprocess\ the\ merged\ sales\ data}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00109}00109\ \textcolor{stringliteral}{\ \ \ \ @details\ Removes\ invalid\ sales\ records,\ fills\ missing\ values,\ and\ creates}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00110}00110\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ specific\ holiday\ indicator\ features\ for\ improved\ model\ performance}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00111}00111\ \textcolor{stringliteral}{\ \ \ \ @param\ df\ Merged\ DataFrame\ containing\ sales\ and\ feature\ data}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00112}00112\ \textcolor{stringliteral}{\ \ \ \ @return\ Cleaned\ DataFrame\ ready\ for\ time\ series\ analysis}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00113}00113\ \textcolor{stringliteral}{\ \ \ \ @raises\ ValueError\ If\ input\ DataFrame\ is\ None\ or\ empty}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00114}00114\ \textcolor{stringliteral}{\ \ \ \ @note\ Creates\ binary\ holiday\ indicators\ for\ major\ sales-\/affecting\ holidays}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00115}00115\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00116}00116\ \ \ \ \ \textcolor{comment}{\#\ Validate\ input\ DataFrame}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00117}00117\ \ \ \ \ \textcolor{keywordflow}{if}\ df\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{or}\ df.empty:}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00118}00118\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{"{}Input\ dataframe\ cannot\ be\ None\ or\ empty"{}})}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00119}00119\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00120}00120\ \ \ \ \ \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00121}00121\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Remove\ records\ with\ non-\/positive\ sales\ (data\ quality\ issue)}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00122}00122\ \ \ \ \ \ \ \ \ df\ =\ df.loc[df[\textcolor{stringliteral}{'Weekly\_Sales'}]\ >\ 0]}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00123}00123\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00124}00124\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Fill\ missing\ values\ in\ markdown\ columns\ with\ zeros\ (common\ practice)}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00125}00125\ \ \ \ \ \ \ \ \ df\ =\ df.fillna(0)}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00126}00126\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00127}00127\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Create\ specific\ holiday\ indicators\ using\ configured\ dates}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00128}00128\ \ \ \ \ \ \ \ \ holiday\_dates\ =\ CONFIG[\textcolor{stringliteral}{'HOLIDAY\_DATES'}]}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00129}00129\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00130}00130\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Super\ Bowl\ indicator\ (major\ shopping\ event)}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00131}00131\ \ \ \ \ \ \ \ \ df.loc[df[\textcolor{stringliteral}{'Date'}].isin(holiday\_dates[\textcolor{stringliteral}{'SUPER\_BOWL'}]),\ \textcolor{stringliteral}{'Super\_Bowl'}]\ =\ \textcolor{keyword}{True}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00132}00132\ \ \ \ \ \ \ \ \ df.loc[\string~df[\textcolor{stringliteral}{'Date'}].isin(holiday\_dates[\textcolor{stringliteral}{'SUPER\_BOWL'}]),\ \textcolor{stringliteral}{'Super\_Bowl'}]\ =\ \textcolor{keyword}{False}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00133}00133\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00134}00134\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Labor\ Day\ indicator\ (end\ of\ summer\ shopping)}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00135}00135\ \ \ \ \ \ \ \ \ df.loc[df[\textcolor{stringliteral}{'Date'}].isin(holiday\_dates[\textcolor{stringliteral}{'LABOR\_DAY'}]),\ \textcolor{stringliteral}{'Labor\_Day'}]\ =\ \textcolor{keyword}{True}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00136}00136\ \ \ \ \ \ \ \ \ df.loc[\string~df[\textcolor{stringliteral}{'Date'}].isin(holiday\_dates[\textcolor{stringliteral}{'LABOR\_DAY'}]),\ \textcolor{stringliteral}{'Labor\_Day'}]\ =\ \textcolor{keyword}{False}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00137}00137\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00138}00138\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Thanksgiving\ indicator\ (major\ holiday\ shopping)}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00139}00139\ \ \ \ \ \ \ \ \ df.loc[df[\textcolor{stringliteral}{'Date'}].isin(holiday\_dates[\textcolor{stringliteral}{'THANKSGIVING'}]),\ \textcolor{stringliteral}{'Thanksgiving'}]\ =\ \textcolor{keyword}{True}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00140}00140\ \ \ \ \ \ \ \ \ df.loc[\string~df[\textcolor{stringliteral}{'Date'}].isin(holiday\_dates[\textcolor{stringliteral}{'THANKSGIVING'}]),\ \textcolor{stringliteral}{'Thanksgiving'}]\ =\ \textcolor{keyword}{False}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00141}00141\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00142}00142\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Christmas\ indicator\ (peak\ shopping\ season)}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00143}00143\ \ \ \ \ \ \ \ \ df.loc[df[\textcolor{stringliteral}{'Date'}].isin(holiday\_dates[\textcolor{stringliteral}{'CHRISTMAS'}]),\ \textcolor{stringliteral}{'Christmas'}]\ =\ \textcolor{keyword}{True}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00144}00144\ \ \ \ \ \ \ \ \ df.loc[\string~df[\textcolor{stringliteral}{'Date'}].isin(holiday\_dates[\textcolor{stringliteral}{'CHRISTMAS'}]),\ \textcolor{stringliteral}{'Christmas'}]\ =\ \textcolor{keyword}{False}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00145}00145\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00146}00146\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ df}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00147}00147\ \ \ \ \ \textcolor{keywordflow}{except}\ Exception\ \textcolor{keyword}{as}\ e:}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00148}00148\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(f\textcolor{stringliteral}{"{}Error\ cleaning\ data:\ \{str(e)\}"{}})}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00149}00149\ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00150}\mbox{\hyperlink{namespacewalmart_sales_training_core_a8bf9cdb589d84d055093c2be6660d2d3}{00150}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacewalmart_sales_training_core_a8bf9cdb589d84d055093c2be6660d2d3}{prepare\_time\_series\_data}}(df):}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00151}00151\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00152}00152\ \textcolor{stringliteral}{\ \ \ \ @brief\ Prepare\ data\ for\ time\ series\ modeling\ by\ aggregation\ and\ differencing}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00153}00153\ \textcolor{stringliteral}{\ \ \ \ @details\ Converts\ data\ to\ weekly\ frequency,\ aggregates\ numerical\ features,}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00154}00154\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ and\ creates\ differenced\ series\ for\ stationarity}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00155}00155\ \textcolor{stringliteral}{\ \ \ \ @param\ df\ Cleaned\ DataFrame\ with\ date\ and\ numerical\ columns}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00156}00156\ \textcolor{stringliteral}{\ \ \ \ @return\ Tuple\ of\ (weekly\_aggregated\_data,\ differenced\_sales\_series)}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00157}00157\ \textcolor{stringliteral}{\ \ \ \ @raises\ ValueError\ If\ input\ DataFrame\ is\ None\ or\ empty}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00158}00158\ \textcolor{stringliteral}{\ \ \ \ @note\ Differencing\ helps\ achieve\ stationarity\ required\ for\ ARIMA\ modeling}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00159}00159\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00160}00160\ \ \ \ \ \textcolor{comment}{\#\ Validate\ input\ DataFrame}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00161}00161\ \ \ \ \ \textcolor{keywordflow}{if}\ df\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{or}\ df.empty:}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00162}00162\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{"{}Input\ dataframe\ cannot\ be\ None\ or\ empty"{}})}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00163}00163\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00164}00164\ \ \ \ \ \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00165}00165\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Convert\ date\ column\ to\ datetime\ and\ set\ as\ index\ for\ time\ series\ operations}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00166}00166\ \ \ \ \ \ \ \ \ df[\textcolor{stringliteral}{"{}Date"{}}]\ =\ pd.to\_datetime(df[\textcolor{stringliteral}{"{}Date"{}}])}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00167}00167\ \ \ \ \ \ \ \ \ df.set\_index(\textcolor{stringliteral}{'Date'},\ inplace=\textcolor{keyword}{True})}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00168}00168\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00169}00169\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Create\ weekly\ aggregated\ data\ using\ mean\ for\ numerical\ features}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00170}00170\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ This\ handles\ irregular\ date\ intervals\ and\ multiple\ stores\ per\ week}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00171}00171\ \ \ \ \ \ \ \ \ df\_week\ =\ df.select\_dtypes(include=\textcolor{stringliteral}{'number'}).resample(\textcolor{stringliteral}{'W'}).mean()}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00172}00172\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00173}00173\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Difference\ the\ sales\ data\ for\ stationarity\ (removes\ trend/seasonality)}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00174}00174\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ First\ difference\ removes\ trend,\ making\ data\ suitable\ for\ ARIMA}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00175}00175\ \ \ \ \ \ \ \ \ df\_week\_diff\ =\ df\_week[\textcolor{stringliteral}{'Weekly\_Sales'}].diff().dropna()}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00176}00176\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00177}00177\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ df\_week,\ df\_week\_diff}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00178}00178\ \ \ \ \ \textcolor{keywordflow}{except}\ Exception\ \textcolor{keyword}{as}\ e:}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00179}00179\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(f\textcolor{stringliteral}{"{}Error\ preparing\ time\ series\ data:\ \{str(e)\}"{}})}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00180}00180\ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00181}\mbox{\hyperlink{namespacewalmart_sales_training_core_ac30de0f3c32a59adb1a0ca9eeb23fe3e}{00181}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacewalmart_sales_training_core_ac30de0f3c32a59adb1a0ca9eeb23fe3e}{train\_auto\_arima}}(train\_data\_diff,\ hyperparams=None):}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00182}00182\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00183}00183\ \textcolor{stringliteral}{\ \ \ \ @brief\ Train\ Auto\ ARIMA\ model\ with\ automatic\ parameter\ selection}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00184}00184\ \textcolor{stringliteral}{\ \ \ \ @details\ Uses\ pmdarima's\ auto\_arima\ to\ automatically\ select\ optimal\ ARIMA\ parameters}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00185}00185\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ through\ grid\ search\ and\ information\ criteria\ optimization}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00186}00186\ \textcolor{stringliteral}{\ \ \ \ @param\ train\_data\_diff\ Differenced\ training\ data\ (stationary\ time\ series)}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00187}00187\ \textcolor{stringliteral}{\ \ \ \ @param\ hyperparams\ Optional\ dictionary\ of\ hyperparameters\ to\ override\ defaults}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00188}00188\ \textcolor{stringliteral}{\ \ \ \ @return\ Fitted\ Auto\ ARIMA\ model\ object}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00189}00189\ \textcolor{stringliteral}{\ \ \ \ @raises\ ValueError\ If\ training\ data\ is\ None,\ empty,\ or\ training\ fails}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00190}00190\ \textcolor{stringliteral}{\ \ \ \ @note\ Auto\ ARIMA\ automatically\ handles\ parameter\ selection\ and\ seasonal\ components}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00191}00191\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00192}00192\ \ \ \ \ \textcolor{comment}{\#\ Validate\ training\ data}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00193}00193\ \ \ \ \ \textcolor{keywordflow}{if}\ train\_data\_diff\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{or}\ len(train\_data\_diff)\ ==\ 0:}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00194}00194\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{"{}Training\ data\ cannot\ be\ None\ or\ empty"{}})}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00195}00195\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00196}00196\ \ \ \ \ \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00197}00197\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Set\ default\ parameters\ for\ Auto\ ARIMA\ with\ extensive\ search}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00198}00198\ \ \ \ \ \ \ \ \ default\_params\ =\ \{}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00199}00199\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'start\_p'}:\ 0,\ \ \textcolor{comment}{\#\ Starting\ AR\ order}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00200}00200\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'start\_q'}:\ 0,\ \ \textcolor{comment}{\#\ Starting\ MA\ order}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00201}00201\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'start\_P'}:\ 0,\ \ \textcolor{comment}{\#\ Starting\ seasonal\ AR\ order}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00202}00202\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'start\_Q'}:\ 0,\ \ \textcolor{comment}{\#\ Starting\ seasonal\ MA\ order}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00203}00203\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'max\_p'}:\ CONFIG[\textcolor{stringliteral}{'DEFAULT\_MAX\_P'}],\ \ \textcolor{comment}{\#\ Maximum\ AR\ order\ to\ test}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00204}00204\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'max\_q'}:\ CONFIG[\textcolor{stringliteral}{'DEFAULT\_MAX\_Q'}],\ \ \textcolor{comment}{\#\ Maximum\ MA\ order\ to\ test}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00205}00205\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'max\_P'}:\ CONFIG[\textcolor{stringliteral}{'DEFAULT\_MAX\_P\_SEASONAL'}],\ \ \textcolor{comment}{\#\ Maximum\ seasonal\ AR\ order}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00206}00206\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'max\_Q'}:\ CONFIG[\textcolor{stringliteral}{'DEFAULT\_MAX\_Q\_SEASONAL'}],\ \ \textcolor{comment}{\#\ Maximum\ seasonal\ MA\ order}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00207}00207\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'seasonal'}:\ \textcolor{keyword}{True},\ \ \textcolor{comment}{\#\ Enable\ seasonal\ components}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00208}00208\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'maxiter'}:\ CONFIG[\textcolor{stringliteral}{'DEFAULT\_MAX\_ITER'}],\ \ \textcolor{comment}{\#\ Maximum\ fitting\ iterations}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00209}00209\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'information\_criterion'}:\ \textcolor{stringliteral}{'aic'},\ \ \textcolor{comment}{\#\ Use\ AIC\ for\ model\ selection}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00210}00210\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'stepwise'}:\ \textcolor{keyword}{False},\ \ \textcolor{comment}{\#\ Disable\ stepwise\ search\ for\ thorough\ exploration}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00211}00211\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'suppress\_warnings'}:\ \textcolor{keyword}{True},\ \ \textcolor{comment}{\#\ Suppress\ convergence\ warnings}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00212}00212\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'D'}:\ 1,\ \ \textcolor{comment}{\#\ Seasonal\ differencing\ order}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00213}00213\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'max\_D'}:\ CONFIG[\textcolor{stringliteral}{'DEFAULT\_MAX\_D'}],\ \ \textcolor{comment}{\#\ Maximum\ seasonal\ differencing}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00214}00214\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'error\_action'}:\ \textcolor{stringliteral}{'ignore'},\ \ \textcolor{comment}{\#\ Ignore\ errors\ and\ continue\ search}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00215}00215\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'approximation'}:\ \textcolor{keyword}{False}\ \ \textcolor{comment}{\#\ Use\ exact\ likelihood\ for\ better\ accuracy}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00216}00216\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00217}00217\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00218}00218\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Update\ parameters\ with\ user-\/provided\ hyperparameters}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00219}00219\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ hyperparams:}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00220}00220\ \ \ \ \ \ \ \ \ \ \ \ \ default\_params.update(hyperparams)}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00221}00221\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00222}00222\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Perform\ auto\ ARIMA\ model\ selection\ and\ training}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00223}00223\ \ \ \ \ \ \ \ \ model\_auto\_arima\ =\ auto\_arima(train\_data\_diff,\ trace=\textcolor{keyword}{True},\ **default\_params)}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00224}00224\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Fit\ the\ selected\ model\ to\ training\ data}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00225}00225\ \ \ \ \ \ \ \ \ model\_auto\_arima.fit(train\_data\_diff)}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00226}00226\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00227}00227\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ model\_auto\_arima}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00228}00228\ \ \ \ \ \textcolor{keywordflow}{except}\ Exception\ \textcolor{keyword}{as}\ e:}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00229}00229\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(f\textcolor{stringliteral}{"{}Error\ training\ Auto\ ARIMA\ model:\ \{str(e)\}"{}})}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00230}00230\ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00231}\mbox{\hyperlink{namespacewalmart_sales_training_core_af06ae77bbfed12491b4257554740159e}{00231}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacewalmart_sales_training_core_af06ae77bbfed12491b4257554740159e}{train\_exponential\_smoothing}}(train\_data\_diff,\ hyperparams=None):}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00232}00232\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00233}00233\ \textcolor{stringliteral}{\ \ \ \ @brief\ Train\ Exponential\ Smoothing\ (Holt-\/Winters)\ model}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00234}00234\ \textcolor{stringliteral}{\ \ \ \ @details\ Implements\ triple\ exponential\ smoothing\ with\ trend\ and\ seasonal\ components}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00235}00235\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ for\ robust\ time\ series\ forecasting}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00236}00236\ \textcolor{stringliteral}{\ \ \ \ @param\ train\_data\_diff\ Differenced\ training\ data\ for\ model\ fitting}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00237}00237\ \textcolor{stringliteral}{\ \ \ \ @param\ hyperparams\ Optional\ dictionary\ of\ hyperparameters\ to\ override\ defaults}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00238}00238\ \textcolor{stringliteral}{\ \ \ \ @return\ Fitted\ Exponential\ Smoothing\ model\ object}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00239}00239\ \textcolor{stringliteral}{\ \ \ \ @raises\ ValueError\ If\ training\ data\ is\ None,\ empty,\ or\ training\ fails}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00240}00240\ \textcolor{stringliteral}{\ \ \ \ @note\ Holt-\/Winters\ method\ handles\ trend\ and\ seasonality\ simultaneously}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00241}00241\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00242}00242\ \ \ \ \ \textcolor{comment}{\#\ Validate\ training\ data}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00243}00243\ \ \ \ \ \textcolor{keywordflow}{if}\ train\_data\_diff\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{or}\ len(train\_data\_diff)\ ==\ 0:}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00244}00244\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{"{}Training\ data\ cannot\ be\ None\ or\ empty"{}})}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00245}00245\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00246}00246\ \ \ \ \ \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00247}00247\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Set\ default\ parameters\ for\ Exponential\ Smoothing}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00248}00248\ \ \ \ \ \ \ \ \ default\_params\ =\ \{}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00249}00249\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'seasonal\_periods'}:\ CONFIG[\textcolor{stringliteral}{'DEFAULT\_SEASONAL\_PERIODS'}],\ \ \textcolor{comment}{\#\ Seasonal\ cycle\ length}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00250}00250\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'seasonal'}:\ \textcolor{stringliteral}{'additive'},\ \ \textcolor{comment}{\#\ Additive\ seasonal\ component}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00251}00251\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'trend'}:\ \textcolor{stringliteral}{'additive'},\ \ \textcolor{comment}{\#\ Additive\ trend\ component}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00252}00252\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'damped'}:\ \textcolor{keyword}{True}\ \ \textcolor{comment}{\#\ Damped\ trend\ to\ prevent\ over-\/extrapolation}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00253}00253\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00254}00254\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00255}00255\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Update\ parameters\ with\ user-\/provided\ hyperparameters}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00256}00256\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ hyperparams:}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00257}00257\ \ \ \ \ \ \ \ \ \ \ \ \ default\_params.update(hyperparams)}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00258}00258\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00259}00259\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Create\ and\ fit\ Exponential\ Smoothing\ model}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00260}00260\ \ \ \ \ \ \ \ \ model\_holt\_winters\ =\ ExponentialSmoothing(}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00261}00261\ \ \ \ \ \ \ \ \ \ \ \ \ train\_data\_diff,}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00262}00262\ \ \ \ \ \ \ \ \ \ \ \ \ **default\_params}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00263}00263\ \ \ \ \ \ \ \ \ ).fit()}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00264}00264\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00265}00265\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ model\_holt\_winters}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00266}00266\ \ \ \ \ \textcolor{keywordflow}{except}\ Exception\ \textcolor{keyword}{as}\ e:}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00267}00267\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(f\textcolor{stringliteral}{"{}Error\ training\ Exponential\ Smoothing\ model:\ \{str(e)\}"{}})}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00268}00268\ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00269}\mbox{\hyperlink{namespacewalmart_sales_training_core_ad8323b5389b9a4b25bc85f7f5c1cc9e5}{00269}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacewalmart_sales_training_core_ad8323b5389b9a4b25bc85f7f5c1cc9e5}{wmae\_ts}}(y\_true,\ y\_pred):}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00270}00270\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00271}00271\ \textcolor{stringliteral}{\ \ \ \ @brief\ Calculate\ weighted\ mean\ absolute\ error\ for\ time\ series\ evaluation}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00272}00272\ \textcolor{stringliteral}{\ \ \ \ @details\ Computes\ WMAE\ metric\ which\ is\ commonly\ used\ for\ sales\ forecasting}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00273}00273\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ evaluation,\ providing\ equal\ weighting\ to\ all\ observations}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00274}00274\ \textcolor{stringliteral}{\ \ \ \ @param\ y\_true\ True/actual\ values\ from\ test\ dataset}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00275}00275\ \textcolor{stringliteral}{\ \ \ \ @param\ y\_pred\ Predicted\ values\ from\ trained\ model}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00276}00276\ \textcolor{stringliteral}{\ \ \ \ @return\ WMAE\ score\ (lower\ is\ better)}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00277}00277\ \textcolor{stringliteral}{\ \ \ \ @raises\ ValueError\ If\ inputs\ are\ None\ or\ calculation\ fails}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00278}00278\ \textcolor{stringliteral}{\ \ \ \ @note\ WMAE\ is\ preferred\ over\ RMSE\ for\ sales\ data\ due\ to\ robustness\ to\ outliers}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00279}00279\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00280}00280\ \ \ \ \ \textcolor{comment}{\#\ Validate\ input\ parameters}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00281}00281\ \ \ \ \ \textcolor{keywordflow}{if}\ y\_true\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{or}\ y\_pred\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00282}00282\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{"{}True\ and\ predicted\ values\ cannot\ be\ None"{}})}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00283}00283\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00284}00284\ \ \ \ \ \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00285}00285\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Convert\ pandas\ objects\ to\ numpy\ arrays\ for\ calculation}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00286}00286\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ isinstance(y\_true,\ (pd.Series,\ pd.DataFrame)):}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00287}00287\ \ \ \ \ \ \ \ \ \ \ \ \ y\_true\ =\ y\_true.values}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00288}00288\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ isinstance(y\_pred,\ (pd.Series,\ pd.DataFrame)):}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00289}00289\ \ \ \ \ \ \ \ \ \ \ \ \ y\_pred\ =\ y\_pred.values}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00290}00290\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00291}00291\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Create\ uniform\ weights\ (can\ be\ modified\ for\ time-\/weighted\ evaluation)}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00292}00292\ \ \ \ \ \ \ \ \ weights\ =\ np.ones\_like(y\_true)}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00293}00293\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00294}00294\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Calculate\ weighted\ mean\ absolute\ error}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00295}00295\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ np.sum(weights\ *\ np.abs(y\_true\ -\/\ y\_pred))\ /\ np.sum(weights)}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00296}00296\ \ \ \ \ \textcolor{keywordflow}{except}\ Exception\ \textcolor{keyword}{as}\ e:}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00297}00297\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(f\textcolor{stringliteral}{"{}Error\ calculating\ WMAE:\ \{str(e)\}"{}})}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00298}00298\ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00299}\mbox{\hyperlink{namespacewalmart_sales_training_core_ad5eb00a6b6a3ca1ffcb3528d779f447c}{00299}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacewalmart_sales_training_core_ad5eb00a6b6a3ca1ffcb3528d779f447c}{create\_diagnostic\_plots}}(train\_data,\ test\_data,\ predictions,\ model\_type):}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00300}00300\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00301}00301\ \textcolor{stringliteral}{\ \ \ \ @brief\ Create\ diagnostic\ plots\ for\ model\ evaluation\ and\ visualization}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00302}00302\ \textcolor{stringliteral}{\ \ \ \ @details\ Generates\ comprehensive\ plots\ showing\ training\ data,\ test\ data,}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00303}00303\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ and\ model\ predictions\ for\ visual\ assessment\ of\ model\ performance}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00304}00304\ \textcolor{stringliteral}{\ \ \ \ @param\ train\_data\ Training\ dataset\ time\ series}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00305}00305\ \textcolor{stringliteral}{\ \ \ \ @param\ test\_data\ Test\ dataset\ time\ series}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00306}00306\ \textcolor{stringliteral}{\ \ \ \ @param\ predictions\ Model\ predictions\ for\ test\ period}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00307}00307\ \textcolor{stringliteral}{\ \ \ \ @param\ model\_type\ String\ identifier\ for\ the\ model\ type\ (for\ plot\ title)}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00308}00308\ \textcolor{stringliteral}{\ \ \ \ @return\ Matplotlib\ figure\ object\ containing\ the\ diagnostic\ plot}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00309}00309\ \textcolor{stringliteral}{\ \ \ \ @raises\ ValueError\ If\ any\ input\ data\ is\ None\ or\ plotting\ fails}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00310}00310\ \textcolor{stringliteral}{\ \ \ \ @note\ Visual\ inspection\ helps\ identify\ model\ biases\ and\ seasonal\ patterns}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00311}00311\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00312}00312\ \ \ \ \ \textcolor{comment}{\#\ Validate\ input\ data}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00313}00313\ \ \ \ \ \textcolor{keywordflow}{if}\ train\_data\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{or}\ test\_data\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{or}\ predictions\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00314}00314\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{"{}Training\ data,\ test\ data,\ and\ predictions\ cannot\ be\ None"{}})}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00315}00315\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00316}00316\ \ \ \ \ \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00317}00317\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Create\ figure\ with\ appropriate\ size\ for\ detailed\ visualization}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00318}00318\ \ \ \ \ \ \ \ \ plt.figure(figsize=(15,\ 6))}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00319}00319\ \ \ \ \ \ \ \ \ plt.title(f\textcolor{stringliteral}{'Prediction\ using\ \{model\_type\}'},\ fontsize=15)}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00320}00320\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00321}00321\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Plot\ training\ data\ (blue\ line)}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00322}00322\ \ \ \ \ \ \ \ \ plt.plot(train\_data.index,\ train\_data.values,\ label=\textcolor{stringliteral}{'Train'})}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00323}00323\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Plot\ actual\ test\ data\ (orange\ line)}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00324}00324\ \ \ \ \ \ \ \ \ plt.plot(test\_data.index,\ test\_data.values,\ label=\textcolor{stringliteral}{'Test'})}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00325}00325\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Plot\ model\ predictions\ (green\ line)}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00326}00326\ \ \ \ \ \ \ \ \ plt.plot(test\_data.index,\ predictions,\ label=\textcolor{stringliteral}{'Prediction'})}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00327}00327\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00328}00328\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Add\ legend\ and\ labels\ for\ clarity}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00329}00329\ \ \ \ \ \ \ \ \ plt.legend(loc=\textcolor{stringliteral}{'best'})}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00330}00330\ \ \ \ \ \ \ \ \ plt.xlabel(\textcolor{stringliteral}{'Date'})}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00331}00331\ \ \ \ \ \ \ \ \ plt.ylabel(\textcolor{stringliteral}{'Weekly\ Sales\ (Differenced)'})}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00332}00332\ \ \ \ \ \ \ \ \ plt.grid(\textcolor{keyword}{True})\ \ \textcolor{comment}{\#\ Add\ grid\ for\ better\ readability}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00333}00333\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00334}00334\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ plt.gcf()\ \ \textcolor{comment}{\#\ Return\ current\ figure}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00335}00335\ \ \ \ \ \textcolor{keywordflow}{except}\ Exception\ \textcolor{keyword}{as}\ e:}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00336}00336\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(f\textcolor{stringliteral}{"{}Error\ creating\ diagnostic\ plots:\ \{str(e)\}"{}})}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00337}00337\ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00338}\mbox{\hyperlink{namespacewalmart_sales_training_core_a7d3b2d4f4a44cc377a84471038960408}{00338}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacewalmart_sales_training_core_a7d3b2d4f4a44cc377a84471038960408}{save\_model}}(model,\ model\_type):}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00339}00339\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00340}00340\ \textcolor{stringliteral}{\ \ \ \ @brief\ Save\ trained\ model\ to\ default\ location\ with\ error\ handling}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00341}00341\ \textcolor{stringliteral}{\ \ \ \ @details\ Saves\ model\ using\ joblib\ serialization\ to\ the\ configured\ default\ path}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00342}00342\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ with\ automatic\ directory\ creation\ if\ needed}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00343}00343\ \textcolor{stringliteral}{\ \ \ \ @param\ model\ Trained\ model\ object\ to\ save}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00344}00344\ \textcolor{stringliteral}{\ \ \ \ @param\ model\_type\ String\ identifier\ for\ model\ type\ (used\ for\ filename)}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00345}00345\ \textcolor{stringliteral}{\ \ \ \ @return\ Tuple\ of\ (success\_boolean,\ error\_message)}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00346}00346\ \textcolor{stringliteral}{\ \ \ \ @note\ Uses\ joblib\ for\ cross-\/platform\ compatibility\ and\ efficient\ serialization}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00347}00347\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00348}00348\ \ \ \ \ \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00349}00349\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Get\ filename\ from\ model\ type\ mapping}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00350}00350\ \ \ \ \ \ \ \ \ file\_name\ =\ CONFIG[\textcolor{stringliteral}{'MODEL\_FILE\_MAP'}][model\_type]}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00351}00351\ \ \ \ \ \ \ \ \ model\_path\ =\ f\textcolor{stringliteral}{"{}\{CONFIG['DEFAULT\_MODEL\_PATH']\}\{file\_name\}.pkl"{}}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00352}00352\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00353}00353\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Create\ directory\ if\ it\ doesn't\ exist\ (handles\ deployment\ scenarios)}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00354}00354\ \ \ \ \ \ \ \ \ os.makedirs(os.path.dirname(model\_path),\ exist\_ok=\textcolor{keyword}{True})}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00355}00355\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00356}00356\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Save\ model\ using\ joblib\ for\ efficient\ serialization}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00357}00357\ \ \ \ \ \ \ \ \ joblib.dump(model,\ model\_path)}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00358}00358\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00359}00359\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{True},\ \textcolor{keywordtype}{None}\ \ \textcolor{comment}{\#\ Success\ case}}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00360}00360\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00361}00361\ \ \ \ \ \textcolor{keywordflow}{except}\ Exception\ \textcolor{keyword}{as}\ e:}
+\DoxyCodeLine{\Hypertarget{walmart_sales_training_core_8py_source_l00362}00362\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{False},\ f\textcolor{stringliteral}{"{}Error\ saving\ model:\ \{str(e)\}"{}}\ \ \textcolor{comment}{\#\ Error\ case}}
+
+\end{DoxyCode}

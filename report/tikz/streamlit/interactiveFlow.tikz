@@ -1,0 +1,37 @@
+% Interactive Streamlit Application Flow TikZ Diagram
+% File: interactive_flow.tikz
+
+\begin{tikzpicture}[
+	node distance=1.5cm and 2cm,
+	widget/.style={rectangle, draw, minimum width=2.5cm, minimum height=0.8cm, align=center, fill=blue!10},
+	process/.style={ellipse, draw, minimum width=2cm, minimum height=0.8cm, align=center, fill=green!10},
+	display/.style={trapezium, draw, trapezium left angle=70, trapezium right angle=110, minimum width=2cm, minimum height=0.8cm, align=center, fill=orange!10},
+	arrow/.style={->, thick}
+	]
+	% Widgets
+	\node[widget] (slider) {Slider};
+	\node[widget, below of=slider] (selectbox) {Selectbox};
+	\node[widget, below of=selectbox] (button) {Button};
+	
+	% Label for User Input under widgets
+	\node[below=0.5cm of button] (inputLabel) {\textbf{User Input}};
+	
+	% Processing
+	\node[process, right=3cm of selectbox] (compute) {Data\\Processing};
+	
+	% Display
+\node[display, below=2cm of compute, xshift=-2.5cm] (chart) {Chart};
+\node[display, right=1.5cm of chart] (metrics) {Metrics};
+\node[display, right=1.5cm of metrics] (table) {Table};
+	
+	% Output Label under display section
+	\node[below=0.3cm of metrics] {\textbf{Output Display}};
+	
+	% Connections
+	\draw[arrow] (slider) -- (compute);
+	\draw[arrow] (selectbox) -- (compute);
+	\draw[arrow] (button) -- (compute);
+	\draw[arrow] (compute) -- (chart);
+	\draw[arrow] (compute) -- (metrics);
+	\draw[arrow] (compute) -- (table);
+\end{tikzpicture}

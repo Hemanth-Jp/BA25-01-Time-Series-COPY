@@ -1,0 +1,57 @@
+\begin{center}
+	\begin{tikzpicture}[
+		scale=0.9, transform shape,
+		node distance=0.7cm and 1.4cm,
+		every node/.style={minimum width=1.4cm, minimum height=0.5cm, text centered, font=\tiny, align=center},
+		startstop/.style={rectangle, rounded corners, draw=black, fill=red!20},
+		process/.style={rectangle, draw=black, fill=orange!20},
+		decision/.style={diamond, draw=black, fill=yellow!20, aspect=4, inner sep=0.5pt},
+		storage/.style={cylinder, draw=black, fill=blue!15, shape aspect=0.6, minimum height=0.5cm},
+		arrow/.style={->,>=stealth}
+		]
+		
+		% Linear flow to avoid all crossings
+		\node (start) [startstop] {Python 3.12\\Installation};
+		\node (venv) [process, below=of start] {Virtual Environment\\Creation};
+		\node (deps) [process, below=of venv] {Dependency\\Installation};
+		\node (config) [process, below=of deps] {IDE\\Configuration};
+		
+		\node (hello) [process, below=of config] {Hello World\\Verification};
+		\node (data_prep) [process, below=of hello] {Data Preparation\\Pipeline};
+		\node (model_dev) [process, below=of data_prep] {Model\\Development};
+		\node (testing) [decision, below=of model_dev] {Testing\\Complete?};
+		
+		% Side branch for testing failure
+		\node (revise) [process, right=of testing] {Revise\\Model};
+		
+		% Deployment continues vertically
+		\node (package) [process, below=of testing] {Package\\Creation};
+		\node (deploy) [process, below=of package] {Streamlit\\Deployment};
+		\node (monitor) [process, below=of deploy] {Performance\\Monitoring};
+		\node (maintenance) [storage, below=of monitor] {Ongoing\\Maintenance};
+		
+		% Simple update notification
+		\node (update_needed) [process, right=of maintenance] {Update\\Trigger};
+		
+		% Clean arrows with no overlapping
+		\draw [arrow] (start) -- (venv);
+		\draw [arrow] (venv) -- (deps);
+		\draw [arrow] (deps) -- (config);
+		\draw [arrow] (config) -- (hello);
+		\draw [arrow] (hello) -- (data_prep);
+		\draw [arrow] (data_prep) -- (model_dev);
+		\draw [arrow] (model_dev) -- (testing);
+		
+		% Testing branches
+		\draw [arrow] (testing) -- node[anchor=west,font=\scriptsize] {Fail} (revise);
+		\draw [arrow] (revise) |- ([yshift=0.3cm]model_dev.east);
+		\draw [arrow] (testing) -- node[anchor=west,font=\scriptsize] {Pass} (package);
+		
+		% Deployment flow
+		\draw [arrow] (package) -- (deploy);
+		\draw [arrow] (deploy) -- (monitor);
+		\draw [arrow] (monitor) -- (maintenance);
+		\draw [arrow] (maintenance) -- (update_needed);
+		
+	\end{tikzpicture}
+\end{center}

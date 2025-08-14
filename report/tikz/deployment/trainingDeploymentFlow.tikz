@@ -1,0 +1,38 @@
+\begin{tikzpicture}[
+    node distance=1.5cm and 2cm,
+    box/.style={rectangle, draw, rounded corners=5pt, minimum width=3cm, minimum height=1cm, align=center, fill=blue!10},
+    databox/.style={rectangle, draw, rounded corners=5pt, minimum width=3cm, minimum height=1cm, align=center, fill=orange!20},
+    outputbox/.style={rectangle, draw, rounded corners=5pt, minimum width=3cm, minimum height=1cm, align=center, fill=green!20},
+    arrow/.style={->, >=stealth, thick}
+]
+
+% Input Data
+\node[databox] (input) {CSV Data Input\\(train, features,\\stores.csv)};
+
+% Data Processing
+\node[box, below=of input] (validation) {Data Validation \&\\Preprocessing\\(clean\_data,\\load\_and\_merge)};
+
+% Model Selection
+\node[box, below=of validation] (selection) {Model Selection\\(Auto ARIMA or\\Exponential\\Smoothing)};
+
+% Hyperparameter Configuration
+\node[box, below=of selection] (hyperparams) {Hyperparameter\\Configuration\\(seasonal periods,\\ARIMA orders)};
+
+% Model Training
+\node[box, below=of hyperparams] (training) {Model Training\\(train\_auto\_arima,\\train\_exponential\\\_smoothing)};
+
+% Performance Evaluation
+\node[box, below=of training] (evaluation) {Performance\\Evaluation\\(WMAE calculation,\\diagnostic plots)};
+
+% Model Export
+\node[outputbox, below=of evaluation] (export) {Model Export\\(.pkl file saved\\to models/default/)};
+
+% Arrows
+\draw[arrow] (input) -- (validation);
+\draw[arrow] (validation) -- (selection);
+\draw[arrow] (selection) -- (hyperparams);
+\draw[arrow] (hyperparams) -- (training);
+\draw[arrow] (training) -- (evaluation);
+\draw[arrow] (evaluation) -- (export);
+
+\end{tikzpicture}

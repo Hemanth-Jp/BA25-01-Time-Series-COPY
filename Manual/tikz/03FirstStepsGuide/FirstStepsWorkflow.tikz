@@ -1,0 +1,52 @@
+\begin{tikzpicture}[node distance=1.5cm and 2.5cm, every node/.style={font=\small}]
+	% Title
+	\node at (0,6) {\Large\textbf{First Steps Workflow Process}};
+	
+	% Start
+	\node[ellipse, draw, fill=green!20] (start) at (0,4.5) {New User Starts};
+	
+	% Step 1
+	\node[rectangle, draw, fill=blue!20, rounded corners, below=of start] (step1) {Step 1: Access App};
+	
+	% Step 2
+	\node[rectangle, draw, fill=blue!20, rounded corners, below=of step1] (step2) {Step 2: Explore Interface};
+	
+	% Step 3
+	\node[rectangle, draw, fill=blue!20, rounded corners, below=of step2] (step3) {Step 3: Load Model};
+	
+	% Decision
+	\node[diamond, draw, fill=yellow!20, below=of step3] (decision) {Loaded?};
+	
+	% Troubleshoot (left)
+	\node[rectangle, draw, fill=red!20, rounded corners, left=of decision] (trouble) {Troubleshoot};
+	
+	% Step 4 (right)
+	\node[rectangle, draw, fill=blue!20, rounded corners, right=of decision] (step4) {Step 4: Generate Forecast};
+	
+	% Step 5
+	\node[rectangle, draw, fill=blue!20, rounded corners, below=of step4] (step5) {Step 5: Interpret Results};
+	
+	% Step 6
+	\node[rectangle, draw, fill=blue!20, rounded corners, below=of step5] (step6) {Step 6: Download};
+	
+	% Complete
+	\node[rectangle, draw, fill=purple!20, rounded corners, below=of decision] (complete) {Complete!};
+	
+	% Total Time Box
+	\node[rectangle, draw, fill=gray!10, right=of step5, xshift=1.5cm] (total) {Total: 5–10 min};
+	
+	% Arrows
+	\draw[->, thick] (start) -- (step1);
+	\draw[->, thick] (step1) -- node[right] {30s} (step2);
+	\draw[->, thick] (step2) -- node[right] {2 min} (step3);
+	\draw[->, thick] (step3) -- node[right] {10s} (decision);
+	
+	\draw[->, thick] (decision) -- node[above] {Yes} (step4);
+	\draw[->, thick] (step4) -- node[right] {5s} (step5);
+	\draw[->, thick] (step5) -- node[right] {2 min} (step6);
+	\draw[->, thick] (step6) |- (complete);
+	
+	\draw[->, thick] (decision) -- node[above] {No} (trouble);
+	\draw[->, thick] (trouble) |- (step3);
+	
+\end{tikzpicture}

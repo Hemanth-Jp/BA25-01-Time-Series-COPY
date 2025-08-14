@@ -1,0 +1,47 @@
+\begin{tikzpicture}[
+	node distance=1.5cm,
+	model/.style={rectangle, draw, fill=blue!15, text width=2.5cm, text centered, minimum height=0.8cm},
+	process/.style={rectangle, draw, fill=orange!15, text width=2.5cm, text centered, minimum height=0.8cm},
+	storage/.style={rectangle, draw, fill=green!15, text width=2.5cm, text centered, minimum height=0.8cm},
+	arrow/.style={->, thick}
+	]
+	
+	% Input objects (top)
+	\node[model] (objects) {Python Objects};
+	
+	% Joblib dump process
+	\node[process, below=of objects] (dump) {Joblib Dump Serialization};
+	
+	% Optimized storage
+	\node[storage, below=of dump] (storage) {Optimized Disk Storage};
+	
+	% Loading process
+	\node[process, below=of storage] (load) {Joblib Load Deserialization};
+	
+	% Memory cache integration
+	\node[storage, below=of load, fill=purple!15] (cache) {Memory Cache Integration};
+	
+	% Output objects
+	\node[model, below=of cache] (output) {Loaded Objects};
+	
+	% Cache storage (positioned to the left)
+	\node[storage, left=3cm of cache, fill=gray!15] (cache_store) {Cache Store};
+	
+	% Main flow arrows
+	\draw[arrow] (objects) -- (dump);
+	\draw[arrow] (dump) -- (storage);
+	\draw[arrow] (storage) -- (load);
+	\draw[arrow] (load) -- (cache);
+	\draw[arrow] (cache) -- (output);
+	
+	% Side annotations for object types
+	\node[right=1.5cm of objects] {\small Models, Arrays};
+	\node[right=1.5cm of dump] {\small NumPy Optimized};
+	\node[right=1.5cm of storage] {\small Compressed Format};
+	\node[right=1.5cm of load] {\small Fast Access};
+	\node[right=1.5cm of cache] {\small Cached Results};
+	
+	% Bidirectional cache arrow (now clearer)
+	\draw[<->, thick, dashed] (cache) -- (cache_store);
+	
+\end{tikzpicture}

@@ -1,0 +1,222 @@
+\doxysection{test\+Walmart\+Sales\+Prediction.\+Test\+Walmart\+Sales\+Prediction Class Reference}
+\hypertarget{classtest_walmart_sales_prediction_1_1_test_walmart_sales_prediction}{}\label{classtest_walmart_sales_prediction_1_1_test_walmart_sales_prediction}\index{testWalmartSalesPrediction.TestWalmartSalesPrediction@{testWalmartSalesPrediction.TestWalmartSalesPrediction}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classtest_walmart_sales_prediction_1_1_test_walmart_sales_prediction_ac6735a81aa6e3a5f9298729e5122a789}{test\+\_\+recreate\+\_\+arima\+\_\+model\+\_\+valid\+\_\+params}} (self)
+\item 
+\mbox{\hyperlink{classtest_walmart_sales_prediction_1_1_test_walmart_sales_prediction_a56ead8a90e8a307b2691968dc8023df6}{test\+\_\+recreate\+\_\+arima\+\_\+model\+\_\+invalid\+\_\+params}} (self)
+\item 
+\mbox{\hyperlink{classtest_walmart_sales_prediction_1_1_test_walmart_sales_prediction_a9d932e0ba58dbf33b1dceaa6c3276b1d}{test\+\_\+load\+\_\+default\+\_\+model\+\_\+invalid\+\_\+type}} (self)
+\item 
+\mbox{\hyperlink{classtest_walmart_sales_prediction_1_1_test_walmart_sales_prediction_a34bd3bfb9709931c41613ffbccfc85ad}{test\+\_\+load\+\_\+default\+\_\+model\+\_\+file\+\_\+not\+\_\+found}} (self, mock\+\_\+exists)
+\item 
+\mbox{\hyperlink{classtest_walmart_sales_prediction_1_1_test_walmart_sales_prediction_a9ba8c02e04140b2d75d7709ee324850a}{test\+\_\+load\+\_\+default\+\_\+model\+\_\+success}} (self, mock\+\_\+joblib\+\_\+load, mock\+\_\+exists)
+\item 
+\mbox{\hyperlink{classtest_walmart_sales_prediction_1_1_test_walmart_sales_prediction_a48a0846cc0be0865dc8f810132d025cd}{test\+\_\+load\+\_\+uploaded\+\_\+model\+\_\+invalid\+\_\+input}} (self)
+\item 
+\mbox{\hyperlink{classtest_walmart_sales_prediction_1_1_test_walmart_sales_prediction_a653520497011e847ff794233815dfdde}{test\+\_\+load\+\_\+uploaded\+\_\+model\+\_\+success}} (self, mock\+\_\+unlink, mock\+\_\+joblib\+\_\+load, mock\+\_\+temp)
+\item 
+\mbox{\hyperlink{classtest_walmart_sales_prediction_1_1_test_walmart_sales_prediction_a82c67d473ede6ace77a6f6cc7309a88b}{test\+\_\+predict\+\_\+next\+\_\+4\+\_\+weeks\+\_\+invalid\+\_\+input}} (self)
+\item 
+\mbox{\hyperlink{classtest_walmart_sales_prediction_1_1_test_walmart_sales_prediction_a4b35079cab55f6eeaafaae2ce2803d40}{test\+\_\+predict\+\_\+next\+\_\+4\+\_\+weeks\+\_\+arima\+\_\+success}} (self)
+\item 
+\mbox{\hyperlink{classtest_walmart_sales_prediction_1_1_test_walmart_sales_prediction_aca8bae989390e2b5a1014e749abf015c}{test\+\_\+predict\+\_\+next\+\_\+4\+\_\+weeks\+\_\+exponential\+\_\+smoothing\+\_\+success}} (self)
+\item 
+\mbox{\hyperlink{classtest_walmart_sales_prediction_1_1_test_walmart_sales_prediction_a3d50fe064aa4b3357d0896ad7f7f6da5}{test\+\_\+predict\+\_\+next\+\_\+4\+\_\+weeks\+\_\+unknown\+\_\+model\+\_\+type}} (self)
+\item 
+\mbox{\hyperlink{classtest_walmart_sales_prediction_1_1_test_walmart_sales_prediction_a715f0ae42c74de8d85ba8ccf52fe3378}{test\+\_\+error\+\_\+handling\+\_\+prediction\+\_\+failure}} (self)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}@brief Test class containing all unit tests for the Walmart sales prediction system
+@details Provides comprehensive testing coverage for model operations, error handling,
+         and edge cases using pytest framework with mocking for external dependencies
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{test_walmart_sales_prediction_8py_source_l00023}{23}} of file \mbox{\hyperlink{test_walmart_sales_prediction_8py_source}{test\+Walmart\+Sales\+Prediction.\+py}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classtest_walmart_sales_prediction_1_1_test_walmart_sales_prediction_a715f0ae42c74de8d85ba8ccf52fe3378}\index{testWalmartSalesPrediction.TestWalmartSalesPrediction@{testWalmartSalesPrediction.TestWalmartSalesPrediction}!test\_error\_handling\_prediction\_failure@{test\_error\_handling\_prediction\_failure}}
+\index{test\_error\_handling\_prediction\_failure@{test\_error\_handling\_prediction\_failure}!testWalmartSalesPrediction.TestWalmartSalesPrediction@{testWalmartSalesPrediction.TestWalmartSalesPrediction}}
+\doxysubsubsection{\texorpdfstring{test\_error\_handling\_prediction\_failure()}{test\_error\_handling\_prediction\_failure()}}
+{\footnotesize\ttfamily \label{classtest_walmart_sales_prediction_1_1_test_walmart_sales_prediction_a715f0ae42c74de8d85ba8ccf52fe3378} 
+test\+Walmart\+Sales\+Prediction.\+Test\+Walmart\+Sales\+Prediction.\+test\+\_\+error\+\_\+handling\+\_\+prediction\+\_\+failure (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Test error handling when prediction fails
+@details Verifies robust error handling when model prediction methods raise exceptions
+@note Uses side_effect to simulate prediction failures and verify error propagation
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{test_walmart_sales_prediction_8py_source_l00218}{218}} of file \mbox{\hyperlink{test_walmart_sales_prediction_8py_source}{test\+Walmart\+Sales\+Prediction.\+py}}.
+
+\Hypertarget{classtest_walmart_sales_prediction_1_1_test_walmart_sales_prediction_a34bd3bfb9709931c41613ffbccfc85ad}\index{testWalmartSalesPrediction.TestWalmartSalesPrediction@{testWalmartSalesPrediction.TestWalmartSalesPrediction}!test\_load\_default\_model\_file\_not\_found@{test\_load\_default\_model\_file\_not\_found}}
+\index{test\_load\_default\_model\_file\_not\_found@{test\_load\_default\_model\_file\_not\_found}!testWalmartSalesPrediction.TestWalmartSalesPrediction@{testWalmartSalesPrediction.TestWalmartSalesPrediction}}
+\doxysubsubsection{\texorpdfstring{test\_load\_default\_model\_file\_not\_found()}{test\_load\_default\_model\_file\_not\_found()}}
+{\footnotesize\ttfamily \label{classtest_walmart_sales_prediction_1_1_test_walmart_sales_prediction_a34bd3bfb9709931c41613ffbccfc85ad} 
+test\+Walmart\+Sales\+Prediction.\+Test\+Walmart\+Sales\+Prediction.\+test\+\_\+load\+\_\+default\+\_\+model\+\_\+file\+\_\+not\+\_\+found (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{mock\+\_\+exists}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Test loading default model when file doesn't exist
+@details Verifies proper error handling when model files are missing from filesystem
+@param mock_exists Mocked os.path.exists function to simulate missing files
+@note Uses patching to simulate file system conditions without actual files
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{test_walmart_sales_prediction_8py_source_l00072}{72}} of file \mbox{\hyperlink{test_walmart_sales_prediction_8py_source}{test\+Walmart\+Sales\+Prediction.\+py}}.
+
+\Hypertarget{classtest_walmart_sales_prediction_1_1_test_walmart_sales_prediction_a9d932e0ba58dbf33b1dceaa6c3276b1d}\index{testWalmartSalesPrediction.TestWalmartSalesPrediction@{testWalmartSalesPrediction.TestWalmartSalesPrediction}!test\_load\_default\_model\_invalid\_type@{test\_load\_default\_model\_invalid\_type}}
+\index{test\_load\_default\_model\_invalid\_type@{test\_load\_default\_model\_invalid\_type}!testWalmartSalesPrediction.TestWalmartSalesPrediction@{testWalmartSalesPrediction.TestWalmartSalesPrediction}}
+\doxysubsubsection{\texorpdfstring{test\_load\_default\_model\_invalid\_type()}{test\_load\_default\_model\_invalid\_type()}}
+{\footnotesize\ttfamily \label{classtest_walmart_sales_prediction_1_1_test_walmart_sales_prediction_a9d932e0ba58dbf33b1dceaa6c3276b1d} 
+test\+Walmart\+Sales\+Prediction.\+Test\+Walmart\+Sales\+Prediction.\+test\+\_\+load\+\_\+default\+\_\+model\+\_\+invalid\+\_\+type (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Test loading default model with invalid model type
+@details Verifies error handling for empty strings and unsupported model types
+@note Tests both ValueError for empty strings and proper error messages for invalid types
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{test_walmart_sales_prediction_8py_source_l00056}{56}} of file \mbox{\hyperlink{test_walmart_sales_prediction_8py_source}{test\+Walmart\+Sales\+Prediction.\+py}}.
+
+\Hypertarget{classtest_walmart_sales_prediction_1_1_test_walmart_sales_prediction_a9ba8c02e04140b2d75d7709ee324850a}\index{testWalmartSalesPrediction.TestWalmartSalesPrediction@{testWalmartSalesPrediction.TestWalmartSalesPrediction}!test\_load\_default\_model\_success@{test\_load\_default\_model\_success}}
+\index{test\_load\_default\_model\_success@{test\_load\_default\_model\_success}!testWalmartSalesPrediction.TestWalmartSalesPrediction@{testWalmartSalesPrediction.TestWalmartSalesPrediction}}
+\doxysubsubsection{\texorpdfstring{test\_load\_default\_model\_success()}{test\_load\_default\_model\_success()}}
+{\footnotesize\ttfamily \label{classtest_walmart_sales_prediction_1_1_test_walmart_sales_prediction_a9ba8c02e04140b2d75d7709ee324850a} 
+test\+Walmart\+Sales\+Prediction.\+Test\+Walmart\+Sales\+Prediction.\+test\+\_\+load\+\_\+default\+\_\+model\+\_\+success (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{mock\+\_\+joblib\+\_\+load}{, }\item[{}]{mock\+\_\+exists}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Test successful default model loading
+@details Verifies successful loading when file exists and joblib can deserialize the model
+@param mock_joblib_load Mocked joblib.load function to simulate successful loading
+@param mock_exists Mocked os.path.exists function to simulate file existence
+@note Uses double mocking to isolate the loading logic from file system and serialization
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{test_walmart_sales_prediction_8py_source_l00087}{87}} of file \mbox{\hyperlink{test_walmart_sales_prediction_8py_source}{test\+Walmart\+Sales\+Prediction.\+py}}.
+
+\Hypertarget{classtest_walmart_sales_prediction_1_1_test_walmart_sales_prediction_a48a0846cc0be0865dc8f810132d025cd}\index{testWalmartSalesPrediction.TestWalmartSalesPrediction@{testWalmartSalesPrediction.TestWalmartSalesPrediction}!test\_load\_uploaded\_model\_invalid\_input@{test\_load\_uploaded\_model\_invalid\_input}}
+\index{test\_load\_uploaded\_model\_invalid\_input@{test\_load\_uploaded\_model\_invalid\_input}!testWalmartSalesPrediction.TestWalmartSalesPrediction@{testWalmartSalesPrediction.TestWalmartSalesPrediction}}
+\doxysubsubsection{\texorpdfstring{test\_load\_uploaded\_model\_invalid\_input()}{test\_load\_uploaded\_model\_invalid\_input()}}
+{\footnotesize\ttfamily \label{classtest_walmart_sales_prediction_1_1_test_walmart_sales_prediction_a48a0846cc0be0865dc8f810132d025cd} 
+test\+Walmart\+Sales\+Prediction.\+Test\+Walmart\+Sales\+Prediction.\+test\+\_\+load\+\_\+uploaded\+\_\+model\+\_\+invalid\+\_\+input (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Test loading uploaded model with invalid inputs
+@details Verifies proper validation of uploaded file and model type parameters
+@note Tests both None file objects and empty model type strings
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{test_walmart_sales_prediction_8py_source_l00104}{104}} of file \mbox{\hyperlink{test_walmart_sales_prediction_8py_source}{test\+Walmart\+Sales\+Prediction.\+py}}.
+
+\Hypertarget{classtest_walmart_sales_prediction_1_1_test_walmart_sales_prediction_a653520497011e847ff794233815dfdde}\index{testWalmartSalesPrediction.TestWalmartSalesPrediction@{testWalmartSalesPrediction.TestWalmartSalesPrediction}!test\_load\_uploaded\_model\_success@{test\_load\_uploaded\_model\_success}}
+\index{test\_load\_uploaded\_model\_success@{test\_load\_uploaded\_model\_success}!testWalmartSalesPrediction.TestWalmartSalesPrediction@{testWalmartSalesPrediction.TestWalmartSalesPrediction}}
+\doxysubsubsection{\texorpdfstring{test\_load\_uploaded\_model\_success()}{test\_load\_uploaded\_model\_success()}}
+{\footnotesize\ttfamily \label{classtest_walmart_sales_prediction_1_1_test_walmart_sales_prediction_a653520497011e847ff794233815dfdde} 
+test\+Walmart\+Sales\+Prediction.\+Test\+Walmart\+Sales\+Prediction.\+test\+\_\+load\+\_\+uploaded\+\_\+model\+\_\+success (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{mock\+\_\+unlink}{, }\item[{}]{mock\+\_\+joblib\+\_\+load}{, }\item[{}]{mock\+\_\+temp}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Test successful uploaded model loading
+@details Verifies the complete workflow of temporary file creation, model loading, and cleanup
+@param mock_unlink Mocked os.unlink function to simulate file cleanup
+@param mock_joblib_load Mocked joblib.load function to simulate successful deserialization
+@param mock_temp Mocked tempfile.NamedTemporaryFile for temporary file handling
+@note Uses comprehensive mocking to test file upload workflow without actual I/O
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{test_walmart_sales_prediction_8py_source_l00121}{121}} of file \mbox{\hyperlink{test_walmart_sales_prediction_8py_source}{test\+Walmart\+Sales\+Prediction.\+py}}.
+
+\Hypertarget{classtest_walmart_sales_prediction_1_1_test_walmart_sales_prediction_a4b35079cab55f6eeaafaae2ce2803d40}\index{testWalmartSalesPrediction.TestWalmartSalesPrediction@{testWalmartSalesPrediction.TestWalmartSalesPrediction}!test\_predict\_next\_4\_weeks\_arima\_success@{test\_predict\_next\_4\_weeks\_arima\_success}}
+\index{test\_predict\_next\_4\_weeks\_arima\_success@{test\_predict\_next\_4\_weeks\_arima\_success}!testWalmartSalesPrediction.TestWalmartSalesPrediction@{testWalmartSalesPrediction.TestWalmartSalesPrediction}}
+\doxysubsubsection{\texorpdfstring{test\_predict\_next\_4\_weeks\_arima\_success()}{test\_predict\_next\_4\_weeks\_arima\_success()}}
+{\footnotesize\ttfamily \label{classtest_walmart_sales_prediction_1_1_test_walmart_sales_prediction_a4b35079cab55f6eeaafaae2ce2803d40} 
+test\+Walmart\+Sales\+Prediction.\+Test\+Walmart\+Sales\+Prediction.\+test\+\_\+predict\+\_\+next\+\_\+4\+\_\+weeks\+\_\+arima\+\_\+success (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Test successful ARIMA prediction
+@details Verifies that ARIMA models generate correct number of predictions and dates
+@note Uses mock model with predict method to simulate ARIMA behavior
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{test_walmart_sales_prediction_8py_source_l00159}{159}} of file \mbox{\hyperlink{test_walmart_sales_prediction_8py_source}{test\+Walmart\+Sales\+Prediction.\+py}}.
+
+\Hypertarget{classtest_walmart_sales_prediction_1_1_test_walmart_sales_prediction_aca8bae989390e2b5a1014e749abf015c}\index{testWalmartSalesPrediction.TestWalmartSalesPrediction@{testWalmartSalesPrediction.TestWalmartSalesPrediction}!test\_predict\_next\_4\_weeks\_exponential\_smoothing\_success@{test\_predict\_next\_4\_weeks\_exponential\_smoothing\_success}}
+\index{test\_predict\_next\_4\_weeks\_exponential\_smoothing\_success@{test\_predict\_next\_4\_weeks\_exponential\_smoothing\_success}!testWalmartSalesPrediction.TestWalmartSalesPrediction@{testWalmartSalesPrediction.TestWalmartSalesPrediction}}
+\doxysubsubsection{\texorpdfstring{test\_predict\_next\_4\_weeks\_exponential\_smoothing\_success()}{test\_predict\_next\_4\_weeks\_exponential\_smoothing\_success()}}
+{\footnotesize\ttfamily \label{classtest_walmart_sales_prediction_1_1_test_walmart_sales_prediction_aca8bae989390e2b5a1014e749abf015c} 
+test\+Walmart\+Sales\+Prediction.\+Test\+Walmart\+Sales\+Prediction.\+test\+\_\+predict\+\_\+next\+\_\+4\+\_\+weeks\+\_\+exponential\+\_\+smoothing\+\_\+success (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Test successful Exponential Smoothing prediction
+@details Verifies that Exponential Smoothing models generate correct forecasts
+@note Uses mock model with forecast method to simulate Holt-Winters behavior
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{test_walmart_sales_prediction_8py_source_l00181}{181}} of file \mbox{\hyperlink{test_walmart_sales_prediction_8py_source}{test\+Walmart\+Sales\+Prediction.\+py}}.
+
+\Hypertarget{classtest_walmart_sales_prediction_1_1_test_walmart_sales_prediction_a82c67d473ede6ace77a6f6cc7309a88b}\index{testWalmartSalesPrediction.TestWalmartSalesPrediction@{testWalmartSalesPrediction.TestWalmartSalesPrediction}!test\_predict\_next\_4\_weeks\_invalid\_input@{test\_predict\_next\_4\_weeks\_invalid\_input}}
+\index{test\_predict\_next\_4\_weeks\_invalid\_input@{test\_predict\_next\_4\_weeks\_invalid\_input}!testWalmartSalesPrediction.TestWalmartSalesPrediction@{testWalmartSalesPrediction.TestWalmartSalesPrediction}}
+\doxysubsubsection{\texorpdfstring{test\_predict\_next\_4\_weeks\_invalid\_input()}{test\_predict\_next\_4\_weeks\_invalid\_input()}}
+{\footnotesize\ttfamily \label{classtest_walmart_sales_prediction_1_1_test_walmart_sales_prediction_a82c67d473ede6ace77a6f6cc7309a88b} 
+test\+Walmart\+Sales\+Prediction.\+Test\+Walmart\+Sales\+Prediction.\+test\+\_\+predict\+\_\+next\+\_\+4\+\_\+weeks\+\_\+invalid\+\_\+input (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Test prediction with invalid inputs
+@details Verifies proper validation of model object and model type parameters
+@note Tests both None model objects and empty model type strings
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{test_walmart_sales_prediction_8py_source_l00145}{145}} of file \mbox{\hyperlink{test_walmart_sales_prediction_8py_source}{test\+Walmart\+Sales\+Prediction.\+py}}.
+
+\Hypertarget{classtest_walmart_sales_prediction_1_1_test_walmart_sales_prediction_a3d50fe064aa4b3357d0896ad7f7f6da5}\index{testWalmartSalesPrediction.TestWalmartSalesPrediction@{testWalmartSalesPrediction.TestWalmartSalesPrediction}!test\_predict\_next\_4\_weeks\_unknown\_model\_type@{test\_predict\_next\_4\_weeks\_unknown\_model\_type}}
+\index{test\_predict\_next\_4\_weeks\_unknown\_model\_type@{test\_predict\_next\_4\_weeks\_unknown\_model\_type}!testWalmartSalesPrediction.TestWalmartSalesPrediction@{testWalmartSalesPrediction.TestWalmartSalesPrediction}}
+\doxysubsubsection{\texorpdfstring{test\_predict\_next\_4\_weeks\_unknown\_model\_type()}{test\_predict\_next\_4\_weeks\_unknown\_model\_type()}}
+{\footnotesize\ttfamily \label{classtest_walmart_sales_prediction_1_1_test_walmart_sales_prediction_a3d50fe064aa4b3357d0896ad7f7f6da5} 
+test\+Walmart\+Sales\+Prediction.\+Test\+Walmart\+Sales\+Prediction.\+test\+\_\+predict\+\_\+next\+\_\+4\+\_\+weeks\+\_\+unknown\+\_\+model\+\_\+type (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Test prediction with unknown model type
+@details Verifies proper error handling for unsupported model types
+@note Tests the model type validation and error message generation
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{test_walmart_sales_prediction_8py_source_l00203}{203}} of file \mbox{\hyperlink{test_walmart_sales_prediction_8py_source}{test\+Walmart\+Sales\+Prediction.\+py}}.
+
+\Hypertarget{classtest_walmart_sales_prediction_1_1_test_walmart_sales_prediction_a56ead8a90e8a307b2691968dc8023df6}\index{testWalmartSalesPrediction.TestWalmartSalesPrediction@{testWalmartSalesPrediction.TestWalmartSalesPrediction}!test\_recreate\_arima\_model\_invalid\_params@{test\_recreate\_arima\_model\_invalid\_params}}
+\index{test\_recreate\_arima\_model\_invalid\_params@{test\_recreate\_arima\_model\_invalid\_params}!testWalmartSalesPrediction.TestWalmartSalesPrediction@{testWalmartSalesPrediction.TestWalmartSalesPrediction}}
+\doxysubsubsection{\texorpdfstring{test\_recreate\_arima\_model\_invalid\_params()}{test\_recreate\_arima\_model\_invalid\_params()}}
+{\footnotesize\ttfamily \label{classtest_walmart_sales_prediction_1_1_test_walmart_sales_prediction_a56ead8a90e8a307b2691968dc8023df6} 
+test\+Walmart\+Sales\+Prediction.\+Test\+Walmart\+Sales\+Prediction.\+test\+\_\+recreate\+\_\+arima\+\_\+model\+\_\+invalid\+\_\+params (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Test ARIMA model recreation with invalid parameters
+@details Verifies proper error handling for invalid parameter types and malformed orders
+@note Tests both ValueError for invalid input types and None return for malformed orders
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{test_walmart_sales_prediction_8py_source_l00041}{41}} of file \mbox{\hyperlink{test_walmart_sales_prediction_8py_source}{test\+Walmart\+Sales\+Prediction.\+py}}.
+
+\Hypertarget{classtest_walmart_sales_prediction_1_1_test_walmart_sales_prediction_ac6735a81aa6e3a5f9298729e5122a789}\index{testWalmartSalesPrediction.TestWalmartSalesPrediction@{testWalmartSalesPrediction.TestWalmartSalesPrediction}!test\_recreate\_arima\_model\_valid\_params@{test\_recreate\_arima\_model\_valid\_params}}
+\index{test\_recreate\_arima\_model\_valid\_params@{test\_recreate\_arima\_model\_valid\_params}!testWalmartSalesPrediction.TestWalmartSalesPrediction@{testWalmartSalesPrediction.TestWalmartSalesPrediction}}
+\doxysubsubsection{\texorpdfstring{test\_recreate\_arima\_model\_valid\_params()}{test\_recreate\_arima\_model\_valid\_params()}}
+{\footnotesize\ttfamily \label{classtest_walmart_sales_prediction_1_1_test_walmart_sales_prediction_ac6735a81aa6e3a5f9298729e5122a789} 
+test\+Walmart\+Sales\+Prediction.\+Test\+Walmart\+Sales\+Prediction.\+test\+\_\+recreate\+\_\+arima\+\_\+model\+\_\+valid\+\_\+params (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Test ARIMA model recreation with valid parameters
+@details Verifies that recreate_arima_model successfully creates a model when given valid parameters
+@note Uses a basic ARIMA order configuration for testing
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{test_walmart_sales_prediction_8py_source_l00030}{30}} of file \mbox{\hyperlink{test_walmart_sales_prediction_8py_source}{test\+Walmart\+Sales\+Prediction.\+py}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{test_walmart_sales_prediction_8py}{test\+Walmart\+Sales\+Prediction.\+py}}\end{DoxyCompactItemize}
